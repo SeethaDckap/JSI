@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Dealer Connect Order Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Dealerconnect\Block\Customer\Orders\Details\Title" name="orders.title"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Orders\Details\Billing" name="orders.billing"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Orders\Details\Shipping" name="orders.shipping"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Orders\Details\Info" name="orders.info"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Parts" name="orders.parts" >
+                <block class="Epicor\Dealerconnect\Block\Customer\Orders\Details\Totals" name="tfoot" />
+            </block>
+            <block template="Epicor_Dealerconnect::dealerconnect/customer/account/link/back.phtml"
+                   class="Magento\Framework\View\Element\Template" name="dealerconnect.link.back">
+                <action method="setBackUrls">
+                    <argument name="value" xsi:type="string">/dealerconnect/claims/</argument>
+                </action>
+            </block>                   
+        </referenceContainer>
+    </body>
+</page>

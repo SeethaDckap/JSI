@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$chartOptions = $this->getChartOptions();
+$results = $this->chartResults($chartOptions);
+$returndata = [];
+if (sizeof($results) > 0):
+    $labels = $this->xAxisLabels($chartOptions, $results);
+    if ($this->isChartMinMaxAverage($chartOptions)) {
+        $results = $this->flipResults($results, $labels, $chartOptions);
+    }
+    $returndata['xAxis'] = $labels;
+    $returndata['series'] = '';
+    $i=0;
+    foreach ($results as $result):
+        foreach ($labels as $label): 
+            $result[$label] = isset($result[$label]) ? $result[$label] : 0;
+          $returndata['series'][$i]['data'][] = (int) $result[$label];
+          
+        endforeach;
+        $returndata['series'][$i]['name'] = ($this->isChartMinMaxAverage($chartOptions) ? $result['message_statistic'] . ', ' : '') .  __('Type') . ': ' . $result['message_type'] . ', ' . __('Status') . ': ' . $result['message_status'];
+       
+        if ($this->isChartSpeed($chartOptions)):
+            $returndata['valueSuffix'] = __('Messages');
+            //$returndata['series'][$i]['name'] =  __('Type') . ': ' . $result['message_type'] . ', ' . __('Status') . ': ' . $result['message_status'];
+        endif;
+        if ($this->isChartMinMaxAverage($chartOptions)): 
+            $returndata['valueSuffix'] = __('milliseconds');
+            //$returndata['series'][$i]['name'] =  __('%s milliseconds.',$result[$label]) . "\n" . $label . "\n" . $result['message_statistic'] . ', ' . __('Type') . ': ' . $result['message_type'] . ', ' . __('Status') . ': ' . $result['message_status'];
+        endif;
+        if ($this->isChartPerformance($chartOptions)):
+            $returndata['valueSuffix'] = __('milliseconds');
+           // $returndata['series'][$i]['name'] =  __('%s milliseconds.', $result[$label]);
+        endif;
+         $i++;
+    endforeach;
+    echo json_encode($returndata);
+?>
+
+   
+<?php else: ?>
+    <h1><?php echo __('No data to display') ?></h1>
+<?php endif ?>

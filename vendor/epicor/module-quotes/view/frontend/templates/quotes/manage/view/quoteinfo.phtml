@@ -1,0 +1,127 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+  /* @var $this \Epicor\Quotes\Block\View\Quoteinfo */
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper Epicor_Comm_Helper_Data */
+
+$showAccept = ($helper->isFunctionalityDisabledForCustomer('cart')) ? false : true;
+
+$quoteNotes = $this->getConfig('epicor_quotes/notes/quote_note_type');
+$upload = $this->getConfigFlag('epicor_comm_field_mapping/gqr_mapping/active');
+$emailOptions = $this->getConfig('epicor_comm_enabled_messages/gqr_request/submit_to_customer') !== 'Y';
+$contractHelper = $this->helper('Epicor\Lists\Helper\Frontend\Contract');
+/* @var $contractHelper Epicor_Lists_Helper_Frontend_Contract */
+$duplicate = $this->getRequest()->getParam('req'); 
+$contractCode = $this->getQuote()->getContractCode();
+$eccHidePrices = $this->helper('Epicor\Comm\Helper\Data')->getEccHidePrice();
+?>
+<?php // echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+
+<div  id="quote-btns" class="page-title title-buttons">
+    <h1>
+        <?php echo __('Quote - #%1', $this->getQuote()->getReference() ?: $this->getQuote()->getId()); ?>
+    </h1>
+    <?php if (!$duplicate): ?>
+        <?php if ($this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+            'Epicor_Customer::my_account_quotes_duplicate'
+        )) : ?>
+            <a href="<?php echo $this->getDuplicateUrl(); ?>" class="duplicate ">
+                <?php echo __('Duplicate') ?>
+                &nbsp;
+            </a>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if ($this->getQuote()->isActive() && !$duplicate): ?> 
+        <?php  if (in_array($this->getQuote()->getStatusId(), array(Epicor\Quotes\Model\Quote::STATUS_AWAITING_ACCEPTANCE, Epicor\Quotes\Model\Quote::STATUS_QUOTE_ACCEPTED))) : ?>
+            <?php if ($showAccept && (!$eccHidePrices || $eccHidePrices == 3)) : ?>
+            <a href="<?php echo $this->getAcceptUrl(); ?>" title="Accept And Checkout" >Accept and Checkout</a>
+            <span class="separator">|</span>
+            <?php endif; ?>
+            <a href="#" title="Re-Submit Quote" onclick="managequote.resubmit('<?php echo $this->getReSubmitUrl(); ?>')" >Re-Submit</a> 
+           <!-- <a href="<?php echo $this->getReSubmitUrl(); ?>" title="Re-Submit Quote">Re-Submit</a> -->
+            <span class="separator">|</span>       
+        <?php endif; ?>
+
+
+        <?php if ($this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+            'Epicor_Customer::my_account_quotes_reject'
+        )) : ?>
+
+            <a href="<?php echo $this->getRejectUrl(); ?>" title="Reject Quote">Reject</a>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php //if reordering save as new quote .  other things ?>
+</div>
+<div class="order-info-box box-left quote_details">
+    <div class="box">
+        <h2>Details</h2>
+        <?php if($this->showCreatedBy()) : ?>
+        <p>
+            <?php echo __('Created By'); ?> :
+            <strong><?php echo $this->getQuote()->getCreatedBy(); ?></strong>
+        </p>
+        <?php endif; ?>
+        <p>
+            <?php echo __('Last Updated'); ?> :
+            <strong><?php echo $this->getUpdatedAt(); ?></strong>
+        </p>
+        <p>
+            <?php echo __('Quote Status'); ?> :
+            <strong><?php echo __($this->getQuote()->getStatus()); ?></strong>
+        </p>
+        <p>
+            <?php $label = $this->getQuote()->hasExpired() ? 'Quote Expired' : 'Quote Expires'; ?>
+            <?php echo __($label); ?> :
+            <strong><?php echo $this->getExpires(); ?></strong>
+            </li>
+        </p>
+        <?php if(($contractCode)): ?>
+        <p>
+            <?php $label = $this->getQuote()->hasExpired() ? 'Contract Code' : 'Contract Code'; ?>
+            <?php echo __($label); ?> :
+            <strong><?php echo __($contractHelper->getContractTitle($contractCode)); ?></strong>
+            </li>
+        </p>
+        <?php endif; ?>
+    </div>
+</div>
+<?php if(($upload || $this->allowGlobalTickbox()) && $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed('Epicor_Customer::my_account_quotes_update')) : ?>
+<div class="order-info-box box-right quote_options">
+    <div class="box">
+        <h2>Options</h2>
+        <form action="<?php echo $this->getUpdateUrl(); ?>" method="post">
+            <?php
+                if($emailOptions) :
+            ?>
+            <p>
+                <label for="send_reminders"><?php echo __('Email Me Expiry Reminders'); ?></label>
+                <input type="checkbox" name="send_reminders" id="send_reminders" <?php echo $this->getQuote()->getSendCustomerReminders() ? 'checked="checked"' : ''; ?> />
+            </p>
+				<?php if($quoteNotes !== 'disabled') : ?>
+            <p>
+                <label for="send_comments"><?php echo __('Email Me Comment Updates'); ?></label>
+                <input type="checkbox" name="send_comments" id="send_comments" <?php echo $this->getQuote()->getSendCustomerComments() ? 'checked="checked"' : ''; ?> />
+            </p>
+				<?php endif; ?>
+            <p>
+                <label for="send_reminders"><?php echo __('Email Me Status Updates'); ?></label>
+                <input type="checkbox" name="send_updates" id="send_updates" <?php echo $this->getQuote()->getSendCustomerUpdates() ? 'checked="checked"' : ''; ?> />
+            </p>
+            <?php 
+                endif;
+                if ($this->allowGlobalTickbox()) : 
+            ?>
+            <p>
+                <label for="quote_is_global"><?php echo __('Account-wide Quote?'); ?></label>
+                <input type="checkbox" name="is_global" value="1" id="quote_is_global" <?php echo $this->getQuote()->getIsGlobal() ? 'checked="checked"' : ''; ?>/>
+            </p>
+            <?php endif; ?>
+            <button class="button" type="submit"><span>Update</span></button>
+        </form>
+    </div>
+</div>
+<?php endif; ?>

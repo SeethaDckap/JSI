@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="Epicor_Comm" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Networking and General</label>
+      <tab>epicor_config</tab>
+      <group id="epicor_address_search_trigger" translate="label" sortOrder="210" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Epicor Address Search Trigger</label>
+        <field id="versionsavailable" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Number of Addresses Needed before Address Search Button Appears</label>
+          <validate>validate-number</validate>
+        </field>
+      </group>
+      <group id="assets">
+        <field id="suffixes" translate="label" sortOrder="100" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Suffixes in media folder to be deleted if not matched to a product</label>
+        </field>
+      </group>
+    </section>
+    <section id="catalog" translate="label">
+      <group id="tier_prices" sortOrder="1000" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Tier Price Display</label>
+        <field id="precision" sortOrder="1" type="text" showInDefault="1" showInWebsite="1">
+          <label>Tier Price Display Precision</label>
+          <comment>Number of decimal places to display tier prices to</comment>
+          <config_path>epicor_common/tier_prices/precision</config_path>
+          <validate>validate-number</validate>
+        </field>
+      </group>
+      <group id="navigation">
+        <field id="auto_hide" sortOrder="1" type="select" showInDefault="1" showInWebsite="1">
+          <label>Auto-hide Categories with no products</label>
+          <config_path>epicor_common/catalog_navigation/auto_hide</config_path>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <backend_model>Epicor\Common\Model\Config\Backend\Catalog\Autohide</backend_model>
+        </field>
+      </group>
+    </section>
+    <section id="customer">
+      <resource>Epicor_Common::system_config</resource>
+      <group id="startup" translate="label">
+        <field id="redirect_dashboard" translate="label"/>
+        <field id="landing_page" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1">
+          <label>Landing Page</label>
+          <config_path>epicor_common/login/landing_page</config_path>
+          <source_model>Epicor\Common\Model\Config\Source\Loginredirect</source_model>
+          <depends>
+              <field id="redirect_dashboard">0</field>
+          </depends>
+        </field>
+        <field id="landing_cms_page" translate="label" sortOrder="31" type="select" showInDefault="1" showInWebsite="1">
+          <label>CMS Page</label>
+          <config_path>epicor_common/login/landing_cms_page</config_path>
+          <source_model>Epicor\Common\Model\Config\Source\Cmspages</source_model>
+        </field>
+      </group>
+      <group id="dashboard_priority" translate="label" sortOrder="95" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Dashboard Priority</label>
+        <field id="dashboard" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Dashboard Priority</label>
+          <config_path>Epicor_Comm/dashboard_priority/dashboard</config_path>
+          <source_model>Epicor\Common\Model\Config\Source\DashboardPriority</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

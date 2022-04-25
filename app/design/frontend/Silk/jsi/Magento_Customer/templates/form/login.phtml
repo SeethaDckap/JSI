@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<div class="login_wrapper">
+    <div class="store_logo">
+        <img src="<?php echo $block->getViewFileUrl('images/JSI_3Dlogo_blue.png'); ?>" />
+    </div>
+    <div class="block block-customer-login">
+        <div class="block-content" aria-labelledby="block-customer-login-heading">
+            <form class="form form-login"
+                  action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+                  method="post"
+                  id="login-form"
+                  data-mage-init='{"validation":{}}'>
+                <?= $block->getBlockHtml('formkey') ?>
+                <fieldset class="fieldset login">
+                    <div class="field email required">
+                        <div class="control">
+                            <input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?= $block->escapeHtmlAttr(__('Username')) ?>" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="field password required">
+                        <div class="control">
+                            <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="forget-container no-display">
+                    	<div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Username')) ?></span></a></div>
+                    	<div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Password')) ?></span></a></div>
+                    </div>
+                    <?= $block->getChildHtml('form_additional_info') ?>
+                    <div class="actions-toolbar col2">
+                        <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('LOG IN')) ?></span></button></div>
+                        <div id="autologin"> <input type="checkbox" name="autologin" value="1">Stay logged in</div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </div>
+        <div class="create_account">
+            <div class="actions-toolbar">
+                <div class="secondary">
+                	<span><?= __('Not a dealer? Register ')  ?>
+                    <a class="action create" href="<?php echo $block->getUrl('customer/account/create')?>"><?php echo __('Here') ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

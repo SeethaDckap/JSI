@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>New Inventory</title>
+        <css src="Epicor_Dealerconnect::epicor/dealerconnect/css/styles.css"/>
+        <css src="Epicor_Dealerconnect::epicor/dealerconnect/css/dealerstyles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Dealerconnect::epicor/dealerconnect/inventory/add/formopen.phtml" class="Epicor\Dealerconnect\Block\Portal\Inventory\Add\Inventory" name="inventory.form.open"/>
+            <block template="Epicor_Dealerconnect::epicor/dealerconnect/inventory/add/infoform.phtml" class="Epicor\Dealerconnect\Block\Portal\Inventory\Add\Inventory" name="inventory.infoform"/>
+            <block template="Epicor_Dealerconnect::epicor/dealerconnect/inventory/add/addressform.phtml" class="Epicor\Dealerconnect\Block\Portal\Inventory\Add\Inventory" name="inventory.addressform" />
+            <block template="Epicor_Dealerconnect::epicor/dealerconnect/inventory/add/formclose.phtml" class="Epicor\Dealerconnect\Block\Portal\Inventory\Add\Inventory" name="inventory.form.close"/>
+            <block template="Epicor_Dealerconnect::dealerconnect/customer/account/link/back.phtml"
+                   class="Magento\Framework\View\Element\Template" name="inventory.link.back">
+                <action method="setBackUrls">
+                    <argument name="value" xsi:type="string">/dealerconnect/inventory/search</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

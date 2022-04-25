@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Customer Connect Invoices Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Title" name="invoices.title"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Billing" name="invoices.billing"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Shipping" name="invoices.shipping"/>
+           <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\ConfiguredInfo" name="invoices.data"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Attachments" name="invoices.attachments" />
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Lines" name="invoices.lines">
+                <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Totals" name="tfoot"/>
+            </block>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/customerconnect/invoices/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/customerconnect/invoices/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Invoices</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

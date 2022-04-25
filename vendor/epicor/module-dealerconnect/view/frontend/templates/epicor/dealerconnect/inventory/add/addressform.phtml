@@ -1,0 +1,379 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see Epicor\Dealerconnect\Block\Portal\Inventory\Details\UpdateAddress
+ */
+$getConfigFlag = $block->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/active'); 
+$defaultCountry = $block->getConfigFlag('general/store_information/country_id'); 
+//var_dump($defaultCountry);die;
+?>
+<?php if($getConfigFlag): ?>
+<?php
+$helper = $this->helper('Epicor\Common\Helper\Data');
+?>
+<div class = "box-info box-account col-full block">
+    <div class="block-title">
+        <strong><?= __('Address Information'); ?></strong>
+    </div>
+    
+    <!-- Sold To Address Form Starts Here -->
+    <div class="box-info box-account col-xs-4 block">
+        <h2 class="legend _required dealer-head" style="border:0px !important">
+            <?= __('Dealer Address') ?><label class="label"></label>
+        </h2>
+        <?= $this->getAddressesHtmlSelect(); ?>
+        <fieldset class="fieldset" id="sold_to_address">
+            <div class="fields">
+                <div class="field field-name-firstname _required">
+                    <label class="label" for="soldfirstname"><span><?= __('First Name'); ?></span></label>
+                    <div class="control">
+                        <input readonly id="soldfirstname" name="sold[firstname]" value="<?= $block->getFirstname() ?>" title="<?= __('First Name'); ?>" class="input-text required-entry input-disable" data-validate="{required:true}" aria-required="true" type="text" >
+                    </div>
+                </div>
+                <div class="field field-name-lastname _required">
+                    <label class="label" for="soldlastname"><span><?= __('Last Name'); ?></span></label>
+                    <div class="control">
+                        <input readonly id="soldlastname" name="sold[lastname]" value="<?= $block->getLastname() ?>" title="<?= __('Last Name'); ?>" class="input-text required-entry input-disable" data-validate="{required:true}" aria-required="true" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="field _required">
+                    <label for="soldcompany" class="label"><?= __('Company') ?></label>
+                    <div class="input-box">
+                            <input readonly value="<?= $block->getCompany(); ?>" type="text" name="sold[company]" id="soldcompany" title="<?= __('Company') ?>"  class="input-text required-entry input-disable" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field _required">
+                    <label for="soldstreet_1" class="label"><?= __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input readonly value="<?= $block->getAddress() ?>" type="text" name="sold[street][]" title="<?= __('Street Address') ?>" id="soldstreet_1" class="input-text required-entry input-disable" />
+                    </div>
+                </div>
+            </div>
+            <?php for ($_i = 2, $_n =3; $_i <= $_n; $_i++): ?>
+            <div class="fields">
+                <div class="field">
+                    <label for="soldstreet_<?= $_i ?>" class="label"></label>
+                    <div class="input-box">
+                        <input readonly type="text" name="sold[street][]" value="<?= $block->getAddress($_i); ?>" title="<?= __('Street Address %1', $_i) ?>" id="soldstreet_<?= $_i ?>" class="input-text input-disable" />
+                    </div>
+                </div>
+            </div>
+            <?php endfor; ?>                  
+            <div class="fields">
+                <div class="field">
+                    <label for="soldcity" class="label"><?= __('City') ?></label>
+                    <div class="input-box">
+                            <input readonly value="<?= $block->getCity(); ?>" type="text" name="sold[city]" id="soldcity" title="<?= __('City') ?>"  class="input-text input-disable" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label for="soldcounty_id" class="label"><?= __('County') ?></label>
+                    <div class="input-box">
+                        <select id="soldcounty_id" name="sold[county_id]" title="<?= __('State/Province') ?>" class="validate-select select-disable" style="display:none;">
+                            <option value=""><?= __('Please select region, state or province') ?></option>
+                        </select>	
+                        <input type="text" id="soldregion" name="sold[region]" value="<?= $block->getRegionId(); ?>" title="<?= __('State/Province') ?>" class="input-text  <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label for="soldcountry" class="label"><?= __('Country') ?></label>
+                    <div class="input-box">
+                        <?php $defaultCountry = $block->getCountryCode(); ?>
+                        <?= $block->getCountryHtmlSelect($defaultCountry, 'sold[country]', 'soldcountry') ?>
+                    </div>
+                </div>
+            </div>   
+            <div class="fields">
+                <div class="field _required">                    
+                    <label for="soldpostcode" class="label"><?= __('Postcode'); ?></label>
+                    <div class="input-box">
+                        <input readonly type="text" name="sold[postcode]" value="<?= $block->getPostcode(); ?>" title="<?= __('Postcode') ?>" class="input-text required-entry input-disable" id="soldpostcode" />
+                    </div>
+                </div> 
+             </div>                   
+            <div class="fields">
+                <div class="field">                    
+                    <label for="soldtelephone" class="label"><?= __('Telephone'); ?></label>
+                    <div class="input-box">
+                        <input readonly value="<?= $block->getTelephoneNumber(); ?>" type="text" name="sold[telephone]" title="<?= __('Telephone') ?>" class="input-text input-disable" id="soldtelephone" />
+                    </div>
+                </div> 
+             </div>   
+             <div class="fields">    
+                <div class="field">
+                    <label for="soldfax" class="label"><?= __('Fax') ?></label>
+                    <div class="input-box">
+                        <input readonly value="<?= $block->getFaxNumber(); ?>" type="text" name="sold[fax]" id="soldfax" title="<?= __('Fax') ?>"  class="input-text input-disable" />
+                    </div>
+                </div>
+            </div>
+             <div class="fields">    
+                <div class="field">
+                    <label for="soldemailaddress" class="label"><?= __('Email Address') ?></label>
+                    <div class="input-box">
+                        <input readonly value="<?= $block->getEmail(); ?>" type="email" data-validate="{'validate-email':true}"  name="sold[emailaddress]" id="soldemailaddress" title="<?= __('Email Address') ?>" class="input-text input-disable" />
+                    </div>
+                </div>
+            </div> 
+            <input type="hidden" name="sold[address_code]" id="soldaddresscode" value="<?= $block->getAddressCode(); ?>" />
+        </fieldset>
+    </div>   
+    <!-- Sold To Address Form Ends Here -->
+    
+    <!-- Owner Address Form Starts Here -->
+    <div class="box-info box-account col-xs-4 block">
+	<h2 class="legend _required owner-head" style="border:0px !important">
+            <?= __('Owner Address') ?><label class="label"></label>
+            <p><input onclick="updateDeidInformation.deidSold()" type="checkbox" name="copySoldAddress" id="copySoldAddress"><?= __('Same as Sold to Address') ?></p>
+        </h2>
+        <fieldset class="fieldset" id="owner_address">
+            <div class="fields">
+                <div class="field field-name-firstname _required">
+                    <label class="label" for="ownfirstname"><span><?= __('First Name'); ?></span></label>
+                    <div class="control">
+                        <input value="" id="ownfirstname" name="own[firstname]" value="" title="<?= __('First Name'); ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text" >
+                    </div>
+                </div>
+                <div class="field field-name-lastname required">
+                    <label class="label" for="ownlastname"><span><?= __('Last Name'); ?></span></label>
+                    <div class="control">
+                        <input value="" id="ownlastname" name="own[lastname]" value="" title="<?= __('Last Name'); ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="field _required">
+                    <label for="owncompany" class="label"><?= __('Company') ?></label>
+                    <div class="input-box">
+                            <input value="" type="text" name="own[company]" id="owncompany" title="<?= __('Company') ?>"  class="input-text required-entry" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field _required">
+                    <label for="ownstreet_1" class="label"><?= __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="own[street][]" title="<?= __('Street Address') ?>" id="ownstreet_1" class="input-text required-entry" />
+                    </div>
+                </div>
+            </div>
+            <?php for ($_i = 2, $_n =3; $_i <= $_n; $_i++): ?>
+            <div class="fields">
+                <div class="field">
+                    <label for="ownstreet_<?= $_i ?>" class="label"></label>
+                    <div class="input-box">
+                        <input type="text" name="own[street][]" value="" title="<?= __('Street Address %1', $_i) ?>" id="ownstreet_<?= $_i ?>" class="input-text" />
+                    </div>
+                </div>
+            </div>
+            <?php endfor; ?>
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="owncity"><?= __('City') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="own[city]" id="owncity" title="<?= __('City') ?>"  class="input-text" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="owncounty"><?= __('County') ?></label>
+                    <div class="input-box">
+                        <select id="owncounty_id" name="own[county_id]" title="<?= __('State/Province') ?>" class="validate-select" style="display:none;">
+                            <option value=""><?= __('Please select region, state or province') ?></option>
+                        </select>   
+                        <input type="text" id="ownregion" name="own[region]" value="" title="<?= __('State/Province') ?>" class="input-text  <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="owncountry"><?= __('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo $block->getCountryHtmlSelect(null, 'own[country]', 'owncountry') ?>
+                    </div>
+                </div>
+            </div>   
+            <div class="fields">
+                <div class="field _required">                    
+                    <label for="ownpostcode" class="label"><?= __('Postcode') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="own[postcode]" value="" title="<?= __('Postcode') ?>" class="input-text required-entry" id="ownpostcode" />
+                    </div>
+                </div> 
+            </div>                   
+            <div class="fields">
+                <div class="field">                    
+                    <label for="owntelephone" class="label"><?= __('Telephone') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="own[telephone]" title="<?= __('Telephone') ?>" class="input-text" id="owntelephone" />
+                    </div>
+                </div> 
+            </div>   
+            <div class="fields">    
+                <div class="field">
+                    <label for="ownfax" class="label"><?= __('Fax') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="own[fax]" id="ownfax" title="<?= __('Fax') ?>"  class="input-text" />
+                    </div>
+                </div>
+            </div>
+            <div class="fields">    
+                <div class="field">
+                    <label class="label" for="ownemailaddress"><?= __('Email Address') ?></label>
+                    <div class="input-box">
+                        <input value="" type="email" data-validate="{'validate-email':true}" name="own[emailaddress]" id="ownemailaddress" title="<?= __('Email Address') ?>" class="input-text" />
+                    </div>
+                </div>
+            </div>                
+	</fieldset>
+    </div>
+    <!-- Owner Address Form Ends Here -->
+    
+    <!-- Location Address Form Starts Here -->
+    <div class="box-info box-account col-xs-4 block">
+        <h2 class="legend _required location-head" style="border:0px !important">
+            <?= __('Location Address') ?><label class="label"></label>
+            <p><input onclick="updateDeidInformation.deidOwner()" type="checkbox" name="copyOwnAddress" id="copyOwnAddress"><?= __('Same as Owner Address') ?></p>
+        </h2>
+        <fieldset class="fieldset" id="location_address">
+            <div class="fields">
+                <div class="field field-name-firstname _required">
+                    <label class="label" for="locfirstname">
+                        <span><?= __('First Name'); ?></span>
+                    </label>
+                    <div class="control">
+                        <input value="" id="locfirstname" name="loc[firstname]" title="<?= __('First Name') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text" >
+                    </div>
+                </div>
+                <div class="field field-name-lastname _required">
+                    <label class="label" for="loclastname">
+                        <span><?= __('Last Name'); ?></span>
+                    </label>
+                    <div class="control">
+                        <input id="loclastname" name="loc[lastname]" value="" title="<?= __('Last Name'); ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="field _required">
+                    <label for="loccompany" class="label"><?= __('Company') ?></label>
+                    <div class="input-box">
+                            <input value="" type="text" name="loc[company]" id="loccompany" title="<?= __('Company') ?>"  class="input-text required-entry" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field _required">
+                    <label class="label" for="locstreet_1">
+                        <span><?= __('Street Address') ?></span>
+                    </label>
+                    <div class="input-box">
+                        <input type="text" name="loc[street][]" value="" title="<?= __('Street Address') ?>" id="locstreet_1" class="input-text required-entry" />
+                    </div>
+                </div>
+            </div>
+            <?php for ($_i = 2, $_n =3; $_i <= $_n; $_i++): ?>
+            <div class="fields">
+                <div class="field">
+                    <label for="locstreet_<?= $_i ?>" class="label"></label>
+                    <div class="input-box">
+                        <input type="text" name="loc[street][]" value="" title="<?= __('Street Address %1', $_i) ?>" id="locstreet_<?= $_i ?>" class="input-text" />
+                    </div>
+                </div>
+            </div>
+            <?php endfor; ?>                  
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="loccity"><?= __('City') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="loc[city]" id="loccity" title="<?= __('City') ?>"  class="input-text" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="loccounty"><?= __('County') ?></label>
+                    <div class="input-box">
+                        <select id="loccounty_id" name="loc[county_id]" title="<?= __('State/Province') ?>" class="validate-select" style="display:none;">
+                            <option value=""><?= __('Please select region, state or province') ?></option>
+                        </select>	
+                        <input type="text" id="locregion" name="loc[region]" value="" title="<?= __('State/Province') ?>" class="input-text  <?= $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div class="field">
+                    <label class="label" for="loccountry"><?= __('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo $block->getCountryHtmlSelect(null, 'loc[country]', 'loccountry') ?>
+                    </div>
+                </div>
+            </div>   
+            <div class="fields">
+                <div class="field _required">                    
+                    <label class="label" for="locpostcode"><?= __('Postcode') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="loc[postcode]" value="" title="<?= __('Postcode') ?>" class="input-text required-entry" id="locpostcode" />
+                    </div>
+                </div> 
+             </div>                   
+            <div class="fields">
+                <div class="field">                    
+                    <label class="label" for="loctelephone"><?= __('Telephone') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="loc[telephone]" title="<?= __('Telephone') ?>" class="input-text" id="loctelephone" />
+                    </div>
+                </div> 
+             </div>   
+             <div class="fields">    
+                <div class="field">
+                    <label class="label" for="locfax"><?= __('Fax') ?></label>
+                    <div class="input-box">
+                        <input value="" type="text" name="loc[fax]" id="locfax" title="<?= __('Fax') ?>"  class="input-text" />
+                    </div>
+                </div>
+            </div>
+             <div class="fields">    
+                <div class="field">
+                    <label class="label" for="locemailaddress"><?= __('Email Address') ?></label>
+                    <div class="input-box">
+                        <input value="" type="email" name="loc[emailaddress]" id="locemailaddress" title="<?= __('Email Address') ?>" class="input-text" data-validate="{'validate-email':true}" />
+                    </div>
+                </div>
+            </div>                
+        </fieldset>
+    </div>
+    <!-- Location Address Form Ends Here -->
+    
+</div>
+<style>
+    .input-disable{
+        border: 1px solid #ddd;
+        background: #fefefe;
+        color: #aaa;
+        opacity: 0.5;
+    }
+
+    .select-disable{
+        border: 1px solid #ddd;
+        background: #fefefe;
+        color: #aaa;
+        opacity: 0.5;
+        pointer-events:none;
+    }
+</style>
+<?php endif; ?>

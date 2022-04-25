@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <carriers>
+      <eccbranchpickup>
+        <active>0</active>
+        <model>Epicor\BranchPickup\Model\Carrier\Epicorbranchpickup</model>
+        <name>Branch Pickup</name>
+        <title>Branch Pickup</title>
+        <description>Branch Pickup</description>
+        <sallowspecific>0</sallowspecific>
+        <specificcountry>0</specificcountry>
+        <sort_order>1</sort_order>
+      </eccbranchpickup>
+    </carriers>
+    <customerconnect_enabled_messages>
+      <CUCO_mapping>
+        <cuco_branch_pickup>1</cuco_branch_pickup>
+      </CUCO_mapping>
+    </customerconnect_enabled_messages>
+    <epicor_comm_field_mapping>
+      <cus_mapping>
+        <cus_branch_pickup>1</cus_branch_pickup>
+      </cus_mapping>
+    </epicor_comm_field_mapping>
+  </default>
+</config>

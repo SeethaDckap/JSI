@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd"
+>
+    <system>
+        <section id="Epicor_Comm">
+            <group
+                    id="telemetry"
+                    translate="label"
+                    sortOrder="250"
+                    showInDefault="1"
+                    showInWebsite="0"
+                    showInStore="0"
+            >
+                <label>Telemetry</label>
+                <field
+                        id="telemetry_enabled"
+                        translate="label"
+                        sortOrder="10"
+                        type="select" showInDefault="1"
+                        showInWebsite="0"
+                        showInStore="0"
+                >
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Epicor\Telemetry\Model\Config\Backend\Enabled</backend_model>
+                    <comment>To help troubleshoot issues, analyze trends and improve our products and services, Epicor will, unless you affirmatively opt out, collect and process general license, usage and non-personal telemetric data. The data includes date and time of access, IP addresses, computer/browser types, active features and performance metrics. The collected information is non-personal, non-identifiable, and subject to Epicor Privacy Policy which is hereby incorporated by reference. Epicor will not collect the telemetric data for companies located in Russia and China due to legal requirements in these countries. We hope that you participate in this service. If you choose to decline participation in this data collection process, you many opt out at any time.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

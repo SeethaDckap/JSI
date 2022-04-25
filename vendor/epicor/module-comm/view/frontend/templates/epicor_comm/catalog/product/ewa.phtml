@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+/* @var $this Epicor_Comm_Block_Catalog_Product_Ewa */
+
+if ($this->hasEWAData()) :
+    ?>
+    <p><?php echo __('Please wait while you are redirected to the configurator.'); ?></p>
+    <form id="ewaform" action="<?php echo $this->getFormUrl(); ?>" method="post" >
+        <input type="hidden" value="<?php echo $this->getConfigName(); ?>" name="ConfigName" />
+        <input type="hidden" value="<?php echo $this->getRelatedToTable(); ?>" name="RelatedToTable" />
+        <input type="hidden" value="<?php echo $this->getRelatedToRowId(); ?>" name="RelatedToRowID" />
+        <input type="hidden" value="<?php echo $this->getPartNum(); ?>" name="PartNum" />
+        <input type="hidden" value="<?php echo $this->getPartRev(); ?>" name="PartRev" />
+        <input type="hidden" value="<?php echo $this->getStyleSheet(); ?>" name="CSS" />
+        <input type="hidden" value="<?php echo $this->getLanguage(); ?>" name="Lang" />
+        <input type="hidden" value="<?php echo $this->getReturnUrl(); ?>" name="ReturnURL" />
+        <input type="hidden" value="<?php echo $this->getECCUser(); ?>" name="ECCUser" />
+        <input type="hidden" value="<?php echo $this->getECCPwd(); ?>" name="ECCPwd" />
+        <input type="hidden" value="<?php echo $this->getECCCompanyId(); ?>" name="ECCCompanyID" />
+    </form>
+    <script type="text/javascript" >
+    <!--
+        document.getElementById('ewaform').submit();
+    -->
+    </script>
+
+<?php else: ?>
+    <h2><?php echo __('An error occured while retrieving product data for the configurator.'); ?></h2>
+    <p><?php echo __('This window will close in 10 seconds'); ?></p>
+    <script type="text/javascript">
+        <!--
+        var message = {
+            width: 575,
+            height: 175
+        };
+        window.parent.postMessage(JSON.stringify(message), '*');
+
+        setTimeout(function(){$(parent).ewaProduct.closepopup("ewaWrapper")},10000);
+        -->
+    </script>
+
+<?php endif; ?>

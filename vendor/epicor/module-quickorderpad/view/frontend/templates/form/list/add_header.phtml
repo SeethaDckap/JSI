@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+?>
+<?php if ($showAddToCart || $this->getIsRfq()) : ?>
+    <th class="last qty"><?php echo __('Qty') ?></th>
+<?php endif; ?>

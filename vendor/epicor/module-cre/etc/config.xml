@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<payment>
+			<cre>
+				<active>0</active>
+				<model>Epicor\Cre\Model\Payment\Cre</model>
+				<order_status>processing</order_status>
+				<title>CRE Card Payment</title>
+				<payment_action>authorize</payment_action>
+				<button_name>Purchase</button_name>
+				<heading_adv>Epicor Retail Cloud</heading_adv>
+                <cctypes>AE,VI,MC,DI,JCB,DN,UP</cctypes>
+				<public_key></public_key>
+				<namespace></namespace>
+				<body_background>#fff</body_background>
+				<font_color>#fff</font_color>
+				<font_background>#5cb85c</font_background>
+				<payment_title>Epicor Retail Cloud</payment_title>
+				<live_mode>0</live_mode>
+			</cre>
+		</payment>
+	</default>
+</config>

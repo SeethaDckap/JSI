@@ -1,0 +1,14 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.is_allow_checkout_width select {
+    width:90%;
+}
+.start_date_width input {
+    max-width: 120px !important;
+}
+.admin__control-table-wrapper {
+    overflow-x: unset;
+    overflow-y: unset;
+}

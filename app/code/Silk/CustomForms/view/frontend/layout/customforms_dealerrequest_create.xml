@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Apply to Become a JSI Cabinetry Dealer!</title>
+    </head>
+    <body>
+        <referenceContainer name="main.content" htmlTag="main" htmlClass="page-main-full-width" />
+
+    	<referenceBlock name="page.main.title">
+           <action method="setPageTitle">
+              <argument translate="true" name="title" xsi:type="string">Apply to Become a JSI Cabinetry Dealer!</argument>
+           </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Silk\CustomForms\Block\DealerRequest" name="dealer_request_form" template="Silk_CustomForms::dealerrequest/createForm.phtml" >
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey" before="-"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

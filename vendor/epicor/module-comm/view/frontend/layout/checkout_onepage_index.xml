@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <remove src="Epicor_BranchPickup::js/epicor/selectpage/main.js"/>
+    </head>
+    <body>
+        <referenceBlock name="checkout.onepage">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/onepage.phtml</argument>
+            </action>
+            <block template="Epicor_Comm::epicor_comm/checkout/onepage/shipping_dates.phtml" class="Mage\Checkout\Block\Onepage\Shipping\Dates" name="checkout.onepage.shipping.dates" after="shipping_method" as="shipping_dates">
+                <block template="Epicor_Comm::epicor_comm/checkout/onepage/shipping_dates/available_dates.phtml" class="Mage\Checkout\Block\Onepage\Shipping\Dates" name="checkout.onepage.shipping.dates.available.dates" as="shipping_dates.available_dates"/>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="checkout.onepage.shipping">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/onepage/shipping.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="checkout.onepage.billing">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/onepage/billing.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="checkout.progress">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/onepage/progress.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

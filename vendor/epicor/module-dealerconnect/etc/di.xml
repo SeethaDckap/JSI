@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Epicor\Comm\Model\Customer" type="Epicor\Dealerconnect\Model\Customer"/>
+    <preference for="Epicor\Comm\Model\Customer\Erpaccount" type="Epicor\Dealerconnect\Model\Customer\Erpaccount"/>
+    <preference for="Epicor\Common\Block\Adminhtml\Advanced\Cleardata\Clear\Form" type="Epicor\Dealerconnect\Block\Adminhtml\Advanced\Cleardata\Clear\Form"/>
+    <preference for="Epicor\Common\Controller\Adminhtml\Epicorcommon\Advanced\Cleardata\Clear" type="Epicor\Dealerconnect\Controller\Adminhtml\Epicorcommon\Advanced\Cleardata\Clear"/>
+    <preference for="Epicor\Common\Helper\Advanced\Cleardata" type="Epicor\Dealerconnect\Helper\Advanced\Cleardata"/>
+    <preference for="Epicor\Customerconnect\Controller\Account\SaveContact" type="Epicor\Dealerconnect\Controller\Account\SaveContact"/>
+    <type name="Epicor\Common\Helper\GenericgridReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="dealerconnect" xsi:type="object">Epicor\Dealerconnect\Helper\Genericgrid</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Model\MessageUploadModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_comm_pac" xsi:type="object">Epicor\Dealerconnect\Model\Message\Upload\Pac</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Model\MessageRequestModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="dealerconnect_deis" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DeisFactory</item>
+                <item name="dealerconnect_deid" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DeidFactory</item>
+                <item name="dealerconnect_dcls" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DclsFactory</item>
+                <item name="dealerconnect_dcld" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DcldFactory</item>                
+                <item name="dealerconnect_debm" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DebmFactory</item>                
+                <item name="dealerconnect_dmau" xsi:type="object">Epicor\Dealerconnect\Model\Message\Request\DmauFactory</item>                
+            </argument>
+        </arguments>
+    </type>    
+    <type name="Epicor\Dealerconnect\Model\Message\Request\Inventory\Collection">
+        <arguments>
+            <argument name="genericgridReader" xsi:type="object">Epicor\Common\Helper\GenericgridReader\Proxy</argument>
+            <argument name="messageRequestModelReader" xsi:type="object">Epicor\Common\Model\MessageRequestModelReader\Proxy</argument>
+        </arguments>
+    </type>    
+    <type name="Epicor\Common\Model\GridConfigOptionsModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="dealerconnect/erp_mapping_pac" xsi:type="object">Epicor\Dealerconnect\Model\Erp\Mapping\Pac</item>
+                <item name="dealerconnect/erp_mapping_claimstatus" xsi:type="object">Epicor\Dealerconnect\Model\Erp\Mapping\Claimstatus</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Dealerconnect\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">dealerConnectLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\Dealerconnect\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Dealerconnect\Controller\Account\SaveContact">
+        <arguments>
+            <argument name="customerSender" xsi:type="object">Epicor\Customerconnect\Model\Message\Email\Sender\CustomerSender</argument>
+        </arguments>
+    </type>
+</config>

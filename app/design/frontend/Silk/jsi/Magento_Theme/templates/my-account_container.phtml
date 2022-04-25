@@ -1,0 +1,45 @@
+<div class="my-account_container">
+	<div class="ma-item _search">
+		<a class="ico-a" href="javascript:void(0)">
+			<i class="icomoon icomoon-search-5"></i>
+		</a>
+		<div class="top-search-block-container">
+		<?php echo $block->getChildHtml('topSearch'); ?>
+		</div>
+	</div>
+	<div class="ma-item _notification">
+		<a class="ico-a" href="#">
+			<i class="icomoon icomoon-bell"></i>
+		</a>
+	</div>
+	<div class="ma-item _myaccount">
+		<a class="ico-a" href="javascript:void(0)">
+			<i class="icomoon icomoon-user-3"></i>
+		</a>
+	</div>
+	<div class="drop-down no-display">
+	    <div class="item">
+	    	<a href="/customaccount/dashboard/index">Dashboard</a>
+	    </div>
+	    <div class="item">
+	    	<a href="/customer/account/logout">Logout</a>
+	    </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	require(['jquery'], function($){
+		$(document).ready(function() {
+			$('.ma-item._myaccount').click(function(){
+                $('.my-account_container .drop-down').toggleClass('no-display');
+            })
+
+            $(document).click(function(event) { 
+			  var $target = $(event.target);
+			  if(!$target.closest('.my-account_container .drop-down').length && !$('.my-account_container .drop-down').hasClass('no-display') && !$target.closest('.my-account_container .ma-item._myaccount').length) {
+			    $('.my-account_container .drop-down').addClass('no-display');
+			  }        
+			});
+		});
+	});
+</script>

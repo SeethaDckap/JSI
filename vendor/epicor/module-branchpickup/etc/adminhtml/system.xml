@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="carriers" translate="label">
+      <!--<resource>Epicor_BranchPickup::system_config</resource>-->
+      <resource>Epicor_BranchPickup::shipping_method</resource>
+      <group id="eccbranchpickup" translate="label" sortOrder="2" showInDefault="1" showInStore="1">
+        <label>Branch Pickup</label>
+        <field id="active" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="title" translate="label" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+        </field>
+        <field id="name" translate="label" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Method Name</label>
+        </field>
+        <field id="description" translate="label" sortOrder="76" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Description</label>
+        </field>
+        <field id="sallowspecific" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Available for specific countries only</label>
+          <frontend_class>shipping-applicable-country</frontend_class>
+          <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+        </field>
+        <field id="specificcountry" translate="label" sortOrder="31" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Ship to Specific Countries</label>
+          <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+          <can_be_empty>1</can_be_empty>
+        </field>
+        <field id="sort_order" translate="label" sortOrder="100" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Sort Order</label>
+        </field>
+      </group>
+    </section>
+    <section id="epicor_comm_locations">
+      <!--<resource>Epicor_BranchPickup::system_config</resource>-->
+      <resource>Epicor_BranchPickup::locations</resource>
+      <group id="global">
+        <field id="isbranchpickupallowed" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Branch Pickup</label>
+          <source_model>Epicor\BranchPickup\Model\Eav\Attribute\Data\Locationoptions</source_model>
+            <depends>
+               <field id="enabled">1</field>
+            </depends>
+        </field>
+        <field id="redirecttobranchpickup" sortOrder="81" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Redirect to Branch Select Page on Login</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <depends>
+               <field id="isbranchpickupallowed">1</field>
+            </depends>
+        </field>
+      </group>
+    </section>
+    <section id="epicor_comm_field_mapping" translate="label">
+      <resource>Epicor_BranchPickup::upload_messages</resource>
+      <group id="cus_mapping" translate="label">
+        <field id="cus_branch_pickup" sortOrder="952" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Branch Pickup Allowed</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+    <section id="customerconnect_enabled_messages" translate="label">
+      <group id="CUCO_mapping" translate="label">
+        <field id="cuco_branch_pickup" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Branch Pickup Allowed</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

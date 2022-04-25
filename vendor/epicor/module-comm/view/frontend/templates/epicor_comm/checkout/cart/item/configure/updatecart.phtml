@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+$helper = $this->helper('epicor_comm');
+/* @var $helper Epicor_Comm_Helper_Data */
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+
+$_product = $this->getProduct();
+/* @var $_product Epicor_Comm_Model_Product */
+
+$returnUrl = $this->getRequest()->getParam('returnurl');
+$buttonTitle = __('Update Cart');
+
+$locHelper = $this->helper('epicor_comm/locations');
+/* @var $helper Epicor_Comm_Helper_Locations */
+
+$showLocations = $locHelper->isLocationsEnabled();
+$singleLocation = count($_product->getCustomerLocations()) == 1;
+$stockVisibility = $this->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$allSourceLocations = ($stockVisibility == 'all_source_locations') ? true : false;
+
+if ($showAddToCart && !$_product->getEccConfigurator() && $_product->isSaleable()):
+    ?>
+    <div class="add-to-cart">
+        <?php if (!$_product->isGrouped() && (
+            !$showLocations || $allSourceLocations || (!$_product->isConfigurable() && $singleLocation) || (
+                $_product->isConfigurable() && in_array($stockVisibility, array('default', 'logged_in_shopper_source', 'all_source_locations'))
+            )
+        )): ?>
+        <label for="qty"><?php echo __('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape(__('Qty')) ?>" class="input-text qty" />
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>

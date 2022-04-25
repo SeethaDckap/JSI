@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $this Epicor\Common\Block\Order\Info\Buttons */
+?>
+<?php
+// Start B2B hide prices
+$eccHidePrices = $this->helper('\Epicor\Comm\Helper\Data')->getEccHidePrice();
+// End B2B hide prices
+?>
+<div class="actions">
+    <?php  $_order = $block->getOrder() ?>
+    <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId()) && ($eccHidePrices == 0  || $eccHidePrices == 3)) : ?>
+        <?php if ($this->isVisibleForOrderApprovals()): ?>
+            <a href="#" data-post='<?php /* @escapeNotVerified */
+            echo $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                ->getPostData($block->getReorderUrl($_order))
+            ?>' class="action order link-reorder">
+                <span><?= /* @escapeNotVerified */
+                    __('Reorder') ?></span>
+            </a>
+        <?php endif ?>
+    <?php endif ?>
+    <?php if ($this->isVisibleForOrderApprovals()): ?>
+        <a class="action print"
+           href="<?= /* @escapeNotVerified */$block->getPrintUrl($_order) ?>"
+           onclick="this.target='_blank';">
+            <span><?= /* @escapeNotVerified */__('Print Order') ?></span>
+        </a>
+    <?php endif ?>
+    <?= $block->getChildHtml() ?>
+</div>

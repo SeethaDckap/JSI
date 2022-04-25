@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <referenceBlock  name="customer-account-navigation-account-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_dashboard</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-orders-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_orders</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-account-edit-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_information</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-newsletter-subscriptions-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_dashboard_newsletters_edit</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-address-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_address_book</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-downloadable-products-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_downloadable_products</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-wish-list-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_wishlist</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-my-credit-cards-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_stored_payment_methods</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-product-reviews-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_products_review</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock  name="customer-account-navigation-billing-agreements-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_billing_agreements</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="wish-list-link">
+                <arguments>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_wishlist</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>

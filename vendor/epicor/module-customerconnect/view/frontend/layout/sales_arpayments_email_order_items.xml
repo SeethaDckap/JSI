@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <update handle="sales_arpayments_email_order_renderers"/>
+    <update handle="sales_email_item_price"/>
+    <body>
+        <block class="Epicor\Customerconnect\Block\Customer\Arpayments\Checkout\Email\Items" name="items" 
+                template="Epicor_Customerconnect::customerconnect/arpayments/email/items.phtml" cacheable="false">
+            <block class="Magento\Framework\View\Element\RendererList" name="ar_sales.email.order.renderers" as="renderer.list" />
+            <block class="Magento\Sales\Block\Order\Totals" name="ar_order_totals" template="Epicor_Customerconnect::customerconnect/arpayments/email/totals.phtml">
+                <arguments>
+                   <argument name="ar_label_properties" xsi:type="string">colspan="3"</argument>
+               </arguments>
+           </block>
+        </block>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>

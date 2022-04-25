@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$_log = $this->getLog();
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4>Message Status</h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list  admin__table-secondary">
+            <tr>
+                <td class="label"><label><?php echo __('Status') ?></label></td>
+                <td class="value"><strong><?php echo $this->getMessageStatus();?><strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Code') ?></label></td>
+                <td class="value"><strong><?php echo $this->getMessageStatusCode(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Description') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getStatusDescription() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

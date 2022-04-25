@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cloras_Mageorders::manager" title="Cloras Manager" module="Cloras_Mageorders" sortOrder="10" resource="Cloras_Mageorders::manager" />
+        <add id="Cloras_Mageorders::add_row" title="Order Grid" module="Cloras_Mageorders" sortOrder="20" parent="Cloras_Mageorders::manager" action="grid/grid" resource="Cloras_Mageorders::add_row"/>
+    </menu>
+</config>

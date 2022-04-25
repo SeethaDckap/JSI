@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="checkout_cart_save_before">
+    <observer name="checkForEmptyCart" instance="Epicor\Quotes\Observer\CheckForEmptyCart"/>
+  </event>
+  <event name="sales_quote_item_save_before">
+    <observer name="stopAddingProduct" instance="Epicor\Quotes\Observer\StopAddingProduct"/>
+  </event>
+  <event name="checkout_onepage_controller_success_action">
+    <observer name="updateQuoteStatusToOrdered" instance="Epicor\Quotes\Observer\UpdateQuoteStatusToOrdered"/>
+  </event>
+  <event name="checkout_multishipping_controller_success_action">
+    <observer name="updateQuoteStatusToOrdered" instance="Epicor\Quotes\Observer\UpdateQuoteStatusToOrdered"/>
+  </event>
+  <event name="epicor_common_can_access_url_after">
+    <observer name="updateQuoteStatusToOrdered" instance="Epicor\Quotes\Observer\CanAccessUrlAfter"/>
+  </event>
+   <event name="sales_model_service_quote_submit_before">
+        <observer name="updateErpQuoteInfo" instance="Epicor\Quotes\Observer\SalesEventQuoteSubmitBeforeObserver" shared="false" />
+   </event>
+</config>

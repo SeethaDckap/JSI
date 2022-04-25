@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$dealerHelper = $this->helper('Epicor\Dealerconnect\Helper\Data');
+$searchFilterType = $dealerHelper->getCustomerSession()->getDeisFilterType();
+// @codingStandardsIgnoreFile
+?>
+<?php if ($block->getButtonsHtml()): ?>
+    <div class="page-actions"><?php echo $block->getButtonsHtml() ?></div>
+    <?php if ($this->getInventoryTypeCheck() && $dealerHelper->checkCusInventorySearch() != 0): ?>
+        <div id="inventory_search_indicator" style="">
+            <label for="own_dealership_only">Display own dealership inventory only</label>
+            <input type="checkbox" name="own_dealership_only" value="1" <?php if($searchFilterType === 'own' || !$searchFilterType):?>checked<?php endif;?> onchange="inventory_search.assignAcctNumbers(this)">
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php echo $block->getGridHtml() ?>
+<?php if ($this->getInventoryTypeCheck() && $dealerHelper->checkCusInventorySearch() !== 0): ?>
+    <script>
+        require([
+                "jquery",
+                "mage/url",
+                'Magento_Checkout/js/model/full-screen-loader',
+                "mage/template",
+                "jquery/ui"],
+            function ($, url, fullScreenLoader) {
+                window.inventory_search = {
+                    assignAcctNumbers: function (field){
+                        fullScreenLoader.stopLoader();
+                        var checked = field.checked ? 1 : 0;
+                        $.ajax({
+                            showLoader: true,
+                            data: {
+                                filter: checked
+                            },
+                            url: url.build('dealerconnect/inventory/SetSearchType'),
+                            type: "POST",
+                        }).done(function (data) {
+                            window.location.href = location.href;
+                        });
+                    }
+                }
+            });
+    </script>
+<?php endif; ?>

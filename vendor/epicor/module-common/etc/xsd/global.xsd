@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    
+    <xs:complexType name="baseType">
+        <xs:sequence>
+            <xs:element type="header" name="header"/>
+        </xs:sequence>
+        <xs:attribute type="nonEmptyString" name="type" use="required" />
+        <xs:attribute type="nonEmptyString" name="id" use="required"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="requestType">
+        <xs:complexContent>					
+            <xs:extension base="baseType">
+                <xs:sequence>
+                    <xs:element type="requestMsg" name="body"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="responseType">
+        <xs:complexContent>					
+            <xs:extension base="baseType">
+                <xs:sequence>
+                    <xs:element type="responseMsg" name="body"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="header">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="datestamp"/>
+            <xs:element type="nonEmptyString" name="source"/>
+            <xs:element type="nonEmptyString" name="erp"/>
+            <xs:element type="xs:string" name="legacyheader"  minOccurs="0"/>
+            <xs:element type="xs:string" name="cached" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+                                
+    <xs:complexType name="msgStatus">
+        <xs:sequence>
+            <xs:element name="code">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:pattern value="[0-9]{3}" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:string" name="description"/>
+            <xs:element type="xs:string" name="erpErrorCode" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="brands">
+        <xs:sequence>
+            <xs:element type="brand" name="brand" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="attributes">
+        <xs:sequence>
+            <xs:element name="attribute" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element type="xs:string" name="description"/>
+                        <xs:element type="xs:string" name="value"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType> 
+    
+    <xs:complexType name="stkattributes">
+        <xs:sequence>
+            <xs:element name="attribute" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element type="nonEmptyString" name="code"/>
+                        <xs:element type="xs:string" name="description"/>
+                        <xs:element type="xs:string" name="value"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType> 
+    
+    <xs:complexType name="brand">
+        <xs:all>
+            <xs:element type="xs:string" name="company"/>
+            <xs:element type="xs:string" name="site" minOccurs="0"/>
+            <xs:element type="xs:string" name="warehouse" minOccurs="0"/>
+            <xs:element type="xs:string" name="group" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+                
+    <xs:complexType name="currencies">
+        <xs:sequence>
+            <xs:element type="currency" name="currency" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+        
+    <xs:complexType name="currency">
+        <xs:sequence>
+            <xs:element type="nonEmptyString" name="currencyCode"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+                
+    <xs:complexType name="currenciesWithPrice">
+        <xs:sequence>
+            <xs:element type="currencyWithPrice" name="currency" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="currencyWithPrice">
+        <xs:complexContent>					
+            <xs:extension base="currency">
+                <xs:sequence>
+                    <xs:element type="xs:float" name="basePrice"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+                                                                    
+    <xs:complexType name="productImages">
+        <xs:sequence>
+            <xs:element name="image" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                    <xs:complexContent>					
+                        <xs:extension base="filename">
+                            <xs:attribute type="xs:int" name="number"/>
+                            <xs:attribute name="type" >
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:pattern value="[LST]{0,1}[LST]{0,1}[LST]{0,1}" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="productDocs">
+        <xs:sequence>
+            <xs:element type="filename" name="relatedDocument" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="filename">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="filename"/>
+            <xs:element type="xs:string" name="description"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <xs:complexType name="address">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="addressCode"/>
+            <xs:element type="nonEmptyString" name="name"/>
+            <xs:element type="nonEmptyString" name="address1"/>
+            <xs:element type="xs:string" name="address2"/>
+            <xs:element type="xs:string" name="address3"/>
+            <xs:element type="nonEmptyString" name="city"/>
+            <xs:element type="nonEmptyString" name="county"/>
+            <xs:element type="xs:string" name="country"/>
+            <xs:element type="xs:string" name="postcode"/>
+            <xs:element type="xs:string" name="telephoneNumber"/>
+            <xs:element type="xs:string" name="faxNumber"/>
+            <xs:element type="xs:string" name="carriageText" minOccurs="0"/>
+            <xs:element type="xs:string" name="email" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType> 
+    <xs:group name="address_email_address" >
+        <xs:sequence>
+            <xs:element type="nonEmptyString" name="addressCode"/>
+            <xs:element type="nonEmptyString" name="name"/>
+            <xs:element type="nonEmptyString" name="address1"/>
+            <xs:element type="xs:string" name="address2"/>
+            <xs:element type="xs:string" name="address3"/>
+            <xs:element type="nonEmptyString" name="city"/>
+            <xs:element type="nonEmptyString" name="county"/>
+            <xs:element type="xs:string" name="country"/>
+            <xs:element type="xs:string" name="postcode"/>
+            <xs:element type="xs:string" name="telephoneNumber"/>
+            <xs:element type="xs:string" name="faxNumber"/>
+            <xs:element type="xs:string" name="emailAddress" minOccurs="0"/>
+            <xs:element type="xs:string" name="carriageText" minOccurs="0"/>
+        </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="addressAny">
+        <xs:all>
+            <xs:element type="xs:string" name="contactName"/>
+            <xs:element type="xs:string" name="addressCode"/>
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="xs:string" name="address1"/>
+            <xs:element type="xs:string" name="address2"/>
+            <xs:element type="xs:string" name="address3"/>
+            <xs:element type="xs:string" name="city"/>
+            <xs:element type="xs:string" name="county"/>
+            <xs:element type="xs:string" name="country"/>
+            <xs:element type="xs:string" name="postcode"/>
+            <xs:element type="xs:string" name="telephoneNumber"/>
+            <xs:element type="xs:string" name="faxNumber"/>
+            <xs:element type="xs:string" name="carriageText" minOccurs="0"/>
+            <xs:element type="xs:string" name="email" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <xs:complexType name="addressForRequests">
+        <xs:all>
+            <xs:element type="xs:string" name="contactName"/>
+            <xs:element type="xs:string" name="addressCode"/>
+            <xs:element type="nonEmptyString" name="name"/>
+            <xs:element type="nonEmptyString" name="address1"/>
+            <xs:element type="xs:string" name="address2"/>
+            <xs:element type="xs:string" name="address3"/>
+            <xs:element type="nonEmptyString" name="city"/>
+            <xs:element type="nonEmptyString" name="county"/>
+            <xs:element type="xs:string" name="country"/>
+            <xs:element type="xs:string" name="postcode"/>
+            <xs:element type="xs:string" name="telephoneNumber"/>
+            <xs:element type="xs:string" name="faxNumber"/>
+            <xs:element type="xs:string" name="carriageText" minOccurs="0"/>
+            <xs:element type="xs:string" name="email" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <xs:complexType name="discount">
+        <xs:sequence>
+            <xs:element type="xs:string" name="description" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:simpleType name="yesNo">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Y"/>
+            <xs:enumeration value="N"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="collectedPayment">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="C"/>
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="D"/>
+            <xs:enumeration value="N"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="nullableFloat">
+        <xs:union memberTypes="xs:float emptyString"/>
+    </xs:simpleType>
+    
+    <xs:simpleType name="nullableInteger">
+        <xs:union memberTypes="xs:integer emptyString"/>
+    </xs:simpleType>
+    
+    <xs:simpleType name="nullableDateTime">
+        <xs:union memberTypes="xs:dateTime emptyString"/>
+    </xs:simpleType>
+    
+    <xs:simpleType name="emptyString">
+        <xs:restriction base="xs:string">
+            <xs:length value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="nonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="(\s*[^\s]\s*)+"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="searchCondition">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EQ"/>
+            <xs:enumeration value="NEQ"/>
+            <xs:enumeration value="LT"/>
+            <xs:enumeration value="LTE"/>
+            <xs:enumeration value="GT"/>
+            <xs:enumeration value="GTE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="results">
+        <xs:sequence>
+            <xs:element type="nullableInteger" name="maxResults"/>
+            <xs:element type="nullableInteger" name="rangeMin"/>
+            <xs:element name="searches">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="search" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element type="nonEmptyString" name="criteria"/>
+                                    <xs:element type="searchCondition" name="condition"/>
+                                    <xs:element type="nonEmptyString" name="value"/>
+                                </xs:all>                               
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>  
+                </xs:complexType> 
+            </xs:element>
+        </xs:sequence>  
+    </xs:complexType>    
+    
+    
+</xs:schema>

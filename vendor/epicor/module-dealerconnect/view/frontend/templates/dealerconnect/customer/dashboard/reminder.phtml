@@ -1,0 +1,238 @@
+<?php
+$orderFrom = '';
+$claimsData = $ordersData = $block->getClaimsData();
+$upcoming = ($claimsData->getData('claims_upcoming_options')) ? $claimsData->getData('claims_upcoming_options') : 'weekly';
+$all_overdue_claims_options = ($claimsData->getData('all_overdue_claims_options')) ? $claimsData->getData('all_overdue_claims_options') : 'weekly';
+?>
+
+<div data-role="loader" class="claim-refresher" style="display: none;">
+    <div class="loader">
+        <p><?= __('Sending Email') ?></p>
+        <p><?= __('This may take some time') ?></p>
+        <img src="<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+             alt="<?= __('Loading...') ?>">
+        <a data-role="refresh-cancel" class="action cancel" href="javaScript:void(0);"
+          id="cancelInstantemail">
+            <span>Cancel</span>
+        </a>
+    </div>
+</div>
+
+<form class="form" action="#" id="dealer-claims-validate" method="post" name="dealer-claims-validate"
+      autocomplete="off">
+    <div class="primary" style="float: right;">
+        <button id="sendInstantEmail" type="button" class="action submit primary" title="Save">
+            <span>Send Instant Email</span></button>
+    </div>
+    <h2 class="rfqreminderhead">Set Email Reminder</h2>
+    <div class="claimsReminderDiv">
+        <label class="switchEcc">
+            <input type="checkbox"
+                   name="claims_due_today_enable" <?php if ($claimsData->getData('claims_due_today_enable') == "1") : ?> checked <?php endif; ?>>
+            <span class="sliderReminder roundReminder"></span>
+        </label>
+        <label class="claimsTest">Claims Due today</label>
+        <p class="commentsclaims">This will send notification only if there is one or more Claims due today</p>
+    </div>
+
+    <div class="claimsReminderDiv">
+        <label class="switchEcc">
+            <input type="checkbox"
+                   name="claims_due_this_week_enable" <?php if ($claimsData->getData('claims_due_this_week_enable') == "1") : ?> checked <?php endif; ?>>
+            <span class="sliderReminder roundReminder"></span>
+        </label>
+        <label class="claimsTest">Claims Due this week</label>
+        <p class="commentsclaims">This will send notification only if there is one or more Claims due this week</p>
+    </div>
+
+    <h2 class="rfqreminderhead">Set Email Schedule</h2>
+    <section class="rfqEmailSchedule">
+        <div class="claimsReminderDiv oddDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="upcoming_claims_enable"
+                       name="upcoming_claims_enable" <?php if ($claimsData->getData('upcoming_claims_enable') == "1") : ?> checked <?php endif; ?> >
+                <span class="sliderReminder roundReminder"></span>
+            </label>
+            <label class="claimsTest">Upcoming Claims</label>
+            <select name="claims_upcoming_options[]"
+                    id="claims_upcoming_options" <?php if ($claimsData->getData('upcoming_claims_enable') != "1") : ?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($upcoming == "daily"): ?>selected="selected" <?php endif; ?>>Daily
+                </option>
+                <option value="weekly" <?php if ($upcoming == "weekly"): ?>selected="selected" <?php endif; ?>>Weekly
+                </option>
+                <option value="monthly" <?php if ($upcoming == "monthly"): ?>selected="selected" <?php endif; ?>>
+                    Monthly
+                </option>
+            </select>
+        </div>
+        <div class="claimsReminderDiv oddDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="all_overdue_claims_enable"
+                       name="all_overdue_claims_enable" <?php if ($claimsData->getData('all_overdue_claims_enable') == "1") : ?> checked <?php endif; ?>>
+                <span class="sliderReminder roundReminder"></span>
+            </label>
+            <label class="claimsTest">All Overdue Claims</label>
+            <select name="all_overdue_claims_options[]"
+                    id="all_overdue_claims_options" <?php if ($claimsData->getData('all_overdue_claims_enable') != "1") : ?> style="display: none;" <?php endif; ?>>
+                <option value="daily"
+                        <?php if ($all_overdue_claims_options == "daily"): ?>selected="selected" <?php endif; ?>>Daily
+                </option>
+                <option value="weekly"
+                        <?php if ($all_overdue_claims_options == "weekly"): ?>selected="selected" <?php endif; ?>>Weekly
+                </option>
+                <option value="monthly"
+                        <?php if ($all_overdue_claims_options == "monthly"): ?>selected="selected" <?php endif; ?>>
+                    Monthly
+                </option>
+            </select>
+        </div>
+
+    </section>
+
+    <h2 class="rfqreminderhead">Expiry Date</h2>
+    <section class="emailSchedule">
+        <div class="claimsReminderDiv evenDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="reminder_expiry_date_enable"
+                       name="reminder_expiry_date_enable" <?php if ($claimsData->getData('reminder_expiry_date_enable') == "1") : ?> checked <?php endif; ?>>
+                <span class="sliderReminder roundReminder"></span>
+            </label>
+            <label class="claimsTest">Set Reminder Expiry Date</label>
+            <?php if ($claimsData->getData('reminder_expiry_date_enable') != "1") { ?>
+                <style>
+                    #modal-dashboard-data .ui-datepicker-trigger {
+                        display: none;
+                    }
+                </style>
+            <?php } ?>
+            <input <?php if ($claimsData->getData('reminder_expiry_date_enable') != "1") : ?> style="display: none;" <?php endif; ?>
+                    type="text" class="input-text required-entry" id="reminder_expiry_date" name="reminder_expiry_date"
+                    aria-required="true"
+                    value="<?php echo ($claimsData->getData('reminder_expiry_date') == "0000-00-00") ? '' : $claimsData->getData('reminder_expiry_date') ?>">
+        </div>
+        <div class="claimsReminderDiv"
+             id="expiryremainderoption" <?php if ($claimsData->getData('reminder_expiry_date_enable') != "1") : ?> style="display: none;" <?php endif; ?>>
+            <label class="switchEcc">
+                <input type="checkbox"
+                       name="email_reminder_enable" <?php if ($claimsData->getData('email_reminder_enable') == "1") : ?> checked <?php endif; ?>>
+                <span class="sliderReminder roundReminder"></span>
+            </label>
+            <label class="claimsTest">Send Email notitication on expiry</label>
+        </div>
+        <div class="actions-toolbar" style="padding-bottom: 20px;clear: both">
+            <div class="primary">
+                <button id="submitReminderclaimsDashboard" type="button" class="action submit primary"
+                        title="<?php echo __('Save') ?>"><span><?php echo __('Save') ?></span></button>
+            </div>
+        </div>
+
+    </section>
+</form>
+<div id="dealer-scripts">
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function ($) {
+            $("#reminder_expiry_date").calendar({
+                showsTime: false,
+                dateFormat: "yy-M-d",
+                buttonText: "Select Date",
+                changeMonth: true,
+                changeYear: true,
+                showOn: "both"
+            });
+            $('#upcoming_claims_enable').change(function () {
+                if (this.checked) {
+                    $('#claims_upcoming_options').show();
+                } else {
+                    $('#claims_upcoming_options').hide();
+                }
+            });
+            $('#all_overdue_claims_enable').change(function () {
+                if (this.checked) {
+                    $('#all_overdue_claims_options').show();
+                } else {
+                    $('#all_overdue_claims_options').hide();
+                }
+            });
+
+            $('#reminder_expiry_date_enable').change(function () {
+                if (this.checked) {
+                    $('#reminder_expiry_date').show();
+                    $('.ui-datepicker-trigger').show();
+                    $('#expiryremainderoption').show();
+                } else {
+                    $('#reminder_expiry_date').hide();
+                    $('.ui-datepicker-trigger').hide();
+                    $('#expiryremainderoption').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        require([
+            'jquery',
+            'mage/url',
+            'mage/mage'
+        ], function ($, url) {
+            var dataForm = $('#dealer-claims-validate');
+            var checkValidation = dataForm.mage('validation', {});
+            $('#submitReminderclaimsDashboard').on('click', function () {
+                if ($('#dealer-claims-validate').valid()) {
+                    var $form = $("#dealer-claims-validate");
+                    var dataVals = $form.serializeArray();
+                    $.ajax({
+                        showLoader: true,
+                        data: dataVals,
+                        global: false,
+                        url: "<?php echo $block->getDashboardSaveUrl(); ?>",
+                        type: "POST",
+                    }).done(function (data) {
+                        $(".action-close").click(); // Close pop modal
+                        location.reload(true);
+                    });
+                }
+            });
+            $('#sendInstantEmail').on('click', function () {
+                if ($('#dealer-claims-validate').valid()) {
+                    $(".claim-refresher").show();
+                    var $form = $("#dealer-claims-validate");
+                    var dataVals = $form.serializeArray();
+                    var ajaxcall = $.ajax({
+                        showLoader: false,
+                        data: dataVals,
+                        global: false,
+                        url: url.build('dealerconnect/dashboard/instantemaildata'),
+                        type: "POST",
+                    }).done(function (data) {
+                        if (data.success) {
+                            var dataVals = data;
+                            $.ajax({
+                                showLoader: false,
+                                data: dataVals,
+                                global: false,
+                                url: url.build('dealerconnect/dashboard/sendinstantemail'),
+                                type: "POST",
+                            }).done(function (responsedata) {
+                                alert(responsedata);
+                                $(".claim-refresher").hide();
+                            });
+
+                        } else {
+                            alert(data.error);
+                            $(".claim-refresher").hide();
+                        }
+                    });
+                    $('.claimsReminderDiv').data('ajaxcall',ajaxcall);
+                }
+            });
+            $('#cancelInstantemail').on('click', function () {
+                var ajaxcall = $('.claimsReminderDiv').data('ajaxcall');
+                ajaxcall.abort();
+                $(".claim-refresher").hide();
+            });
+
+        });
+    </script>
+</div>

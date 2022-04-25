@@ -1,0 +1,11 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><script  type="text/javascript">
+    document.observe('dom:loaded', function () {
+        ewaProduct.live = <?php echo $this->getScopeConfig()->isSetFlag('Epicor_Comm/ewa_options/debug', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? 'false' : 'true'; ?>;
+        ewaProduct.badUrlTimeout = <?php echo $this->getScopeConfig()->getValue('Epicor_Comm/ewa_options/badurltimeout', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 25000; ?>;
+        ewaProduct.ewaLoadTimeout = <?php echo $this->getScopeConfig()->getValue('Epicor_Comm/ewa_options/ewaloadtimeout', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 60000; ?>;
+    });
+</script>

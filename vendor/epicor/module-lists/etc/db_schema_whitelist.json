@@ -1,0 +1,16 @@
+{
+    "ecc_list_mass_action": {
+        "column": {
+            "id": true,
+            "filename": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true,
+            "file_name": true,
+            "messages": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

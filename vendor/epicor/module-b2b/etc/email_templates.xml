@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="epicor_b2b_registration_pre_reg_admin_email_template" module="Epicor_B2b" label="Pre Registration Password" file="b2b/pre_registration_password.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_no_acct_admin_email_template" module="Epicor_B2b" label="Account Creation Request" file="b2b/new_account_request.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_guest_acct_admin_email_template" module="Epicor_B2b" label="Guest Account Creation" file="b2b/guest_account_registration.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_erp_acct_admin_email_template" module="Epicor_B2b" label="ERP Account Creation" file="b2b/erp_account_registration.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_pre_reg_welcome_email_template" module="Epicor_B2b" label="Pre Registration Password Welcome Email" file="b2b/pre_registration_welcome.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_guest_acct_welcome_email_template" module="Epicor_B2b" label="Guest Account Creation Welcome Email" file="b2b/guest_acct_welcome.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_guest_to_b2b_welcome_email_template" module="Epicor_B2b" label="Guest To B2B Conversion Welcome Email" file="b2b/guest_to_b2b_welcome.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_erp_acct_welcome_email_template" module="Epicor_B2b" label="ERP Account Creation Welcome Email" file="b2b/erp_account_welcome.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_b2c_guest_acct_admin_email_template" module="Epicor_B2b" label="B2C Guest Account Creation" file="b2c/guest_account_registration.html" type="html" area="frontend"/>
+  <template id="epicor_b2b_registration_b2c_erp_acct_admin_email_template" module="Epicor_B2b" label="B2C ERP Account Creation" file="b2c/erp_account_registration.html" type="html" area="frontend"/>
+</config>

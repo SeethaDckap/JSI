@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+         <css src="Epicor_Common::epicor/common/css/syslog.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Common\Block\Adminhtml\Advanced\Errors\View" name="erp_header" after="group"/>
+            <block template="Epicor_Common::epicor_common/advanced/errors/view/details.phtml" class="Epicor\Common\Block\Adminhtml\Advanced\Errors\View" name="common.advanced.errors.view"/>
+        </referenceContainer>
+    </body>
+</page>

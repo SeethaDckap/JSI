@@ -1,0 +1,176 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/**
+ * @category   Epicor
+ * @package    Epicor_Lists
+ * @author     Epicor Websales Team
+ */
+
+
+#selectContractProductWrapperWindow{
+    position:fixed;
+    width:1050px;
+    height:90%;
+    left:50%;
+    top:50%;
+    margin:-250px 0 0 -524px;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #999;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    
+}
+
+#productsGrid_table td {
+    font-size: 12px;
+}
+
+#selectContractProductWrapperWindow > div {
+    padding:5px;
+}
+
+#selectContractProductWrapperWindow > div.content-header {
+    border:none;
+    background:#6f8992;
+    color:#fff;
+}
+
+#selectContractProductWrapperWindow > div.content-header h3 {
+    color:#fff;
+    padding:0;
+}
+
+
+#selectContractLocationWrapperWindow{
+    position:fixed;
+    width:750px;
+    height:90%;
+    left:50%;
+    top:50%;
+    margin:-250px 0 0 -325px;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #999;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    font-size: 12px;
+}
+
+#selectContractLocationWrapperWindow > div {
+    padding:5px;
+}
+
+#selectContractLocationWrapperWindow > div.content-header {
+    border:none;
+    background:#6f8992;
+    color:#fff;
+}
+
+#selectContractLocationWrapperWindow > div.content-header h3 {
+    color:#fff;
+    padding:0;
+}
+
+.loader {
+    font-size: 12px;
+}
+
+#settings_fields label,#erp_accounts_exclusion label {
+    float:none ;
+}
+
+body.epicor-lists-list-selector {
+    padding:1em;
+    overflow-y: scroll;
+}
+
+body.epicor-lists-list-selector ul.messages {
+    display:none;
+}
+
+
+
+#selectchooseaddressWrapperWindow > div {
+    padding:5px;
+}
+
+#selectchooseaddressWrapperWindow > div.content-header {
+    border:none;
+    background:#6f8992;
+    color:#fff;
+}
+
+#selectchooseaddressWrapperWindow > div.content-header h3 {
+    color:#fff;
+    padding:0;
+}
+
+#chooseaddressactions {
+    margin: 10px 0 0;
+}
+
+.chooseaddressmaincontainer {
+    width: 100%;
+}
+
+
+#cart-sidebar-chooseaddress > li {
+    clear: both;
+}
+
+#cart-sidebar-chooseaddress .product-image {
+    border: 0 none;
+    float: left;
+    min-width: 50px;
+    padding-right: 14px;
+    padding-top: 12px;
+}
+
+
+#cart-sidebar-chooseaddress li.odd {
+    background-color: transparent;
+    background-image: none;
+}
+
+#cart-sidebar-chooseaddress .product-details {
+    margin-left: 0px;
+    padding-bottom: 10px;
+    float:left;
+}
+
+
+#cart-sidebar-chooseaddress  .product-details .product-name {
+    padding-top: 10px;
+    text-align: left;
+}
+#cart-sidebar-chooseaddress  .product-details .product-cart-sku {
+    padding-top: 10px;
+    text-align: left;
+}
+
+#chooseaddressactions .block-subtitle {
+    font-weight: bold;
+    margin-bottom: 7px;
+    text-align: left;
+}
+
+
+
+#cart-sidebar-chooseaddress .product-image{border:0 none;float:left;min-width:50px;padding-right:14px;padding-top:12px;}
+#chooseaddressactions .buttons-container{float:right}
+#chooseaddressactions .buttons-container button{margin-right:10px};
+.mini-products-list {}
+.mini-products-list li{list-style:none;clear:both}
+#chooseaddressactions .block-subtitle.error{font-weight:bold;margin-bottom:7px;text-align:left;color:#df280a;}
+#chooseaddressactions .block-subtitle{font-weight:bold;margin-bottom:7px;text-align:left;color:#636363}
+#cart-sidebar-chooseaddress .product-details{margin-left: 0px;padding-bottom: 10px;float: left;text-align: left;}
+#cart-sidebar-chooseaddress .product-details .product-name{padding-top: 10px;text-align: left;}
+#cart-sidebar-chooseaddress .product-details .product-cart-sku{padding-top: 10px;}
+#cart-sidebar-chooseaddress h2.product-name{margin: 0;margin-bottom: 0.5em;color: #636363;font-style: normal;text-transform: uppercase;
+font-size: 13px;font-family: "Helvetica Neue", Verdana, Arial, sans-serif;font-weight: normal;line-height: 1.4;}
+
+
+

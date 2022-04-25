@@ -1,0 +1,251 @@
+<?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/** @var Mage_Checkout_Block_Onepage_Billing $this */
+?>
+<div id="capture_details_wrapper" style="display:none">
+    <p id="capturedetails-msg"></p>
+    <div id="capture_customer_info" style="display:none">
+        <form id="capturedetails-form">
+            <input type="hidden" id="form_key" value="<?php echo $block->getFormKey() ?>" /> 
+            <input type="hidden" id="action_type" name="action_type"/> 
+            <fieldset class="fieldset"">
+                <?php echo $this->getChildHtml('capture.billing.details')?>
+                <div class="col-1">
+                    <ul class="form-list">
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:name" class="required"><?php echo __('Name') ?></label>
+                                <div class="input-box">
+                                    <input type="text" id="capturedetails:name" name="capturedetails[name]" value="" title="<?php echo __('Name') ?>" class="input-text required-entry " data-validate="{'min-words':2}" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:company"><?php echo __('Company') ?></label>
+                                <div class="input-box">
+                                    <input type="text" id="capturedetails:company" name="capturedetails[company]" value="" title="<?php echo __('Company') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('company') ?>" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:email" class="required"><?php echo __('Email Address') ?></label>
+                                <div class="input-box">
+                                    <input type="email" name="capturedetails[email]" id="capturedetails:email" title="<?php echo __('Email Address') ?>" class="input-text validate-email required-entry"/>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields wide">
+                            <div class="field">
+                                <label for="capturedetails:street" class="required"><?php echo __('Address') ?></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo __('Street Address') ?>" name="capturedetails[street][0]" id="capturedetails:street1" value="" class="input-text required" />
+                                </div>
+                            </div>
+                        </li>
+                    <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                        <li class="wide">
+                            <div class="input-box">
+                                <input type="text" title="<?php echo __('Street Address %s', $_i) ?>" name="capturedetails[street][]" id="capturedetails:street<?php echo $_i ?>" value="" class="input-text " />
+                            </div>
+                        </li>
+                    <?php endfor; ?>                      
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:city" class="required"><?php echo __('City') ?></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo __('City') ?>" name="capturedetails[city]" value="" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="capturedetails:city" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields" id="region_details">
+                            <div class="field">
+                                <div class="input-box" >
+                                    <label for="capturedetails:region_id" class="required"><?php echo __('Region') ?></label>
+                                    <select id="region_id" name="capturedetails[region_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                                        <option value=""><?php echo __('Please select region, state or province') ?></option>
+                                    </select>
+<!--                                    <input type="text" id="region" name="region" value="--><?php //echo $block->escapeHtml($block->getRegion()) ?><!--"  title="--><?php //echo __('State/Province') ?><!--" class="input-text" />-->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <ul class="form-list">
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:postcode" class="required"><?php echo __('Zip/Postal Code') ?></label>
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo __('Zip/Postal Code') ?>" name="capturedetails[postcode]" id="zip" value="" class="input-text validate-zip-international <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields">
+                            <div class="field country_selector">
+                                <label for="capturedetails:country_id" class="required"><?php echo __('Country') ?></label>
+                                <div class="input-box" class="country_details">
+                                    <?php echo $block->getCountryHtmlSelect(null, 'capturedetails[country]', 'country') ?>
+                               
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields">
+                            <div class="field">                               
+                                <label for="capturedetails:telephone" class="required"><?php echo __('Telephone') ?></label>
+                                <div class="input-box">
+                                    <input type="number" name="capturedetails[telephone]" value="" title="<?php echo __('Telephone') ?>" class="input-text no-spinners" id="capturedetails:telephone" />
+                                </div>
+                            </div>
+                        </li>   
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:mobile_number"><?php echo __('Mobile Phone') ?></label>
+                                <div class="input-box ">
+                                    <input type="number" name="capturedetails[mobile_number]" value="" title="<?php echo __('mobile_number') ?>" class="input-text" id="capturedetails:mobile_number" />
+                                </div>
+                            </div>
+                        </li> 
+                        <li class="fields">
+                            <div class="field">
+                                <label for="capturedetails:fax"><?php echo __('Fax') ?></label>
+                                <div class="input-box">
+                                    <input type="number" name="capturedetails[fax]" value="" title="<?php echo __('Fax') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('fax') ?>" id="capturedetails:fax" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="control register_checkbox">
+                            <div class="input-box">
+                                <input type="checkbox" id="capturedetails:register" name="capturedetails[register]" title="<?php echo __('Register Details') ?>" checked  class="checkbox" />
+                            </div>
+                            <label for="capturedetails[register]"><?php echo __('Register Details') ?></label>
+                        </li>
+                        <li class="fields" id="capture-register-customer-password">
+                            <div class="field">
+                                <label for="capturedetails:customer_password" class="required"><?php echo __('Password') ?></label>
+                                <div class="input-box">
+                                    <input type="password" name="capturedetails[customer_password]" id="capturedetails_customer_password" title="<?php echo __('Password') ?>" class="input-text required-entry validate-password" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="capturedetails:confirm_password" class="required"><?php echo __('Confirm Password') ?></label>
+                                <div class="input-box">
+                                               </div><input type="password" name="capturedetails[confirm_password]" title="<?php echo __('Confirm Password') ?>" id="capturedetails_confirm_password" class="input-text required-entry" data-validate="{required:true, equalTo:'#modal-content-1 #capturedetails-form #capturedetails_customer_password'}"/>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="buttons-set" id="capturedetails-buttons-container">
+                    <p id="no-thanks-container">
+                        <button type="button" class="confirm_button_no"><span><span><?php echo __('No Thanks') ?></span></span></button>
+                        <button type="button" id="captureDetailsSubmit" title="<?php echo __('Submit') ?>" class="button" onclick="captureDetails(true)"><span><span><?php echo __('Submit Details') ?></span></span></button>
+                    </p>
+                    <p class="required"><?php echo __('* Required Fields') ?></p>
+                </div>
+            </fieldset> 
+            <?php echo $this->getBlockHtml('formkey') ?>
+        </form>
+    </div>
+    
+    <div id="capture-customer-info-thank-you" style="display:none;">
+        <div class="buttons-set">
+            <button class="button confirm_button_no" ><span><span><?php echo __('Close'); ?></span></span></button>
+        </div>
+    </div>
+
+    <div id="confirm_html" style="display:none">
+        <div class="buttons-set">
+            <button class="button confirm_button_no"><span><span><?php echo __('No'); ?></span></span></button>
+            <button class="button" id="confirm_button_yes" onclick="javascript:captureDetails(false)"><span><span><?php echo __('Yes'); ?></span></span></button>
+        </div>
+    </div>
+    <input type="hidden" id="ecc_cd_cart_url" name="ecc_cd_cart_url" value="<?php echo $this->helper('\Magento\Checkout\Helper\Cart')->getCartUrl(); ?>"/>
+    <input type="hidden" id="ecc_cd_check_url" name="ecc_cd_check_url" value="<?php echo $this->getUrl('epicor/sales_order/nonErpProductCheck'); ?>"/>
+    <input type="hidden" id="ecc_cd_capture_url" name="ecc_cd_capture_url" value="<?php echo $this->getUrl('epicor/sales_order/captureDetails'); ?>"/>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#capturedetails-form": {
+            "validation": {}
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": ".modal-inner-wrap #region_id",
+                "regionInputId": ".modal-inner-wrap #region",
+                "postcodeId": ".modal-inner-wrap #zip",
+                "form": ".modal-inner-wrap #capturedetails-form",
+                "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?php /* @escapeNotVerified */ $block->getAddress()? $block->getAddress()->getRegionId() : null ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<style type="text/css">
+    .fieldset div.field label.required:after{
+        content:'*';
+        color:#e02b27;
+        font-size:1.2rem;
+        margin:0 0 0 5px
+    }
+    ul.form-list li{list-style: none;}
+</style>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'Magento_Ui/js/modal/alert',
+        'mage/validation',
+        'Magento_Ui/js/lib/knockout/template/loader',
+        'prototype',
+    ], function ($j) {
+            $j(document).on("click", '#modal-content-1 .register_checkbox input', function () {
+
+            if ($j(this).is(':checked')) {
+            //  $j(this).val(1);
+            $j('#modal-content-1  #capture-register-customer-password').show();
+            $j('#modal-content-1 #capturedetails_customer_password').toggleClass('required-entry');
+            $j('#modal-content-1 #capturedetails_customer_password').toggleClass('required-entry');
+            } else {
+            //    $j(this).val(0);
+            $j('#modal-content-1 #capture-register-customer-password').hide();
+            $j('#modal-content-1 #capturedetails_customer_password').toggleClass('required-entry');
+            $j('#modal-content-1 #capturedetails_confirm_password').toggleClass('required-entry');
+        }
+        });
+    })
+</script>
+
+<script>
+    if(!window.checkout){
+        window.checkout = {};
+    }
+    window.checkout.eccNonErpProductsActive = <?php echo $this->helper('Epicor\Common\Helper\Data')->eccNonErpProductsActive() ?>;
+</script>

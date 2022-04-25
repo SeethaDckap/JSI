@@ -1,0 +1,119 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Contact\Block\ContactForm $block */
+?>
+<?php
+    $states = '[{"name":"Alabama","abbreviation":"AL"},{"name":"Alaska","abbreviation":"AK"},{"name":"American Samoa","abbreviation":"AS"},{"name":"Arizona","abbreviation":"AZ"},{"name":"Arkansas","abbreviation":"AR"},{"name":"California","abbreviation":"CA"},{"name":"Colorado","abbreviation":"CO"},{"name":"Connecticut","abbreviation":"CT"},{"name":"Delaware","abbreviation":"DE"},{"name":"District Of Columbia","abbreviation":"DC"},{"name":"Federated States Of Micronesia","abbreviation":"FM"},{"name":"Florida","abbreviation":"FL"},{"name":"Georgia","abbreviation":"GA"},{"name":"Guam","abbreviation":"GU"},{"name":"Hawaii","abbreviation":"HI"},{"name":"Idaho","abbreviation":"ID"},{"name":"Illinois","abbreviation":"IL"},{"name":"Indiana","abbreviation":"IN"},{"name":"Iowa","abbreviation":"IA"},{"name":"Kansas","abbreviation":"KS"},{"name":"Kentucky","abbreviation":"KY"},{"name":"Louisiana","abbreviation":"LA"},{"name":"Maine","abbreviation":"ME"},{"name":"Marshall Islands","abbreviation":"MH"},{"name":"Maryland","abbreviation":"MD"},{"name":"Massachusetts","abbreviation":"MA"},{"name":"Michigan","abbreviation":"MI"},{"name":"Minnesota","abbreviation":"MN"},{"name":"Mississippi","abbreviation":"MS"},{"name":"Missouri","abbreviation":"MO"},{"name":"Montana","abbreviation":"MT"},{"name":"Nebraska","abbreviation":"NE"},{"name":"Nevada","abbreviation":"NV"},{"name":"New Hampshire","abbreviation":"NH"},{"name":"New Jersey","abbreviation":"NJ"},{"name":"New Mexico","abbreviation":"NM"},{"name":"New York","abbreviation":"NY"},{"name":"North Carolina","abbreviation":"NC"},{"name":"North Dakota","abbreviation":"ND"},{"name":"Northern Mariana Islands","abbreviation":"MP"},{"name":"Ohio","abbreviation":"OH"},{"name":"Oklahoma","abbreviation":"OK"},{"name":"Oregon","abbreviation":"OR"},{"name":"Palau","abbreviation":"PW"},{"name":"Pennsylvania","abbreviation":"PA"},{"name":"Puerto Rico","abbreviation":"PR"},{"name":"Rhode Island","abbreviation":"RI"},{"name":"South Carolina","abbreviation":"SC"},{"name":"South Dakota","abbreviation":"SD"},{"name":"Tennessee","abbreviation":"TN"},{"name":"Texas","abbreviation":"TX"},{"name":"Utah","abbreviation":"UT"},{"name":"Vermont","abbreviation":"VT"},{"name":"Virgin Islands","abbreviation":"VI"},{"name":"Virginia","abbreviation":"VA"},{"name":"Washington","abbreviation":"WA"},{"name":"West Virginia","abbreviation":"WV"},{"name":"Wisconsin","abbreviation":"WI"},{"name":"Wyoming","abbreviation":"WY"}]';
+    $states_decode = json_decode($states,true);
+    // var_dump($states_decode);
+    // die();
+
+?>
+<div class="contactus_stores">
+<?php echo $this->getLayout()->createBlock('Magento\Framework\View\Element\Template')->setTemplate('Magento_Theme::store_locations.phtml')->toHtml(); ?>
+</div>
+<div class="contactus_form form_container">
+    <div class="form_msg text-center">
+        <span><?= $block->escapeHtml(__('Please send us your questions and comments by filling out the below form:')) ?></span>
+    </div>
+    <form class="form contact"
+        action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+        id="contact-form"
+        method="post"
+        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+        data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <div class="field-row">
+                <div class="field f_name required">
+                    <label class="label" for="f_name"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
+                    <div class="control">
+                        <input name="f_name" id="f_name" title="<?= $block->escapeHtmlAttr(__('First Name')) ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field l_name required">
+                    <label class="label" for="l_name"><span><?= $block->escapeHtml(__('Last Name')) ?></span></label>
+                    <div class="control">
+                        <input name="l_name" id="l_name" title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field city required">
+                    <label class="label" for="city"><span><?= $block->escapeHtml(__('City')) ?></span></label>
+                    <div class="control">
+                        <input name="city" id="city" title="<?= $block->escapeHtmlAttr(__('City')) ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field state required">
+                    <label class="label" for="state"><span><?= $block->escapeHtml(__('State')) ?></span></label>
+                    <div class="control">
+                    <select name="state" id="state" title="<?= $block->escapeHtmlAttr(__('State')) ?>" value="" class="input-select"  >
+                    <option value="">Select</option>
+                    <?php foreach($states_decode as $state):?>
+                        <option value=""><?php echo $state['name']?></option>
+                    <?php endforeach?>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field zip_code required">
+                    <label class="label" for="zip_code"><span><?= $block->escapeHtml(__('ZIP CODE')) ?></span></label>
+                    <div class="control">
+                        <input name="zip_code" id="zip_code" title="<?= $block->escapeHtmlAttr(__('ZIP CODE')) ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?= $block->escapeHtml(__('EMAIL ADDRESS')) ?></span></label>
+                    <div class="control">
+                        <input name="email" id="email" title="<?= $block->escapeHtmlAttr(__('EMAIL ADDRESS')) ?>" value="" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field telephone">
+                    <label class="label" for="telephone"><span><?= $block->escapeHtml(__('PHONE')) ?></span></label>
+                    <div class="control">
+                        <input name="telephone" id="telephone" title="<?= $block->escapeHtmlAttr(__('PHONE')) ?>" value="" class="input-text" type="text" />
+                    </div>
+                </div>
+                <div class="field how_did_you_hear_us required">
+                    <label class="label" for="how_did_you_hear_us"><span><?= $block->escapeHtml(__('HOW DID YOU HEAR ABOUT JSI CABINETRY?')) ?></span></label>
+                    <div class="control">
+                        <select name="how_did_you_hear_us" id="how_did_you_hear_us" title="<?= $block->escapeHtmlAttr(__('HOW DID YOU HEAR ABOUT JSI CABINETRY?')) ?>" value="" class="input-select"  >
+                            <option value="">Select</option>
+                            <option value="Advertisement">Advertisement</option>
+                            <option value="Kitchen and Bath Dealer">Kitchen and Bath Dealer</option>
+                            <option value="Purchased JSI Cabinetry">Purchased JSI Cabinetry</option>
+                            <option value="Social Media (Facebook, Twitter, Instagram, Pinterest)">Social Media (Facebook, Twitter, Instagram, Pinterest)</option>
+                            <option value="Web Search">Web Search</option>
+                            <option value="Word-of-Mouth/Colleague">Word-of-Mouth/Colleague</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field comment required">
+                    <label class="label" for="comment"><span><?= $block->escapeHtml(__('COMMENTS / QUESTIONS')) ?></span></label>
+                    <div class="control">
+                        <textarea name="comment" id="comment" title="<?= $block->escapeHtmlAttr(__('COMMENTS / QUESTIONS')) ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"><?= $block->escapeHtml($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('comment')) ?></textarea>
+                    </div>
+                </div>
+            </div>
+            <?= $block->getChildHtml('form.additional.info') ?>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <input type="hidden" name="hideit" id="hideit" value="" />
+                <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                    <span><?= $block->escapeHtml(__('SEND MESSAGE')) ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,117 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Common_Block_Customer_Erpaccount_Address */
+
+echo $this->getForm()->getHtml();
+?><script type="text/javascript">
+//<![CDATA[
+    require([
+        'jquery',
+        "Epicor_Comm/js/epicor/comm/checklength",
+        'prototype',
+        "mage/adminhtml/form",
+        "mage/validation"
+    ], function (jquery, checkLengthLimits) {
+        var street_lines = <?php echo $this->getCustomerAddressHelper()->getStreetLines() ?>;
+        function blankAddress(type) {
+            $(type + '_name').value = '';
+            $(type + '_address1').value = '';
+            j = 0;
+            for (j = 2; j <= street_lines; j++) {
+                if((typeof($(type + '_address'+ j) !='undefined') && $(type + '_address' + j) != null)){
+                    $(type + '_address' + j).value = '';
+                }
+            }
+            $(type + '_city').value = '';
+            $(type + '_county_id').show();
+            $(type + '_county_id').value = '';
+            $(type + '_county').hide();
+            $(type + '_county').value = '';
+            $(type + '_postcode').value = '';
+            $(type + '_email').value = '';
+            $(type + '_country').value = '';
+            $(type + '_phone').value = '';
+            $(type + '_fax_number').value = '';
+        }
+
+        function sameAddressAs(from, to) {
+            $(to + '_name').value = $(from + '_name').value;
+            $(to + '_address1').value = $(from + '_address1').value;
+            i= 0;
+            for (i = 2; i <= street_lines; i++) {
+                if((typeof($(to + '_address'+ i) !='undefined') && $(to + '_address' + i) != null)) {
+                    $(to + '_address' + i).value = $(from + '_address' + i).value;
+                }
+            }
+            $(to + '_city').value = $(from + '_city').value;
+            if ($(from + '_county_id').visible()) {
+                $(to + '_county_id').show();
+            } else {
+                $(to + '_county_id').hide();
+            }
+            $(to + '_county_id').value = $(from + '_county_id').value;
+            if ($(from + '_county').visible()) {
+                $(to + '_county').show();
+            } else {
+                $(to + '_county').hide();
+            }
+
+            $(to + '_county').value = $(from + '_county').value;
+            $(to + '_postcode').value = $(from + '_postcode').value;
+            $(to + '_country').value = $(from + '_country').value;
+            $(to + '_email').value = $(from + '_email').value;
+            $(to + '_phone').value = $(from + '_phone').value;
+            $(to + '_fax_number').value = $(from + '_fax_number').value;
+        }
+
+    document.observe('dom:loaded', function() {
+        
+        <?php
+            $registeredAddress = ($this->getScopeConfig()->getValue('epicor_b2b/registration/registered_address')) ? $this->getScopeConfig()->getValue('epicor_b2b/registration/registered_address') : '';
+            $invoiceAddress = ($this->getScopeConfig()->getValue('epicor_b2b/registration/invoice_address')) ? $this->getScopeConfig()->getValue('epicor_b2b/registration/invoice_address') : '';
+            $deliveryAddress = ($this->getScopeConfig()->getValue('epicor_b2b/registration/delivery_address')) ? $this->getScopeConfig()->getValue('epicor_b2b/registration/delivery_address') : '';
+        ?>
+        <?php if ($registeredAddress): ?> new RegionUpdater('registered_country', 'registered_county', 'registered_county_id', <?php echo $this->getDirectoryHelper()->getRegionJson() ?>, undefined, 'registered_postcode');<?php endif; ?>
+        <?php if ($invoiceAddress): ?> new RegionUpdater('invoice_country', 'invoice_county', 'invoice_county_id', <?php echo $this->getDirectoryHelper()->getRegionJson() ?>, undefined, 'invoice_postcode');<?php endif; ?>
+        <?php if ($deliveryAddress): ?> new RegionUpdater('delivery_country', 'delivery_county', 'delivery_county_id', <?php echo $this->getDirectoryHelper()->getRegionJson() ?>, undefined, 'delivery_postcode');<?php endif; ?>
+    
+        $$('.same_as').invoke('observe', 'click', function() {
+            split = this.readAttribute('id').split('_');
+            var from = split[0];
+            var to = split[1];
+            if (this.checked) {
+                sameAddressAs(from, to);
+            } else {
+                blankAddress(to);
+            }
+            <?php if ($invoiceAddress): ?> new RegionUpdater('invoice_country', 'invoice_county', 'invoice_county_id', <?php echo $this->getDirectoryHelper()->getRegionJson() ?>, undefined, 'invoice_postcode');<?php endif; ?>
+            <?php if ($deliveryAddress): ?> new RegionUpdater('delivery_country', 'delivery_county', 'delivery_county_id', <?php echo $this->getDirectoryHelper()->getRegionJson() ?>, undefined, 'delivery_postcode');<?php endif; ?>
+        });
+        
+        /*
+            $$('.same_as').invoke('observe', 'click', function() {
+                split = this.readAttribute('id').split('_');
+                var from = split[0];
+                var to = split[1];
+                if (this.checked) {
+                    sameAddressAs(from, to);
+                } else {
+                    blankAddress(to);
+                }
+            }); 
+        */
+        
+        <?php if ($this->getScopeConfig()->isSetFlag('customer/address/limits_enabled', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) { ?>
+        var limitcheck = new checkLengthLimits( <?php echo $this->getScopeConfig()->getValue('customer/address/limit_name_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('customer/address/limit_name_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234 ?>
+            ,<?php echo $this->getScopeConfig()->getValue('customer/address/limit_address_line_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('customer/address/limit_address_line_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234 ?>
+            ,<?php echo $this->getScopeConfig()->getValue('customer/address/limit_telephone_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('customer/address/limit_telephone_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234 ?>
+            ,<?php echo $this->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234 ?>
+            ,<?php echo $this->getScopeConfig()->getValue('customer/address/limit_postcode_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('customer/address/limit_postcode_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234 ?>);
+        <?php } ?>
+    });
+});
+//]]>
+</script>

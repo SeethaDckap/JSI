@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Adminhtml_Sales_Returns_View_Tab_Details */
+?>
+<?php
+$return = $this->getReturn();
+/* @var $return Epicor_Comm_Model_Customer_ReturnModel */
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4><?php echo __('Return Information') ?></h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list  admin__table-secondary ">
+            <tr>
+                <td class="label"><label><?php echo __('Web Return Number:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getWebReturnsNumber() ? : $return->getId();  ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('ERP Return Number:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getErpReturnsNumber() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Created Date:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getRmaDate() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Status:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getStatusDisplay() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('RMA Case Number:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getRmaCaseNumber() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4><?php echo __('Customer Information') ?></h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list  admin__table-secondary ">
+            <tr>
+                <td class="label"><label><?php echo __('Customer Reference:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getCustomerReference() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Customer Name:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getCustomerName() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Customer Email:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getEmailAddress() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('ERP Account:') ?></label></td>
+                <td class="value"><strong><?php echo $return->getErpAccount()->getName() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<div class="grid_display">
+    <?php echo $this->getLinesHtml(); ?>
+    <?php echo $this->getAttachmentsHtml(); ?>
+</div>    
+<style>
+    .erp_infomation td {
+        padding:5px 15px 5px 5px;
+    }
+    .erp_infomation td.label {
+        width: 200px;
+    }
+    .grid_display{clear:both;}
+</style>

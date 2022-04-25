@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <supplierconnect_enabled_messages>
+            <SPLS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:8:{s:18:"_1380792275502_502";a:9:{s:6:"header";s:11:"Part Number";s:4:"type";s:4:"text";s:5:"index";s:12:"product_code";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792285534_534";a:9:{s:6:"header";s:15:"Cross Reference";s:4:"type";s:4:"text";s:5:"index";s:15:"cross_reference";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792286124_124";a:9:{s:6:"header";s:20:"Cross Reference Type";s:4:"type";s:4:"text";s:5:"index";s:20:"cross_reference_type";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792286613_613";a:9:{s:6:"header";s:14:"Operation Code";s:4:"type";s:4:"text";s:5:"index";s:16:"operational_code";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792287157_157";a:9:{s:6:"header";s:14:"Effective Date";s:4:"type";s:4:"date";s:5:"index";s:14:"effective_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792287716_716";a:9:{s:6:"header";s:15:"Expiration Date";s:4:"type";s:4:"date";s:5:"index";s:15:"expiration_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792288220_220";a:9:{s:6:"header";s:15:"Base Unit Price";s:4:"type";s:4:"text";s:5:"index";s:5:"price";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:51:"Epicor_Supplierconnect_Block_List_Renderer_Currency";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380792288837_837";a:9:{s:6:"header";s:3:"UOM";s:4:"type";s:4:"text";s:5:"index";s:20:"unit_of_measure_code";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</grid_config>
+            </SPLS_request>
+            <SPLD_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <grid_informationconfig>a:12:{s:18:"_1553267343839_839";a:2:{s:6:"header";s:14:"Effective Date";s:5:"index";s:14:"effective_date";}s:18:"_1553267358208_208";a:2:{s:6:"header";s:7:"Expires";s:5:"index";s:12:"expires_Date";}s:18:"_1553267364598_598";a:2:{s:6:"header";s:9:"Lead Days";s:5:"index";s:9:"lead_days";}s:18:"_1553267371726_726";a:2:{s:6:"header";s:16:"Quantity On Hand";s:5:"index";s:16:"quantity_on_hand";}s:18:"_1553267379424_424";a:2:{s:6:"header";s:9:"Reference";s:5:"index";s:9:"reference";}s:18:"_1553267393241_241";a:2:{s:6:"header";s:8:"Comments";s:5:"index";s:14:"price_comments";}s:18:"_1553267403783_783";a:2:{s:6:"header";s:8:"Currency";s:5:"index";s:13:"currency_code";}s:18:"_1553267415567_567";a:2:{s:6:"header";s:13:"Minimum Price";s:5:"index";s:13:"minimum_price";}s:18:"_1553267425983_983";a:2:{s:6:"header";s:15:"Base Unit Price";s:5:"index";s:15:"base_unit_price";}s:18:"_1553267433231_231";a:2:{s:6:"header";s:9:"Price Per";s:5:"index";s:9:"price_per";}s:18:"_1553267437725_725";a:2:{s:6:"header";s:10:"Discount %";s:5:"index";s:16:"discount_percent";}s:18:"_1553267449955_955";a:2:{s:6:"header";s:14:"Price Modifier";s:5:"index";s:20:"price_break_modifier";}}</grid_informationconfig>
+            </SPLD_request>
+            <SPOS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:8:{s:18:"_1380793814806_806";a:10:{s:6:"header";s:9:"PO Number";s:4:"type";s:5:"range";s:7:"options";s:0:"";s:5:"index";s:21:"purchase_order_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793893373_373";a:10:{s:6:"header";s:10:"Order Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:10:"order_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793893954_954";a:10:{s:6:"header";s:6:"Status";s:4:"type";s:7:"options";s:7:"options";s:48:"supplierconnect/config_source_orderstatusoptions";s:5:"index";s:12:"order_status";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:73:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_Erporderstatus";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793894801_801";a:10:{s:6:"header";s:12:"Ship-To Name";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"delivery_address_name";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793895433_433";a:10:{s:6:"header";s:15:"Ship-To Address";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:23:"delivery_address_street";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793895954_954";a:10:{s:6:"header";s:12:"Ship-To City";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"delivery_address_city";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380793896473_473";a:10:{s:6:"header";s:13:"Ship-To State";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:23:"delivery_address_county";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:64:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_State";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380793897018_18";a:10:{s:6:"header";s:9:"Confirmed";s:4:"type";s:7:"options";s:7:"options";s:50:"supplierconnect/config_source_confirmstatusoptions";s:5:"index";s:15:"order_confirmed";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"text";s:8:"renderer";s:68:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_Confirmed";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</grid_config>
+                <newpogrid_config>a:9:{s:18:"_1380794775648_648";a:9:{s:6:"header";s:7:"Confirm";s:4:"type";s:4:"text";s:5:"index";s:14:"new_po_confirm";s:9:"filter_by";s:4:"none";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:68:"Epicor_Supplierconnect_Block_Customer_Orders_Create_Renderer_Confirm";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794798405_405";a:9:{s:6:"header";s:6:"Reject";s:4:"type";s:4:"text";s:5:"index";s:13:"new_po_reject";s:9:"filter_by";s:4:"none";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:67:"Epicor_Supplierconnect_Block_Customer_Orders_Create_Renderer_Reject";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794798930_930";a:9:{s:6:"header";s:13:"Our PO Number";s:4:"type";s:4:"text";s:5:"index";s:21:"purchase_order_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:67:"Epicor_Supplierconnect_Block_Customer_Orders_Create_Renderer_Linkpo";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794799626_626";a:9:{s:6:"header";s:10:"Order Date";s:4:"type";s:4:"date";s:5:"index";s:10:"order_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794800354_354";a:9:{s:6:"header";s:12:"Ship-To Name";s:4:"type";s:4:"text";s:5:"index";s:21:"delivery_address_name";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380794801098_98";a:9:{s:6:"header";s:15:"Ship-To Address";s:4:"type";s:4:"text";s:5:"index";s:23:"delivery_address_street";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794801650_650";a:9:{s:6:"header";s:12:"Ship-To City";s:4:"type";s:4:"text";s:5:"index";s:21:"delivery_address_city";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794802290_290";a:9:{s:6:"header";s:13:"Ship-To State";s:4:"type";s:4:"text";s:5:"index";s:23:"delivery_address_county";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:64:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_State";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380794802866_866";a:9:{s:6:"header";s:6:"Status";s:4:"type";s:4:"text";s:5:"index";s:12:"order_status";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:70:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_Orderstatus";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</newpogrid_config>
+              </SPOS_request>
+            <SPOD_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <grid_informationconfig>a:9:{s:18:"_1553012334531_531";a:2:{s:6:"header";s:10:"Order Date";s:5:"index";s:10:"order_date";}s:18:"_1553012362399_399";a:2:{s:6:"header";s:8:"Due Date";s:5:"index";s:8:"due_date";}s:18:"_1553012374185_185";a:2:{s:6:"header";s:12:"Promise Date";s:5:"index";s:12:"promise_date";}s:18:"_1553012378719_719";a:2:{s:6:"header";s:9:"Post Date";s:5:"index";s:9:"post_date";}s:18:"_1553012381695_695";a:2:{s:6:"header";s:12:"Order Status";s:5:"index";s:12:"order_status";}s:18:"_1553012385745_745";a:2:{s:6:"header";s:5:"Terms";s:5:"index";s:13:"payment_terms";}s:18:"_1553012390118_118";a:2:{s:6:"header";s:8:"Currency";s:5:"index";s:13:"currency_code";}s:18:"_1553012393391_391";a:2:{s:6:"header";s:3:"Fob";s:5:"index";s:3:"fob";}s:18:"_1553012399111_111";a:2:{s:6:"header";s:12:"Confirmation";s:5:"index";s:15:"order_confirmed";}}</grid_informationconfig>
+            </SPOD_request>
+            <SPOU_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+            </SPOU_request>
+            <SPOC_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+            </SPOC_request>
+            <SPCS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:8:{s:18:"_1381758946179_179";a:10:{s:6:"header";s:9:"PO Number";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"purchase_order_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758948320_320";a:10:{s:6:"header";s:10:"Order Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:10:"order_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758948821_821";a:10:{s:6:"header";s:6:"Status";s:4:"type";s:7:"options";s:7:"options";s:48:"supplierconnect/config_source_orderstatusoptions";s:5:"index";s:12:"order_status";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758949389_389";a:10:{s:6:"header";s:12:"Ship-To Name";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"delivery_address_name";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758949981_981";a:10:{s:6:"header";s:15:"Ship-To Address";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:23:"delivery_address_street";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758950582_582";a:10:{s:6:"header";s:12:"Ship-To City";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"delivery_address_city";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1381758952319_319";a:10:{s:6:"header";s:13:"Ship-To State";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:23:"delivery_address_county";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1381758953013_13";a:10:{s:6:"header";s:9:"Confirmed";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:15:"order_confirmed";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:68:"Epicor_Supplierconnect_Block_Customer_Orders_List_Renderer_Confirmed";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</grid_config>
+            </SPCS_request>
+            <SPCC_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+            </SPCC_request>
+            <SURS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:10:{s:18:"_1380796025860_860";a:10:{s:6:"header";s:3:"RFQ";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:10:"rfq_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380796027060_60";a:10:{s:6:"header";s:4:"Line";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:4:"line";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380796027883_883";a:10:{s:6:"header";s:8:"Due Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:8:"due_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380796037476_476";a:10:{s:6:"header";s:12:"Respond Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:12:"respond_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380796038010_10";a:10:{s:6:"header";s:13:"Decision Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:13:"decision_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380796038498_498";a:10:{s:6:"header";s:11:"Part Number";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:12:"product_code";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380796039074_74";a:10:{s:6:"header";s:18:"PN Cross Reference";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:15:"cross_reference";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380796039546_546";a:10:{s:6:"header";s:11:"Description";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:11:"description";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1391593972052_52";a:10:{s:6:"header";s:6:"Status";s:4:"type";s:7:"options";s:7:"options";s:46:"supplierconnect/config_source_rfqstatusoptions";s:5:"index";s:6:"status";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1391593972666_666";a:10:{s:6:"header";s:8:"Response";s:4:"type";s:7:"options";s:7:"options";s:48:"supplierconnect/config_source_rfqresponseoptions";s:5:"index";s:8:"response";s:9:"filter_by";s:4:"linq";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</grid_config>
+            </SURS_request>
+            <SURD_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <grid_informationconfig>a:6:{s:18:"_1553261417524_524";a:2:{s:6:"header";s:10:"RFQ Number";s:5:"index";s:10:"rfq_number";}s:18:"_1553261438771_771";a:2:{s:6:"header";s:8:"RFQ Line";s:5:"index";s:4:"line";}s:18:"_1553261474100_100";a:2:{s:6:"header";s:8:"RFQ Date";s:5:"index";s:8:"rfq_date";}s:18:"_1553261485757_757";a:2:{s:6:"header";s:10:"Respond By";s:5:"index";s:12:"respond_date";}s:18:"_1553261489545_545";a:2:{s:6:"header";s:17:"RFQ Decision Date";s:5:"index";s:13:"decision_date";}s:18:"_1553261496989_989";a:2:{s:6:"header";s:15:"Header Comments";s:5:"index";s:14:"header_comment";}}</grid_informationconfig>
+                <grid_lineinformationconfig>a:6:{s:18:"_1553261506669_669";a:2:{s:6:"header";s:11:"Part Number";s:5:"index";s:12:"product_code";}s:18:"_1553261516338_338";a:2:{s:6:"header";s:11:"Description";s:5:"index";s:11:"description";}s:18:"_1553261522339_339";a:2:{s:6:"header";s:15:"Unit Of Measure";s:5:"index";s:27:"unit_of_measure_description";}s:18:"_1553261529330_330";a:2:{s:6:"header";s:20:"Quantities Requested";s:5:"index";s:10:"quantities";}s:18:"_1553261536711_711";a:2:{s:6:"header";s:8:"Response";s:5:"index";s:8:"response";}s:18:"_1553261545263_263";a:2:{s:6:"header";s:13:"Line Comments";s:5:"index";s:13:"line_comments";}}</grid_lineinformationconfig>
+            </SURD_request>
+            <SURU_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+            </SURU_request>
+            <SUIS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:8:{s:18:"_1380797061839_839";a:10:{s:6:"header";s:14:"Invoice Number";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:14:"invoice_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797063631_631";a:10:{s:6:"header";s:12:"Invoice Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:12:"invoice_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797064133_133";a:10:{s:6:"header";s:8:"Due Date";s:4:"type";s:4:"date";s:7:"options";s:0:"";s:5:"index";s:8:"due_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797064549_549";a:10:{s:6:"header";s:9:"PO Number";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:21:"purchase_order_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380797065069_69";a:10:{s:6:"header";s:21:"Supplier Order Number";s:4:"type";s:4:"text";s:7:"options";s:0:"";s:5:"index";s:18:"supplier_reference";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797065525_525";a:10:{s:6:"header";s:6:"Amount";s:4:"type";s:6:"number";s:7:"options";s:0:"";s:5:"index";s:11:"grand_total";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:6:"number";s:8:"renderer";s:51:"Epicor_Supplierconnect_Block_List_Renderer_Currency";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797066117_117";a:10:{s:6:"header";s:11:"Balance Due";s:4:"type";s:6:"number";s:7:"options";s:0:"";s:5:"index";s:11:"balance_due";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:6:"number";s:8:"renderer";s:51:"Epicor_Supplierconnect_Block_List_Renderer_Currency";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797066605_605";a:10:{s:6:"header";s:6:"Status";s:4:"type";s:7:"options";s:7:"options";s:41:"customerconnect/erp_mapping_invoicestatus";s:5:"index";s:14:"invoice_status";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:74:"Epicor_Supplierconnect_Block_Customer_Invoices_List_Renderer_Invoicestatus";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}} </grid_config>
+            </SUIS_request>
+            <SUID_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <grid_informationconfig>a:7:{s:18:"_1553261637124_124";a:2:{s:6:"header";s:12:"Invoice Date";s:5:"index";s:12:"invoice_date";}s:17:"_1553261688050_50";a:2:{s:6:"header";s:5:"Terms";s:5:"index";s:13:"payment_terms";}s:18:"_1553261693606_606";a:2:{s:6:"header";s:8:"Due Date";s:5:"index";s:8:"due_date";}s:18:"_1553261705115_115";a:2:{s:6:"header";s:6:"Status";s:5:"index";s:14:"invoice_status";}s:18:"_1553261711788_788";a:2:{s:6:"header";s:11:"Ref Invoice";s:5:"index";s:14:"invoice_number";}s:18:"_1553261714712_712";a:2:{s:6:"header";s:13:"Discount Date";s:5:"index";s:13:"discount_date";}s:18:"_1553261727660_660";a:2:{s:6:"header";s:8:"Currency";s:5:"index";s:13:"currency_code";}}</grid_informationconfig>
+            </SUID_request>
+            <SUPS_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+                <max_results_value/>
+                <range_min_value/>
+                <grid_config>a:5:{s:18:"_1380797566395_395";a:9:{s:6:"header";s:12:"Payment Date";s:4:"type";s:4:"date";s:5:"index";s:12:"payment_date";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"date";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797567947_947";a:9:{s:6:"header";s:15:"Check Reference";s:4:"type";s:4:"text";s:5:"index";s:17:"payment_reference";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:4:"text";s:8:"renderer";s:0:"";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797568508_508";a:9:{s:6:"header";s:12:"Check Amount";s:4:"type";s:6:"number";s:5:"index";s:14:"payment_amount";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:51:"Epicor_Supplierconnect_Block_List_Renderer_Currency";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:17:"_1380797569058_58";a:9:{s:6:"header";s:14:"Invoice Number";s:4:"type";s:4:"text";s:5:"index";s:14:"invoice_number";s:9:"filter_by";s:3:"erp";s:9:"condition";s:2:"EQ";s:9:"sort_type";s:6:"number";s:8:"renderer";s:72:"Epicor_Supplierconnect_Block_Customer_Payments_List_Renderer_Linkinvoice";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}s:18:"_1380797569706_706";a:9:{s:6:"header";s:14:"Payment Amount";s:4:"type";s:5:"range";s:5:"index";s:22:"invoice_payment_amount";s:9:"filter_by";s:3:"erp";s:9:"condition";s:7:"LTE/GTE";s:9:"sort_type";s:6:"number";s:8:"renderer";s:51:"Epicor_Supplierconnect_Block_List_Renderer_Currency";s:7:"visible";s:1:"1";s:10:"showfilter";s:1:"1";}}</grid_config>
+            </SUPS_request>
+            <SUSD_request>
+                <active>1</active>
+                <log_all_requests>1</log_all_requests>
+            </SUSD_request>
+            <SUCO_mapping>
+                <active>1</active>
+                <send_emails>1</send_emails>
+                <account_number>account_number</account_number>
+                <contacts>contacts/contact</contacts>
+                <contact_delete>_attributes/delete</contact_delete>
+                <contact_code>contact_code</contact_code>
+                <contact_name>name</contact_name>
+                <contact_function>function</contact_function>
+                <contact_telephone>telephone_number</contact_telephone>
+                <contact_fax>fax_number</contact_fax>
+                <contact_email>email_address</contact_email>
+                <contact_login>login_id</contact_login>
+                <contacts_update>1</contacts_update>
+                <contacts_contact_delete_update>1</contacts_contact_delete_update>
+                <contacts_contact_name_update>1</contacts_contact_name_update>
+                <contacts_contact_function_update>1</contacts_contact_function_update>
+                <contacts_contact_telephone_number_update>1</contacts_contact_telephone_number_update>
+                <contacts_contact_mobile_number_update>1</contacts_contact_mobile_number_update>
+                <contacts_contact_fax_number_update>1</contacts_contact_fax_number_update>
+                <contacts_contact_email_update>1</contacts_contact_email_update>
+            </SUCO_mapping>
+            <SUSP_mapping>
+                <active>1</active>
+                <delete>_attributes/delete</delete>
+                <account_number>account_number</account_number>
+                <account_name>account_name</account_name>
+                <registered_address>defaults/registered_address</registered_address>
+                <registered_address_code>address_code</registered_address_code>
+                <registered_address_name>name</registered_address_name>
+                <registered_address_line1>address1</registered_address_line1>
+                <registered_address_line2>address2</registered_address_line2>
+                <registered_address_line3>address3</registered_address_line3>
+                <registered_address_city>city</registered_address_city>
+                <registered_address_county>county</registered_address_county>
+                <registered_address_country>country</registered_address_country>
+                <registered_address_postcode>postcode</registered_address_postcode>
+                <registered_address_telephone>telephone_number</registered_address_telephone>
+                <registered_address_fax>fax_number</registered_address_fax>
+                <registered_address_email>email_address</registered_address_email>
+                <order_address>defaults/order_address</order_address>
+                <order_address_code>address_code</order_address_code>
+                <order_address_name>name</order_address_name>
+                <order_address_line1>address1</order_address_line1>
+                <order_address_line2>address2</order_address_line2>
+                <order_address_line3>address3</order_address_line3>
+                <order_address_city>city</order_address_city>
+                <order_address_county>county</order_address_county>
+                <order_address_country>country</order_address_country>
+                <order_address_postcode>postcode</order_address_postcode>
+                <order_address_telephone>telephone_number</order_address_telephone>
+                <order_address_fax>fax_number</order_address_fax>
+                <order_address_email>email_address</order_address_email>
+            </SUSP_mapping>
+        </supplierconnect_enabled_messages>
+    </default>
+</config>

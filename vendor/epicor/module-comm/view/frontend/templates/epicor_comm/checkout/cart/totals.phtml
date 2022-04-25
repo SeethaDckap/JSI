@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Shopping cart totals template
+ *
+ * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+// check if tax is to be displayed and update the $this->_totals array . A negative check means tax is to be removed 
+$totals_with_tax = 0;
+$totals = $this->getTotals();
+$helper = $this->helper('Magento\Msrp\Helper\Data');
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+
+if(array_key_exists('tax', $totals)):
+	if($this->helper('Epicor\Comm\Helper\Data')->removeTaxLine($totals['tax']->getValue())):
+		$totals_with_tax = $this->getTotals(); 
+		$totals_without_tax = $this->getTotals();
+		unset($totals_without_tax['tax']); 
+		$this->setTotals($totals_without_tax); 
+	endif;
+endif;	
+?>
+<?php if ($canApplyMsrp): ?>
+    <div class="cart-msrp-totals"><?php echo __('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></div>
+<?php else: ?>
+    <table id="shopping-cart-totals-table">
+        <col />
+        <col width="1" />
+        <tfoot>           
+            <?php echo $block->renderTotals('footer'); ?>
+        </tfoot>
+        <tbody>           
+            <?php echo $block->renderTotals(); ?>
+        </tbody>     
+    </table>
+<?php endif; ?>
+<?php $totals_with_tax ? $block->setTotals($totals_with_tax) : null; // set back to previously with tax included ?>

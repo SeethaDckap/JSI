@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="contact-support-detail-container" htmlId="contact-support-detail-container" htmlClass="contact-support-detail" htmlTag="div">
+                <block class="Silk\CustomForms\Block\Adminhtml\ContactSupport" name="contact-support-detail" template="Silk_CustomForms::contactsupport/details.phtml" />
+                
+            </container>
+        </referenceContainer>
+    </body>
+</page>

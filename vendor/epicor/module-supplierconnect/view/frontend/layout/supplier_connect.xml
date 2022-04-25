@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="requirejs/require.js"/>
+        <css src="Epicor_Supplierconnect::epicor/supplierconnect/css/supplier.css"/>
+        <css src="Epicor_Supplierconnect::epicor/supplierconnect/css/supplierconnect.css"/>
+        <css src="Epicor_Supplierconnect::epicor/supplierconnect/css/supplierstyles.css"/>
+        <script type="text/javascript" src="Epicor_Supplierconnect::js/supplierconnect/supplierconnect.js"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Backend\Block\Page\RequireJs" name="require.js.sec"  template="Epicor_Customerconnect::customerconnect/page/js/require_js.phtml"/>
+        </referenceContainer>
+		<referenceContainer name="sidebar.main.account_nav" remove="true"/>
+    </body>
+</page>

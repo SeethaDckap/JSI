@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="page-title">
+    <h1><?php echo $this->helper('customerconnect/skus')->__('Customer SKUs') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th><?php echo __('Product SKU') ?></th>
+            <th><?php echo __('Product Name') ?></th>
+            <th><?php echo __('Customer SKU') ?></th>
+            <th><?php echo __('Description') ?></th>
+            <?php if($this->showActions()): ?><th><?php echo __('Actions') ?></th><?php endif; ?>
+        </tr>
+    </thead>
+    <tbody>
+
+    <?php if(count($this->getCustomerSkus()) == 0): ?>
+        <tr>
+            <td colspan="<?php if($this->showActions()): echo 5; else: echo 4; endif; ?>" class="a-center"><?php echo __('You have no SKU.') ?></td>
+        </tr>
+
+    <?php
+    else:
+    	foreach ($this->getCustomerSkus() as $sku):
+    ?>
+        <tr>
+            <td v-align="center">
+            	<span><?php echo $sku->getProductSku(); ?></span>
+            </td>
+            <td>
+            	<span><?php echo $sku->getProductName(); ?></span>
+            </td>
+            <td>
+            	<span><?php echo $sku->getSku(); ?></span>
+            </td>
+            <td>
+            	<span><?php echo $sku->getDescription(); ?></span>
+            </td>
+            <?php if($this->showActions()): ?>
+            <td>
+            	<a href="<?php echo $this->getEditUrl($sku->getId()) ?>">
+                    <?php echo $this->helper('customerconnect/skus')->__('Edit') ?>
+                </a>
+                <span class="link-spacer">|</span>
+            	<a href="<?php echo $this->getDeleteUrl($sku->getId()) ?>">
+                    <?php echo $this->helper('customerconnect/skus')->__('Delete') ?>
+                </a>
+            </td>
+            <?php endif; ?>
+        </tr>
+    <?php endforeach; ?>
+    <?php endif; ?>
+    </tbody>
+</table>

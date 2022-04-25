@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="dda-block" id="dda-block">
+      <div class="step-title" data-bind="i18n: 'Available Delivery Dates'" data-role="title"></div>
+      
+     <div class="dda-form">
+      <!-- ko foreach: getRegion('dda-form') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+     </div>
+        
+</div>

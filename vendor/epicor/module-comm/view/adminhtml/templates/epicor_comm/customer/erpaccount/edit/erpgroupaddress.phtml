@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ *  Epicor_Comm_Block_Adminhtml_Customer_Group_Edit_Erpinfo
+ */
+/* @var $this \Epicor\Comm\Block\Adminhtml\Customer\Erpaccount\Edit\Tab\Address */
+?>
+<?php
+$erpCustomer = $this->getErpCustomer();
+$options = $this->getOption()->toOptionArray();
+$shippingAddressAllowed = $erpCustomer->getShippingAddressAllowed();
+$billingAddressAllowed  = $erpCustomer->getBillingAddressAllowed();
+?>
+<div class="fieldset-wrapper customer-information erp-account-addresses">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php echo __('Addresses') ?></span>
+    </div>
+    <?php echo $this->renderAddress($erpCustomer->getDefaultDeliveryAddressCode(), null, _('Default Shipping Address:')) ?>
+    <?php echo $this->renderAddress($erpCustomer->getDefaultInvoiceAddressCode(), null, __('Default Billing Address')) ?>
+    <?php $num = 1; ?>
+    <?php foreach ($this->getOtherAddresses() as $address) : ?>
+        <?php if ($num % 2 != 0) : ?>
+            <br style="clear:both" />
+        <?php endif; ?>
+        <?php $num++; ?>
+        <?php echo $this->renderAddress(null, $address, __('Alternative Address:')); ?>
+    <?php endforeach; ?>
+</table>
+</div>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php echo __('Custom Addresses') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tr>
+            <th><label for="erp_shipping_address_allowed"><?php echo __('Allow Shipping Address Creation') ?></label></th>
+            <td>
+                <select name="shipping_address_allowed" id="shipping_address_allowed" class="select">
+                    <?php foreach ($options as $key => $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($shippingAddressAllowed == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="erp_billing_address_allowed"><?php echo __('Allow Billing Address Creation') ?></label></th>
+            <td>
+                <select name="billing_address_allowed" id="billing_address_allowed" class="select">
+                    <?php foreach ($options as $key => $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($billingAddressAllowed == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getChildHtml('erp-right-box') ?>
+<style>
+    .customer-information.erp-account-addresses address {
+        float:left;
+    }
+</style>

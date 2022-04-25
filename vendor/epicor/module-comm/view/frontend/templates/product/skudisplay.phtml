@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * ECC SKU Display
+ *
+ * @var $block \Epicor\Comm\Block\Catalog\Product\Skudisplay
+ */
+?>
+<div class="product_skus">
+    <?php foreach ($block->getSkus() as $sku): ?>
+        <p><?php echo $sku; ?></p>
+    <?php endforeach; ?>
+</div>

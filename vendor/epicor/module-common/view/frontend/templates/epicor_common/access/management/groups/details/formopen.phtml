@@ -1,0 +1,9 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><form id="group_edit_form" action="<?php echo $this->getUrl('*/*/savegroup'); ?>" method="post">
+    <input type="hidden" name="id" value="<?php echo $this->registry('access_group')->getId(); ?>"/>
+    <div class="button a-right">    
+        <button id="group_edit_save" class="scalable" type="button">Save and Continue</button>
+    </div>

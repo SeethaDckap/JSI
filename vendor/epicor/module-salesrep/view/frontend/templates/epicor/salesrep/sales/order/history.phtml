@@ -1,0 +1,81 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/* @var $this Epicor_Common_Block_Order_History */
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper Epicor_Comm_Helper_Data */
+
+$salesRepHelper = $this->helper('Epicor\SalesRep\Helper\Order');
+/* @var $salesRepHelper Epicor_SalesRep_Helper_Order */
+
+$showPrices = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+
+?>
+<?php echo $block->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+<?php $_orders = $this->getOrders(); ?>
+
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_orders->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo __('Order #') ?></th>
+            <th><?php echo __('Date') ?></th>
+            <th><?php echo __('ERP Account') ?></th>
+            <th><?php echo __('Ship To') ?></th>
+            <?php if($showPrices) : ?>
+            <th><span class="nobr"><?php echo __('Order Total') ?></span></th>
+            <?php endif; ?>
+            <th><span class="nobr"><?php echo __('Order Status') ?></span></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($_orders as $_order): ?>
+        <tr>
+            <td><?php echo $_order->getRealOrderId() ?></td>
+            <td><span class="nobr"><?php echo $block->formatDate($_order->getCreatedAt()) ?></span></td>
+            <td><?php echo $salesRepHelper->getOrderErpAccount($_order->getEccErpAccountId(), 'name'); ?></td>
+            <td><?php echo $_order->getShippingAddress() ? $block->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+            <?php if($showPrices) : ?>
+            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+            <?php endif; ?>
+            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+            <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                <?php if ($this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+                    'Epicor_Customer::my_account_orders_details'
+                )) : ?>
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getViewUrl($_order) ?>" class="action view">
+                        <span><?php /* @escapeNotVerified */ echo __('View Order') ?></span>
+                    </a>
+                <?php endif ?>
+                    <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                        <a href="#" data-post='<?php /* @escapeNotVerified */ echo
+                        $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                            ->getPostData($block->getReorderUrl($_order))
+                        ?>' class="action order link-reorder reorder-button"
+                            <span><?php /* @escapeNotVerified */ echo __('Reorder') ?></span>
+                        </a>
+                    <?php endif ?>
+                </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
+<?php else: ?>
+    <p><?php echo __('You have placed no orders.'); ?></p>
+<?php endif ?>

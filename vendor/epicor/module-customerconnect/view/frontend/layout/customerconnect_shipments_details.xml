@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Customer Connect Shipments Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Shipments\Details\Title" name="shipments.title"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Shipments\Details\Billing" name="shipments.billing"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Shipments\Details\Shipping" name="shipments.shipping"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Shipments\Details\Date" name="shipments.date"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Shipments\Details\Info" name="shipments.info"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/customerconnect/shipments/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/customerconnect/shipments/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Shipments</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

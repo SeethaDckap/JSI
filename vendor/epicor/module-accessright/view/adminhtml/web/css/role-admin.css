@@ -1,0 +1,29 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-Sep-2017, 16:24:22
+    Author     : gareth.james
+*/
+#ERP_Accounts .form-inline fieldset#erpaccounts_form .field-erp_account_link_type label.label,
+#ERP_Accounts .form-inline fieldset#erpaccounts_form .field-erp_accounts_exclusion label.label,
+#ERP_Accounts .form-inline fieldset#erpaccounts_form .field-is_erp_account_condition_enabled label.label{width:40%;text-align:left;}
+
+#Customers .form-inline fieldset#customers_form .field-customer_exclusion label.label,
+#Customers .form-inline fieldset#customers_form .field-is_customers_condition_enabled label.label{width:40%;text-align:left;}
+
+#Products .form-inline fieldset#rule_conditions_option .field-is_enabled label.label{width:40%;text-align:left;}
+#Products .form-inline fieldset#rule_conditions_option .field-exclude_selected_products label.label{width:40%;text-align:left;}
+
+.validation-advice{
+    padding:6px 10px 10px;
+    background:#fff8d6;
+    border:1px solid #e22626;
+    font-size:12px;
+}

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $block \Epicor\Comm\Block\Catalog\Product\Listing\Locations */
+use Magento\Framework\App\Action\Action;
+
+$_product = $this->getProduct();
+/* @var $_product \Epicor\Comm\Model\Product */
+$viewType = $block->getViewMode();
+$mode = $this->getListMode();
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $helper \Epicor\Comm\Helper\Locations */
+$currentStoreId = $_product->getStoreId();
+$eccErpCategoryCode = $block->getEccErpCategoryCode();
+if ($_product->getTypeId() == 'grouped' || $_product->getTypeId() == 'configurable'): ?>
+    <form action="<?php /* @escapeNotVerified */ echo $_product->getProductUrl(); ?>">
+        <button type="submit"
+                title="<?php echo $block->escapeHtml(__('View Details')); ?>"
+                class="action tocart primary">
+            <span><?php /* @escapeNotVerified */ echo __('View Details') ?></span>
+        </button>
+    </form>
+<?php else: ?>
+    <p class="locations_add_to_cart">
+        <button data-mage-init='{"Epicor_Comm/epicor/comm/js/locations-ajax":{"productId":"<?php echo $_product->getId(); ?>","modalId":"<?php echo $_product->getId().$viewType; ?>","productCategory":"<?php echo $eccErpCategoryCode; ?>"}}' type="button" title="<?php echo __('Add to Cart') ?>" class="button btn-cart locations-btn-<?php echo $_product->getId(); ?> action tocart primary" id="locations_btn_<?php echo $_product->getId().$viewType; ?>" ><span><span><?php echo __('Add to Cart') ?></span></span></button>
+        <br />
+        <a data-mage-init='{"Epicor_Comm/epicor/comm/js/locations-ajax":{"productId":"<?php echo $_product->getId(); ?>","modalId":"<?php echo $_product->getId().$viewType; ?>","productCategory":"<?php echo $eccErpCategoryCode; ?>"}}' href="#" class="locations-link-<?php echo $_product->getId(); ?>" id="locations_link_<?php echo $_product->getId().$viewType; ?>"><?php echo __('Locations') ?></a>
+        <a href="#" class="locations-link locations-hide" id="locations_hide_<?php echo $_product->getId(); ?>" style="display:none"><?php echo __('Hide Locations') ?></a>
+    </p>
+    <div class="product_<?php echo $mode; ?>_locations">
+        <div class="product_locations_wrapper" id="locations_list_<?php echo $_product->getId().$viewType; ?>_block" >
+
+        </div>
+    </div>
+    <?php $this->resetProduct(); ?>
+<?php endif; ?>

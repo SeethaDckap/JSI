@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Sales_Order_Returnlink */
+?>
+<?php if ($this->canReturn()) : ?>
+    <span class="separator">|</span>
+    <a href="<?php echo $this->getReturnUrl() ?>" class="action order link-reorder">
+            <span><?php /* @escapeNotVerified */ echo __('Return') ?></span>
+    </a>
+    <?php
+ endif; ?>

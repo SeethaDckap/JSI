@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Backend\Block\Widget\Button
+ */
+?>
+<?php echo $block->getBeforeHtml(); ?>
+<button <?php /* @escapeNotVerified */ echo $block->getAttributesHtml(), $block->getUiId(); ?>>
+    <span><?php /* @escapeNotVerified */ echo $block->getLabel(); ?></span>
+</button>
+<?php echo $block->getAfterHtml(); ?>

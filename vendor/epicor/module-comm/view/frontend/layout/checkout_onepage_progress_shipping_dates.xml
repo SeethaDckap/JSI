@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block template="Epicor_Comm::epicor_comm/checkout/onepage/progress/shipping_dates.phtml" output="1" class="Mage\Checkout\Block\Onepage\Progress" name="root">
+            <action method="setInfoTemplate">
+                <argument name="method" xsi:type="string"/>
+                <argument name="template" xsi:type="string"/>
+            </action>
+        </block>
+    </body>
+</page>

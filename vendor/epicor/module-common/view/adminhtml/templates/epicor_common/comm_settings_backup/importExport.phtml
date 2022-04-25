@@ -1,0 +1,73 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+//$commonHelper = $this->helper('Epcidor\Common\Helper\Data');
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-epicor-comm-importExport"><?php echo __('Import / Export Epicor Comm Settings') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <?php if (!$this->getIsReadonly()): ?>
+    <div class="box-left">
+        <form id="comm_import_form" action="<?php echo $this->getUrl('*/*/storemapping') ?>" method="post" enctype="multipart/form-data">
+        <!--<form id="comm_import_form" action="<?php echo $this->getUrl('*/*/import') ?>" method="post" enctype="multipart/form-data">-->
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo __('Import Epicor Comm Settings') ?></h4>
+            </div>
+            <fieldset>
+                <legend><?php echo __('Import Epicor Comm Settings') ?></legend>
+                <input id="input-file" type="file" name="import_epicor_comm_settings_file" class="input-file required-entry"/>
+                    <?php echo $block->getButtonHtml('Import Comm Settings', "jQuery('#comm_import_form').submit()") ?>
+            </fieldset>
+        </form>
+
+    </div>
+    <?php endif; ?>
+    <div class="<?php if ($this->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif; ?>">
+        <form id="comm_export_form" action="<?php echo $this->getUrl('*/*/export') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo __('Export Epicor Comm Settings') ?></h4>
+            </div>
+            <fieldset>
+                <legend><?php echo __('Export Epicor Comm Settings') ?></legend>
+                <?php echo $this->getButtonHtml('Export Comm Settings', "jQuery('#comm_export_form').submit()") ?>
+                <div id="radio-buttons" style="display:inline;">
+                    <input style="margin-left:6%;" type="radio" name="comm_radio" id="backupAll" value="All" selected>Backup All
+                    <input style="margin-left:5%;" type="radio" name="comm_radio" id ="backupSelected" value="Selected">Backup Selected Tables 
+                    <!-- this is to be included when config options are applied -->
+                    <!--<input style="margin-left:5%;" type="checkbox" name="comm_checkbox_config" id ="configDataOptions" value="">Config Options--> 
+                </div>
+                <?php echo $this->getChildHtml('epicor_common_importexport_mappingTables'); ?>
+            </fieldset>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+     <script type="text/javascript">
+//<![CDATA[
+        require([
+            "jquery"
+        ], function ($) {
+       
+        $('#mapping-tables').hide();
+        $('#radio-buttons').on('change', function(){
+            if($('#backupSelected').is(":checked")){               
+                $('#mapping-tables').show();
+            }else{                        
+                $('#mapping-tables').hide();
+                $('input[id ^="mapping_row"]').each(function(row){ // check all so everything is included 
+                   row.checked = true;  
+                })
+            }
+        })
+    })    
+    //]]>
+    </script>  

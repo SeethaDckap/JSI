@@ -1,0 +1,23 @@
+<div id="preview-panel">
+  <div id="elementinformation" class="collapsibleContainer">
+      <div class="collapsibleTab" data-role="collapsible">
+          <div id="footer-col-header-1" class="footer-toggle step-title allow open" data-role="#footer-col-1">
+              <span>Invoice Payment Review</span>
+              <a href="#">Edit</a>
+          </div>
+      </div>
+      <div class="collapsibleContent open active" data-role="content" id="footer-col-1">
+           <?php echo $this->getLayout()->createBlock("Epicor\Customerconnect\Block\Customer\Arpayments\Checkout\Listing")->setTemplate("Epicor_Customerconnect::customerconnect/arpayments/review.phtml")->toHtml();?>
+            <div class="buttons-set" id="payment-buttons-container">
+                <button type="button" class="button" onclick="arPaymentsJs.continueToReview()"><span><span>Continue</span></span></button>
+            </div>
+
+      </div>
+
+      <div class="collapsibleTab" data-role="collapsible">
+          <div id="footer-col-2" data-role="#footer-col-2" class="footer-toggle" >
+              <span>Payment Information</span>
+          </div>
+      </div>
+  </div>
+</div>

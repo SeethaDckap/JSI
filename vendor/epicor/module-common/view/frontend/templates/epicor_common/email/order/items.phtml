@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php $_order = $this->getOrder(); ?>
+<?php if ($_order): ?>
+<?php
+    $customerId = $_order->getCustomerId();
+    $helper = $this->helper('Epicor\Comm\Helper\Data');
+    /* @var $helper \Epicor\Comm\Helper\Data */
+
+    $showPrices = $helper->isFunctionalityDisabledForCustomer('prices', $customerId) ? false : true;
+?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;" class="email-items">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo __('Item') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo __('Sku') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo __('Uom') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo __('Qty') ?></th>
+            <?php if($showPrices && !$_order->getData('hide_prices')) : ?>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px;width:10%"><?php echo __('Subtotal') ?></th>
+            <?php endif; ?>
+        </tr>
+    </thead>
+
+    <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
+    <?php if($_item->getParentItem()) continue; else $i++; ?>
+    <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>
+        <?php echo $this->getItemHtml($_item) ?>
+    </tbody>
+    <?php endforeach; ?>
+   
+    <tfoot class="order-totals">
+        <?php if ($showPrices && !$_order->getData('hide_prices')) : ?>
+            <?= $block->getChildHtml('order_totals') ?>
+        <?php endif; ?>
+    </tfoot>
+</table>
+<?php if ($this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
+        <?php $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessage($_order->getGiftMessageId()); ?>
+        <?php if ($_giftMessage): ?>
+            <br />
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?= /* @escapeNotVerified */  __('Gift Message for this Order') ?></h3>
+                        <strong><?= /* @escapeNotVerified */  __('From:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?= /* @escapeNotVerified */  __('To:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?= /* @escapeNotVerified */  __('Message:'); ?></strong>
+                        <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

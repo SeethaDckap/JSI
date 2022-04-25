@@ -1,0 +1,62 @@
+<?php $orders = $block->getOrders(); ?>
+
+<div class="order section">
+    <div class="section-title"><?= __('Orders') ?></div>
+    <?php if($this->getIsListing()): ?>
+        <div class="actions-toolbar">
+            <div class="action-button primary">
+                <a class="action" href="/customaccount/order/index"><?= __('Go to Orders') ?></a>
+            </div>
+        </div>
+    <?php endif ?>
+    <div class="items">
+        <?php foreach ($orders as $index => $order): ?>
+            <div class="quote-item child-item">
+                <div class="item-title"><?= 'Order Number #' . $order->getIncrementId() ?></div>
+                <div class="item-description"><?= $order->getStatusLabel() ?></div>
+                <div class="item-detail">
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('PO Name: ') ?></span>
+                                <span><?= ''//$order['selectedDoors'][0]['title'] ?></span>
+                            </div>
+                        </div>
+                         <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Designer: ') ?></span>
+                                <span><?= ''//$order['designer'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Primary Door Style: ') ?></span>
+                                <span><?= ''//$order['selectedDoors'][0]['title'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Cost: ') ?></span>
+                                <span><?= '$' . number_format((float)$order->getGrandTotal(), 2, '.', ''); ?></span>
+                            </div>
+                        </div>
+                         <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Est. Ship Date: ') ?></span>
+                                <span><?= '' ?></span>
+                            </div>
+                        </div>
+                       
+                        <div class="item-info">
+                            <div class="actions-toolbar">
+                                <div class="action-button primary">
+                                     <a class="action" href="<?= '/customaccount/order/view?id=' . $order->getId() ?>"><?= __('View Order') ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>

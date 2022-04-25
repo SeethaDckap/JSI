@@ -1,0 +1,91 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : quickstart
+    Created on : 14/11/2013
+    Author     : Sean Flynn
+    Description: quickstart css
+      
+*/
+
+.entry-edit .fieldset {
+    background-color:lightcoral;
+}
+.entry-edit .fieldset-complete {
+    background-color:lightgreen;
+}
+.fieldset div.grid {
+    width:200px;
+}
+
+.form-list td.value select {
+    min-width: 100px;
+    width:auto;
+}
+
+.form-list .grid td input.input-text {
+    width: 200px;
+}
+
+.license_value_N, .license_value_Y{
+    float:right;
+    width:15px;
+    height:17px;
+    background-repeat:no-repeat;
+}
+.license_value_N{
+    background-image: url('/pub/static/frontend/Magento/luma/en_US/Epicor_Common/epicor/common/images/cancel_icon.gif');
+}
+.license_value_Y{
+    background-image: url('/pub/static/frontend/Magento/luma/en_US/Epicor_Common/epicor/common/images/success_msg_icon.gif');
+}
+.form-list td.label label, .form-list td.label {
+    width: 160px;
+}
+#mapping_payment_mapping select.select {
+    width: 160px;
+}
+#mapping_payment_mapping td input.input-text {
+     min-width: 120px;
+     width: auto;
+ }
+
+#B2B_Settings .form-inline .fieldset > .field > .label {padding: 0 0 0 20px;width:26%;} 
+#B2B_Settings .form-inline .fieldset .field-mapping_invoice_mapping .control #mapping_invoice_mapping_holder,#mapping_rma_mapping,#mapping_service_calls_mapping{margin: 0 0 0 30px}
+.admin__field-control.control #mapping_erp_order_status_mapping{margin: 0 0 10px 30px}
+#b2b,#erp,#networking,#site_monitoring,#licensing,#ecc_version,#checkout,#products,#Configurator,#customer .admin__legend.legend{padding: 0 0 0 15px;}
+#form_tabs_general_content .form-inline #networking{padding-bottom: 10px;}
+#form_tabs_general_content .form-inline #erp .field-Epicor_Comm_licensing_erp{padding-bottom: 10px;}
+#form_tabs_general_content .form-inline #erp .field-Epicor_Comm_licensing_erp label.label{margin-left:56px;}
+#form_tabs_general_content .form-inline #networking .admin__field .label{width:27%}
+#form_tabs_general_content .form-inline #site_monitoring .admin__field .label{width:27%}
+#form_tabs_general_content .form-inline #licensing .label{width:30%}
+#form_tabs_general_content .form-inline #ecc_version .admin__field.field{margin-bottom: 1px;}
+#form_tabs_general_content .form-inline #ecc_version .admin__field.field .label{width:30%;}
+#Customer_Settings .form-inline #customer .admin__field.field .label{width:31%}
+#ProductsConfigurator_Settings .form-inline #products .admin__field.field .label{width:25%;}
+#ProductsConfigurator_Settings #Configurator .field-epicor_comm_enabled_messages_cim_request_ewa_css{padding-bottom: 10px;}
+#Checkout_Settings .form-inline #checkout .admin__field.field .label{width:28%;}
+#Checkout_Settings #checkout .field-mapping_payment_mapping{padding-bottom: 10px;}
+
+ /* Fix for the oveflowing tables */
+#mapping_country_mapping tbody tr[id^="mapping_country_mapping_row_"] td input{width:70%}
+#mapping_country_mapping tbody tr[id^="mapping_country_mapping_row_"] td select.select{width:70%;}
+
+#mapping_currency_mapping tbody tr[id^="mapping_currency_mapping_row_"] td input{width:70%}
+#mapping_currency_mapping tbody tr[id^="mapping_currency_mapping_row_"] td select.select{width:70%;}
+
+#Checkout_Settings .form-inline fieldset#checkout .field-mapping_order_status_mapping .control{width:70%}
+#mapping_order_status_mapping tbody tr[id^="mapping_order_status_mapping_row_"] td input{width:90%}
+#mapping_order_status_mapping tbody tr[id^="mapping_order_status_mapping_row_"] td select.select{width:80%;}
+
+#Checkout_Settings .form-inline fieldset#checkout .field-mapping_shipping_mapping .control{width:70%}
+#mapping_shipping_mapping tbody tr[id^="mapping_shipping_mapping_row_"] td input{width:70%}
+#mapping_shipping_mapping tbody tr[id^="mapping_shipping_mapping_row_"] td select.select{width:70%;}
+
+#Checkout_Settings .form-inline fieldset#checkout .field-mapping_payment_mapping .control{width:70%}
+#mapping_payment_mapping tbody tr[id^="mapping_payment_mapping_row_"] td input{width:70%;min-width:54px;}
+#mapping_payment_mapping tbody tr[id^="mapping_payment_mapping_row_"] td select.select{width:95%;}
+

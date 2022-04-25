@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="catalog_product_get_final_price">
+    <observer name="catalogrule" instance="Epicor\Comm\Observer\ProcessFinalPrice"/>
+  </event>
+  <event name="epicor_common_file_not_found">
+    <observer name="epicor_comm_freq" instance="Epicor\Comm\Observer\File\SendFreqForFile"/>
+  </event>
+  <event name="customer_save_before">
+    <observer name="epicor_comm_set_customer_group" instance="Epicor\Comm\Observer\Customer\SetCustomerGroup"/>
+  </event>
+  <event name="ecc_cuco_save_after">
+    <observer name="epicor_comm_set_erp_addresses" instance="Epicor\Comm\Observer\Customer\SetErpAddresses"/>
+  </event>
+  <event name="ecc_cuco_del_addresses">
+    <observer name="epicor_comm_del_cus_addresses" instance="Epicor\Comm\Observer\Customer\DeleteCusAddresses"/>
+  </event>
+  <event name="ecc_business_register_success">
+    <observer name="epicor_comm_set_erp_addresses" instance="Epicor\Comm\Observer\Customer\SetErpAddresses"/>
+  </event>
+  <event name="ecc_quote_save_complete">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CommsQuoteSaveAfter"/>
+  </event>
+  <event name="sales_order_save_commit_after">
+    <observer name="epicor_comm_model_observer_gor_after_order" instance="Epicor\Comm\Observer\SendOrderToERP"/>
+  </event>
+  <event name="checkout_submit_all_after">
+    <observer name="epicor_comm_model_observer_gor_after_guest_order" instance="Epicor\Comm\Observer\SendOrderGuestToERP"/>
+  </event>
+  <!--<event name="customer_address_format">
+    <observer name="epicor_common_model_observer" instance="Epicor\Comm\Observer\AddEmailToAddress"/>
+  </event>-->
+  <event name="core_collection_abstract_load_before">
+    <observer name="country_collection" instance="Epicor\Comm\Observer\RestrictCountries"/>
+  </event>
+  <event name="catalog_product_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\ProductEntityRegisterUpdate"/>
+  </event>
+  <event name="catalog_category_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\CategoryEntityRegisterUpdate"/>
+  </event>
+  <event name="customer_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\CustomerEntityRegisterUpdate"/>
+  </event>
+  <event name="customer_save_commit_after">
+    <observer name="update_address" instance="Epicor\Comm\Observer\Customer\ProcessCustomerRename"/>
+  </event>
+  <event name="epicor_comm_customer_erpaccount_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\ErpAccountEntityRegisterUpdate"/>
+  </event>
+  <event name="epicor_comm_customer_erpaddress_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\ErpAddressEntityRegisterUpdate"/>
+  </event>
+  <event name="epicor_comm_customer_sku_save_after">
+    <observer name="update_entity_register" instance="Epicor\Comm\Observer\CustomerSkuEntityRegisterUpdate"/>
+  </event>
+  <event name="catalog_product_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\ProductEntityRegisterRemove"/>
+  </event>
+  <event name="catalog_product_delete_before">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\ProductEntityRegisterBeforeDelete"/>
+  </event>
+  <event name="catalog_category_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\CategoryEntityRegisterRemove"/>
+  </event>
+  <event name="customer_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\CustomerEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_customer_erpaccount_delete_before">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\ErpAccountEntityRegisterBeforeDelete"/>
+  </event>
+  <event name="epicor_comm_customer_erpaccount_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\ErpAccountEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_customer_erpaddress_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\ErpAddressEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_customer_sku_delete_after">
+    <observer name="remove_entity_register" instance="Epicor\Comm\Observer\CustomerSkuEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_entity_purge_erpaccount">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeErpAccount"/>
+  </event>
+  <event name="epicor_comm_entity_purge_erpaddress">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeErpAddress"/>
+  </event>
+  <event name="epicor_comm_entity_purge_related">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeRelated"/>
+  </event>
+  <event name="epicor_comm_entity_purge_upsell">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeUpSell"/>
+  </event>
+  <event name="epicor_comm_entity_purge_crosssell">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeCrossSell"/>
+  </event>
+  <event name="epicor_comm_entity_purge_customersku">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeCustomerSku"/>
+  </event>
+  <event name="epicor_comm_entity_purge_categoryproduct">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeCategoryProduct"/>
+  </event>
+  <event name="epicor_comm_entity_purge_category">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeCategory"/>
+  </event>
+  <event name="epicor_comm_entity_purge_product">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeProduct"/>
+  </event>
+  <event name="epicor_comm_entity_purge_customer">
+    <observer name="purge_entity" instance="Epicor\Comm\Observer\PurgeCustomer"/>
+  </event>
+  <event name="view_block_abstract_to_html_before">
+    <observer name="epicor_comm_model_observer_modifyblock_comm" instance="Epicor\Comm\Observer\ModifyBlockHtmlBefore"/>
+  </event>
+  <event name="gor_request_processresponse_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Gor\SendNewOrderEmailAfterGorProcessResponse"/>
+    <observer name="clear_customer_order_ref_session" instance="Epicor\Comm\Observer\Gor\ClearCustomerOrderRefSession"/>
+    <observer name="update_contracts_last_use" instance="Epicor\Comm\Observer\Gor\UpdateContractLastUse"/>
+  </event>
+  <event name="controller_action_layout_load_before">
+    <observer name="addFooterReturnsLink" instance="Epicor\Comm\Observer\AddFooterReturnLink"/>
+  </event>
+  <event name="sales_model_service_quote_submit_before">
+    <observer name="quoteToOrder" instance="Epicor\Comm\Observer\QuoteToOrder" />
+    <observer name="inventory" instance="Epicor\Comm\Observer\Inventory\SubtractQuoteInventoryObserver"/>
+  </event>
+  <event name="sales_model_service_quote_submit_success">
+    <observer name="inventory" instance="Epicor\Comm\Observer\Inventory\ReindexQuoteInventoryObserver"/>
+  </event>
+  <event name="send_notify_qty_message">
+    <observer name="sendNotifyQtyMessage" instance="Epicor\Comm\Observer\SendNotifyQtyMessage" />
+  </event>
+  <event name="bsv_request_converttoxml_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NonErpProductsProxy"/>
+  </event>
+  <event name="gor_request_converttoxml_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NonErpProductsProxy"/>
+  </event>
+  <event name="gor_request_processresponse_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NonErpProductsProxyGorResponse"/>
+  </event>
+  <event name="gqr_request_converttoxml_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NonErpProductsProxy"/>
+  </event>
+  <event name="crqu_request_converttoxml_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NonErpProductsProxy"/>
+  </event>
+  <event name="bsv_request_processresponse_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\NineONineBsvProductLine"/>
+    <observer name="epicor_comm_bsv_ofouro_observer" instance="Epicor\Comm\Observer\Bsv\OFourOBsvLine"/>
+  </event>
+  <event name="set_is_salable_before_msq">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\SetIsSalableBeforeMsq"/>
+  </event>
+<!--  get_correct_product_prices_for_api_call-->
+  <event name="single_msq_for_products_in_collection">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\SendSingleMsqForApiCollection"/>
+  </event>
+    <event name="catalog_product_import_bunch_save_after_eccstk">
+        <observer name="catalog_product_import_rewrites_generation_eccstk" instance="Epicor\Comm\Observer\AfterImportDataObserver"/>
+    </event>
+  <event name="stk_upload_complete_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\StkUploadCompleteAfter"/>
+  </event>
+  <event name="controller_front_send_response_before">
+    <observer name="ecc_masquerade_message_for_all" instance="Epicor\Comm\Observer\MasqueradeMessages" />
+  </event>
+</config>

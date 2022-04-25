@@ -1,0 +1,111 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+
+<?php
+$helper = $this->helper('Epicor\Comm\Helper\Messaging\Customer');
+if ($customer = $block->getCustomer()) {
+    $companys = $block->getCompanyLists();
+    foreach ($companys as $company) { ?>
+        <div class="field addresses companyfavadd">
+        <div class="control">
+        <div class="shipping-address-items">
+          <?php  ($company->getId() == $block->getCurrentErpId())?$selctedel='selected-item': $selctedel='not-selected-item'?>
+        <div class="shipping-address-item <?php echo $selctedel ?>" >
+        <dl class="vcard">
+            <dd class="first fn org"><?php echo $customer->getName(); ?></dd>
+            <dd class="first fn org"><?php echo $company->getName(); ?></dd>
+            <dd class="adr break"> <?php
+                $address = $helper->getErpAddresses($customer, 'registered', $company->getId());
+                foreach ($address as $addres) { ?>
+                    <dd class="adr break">
+                        <span class="street-address"><?php echo $this->getStreet($addres); ?></span>
+                        <span class="locality"><?php echo $addres->getCity(); ?></span>
+                        <span class="region"><?php echo $addres->getCounty(); ?></span>
+                        <span class="postal-code"><?php echo $addres->getPostcode(); ?></span>
+                        <span class="country-name"><?php echo $this->getCountry($addres); ?></span>
+                    </dd>
+                    <?php if ($this->getConfigFlag('customer/address/display_email')): ?>
+                        <?php if ($addres->getAddressData()->getEmailAddress()): ?>
+                            <dt class="sec email"><abbr title="Email">Email</abbr> :</dt>
+                            <dd class="sec email spaced"><?php echo $addres->getAddressData()->getEmailAddress(); ?></dd>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if ($addres->getTelephoneNumber()): ?>
+                        <dt class="sec tel"><abbr title="Telephone Number">Tel</abbr> :</dt>
+                        <dd class="sec tel spaced"><?php echo $addres->getTelephoneNumber(); ?></dd>
+                    <?php endif; ?>
+                    <?php if ($this->getConfigFlag('customer/address/display_mobile_phone')): ?>
+                        <?php if ($addres->getMobileNumber()): ?>
+                            <dt class="sec fax"><abbr title="Mobile Number">Mob</abbr> :</dt>
+                            <dd class="sec fax spaced"><?php echo $addres->getMobileNumber(); ?></dd>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if ($addres->getFaxNumber()): ?>
+                        <dt class="sec fax"><abbr title="Fax Number">Fax</abbr> :</dt>
+                        <dd class="sec fax spaced"><?php echo $addres->getFaxNumber(); ?></dd>
+                    <?php endif; ?>
+            <?php }
+            ?>
+        </dl>
+
+            <div class="botbtn">
+                <button type="button" class="action action-select-shipping-item" erpid="<?php echo $company->getId() ?>">
+                    <span>Select</span>
+                </button>
+                <?php ($company->getId() == $block->getFavErpId ())?$favbloc= 'favblock-active':$favbloc= 'favblock'; ?>
+                <span class="<?php echo $favbloc; ?>  <?php if($company->getId() == $block->getCurrentErpId()) echo 'favselpos'?>">
+                    <span class="fav" erpid="<?php echo $company->getId() ?>"></span></span>
+
+            </div>
+        </div>  </div>
+        </div>
+        </div>
+        <?php
+    }
+
+}
+?>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        var heights = $(".shipping-address-item").map(function (){
+            return $(this).height();
+        }).get();
+        maxHeight = Math.max.apply(null, heights);
+        $(".shipping-address-item").height(maxHeight);
+
+        $(".companyfavadd .action").click(function () {
+            var  erpid =  $(this).attr('erpid');
+            $(".companyfavadd .shipping-address-item").removeClass("selected-item");
+            $(this).closest(".shipping-address-item").removeClass("not-selected-item");
+            $(this).closest(".botbtn").removeClass("");
+            $(this).closest(".shipping-address-item").addClass("selected-item");
+            $(this).parent().find(".favblock").addClass("favselpos");
+            $(this).parent().find(".favblock-active").addClass("favselpos");
+            $(this).hide();
+            window.location.href = "<?php echo $this->getUrl('epicor/account/select'); ?>id/"+erpid;
+        });
+
+        $(".companyfavadd .fav").click(function () {
+            var erpid = $(this).attr('erpid');
+            if( $(this).parent().hasClass('favblock')) {
+                $(".favblock-active").addClass("favblock");
+                $(".favblock-active").removeClass("favblock-active");
+                $(this).parent().removeClass("favblock");
+                $(this).parent().addClass("favblock-active");
+                window.location.href = "<?php echo $this->getUrl('epicor/account/favourite'); ?>id/" + erpid;
+            }
+            else if ($(this).parent().hasClass('favblock-active')){
+                $(this).parent().removeClass("favblock-active");
+                $(this).parent().addClass("favblock");
+                window.location.href = "<?php echo $this->getUrl('epicor/account/favourite'); ?>unselected/"+erpid;
+            }
+        });
+
+    });
+</script>

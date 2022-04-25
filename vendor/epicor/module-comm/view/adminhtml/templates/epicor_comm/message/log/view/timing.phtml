@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* @var $this Epicor_Comm_Block_Adminhtml_Message_Log_View */
+
+$_log = $this->getLog();
+?>
+<div class="entry-edit box-right" style="width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4>Message Timings</h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list admin__table-secondary">
+            <tr>
+                <td class="label"><label><?php echo __('Start Time') ?></label></td>
+                <td class="value"><strong><?php echo $this->getDate($_log->getStartDatestamp());?><strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('End Time') ?></label></td>
+                <td class="value"><strong><?php echo $this->getDate($_log->getEndDatestamp()) ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Duration') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getDuration() ?> ms</strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

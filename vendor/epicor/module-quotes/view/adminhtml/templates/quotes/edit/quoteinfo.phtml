@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this \Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Quoteinfo */
+
+$request = $this->getConfigFlag('epicor_comm_enabled_messages/gqr_request/active');
+$upload = $this->getConfigFlag('epicor_comm_field_mapping/gqr_mapping/active');
+$emailOptions = $this->getConfig('epicor_comm_enabled_messages/gqr_request/submit_to_customer') !== 'Y';
+?>
+<div class="entry-edit box-left">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account">
+            <?php echo __('Quote Information'); ?>
+        </h4>
+    </div>
+    <div class="fieldset">
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label><?php echo __('Last Updated'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getUpdatedAt(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Quote Status'); ?></label></td>
+                <td class="value"><strong><?php echo __($this->getQuote()->getStatus()); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Quote Expires'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getExpires(); ?></strong></td>
+            </tr>
+            <?php if($request || $upload) : ?>
+            <tr>
+                <td class="label"><label><?php echo __('ERP Quote Number'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getQuote()->getQuoteNumber(); ?></strong></td>
+            </tr>
+            <?php 
+                endif; 
+                if($emailOptions):
+            ?>
+            <tr>
+                <td class="label"><label><?php echo __('Send Reminders to Admin'); ?></label></td>
+                <td class="value"><input type="checkbox" name="send_reminders" id="send_reminders" <?php echo $this->getQuote()->getSendAdminReminders() ? 'checked="checked"' : ''; ?> /></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Send Comment Updates to Admin'); ?></label></td>
+                <td class="value"><input type="checkbox" name="send_comments" id="send_comments" <?php echo $this->getQuote()->getSendAdminComments() ? 'checked="checked"' : ''; ?> /></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Send Status Updates to Admin'); ?></label></td>
+                <td class="value"><input type="checkbox" name="send_updates" id="send_updates" <?php echo $this->getQuote()->getSendAdminUpdates() ? 'checked="checked"' : ''; ?> /></td>
+            </tr>
+            <?php 
+                endif;
+                if($this->getQuote()->getCustomer()->isCustomer()) :
+            ?>
+            <tr>
+                <td class="label"><label><?php echo __('Account-wide Quote?'); ?></label></td>
+                <td class="value"><input type="checkbox" name="is_global" value="true" id="quote_is_global" <?php echo $this->getQuote()->getIsGlobal() ? 'checked="checked"' : ''; ?>/></td>
+            </tr>
+            <?php else: ?>
+                <input type="hidden" name="is_global" id="quote_is_global" value="<?php echo $this->getQuote()->getIsGlobal() ? 'true' : 'false'; ?>" />
+            <?php endif; ?>
+        </table>
+    </div>
+</div>

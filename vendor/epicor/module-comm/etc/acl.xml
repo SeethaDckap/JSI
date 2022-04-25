@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>     
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::system">
+                    <resource id="Epicor_Common::advanced"> 
+                        <resource id="Epicor_Comm::entity_register" title="Uploaded Data"/>
+                    </resource>   
+                </resource>
+                <resource id="Magento_Sales::sales">
+                    <resource id="Epicor_Comm::sales_returns" title="Epicor Returns" sortOrder="60"/>
+                </resource>
+        
+                <resource id="Epicor_Common::epicor">
+                    <resource id="Epicor_Common::manage" title="Manage">
+                        <resource id="Epicor_Comm::erpaccount" title="Erp Accounts"/>                                        
+                        <resource id="Epicor_Comm::returns_manage" title="Returns"/>
+                        <resource id="Epicor_Comm::locations_manage" title="Locations"/>
+                        <resource id="Epicor_Comm::location_groups_manage" title="Locations - Groups"/>
+                    </resource>
+                    <resource id="Epicor_Comm::message" title="Messaging">
+                        <resource id="Epicor_Comm::message_log" title="Log"/>
+                        <resource id="Epicor_Comm::message_commsyn" title="Send SYN request"/>
+                        <resource id="Epicor_Comm::message_syn_log" title="SYN Log"/>
+                        <resource id="Epicor_Comm::message_xmlupload" title="XML Upload"/>
+                    </resource>
+                </resource>                
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Epicor_Common::configure" title="Epicor Configure" >
+                                <resource id="Epicor_Common::logconfig" title="Epicor Log view" sortOrder="10"/>
+                                <resource id="Epicor_Comm::checkout" title="Epicor Checkout" sortOrder="10"/> 
+                                <resource id="Epicor_Comm::customer_config" title="Epicor Customer Configuration" sortOrder="20"/>
+                                <resource id="Epicor_Comm::erp_accounts" title="Epicor ERP Accounts" sortOrder="30"/>
+                                <resource id="Epicor_Comm::locations_config" title="Epicor Locations" sortOrder="40"/>
+                                <resource id="Epicor_Comm::message_logging" title="Epicor Message Logging" sortOrder="50"/>
+                                <resource id="Epicor_Comm::network_and_general" title="Epicor Networking and General" sortOrder="60"/>
+                                <resource id="Epicor_Comm::product_config" title="Epicor Product Config" sortOrder="70"/>
+                                <resource id="Epicor_Comm::request_messages" title="Epicor Request Messages" sortOrder="100"/>
+                                <resource id="Epicor_Comm::returns" title="Epicor Returns" sortOrder="110"/>
+                                <resource id="Epicor_Comm::upload_messages" title="Epicor Upload Messages" sortOrder="140"/>
+                                <!-- NB these are default tabs that don't show when using custom user roles, so have had to be added -->
+<!--                                <resource id="Magento_Backend::trans_email" title="Store Email Addresses Tab" translate="title" sortOrder="150"/> 
+                                <resource id="Magento_Backend::currency" title="Currency Tab" translate="title" sortOrder="160"/> 
+                                <resource id="Magento_Webapi::config_webapi" title="Magento Web API (In Services)" translate="title" sortOrder="170"/> 
+                                <resource id="Magento_Integration::config_oauth" title="OAuth (In Services)" translate="title" sortOrder="180"/> 
+                                <resource id="Magento_Backend::advanced" title="Advanced (in Advanced Tab)" translate="title" sortOrder="190"/> 
+                                <resource id="Magento_Backend::dev" title="Developer (in Advanced Tab)" translate="title" sortOrder="200"/> 
+                                <resource id="Magento_Integration::extensions" title="Extensions" translate="title" sortOrder="210"> 
+                                    <resource id="Magento_Integration::integrations" title="Integrations" translate="title" sortOrder="10"/> 
+                                </resource>    -->
+                            </resource>                            
+                            <resource id="Magento_Sales::config_sales">
+                                <resource id="Epicor_Comm::sales" title="Epicor Sales"/>                              
+                            </resource>                          
+                        </resource>   
+                    </resource>
+                </resource>                       	
+            </resource>
+        </resources>
+    </acl>
+</config>
+

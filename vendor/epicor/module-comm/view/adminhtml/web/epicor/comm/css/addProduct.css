@@ -1,0 +1,61 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+
+#window-overlay {
+    position:fixed;
+    background:rgba(0, 0, 0, 0.35);
+    height:100%;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:990;
+}
+
+#saveProductSummary {
+    position:fixed;
+    width:750px;
+    left:50%;
+    top:50%;
+    margin:-200px 0 0 -325px;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #999;
+}
+
+#saveProductSummary .grid {
+    padding:5px;
+}
+
+
+.exceedMax {
+    color:#a00;
+}
+#addProductWrapperWindow {
+    margin-top:20px;
+    border:1px solid #d6d6d6;
+    background:#fafafa;
+}
+#addProductWrapperWindow .content-header {
+    background:#6F8992;
+    border:none;
+    margin:0;
+    padding:2px 10px;
+}
+
+#addProductWrapperWindow .content-header h3 {    
+    color: #FFFFFF;
+    font-size: 1em;
+    line-height: 18px;
+    padding:0;
+    margin:0;
+}
+
+#addProductWrapperWindow .content-header button { 
+    margin-bottom:0;
+}
+
+#addProductWrapperWindow #addProductSearchGrid {
+    padding:0 10px 5px;
+}

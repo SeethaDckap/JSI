@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Framework\App\Config" type="Epicor\Common\App\Config" />
+    <preference for="Magento\Framework\View\LayoutInterface" type="Epicor\Common\Model\Layout"/>
+    <preference for="Magento\Config\Model\Config\Backend\Baseurl"
+                type="Epicor\Common\Model\System\Config\Backend\Baseurl"/>
+    <preference for="Magento\Config\Model\Config\Backend\Secure"
+                type="Epicor\Common\Model\System\Config\Backend\Secure"/>
+    <!-- INVESTIGATE <preference for="UNKNOWN\xmlconnect\adminhtml_system_config_backend_baseurl" type="Epicor\Common\Model\System\Config\Backend\Securebaseurl"/> -->
+    <preference for="Magento\Catalog\Block\Navigation" type="Epicor\Common\Block\Catalog\Navigation"/>
+    <preference for="Magento\Catalog\Block\Product\Price" type="Epicor\Common\Block\Catalog\Product\Price"/>
+    <!-- INVESTIGATE <preference for="UNKNOWN\customer\account_navigation" type="Epicor\Common\Block\Customer\Account\Navigation"/> -->
+    <preference for="Magento\Wishlist\Block\Link" type="Epicor\Common\Block\Template\Links\Wishlist"/>
+    <!-- INVESTIGATE <preference for="UNKNOWN\page\template_links" type="Epicor\Common\Block\Template\Links"/> -->
+    <preference for="Magento\Theme\Block\Html\Topmenu" type="Epicor\Common\Block\Page\Html\Topmenu"/>
+    <!-- INVESTIGATE <preference for="UNKNOWN\page\html_topmenu_renderer" type="Epicor\Common\Block\Page\Html\Topmenu\Renderer"/> -->
+<!--    <preference for="Magento\Theme\Block\Html\Footer" type="Epicor\Common\Block\Page\Html\Footer"/>-->
+    <!-- INVESTIGATE <preference for="UNKNOWN\flexitheme\frontend_template_quicklinks" type="Epicor\Common\Block\Template\Quicklinks"/> -->
+    <preference for="Magento\Sales\Block\Order\History" type="Epicor\Common\Block\Order\History"/>
+    <preference for="Magento\Sales\Block\Order\Recent" type="Epicor\Common\Block\Order\Recent"/>
+    <preference for="Magento\Sales\Block\Order\Info\Buttons" type="Epicor\Common\Block\Order\Info\Buttons"/>
+    <!-- INVESTIGATE <preference for="UNKNOWN\adminhtml\widget_grid_massaction_item_additional_default" type="Epicor\Common\Block\Adminhtml\Widget\Grid\Massaction\Item\Additional\Default"/>-->
+    <preference for="Magento\Sales\Model\Service\InvoiceService" type="Epicor\Common\Model\InvoiceService"/>
+    <virtualType name="commonLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Epicor\Common\Model\Log</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Epicor\Common\Model\Download">
+        <arguments>
+            <argument name="logger" xsi:type="object">commonLogger</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Controller\Adminhtml\Download\Log">
+        <arguments>
+            <argument name="logger" xsi:type="object">commonLogger</argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Block\Customer\Account\Navigation">
+        <arguments>
+            <argument name="helperReader" xsi:type="object">Epicor\Common\Helper\FunctionReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Helper\FunctionReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_comm/returns" xsi:type="object">Epicor\Comm\Helper\Returns</item>
+                <item name="epicor_comm/messaging_crqs" xsi:type="object">Epicor\Comm\Helper\Messaging\Crqs</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Model\Message\Collection">
+        <arguments>
+            <argument name="genericgridReader" xsi:type="object">Epicor\Common\Helper\GenericgridReader\Proxy</argument>
+            <argument name="messageRequestModelReader" xsi:type="object">Epicor\Common\Model\MessageRequestModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Helper\GenericgridReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="customerconnect" xsi:type="object">Epicor\Customerconnect\Helper\Genericgrid</item>
+                <item name="epicor_comm" xsi:type="object">Epicor\Comm\Helper\Genericgrid</item>
+                <item name="epicor_common" xsi:type="object">Epicor\Common\Helper\Genericgrid</item>
+                <item name="epicor_lists" xsi:type="object">Epicor\Lists\Helper\Genericgrid</item>
+                <item name="epicor_salesrep" xsi:type="object">Epicor\SalesRep\Helper\Genericgrid</item>
+                <item name="supplierconnect" xsi:type="object">Epicor\Supplierconnect\Helper\Genericgrid</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Model\MessageRequestModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_comm_ast" xsi:type="object">Epicor\Comm\Model\Message\Request\AstFactory</item>
+                <item name="epicor_comm_bsv" xsi:type="object">Epicor\Comm\Model\Message\Request\BsvFactory</item>
+                <item name="epicor_comm_ccms" xsi:type="object">Epicor\Comm\Model\Message\Request\CcmsFactory</item>
+                <item name="epicor_comm_cdm" xsi:type="object">Epicor\Comm\Model\Message\Request\CdmFactory</item>
+                <item name="epicor_comm_cim" xsi:type="object">Epicor\Comm\Model\Message\Request\CimFactory</item>
+                <item name="epicor_comm_cnc" xsi:type="object">Epicor\Comm\Model\Message\Request\CncFactory</item>
+                <item name="epicor_comm_crrd" xsi:type="object">Epicor\Comm\Model\Message\Request\CrrdFactory</item>
+                <item name="epicor_comm_crrs" xsi:type="object">Epicor\Comm\Model\Message\Request\CrrsFactory</item>
+                <item name="epicor_comm_crru" xsi:type="object">Epicor\Comm\Model\Message\Request\CrruFactory</item>
+                <item name="epicor_comm_csns" xsi:type="object">Epicor\Comm\Model\Message\Request\CsnsFactory</item>
+                <item name="epicor_comm_dda" xsi:type="object">Epicor\Comm\Model\Message\Request\DdaFactory</item>
+                <item name="epicor_comm_freq" xsi:type="object">Epicor\Comm\Model\Message\Request\FreqFactory</item>
+                <item name="epicor_comm_fsub" xsi:type="object">Epicor\Comm\Model\Message\Request\FsubFactory</item>
+                <item name="epicor_comm_gor" xsi:type="object">Epicor\Comm\Model\Message\Request\GorFactory</item>
+                <item name="epicor_comm_gqr" xsi:type="object">Epicor\Comm\Model\Message\Request\GqrFactory</item>
+                <item name="epicor_comm_hrt" xsi:type="object">Epicor\Comm\Model\Message\Request\HrtFactory</item>
+                <item name="epicor_comm_lics" xsi:type="object">Epicor\Comm\Model\Message\Request\LicsFactory</item>
+                <item name="epicor_comm_msq" xsi:type="object">Epicor\Comm\Model\Message\Request\MsqFactory</item>
+                <item name="epicor_comm_syn" xsi:type="object">Epicor\Comm\Model\Message\Request\SynFactory</item>
+                <item name="customerconnect_cccs" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CccsFactory</item>
+                <item name="customerconnect_cphs" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CphsFactory</item>
+                <item name="customerconnect_crqc" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CrqcFactory</item>
+                <item name="customerconnect_crqd" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CrqdFactory</item>
+                <item name="customerconnect_crqs" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CrqsFactory</item>
+                <item name="customerconnect_crqu" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CrquFactory</item>
+                <item name="customerconnect_cuad" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuadFactory</item>
+                <item name="customerconnect_cuau" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuauFactory</item>
+                <item name="customerconnect_cucs" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CucsFactory</item>
+                <item name="customerconnect_cuid" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuidFactory</item>
+                <item name="customerconnect_cuis" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuisFactory</item>
+                <item name="customerconnect_cuod" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuodFactory</item>
+                <item name="customerconnect_cuos" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CuosFactory</item>
+                <item name="customerconnect_cups" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CupsFactory</item>
+                <item name="customerconnect_curs" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CursFactory</item>
+                <item name="customerconnect_cusd" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CusdFactory</item>
+                <item name="customerconnect_cuss" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CussFactory</item>
+                <item name="customerconnect_caps" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CapsFactory</item>
+                <item name="customerconnect_caap" xsi:type="object">Epicor\Customerconnect\Model\Message\Request\CaapFactory</item>
+                <item name="epicor_lists_cccd" xsi:type="object">Epicor\Lists\Model\Message\Request\CccdFactory</item>
+                <item name="supplierconnect_spcc" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpccFactory</item>
+                <item name="supplierconnect_spcs" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpcsFactory</item>
+                <item name="supplierconnect_spld" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpldFactory</item>
+                <item name="supplierconnect_spls" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SplsFactory</item>
+                <item name="supplierconnect_spoc" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpocFactory</item>
+                <item name="supplierconnect_spod" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpodFactory</item>
+                <item name="supplierconnect_spos" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SposFactory</item>
+                <item name="supplierconnect_spou" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SpouFactory</item>
+                <item name="supplierconnect_suid" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SuidFactory</item>
+                <item name="supplierconnect_suis" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SuisFactory</item>
+                <item name="supplierconnect_sups" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SupsFactory</item>
+                <item name="supplierconnect_surd" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SurdFactory</item>
+                <item name="supplierconnect_surs" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SursFactory</item>
+                <item name="supplierconnect_suru" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SuruFactory</item>
+                <item name="supplierconnect_susd" xsi:type="object">Epicor\Supplierconnect\Model\Message\Request\SusdFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Model\MessageUploadModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_comm_alt" xsi:type="object">Epicor\Comm\Model\Message\Upload\Alt</item>
+                <item name="epicor_comm_cad" xsi:type="object">Epicor\Comm\Model\Message\Upload\Cad</item>
+                <item name="epicor_comm_cpn" xsi:type="object">Epicor\Comm\Model\Message\Upload\Cpn</item>
+                <item name="epicor_comm_creu" xsi:type="object">Epicor\Comm\Model\Message\Upload\Creu</item>
+                <item name="epicor_comm_crrc" xsi:type="object">Epicor\Comm\Model\Message\Upload\Crrc</item>
+                <item name="epicor_comm_cus" xsi:type="object">Epicor\Comm\Model\Message\Upload\Cus</item>
+                <item name="epicor_comm_cxr" xsi:type="object">Epicor\Comm\Model\Message\Upload\Cxr</item>
+                <item name="epicor_comm_freq" xsi:type="object">Epicor\Comm\Model\Message\Upload\Freq</item>
+                <item name="epicor_comm_fsub" xsi:type="object">Epicor\Comm\Model\Message\Upload\Fsub</item>
+                <item name="epicor_comm_gqr" xsi:type="object">Epicor\Comm\Model\Message\Upload\Gqr</item>
+                <item name="epicor_comm_hrt" xsi:type="object">Epicor\Comm\Model\Message\Upload\Hrt</item>
+                <item name="epicor_comm_loc" xsi:type="object">Epicor\Comm\Model\Message\Upload\Loc</item>
+                <item name="epicor_comm_sgp" xsi:type="object">Epicor\Comm\Model\Message\Upload\Sgp</item>
+                <item name="epicor_comm_sou" xsi:type="object">Epicor\Comm\Model\Message\Upload\Sou</item>
+                <item name="epicor_comm_stg" xsi:type="object">Epicor\Comm\Model\Message\Upload\Stg</item>
+                <item name="epicor_comm_stk" xsi:type="object">Epicor\Comm\Model\Message\Upload\Stk</item>
+                <item name="epicor_comm_stknew" xsi:type="object">Epicor\Comm\Model\Message\Upload\Stknew</item>
+                <item name="epicor_comm_stt" xsi:type="object">Epicor\Comm\Model\Message\Upload\Stt</item>
+                 <item name="customerconnect_cuco" xsi:type="object">Epicor\Customerconnect\Model\Message\Upload\Cuco</item>
+                 <item name="epicor_lists_cccn" xsi:type="object">Epicor\Lists\Model\Message\Upload\Cccn</item>
+                 <item name="epicor_lists_cupg" xsi:type="object">Epicor\Lists\Model\Message\Upload\Cupg</item>
+                 <item name="epicor_lists_curp" xsi:type="object">Epicor\Lists\Model\Message\Upload\Curp</item>
+                 <item name="supplierconnect_suco" xsi:type="object">Epicor\Supplierconnect\Model\Message\Upload\Suco</item>
+                 <item name="supplierconnect_susp" xsi:type="object">Epicor\Supplierconnect\Model\Message\Upload\Susp</item>
+                 <item name="epicor_salesrep_cusr" xsi:type="object">Epicor\SalesRep\Model\Message\Upload\Cusr</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Block\Adminhtml\Form\Element\Erpaccounttype">
+        <arguments>
+            <argument name="accountTypeModelReader" xsi:type="object">Epicor\Common\Model\AccountTypeModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Model\AccountTypeModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_comm/customer_erpaccount" xsi:type="object">Epicor\Comm\Model\Customer\Erpaccount</item>
+                <item name="epicor_salesrep/account" xsi:type="object">Epicor\SalesRep\Model\Account</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Block\Generic\Listing\Search">
+        <arguments>
+            <argument name="configOptionsModelReader" xsi:type="object">Epicor\Common\Model\GridConfigOptionsModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Model\GridConfigOptionsModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="customerconnect/erp_mapping_erporderstatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Erporderstatus</item>
+                <item name="customerconnect/erp_mapping_invoicestatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Invoicestatus</item>
+                <item name="customerconnect/erp_mapping_rmastatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Rmastatus</item>
+                <item name="customerconnect/erp_mapping_servicecallstatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Servicecallstatus</item>
+                <item name="customerconnect/erp_mapping_erpquotestatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Erpquotestatus</item>
+                <item name="supplierconnect/config_source_orderstatusoptions" xsi:type="object">Epicor\Supplierconnect\Model\Config\Source\Orderstatusoptions</item>
+                <item name="supplierconnect/config_source_confirmstatusoptions" xsi:type="object">Epicor\Supplierconnect\Model\Config\Source\Confirmstatusoptions</item>
+                <item name="supplierconnect/config_source_rfqstatusoptions" xsi:type="object">Epicor\Supplierconnect\Model\Config\Source\Rfqstatusoptions</item>
+                <item name="supplierconnect/config_source_rfqresponseoptions" xsi:type="object">Epicor\Supplierconnect\Model\Config\Source\Rfqresponseoptions</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Helper\Quickstart">
+        <arguments>
+            <argument name="sourceModelReader" xsi:type="object">Epicor\Common\Helper\Quickstart\SourceModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Controller\Adminhtml\Epicorcommon\Quickstart\Save">
+        <arguments>
+            <argument name="sourceModelReader" xsi:type="object">Epicor\Common\Helper\Quickstart\SourceModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Helper\Quickstart\SourceModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="Epicor\Common\Model\Config\Source\Erps" xsi:type="object">Epicor\Common\Model\Config\Source\Erps</item>
+                <item name="Magento\Directory\Model\Config\Source\Country" xsi:type="object">Magento\Directory\Model\Config\Source\Country</item>
+                <item name="tax/class" xsi:type="object">Magento\Tax\Model\ClassModel</item>
+                <item name="Magento\Config\Model\Config\Source\Yesno" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="Magento\Customer\Model\Config\Source\Group" xsi:type="object">Magento\Customer\Model\Config\Source\Group</item>
+                <item name="Epicor\Comm\Model\Config\Source\Customertax" xsi:type="object">Epicor\Comm\Model\Config\Source\Customertax</item>
+                <item name="epicor_comm/erp_mapping_country" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Country</item>
+                <item name="epicor_comm/erp_mapping_currency" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Currency</item>
+                <item name="Epicor\Comm\Model\Config\Source\Producttax" xsi:type="object">Epicor\Comm\Model\Config\Source\Producttax</item>
+                <item name="epicor_common/erp_mapping_language" xsi:type="object">Epicor\Common\Model\Erp\Mapping\Language</item>
+                <item name="epicor_comm/erp_mapping_shippingmethod" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Shippingmethod</item>
+                <item name="epicor_comm/erp_mapping_orderstatus" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Orderstatus</item>
+                <item name="epicor_comm/erp_mapping_payment" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Payment</item>
+                <item name="customerconnect/erp_mapping_invoicestatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Invoicestatus</item>
+                <item name="customerconnect/erp_mapping_rmastatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Rmastatus</item>
+                <item name="customerconnect/erp_mapping_servicecallstatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Servicecallstatus</item>
+                <item name="customerconnect/erp_mapping_erporderstatus" xsi:type="object">Epicor\Customerconnect\Model\Erp\Mapping\Erporderstatus</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Lib\Varien\Data\Form\Element\AbstractArray">
+        <arguments>
+            <argument name="sourceModelReader" xsi:type="object">Epicor\Common\Lib\Varien\Data\Form\Element\Mapping\SourceModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Common\Lib\Varien\Data\Form\Element\Mapping\SourceModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="adminhtml/system_config_source_country" xsi:type="object">Magento\Directory\Model\Config\Source\Country</item>
+                <item name="adminhtml/system_config_source_currency" xsi:type="object">Magento\Config\Model\Config\Source\Locale\Currency</item>
+                <item name="adminhtml/system_config_source_locale" xsi:type="object">Magento\Config\Model\Config\Source\Locale</item>
+                <item name="epicor_comm/erp_mapping_shipping" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Shipping</item>
+                <item name="epicor_comm/erp_mapping_statuses" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Statuses</item>
+                <item name="epicor_comm/erp_mapping_states" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\States</item>
+                <item name="epicor_comm/config_source_soutrigger" xsi:type="object">Epicor\Comm\Model\Config\Source\Soutrigger</item>
+                <item name="epicor_comm/erp_mapping_paymentmethods" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Paymentmethods</item>
+                <item name="epicor_comm/erp_mapping_payment" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Payment</item>
+                <item name="epicor_comm/erp_mapping_gortriggers" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Gortriggers</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Epicor\Common\Helper\Data\ErpSourceReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="epicor_common/erp_mapping_language" xsi:type="object" shared="false">Epicor\Common\Model\Erp\Mapping\Language\Proxy</item>
+                <item name="epicor_comm/erp_mapping_orderstatus" xsi:type="object" shared="false">Epicor\Comm\Model\Erp\Mapping\Orderstatus\Proxy</item>
+                <item name="epicor_comm/erp_mapping_country" xsi:type="object" shared="false">Epicor\Comm\Model\Erp\Mapping\Country\Proxy</item>
+                <item name="epicor_comm/erp_mapping_currency" xsi:type="object" shared="false">Epicor\Comm\Model\Erp\Mapping\Currency\Proxy</item>
+                <item name="epicor_comm/erp_mapping_cardtype" xsi:type="object" shared="false">Epicor\Comm\Model\Erp\Mapping\Cardtype\Proxy</item>
+                <item name="customerconnect/erp_mapping_invoicestatus" xsi:type="object" shared="false">Epicor\Customerconnect\Model\Erp\Mapping\Invoicestatus\Proxy</item>
+                <item name="customerconnect/erp_mapping_erporderstatus" xsi:type="object" shared="false">Epicor\Customerconnect\Model\Erp\Mapping\Erporderstatus\Proxy</item>
+                <item name="epicor_comm/erp_mapping_payment" xsi:type="object" shared="false">Epicor\Comm\Model\Erp\Mapping\Payment\Proxy</item>
+                <item name="customerconnect/erp_mapping_rmastatus" xsi:type="object" shared="false">Epicor\Customerconnect\Model\Erp\Mapping\Rmastatus\Proxy</item>
+                <item name="customerconnect/erp_mapping_servicecallstatus" xsi:type="object" shared="false">Epicor\Customerconnect\Model\Erp\Mapping\Servicecallstatus\Proxy</item>
+                <item name="customerconnect/erp_mapping_erpquotestatus" xsi:type="object" shared="false">Epicor\Customerconnect\Model\Erp\Mapping\Erpquotestatus\Proxy</item>
+                <item name="epicor_comm/erp_mapping_shippingmethod" xsi:type="object">Epicor\Comm\Model\Erp\Mapping\Shippingmethod</item>
+                <item name="tax/class" xsi:type="object">Magento\Tax\Model\ClassModel</item>
+                <item name="core/config_data" xsi:type="object">Magento\Framework\App\Config\Value</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Backup\Helper\Data">
+        <plugin name="sysLogHelperData" type="Epicor\Common\Plugin\LogData" sortOrder="5"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Validator\MinimumOrderAmount\ValidationMessage">
+        <plugin name="min_order_quote_message" type="\Epicor\Common\Plugin\MinOrderValidationMessage" />
+    </type>
+    <type name="Magento\Shipping\Model\Order\Track">
+        <plugin name="tracking_number_detail" type="Epicor\Common\Plugin\TrackingNumberDetail" />
+    </type>
+    <preference for="\Magento\Sales\Block\Order\Email\Items\DefaultItems" type="Epicor\Common\Block\Order\Email\Items\Defaultitems" />
+    <preference for="\Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped" type="Epicor\Common\Block\Order\Email\Items\Order\Grouped" />
+    <preference for="Magento\Sales\Block\Order\Email\Items\DefaultItems" type="Epicor\Common\Block\Order\Email\Items\Defaultitems" />
+    <preference for="Magento\Shipping\Block\Tracking\Popup" type="Epicor\Comm\Block\Tracking\Popup" />
+<!--this is to fix a magento 2 issue not sorted until 2.2.8 -->
+    <type name="Magento\Developer\Model\TemplateEngine\Plugin\DebugHints">
+        <arguments>
+            <argument name="debugHintsPath" xsi:type="string">dev/debug/template_hints_storefront</argument>
+        </arguments>
+    </type>
+    <virtualType name="customEccEmptyLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Epicor\Common\Logger\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Eav\Model\ResourceModel\ReadHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">customEccEmptyLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\OfflineShipping\Model\Carrier\Flatrate">
+        <plugin name="fix-for-Flatrate" type="Epicor\Common\Plugin\Carrier\Flatrate" sortOrder="1" />
+    </type>
+    <type name="Magento\Ups\Model\Carrier">
+        <plugin name="fix-for-Ups" type="Epicor\Common\Plugin\Carrier\Ups" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\Config\FileCollector\AggregatedFileCollector">
+        <plugin name="aggregated_file_collector_collect_files" type="Epicor\Common\Plugin\AggregatedFileCollectorPlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\Customer\Collection">
+        <plugin name="customer_attribute_filter" type="Epicor\Common\Plugin\Customer\Collection\AttributeFilterPlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
+        <plugin name="customer_set_erpaccount" type="Epicor\Common\Plugin\Customer\Repository\CustomerRepositoryPlugin" sortOrder="5"/>
+    </type>
+    <preference for="Magento\Quote\Model\CouponManagement" type="Epicor\Common\Model\CouponManagement" />
+    <type name="Magento\Sales\Block\Order\Info">
+        <plugin name="order_comments_display" type="Epicor\Common\Plugin\Order\Info" sortOrder="5"/>
+    </type>
+	<type name="Epicor\Common\Controller\Sales\Order">
+        <arguments>
+            <argument name="guestOrderLoader" xsi:type="object">Magento\Sales\Controller\Guest\OrderLoader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\User\Model\User">
+        <plugin name="ecc_admin_user" type="\Epicor\Common\Plugin\User\User" />
+    </type>
+    <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="ecc_admin_user_edit_main" type="\Epicor\Common\Plugin\User\Block\Edit\Main" />
+    </type>
+    <type name="Magento\Framework\Data\Form\Element\Password">
+        <plugin name="ecc_admin_user_edit_element_password" type="\Epicor\Common\Plugin\Framework\Data\Form\Element\Password" />
+    </type>
+    <type name="Magento\Backend\Block\System\Account\Edit\Form">
+        <plugin name="ecc_backent_system_acount_edit" type="\Epicor\Common\Plugin\Backend\System\Account\Form" />
+    </type>
+</config>

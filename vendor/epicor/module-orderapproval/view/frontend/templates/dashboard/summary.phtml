@@ -1,0 +1,45 @@
+<?php /** Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved */ ?>
+<?php /** @var $this \Epicor\OrderApproval\Block\Dashboard\Summary */ ?>
+<div id="approvals-summary-management">
+    <div class="abs-account-blocks">
+        <div class="block-title">
+            <strong><?= __('Order Approvals Dashboard') ?></strong>
+        </div>
+    </div>
+    <div class="summary-table summary-grid">
+        <table class="data-grid">
+            <caption>Approvals summary table</caption>
+            <thead>
+            <tr>
+                <th class="data-grid-th" id="summary-pending"><?= __('Pending') ?></th>
+                <th class="data-grid-th" id="summary-today"><?= __('Today') ?></th>
+                <th class="data-grid-th" id="summary-last-seven"><?= __('Last 7 Days') ?></th>
+                <th class="data-grid-th" id="summary-other"><?= __('Over 7 Days') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><?= $this->getPendingSummary() ?></td>
+                <td><?= $this->getTodaySummary() ?></td>
+                <td><?= $this->getLastSevenSummary() ?></td>
+                <td><?= $this->getOtherSummary() ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="summary-table summary-box">
+
+        <h2><?=__('Orders')?></h2>
+        <table>
+            <tr>
+                <td><?= __('Pending Approval') ?> - <?= $this->getPendingSummary() ?></td>
+                <td><?= __('Rejected') ?> - <?= $this->getAllRejectedSummary() ?></td>
+            </tr>
+            <tr>
+                <td><?= __('Approved') ?> - <?= $this->getAllApprovedSummary() ?></td>
+                <td><?= __('All') ?> - <?= $this->getAllSummary() ?></td>
+            </tr>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Elasticsearch::css/eccautosuggest.css"/>
+    </head>
+    <body>
+        <referenceBlock name="top.search">
+            <block class="Epicor\Elasticsearch\Block\Autosuggest" name="epicor-autosuggest"
+                   template="Epicor_Elasticsearch::autosuggest.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

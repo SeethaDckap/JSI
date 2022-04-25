@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\BillOfMaterials\Built" name="bom.built" />
+        <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\BillOfMaterials\Additional" name="bom.additional" />
+        <block template="Epicor_Dealerconnect::claims/details/quotes/billofmaterials/addtoquotebtn.phtml" class="Magento\Framework\View\Element\Template" name="add_to_quote_btn"/>
+    </container>
+</layout>

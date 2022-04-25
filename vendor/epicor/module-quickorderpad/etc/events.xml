@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="checkout_cart_update_item_complete">
+    <observer name="return_to_quick_order_pad" instance="Epicor\QuickOrderPad\Observer\ReturnToQuickorderpad"/>
+  </event>
+  <event name="catalog_block_product_list_collection">
+    <observer name="filter_qop_lists" instance="Epicor\QuickOrderPad\Observer\FilterProductLists"/>
+  </event>
+    <event name="eav_collection_abstract_load_before">
+        <observer instance="Epicor\QuickOrderPad\Observer\EavCollectionAbstractLoadBefore"
+                  name="epicor_quickorderpad_list_position_order"/>
+    </event>
+</config>

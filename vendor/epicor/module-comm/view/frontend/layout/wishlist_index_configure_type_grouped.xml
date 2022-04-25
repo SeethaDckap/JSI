@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="product.info.grouped">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/catalog/product/view/type/grouped.phtml</argument>
+            </action>
+            <block template="Epicor_Comm::epicor_comm/catalog/product/view/type/grouped/locations.phtml" class="Epicor\Comm\Block\Catalog\Product\View\Type\Grouped\Locations" name="epicor_comm.locations" as="grouped_locations">
+                <block class="Epicor\BranchPickup\Block\Selectedbranch" template="Epicor_Comm::product/list/relatedBranch.phtml" name="epicor_comm.grouped_related_branch" as="epicor_ecc_product_related_branch" />
+            </block>
+            <block class="Epicor\BranchPickup\Block\Selectedbranch" template="Epicor_Comm::product/list/relatedBranch.phtml" name="epicor_comm.related_branch" as="epicor_ecc_product_list_related_branch" />
+        </referenceBlock>
+    </body>
+</page>

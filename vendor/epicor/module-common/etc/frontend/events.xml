@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="controller_action_predispatch">
+    <observer name="epicor_common_model_observer_forall_predispatch" instance="Epicor\Common\Observer\CheckUserRights"/>
+  </event>
+  <event name="controller_action_layout_render_before_catalog_category_view">
+    <observer name="home_page_redirect_check" instance="Epicor\Common\Observer\HomePageRedirectCheck"/>
+  </event>
+  <event name="load_customer_quote_before">
+    <observer name="no_bsv_empty_cart" instance="Epicor\Common\Observer\EmptyCart"/>
+  </event>
+  <event name="controller_front_send_response_before">
+    <observer name="epicor_common_observer_sales_rep_home_page_check" instance="Epicor\Common\Observer\SalesRepHomePageCheck"/>
+  </event>
+</config>

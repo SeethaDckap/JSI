@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="epicor_config" sortOrder="13">
+      <label>Epicor Configuration</label>
+    </tab>
+    <section id="epicor_reports_options" translate="label" sortOrder="29900" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Messaging Reports</label>
+      <tab>epicor_config</tab>
+      <resource>Epicor_Reports::report</resource>
+      <group id="speed" translate="label" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Speed Chart</label>
+        <field id="enabled" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="time_range" translate="label" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Time Range</label>
+          <comment>Separate by commas the seconds to group time. Example: 0,250,500</comment>
+        </field>
+      </group>
+      <group id="minmaxavg" translate="label" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Minimum, Maximum &amp; Average Chart</label>
+        <field id="enabled" translate="label" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php $_item = $block->getItem() ?>
+<?php $_order = $block->getOrder(); ?>
+
+<?php
+/* @var $helper \Epicor\Comm\Helper\Data */
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+
+$cpn = false;
+if ($helper->isCpnInEmailAllowed()) {
+    $cpn = $helper->getCpn($_item->getOrderItem()->getProduct()->getId());
+}
+?>
+
+<tr>
+    <td class="tdbrd item-info<?php if ($block->getItemOptions()): ?> has-extra<?php endif; ?>">
+        <strong class="item-strong"><?= $block->escapeHtml($_item->getName()) ?></strong>
+        <?php if ($block->getItemOptions()): ?>
+            <dl class="item-dl">
+                <?php foreach ($block->getItemOptions() as $option): ?>
+                    <dt><strong><em><?= /* @escapeNotVerified */  $option['label'] ?></em></strong></dt>
+                    <dd class="item-dldd">
+                        <?= /* @escapeNotVerified */  nl2br($option['value']) ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+        <?php if ($cpn) { ?>
+            <?php $cpnCount = count($cpn); ?>
+            <?php if ($cpnCount == 1) {  ?>
+                <br />
+                <?php echo 'Your SKU: ' . $cpn[0]; ?>
+            <?php } ?>
+            <?php if ($cpnCount > 1) {  ?>
+                <?php $cpns = implode(', ', $cpn); ?>
+                <?php echo 'Your SKUs: ' . $cpns; ?>
+            <?php } ?>
+        <?php } ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="tdbrd item-sku" ><?= /* @escapeNotVerified */ $this->escapeHtml($this->helper('Epicor\Common\Helper\Data')->getSku($_item->getSku()))?></td>
+    <td class="tdbrd alignlt item-uom"><?= /* @escapeNotVerified */ $this->escapeHtml($this->helper('Epicor\Common\Helper\Data')->getUom($_item->getSku()))  ?></td>
+    <td class="tdbrd alignctr item-qty"><?= /* @escapeNotVerified */  $_item->getQty() * 1 ?></td>
+    <td class="tdbrd alignrt item-price"><?= /* @escapeNotVerified */  $block->getItemPrice($_item->getOrderItem()); ?></td>
+</tr>

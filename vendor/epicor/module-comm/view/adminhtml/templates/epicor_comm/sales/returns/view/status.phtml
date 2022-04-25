@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Adminhtml_Sales_Returns_View_Tab_Status */
+$return = $this->getReturn();
+/* @var $return Epicor_Comm_Model_Customer_ReturnModel */
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4><?php echo __('ERP Sync Status') ?></h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list  admin__table-secondary ">
+            <tr>
+                <td class="label"><label><strong><?php echo __('ERP Sync Status:') ?></strong></label></td>
+                <td class="value">
+                    <?php echo $this->getErpSyncStatus(); ?>
+                </td>
+            </tr>
+            <?php if ($return->getErpReturnsNumber() && !$return->getErpSyncAction() && $return->getErpSyncStatus() != 'E') : ?>
+                <tr>
+                    <td class="label"><label><strong><?php echo __('Update:') ?></strong></label></td>
+                    <td class="value">
+                        <button type="button" class="scalable" onclick="updateReturn()" ><?php echo __('Update from ERP') ?></button>
+                    </td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($return->getErpSyncStatus() == 'E') : ?>
+                <tr>
+                    <td class = "label"><label><strong><?php echo __('Re-Send:'); ?></strong></label></td>
+                    <td class="value">
+                        <button type="button" class="scalable" onclick="resendReturn()" ><?php echo __('Re-Send to ERP') ?></button>
+                    </td>
+
+                </tr>
+            <?php endif; ?>
+        </table>
+    </fieldset>
+</div>
+<?php if ($return->getLastErpStatus()) : ?>
+    <div class="entry-edit  box-left" style="clear:left; width:49%">
+        <div class="entry-edit-head admin__page-section-title title">
+            <h4><?php echo __('Last ERP Sync Response') ?></h4>
+        </div>
+        <fieldset id="order_erp_status_form">
+            <tr>
+                <td class="label"><label><strong><?php echo __('Status:') ?></strong></label></td>
+                <td class="value">
+                    <?php echo $return->getLastErpStatus(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label><strong><?php echo __('Description:') ?></strong></label></td>
+                <td class="value">
+                    <?php echo $return->getLastErpErrorDescription(); ?>
+                </td>
+            </tr>
+            </table>
+        </fieldset>
+    </div>
+<?php endif; ?>
+<input type="hidden" name="return_id" id="return_id" value="<?php echo $return->getId(); ?>" />
+<input type="hidden" name="update_url" id="update_url" value="<?php echo $this->getUrl('*/*/update'); ?>" />
+<input type="hidden" name="resend_url" id="resend_url" value="<?php echo $this->getUrl('*/*/resend'); ?>" />

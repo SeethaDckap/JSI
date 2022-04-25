@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="epicor_customerconnect_crq_detail_lines_grid_columns_after">
+    <observer name="update_crq_detail_line_grid_columns_for_sales_reps" instance="Epicor\SalesRep\Observer\Crq\UpdateColumnsForSalesRepPrices"/>
+  </event>
+  <event name="epicor_customerconnect_crq_detail_lines_get_data_after">
+    <observer name="update_crq_detail_line_grid_columns_for_sales_reps" instance="Epicor\SalesRep\Observer\Crq\UpdateLinesForSalesRepPrices"/>
+  </event>
+  <event name="checkout_cart_update_items_after">
+    <observer name="checkForSalesRepPrices" instance="Epicor\SalesRep\Observer\Cart\CheckForSalesRepPrices"/>
+  </event>
+  <event name="bsv_request_converttoxml_before">
+    <observer name="updateBsvPricesWithSalesRepPrices" instance="Epicor\SalesRep\Observer\Bsv\UpdateBsvRequestPrices"/>
+  </event>
+  <event name="cus_upload_processaction_after">
+    <observer name="updateErpAccountSalesRepLinkage" instance="Epicor\SalesRep\Observer\Cus\UpdateErpAccountSalesRepLinkage"/>
+  </event>
+  <event name="customer_customer_authenticated">
+    <observer name="emptyCart" instance="Epicor\SalesRep\Observer\Cart\SalesRepLogin"/>
+    <observer name="epicor_salesrep_checkLogin" instance="Epicor\SalesRep\Observer\Customer\CheckLogin"/>
+  </event>
+  <event name="epicor_comm_masquerade_start">
+    <observer name="salesRepStartMasquerade" instance="Epicor\SalesRep\Observer\Cart\StartMasquerade"/>
+  </event>
+  <event name="epicor_comm_masquerade_end">
+    <observer name="salesRepEndMasquerade" instance="Epicor\SalesRep\Observer\Cart\EndMasquerade"/>
+  </event>
+  <event name="epicor_common_can_access_url_after">
+    <observer name="salesRepCanAccessUrl" instance="Epicor\SalesRep\Observer\Access\CanAccessUrlAfter"/>
+  </event>
+  <event name="epicor_common_can_customer_access_url_after">
+    <observer name="salesRepCanCustomerAccessUrl" instance="Epicor\SalesRep\Observer\Access\CanAccessUrlAfter"/>
+  </event>
+  <event name="epicor_comm_is_functionality_disabled_after">
+    <observer name="salesRepIsFunctionalityDisabled" instance="Epicor\SalesRep\Observer\Access\IsFunctionalityDisabledAfter"/>
+  </event>
+  <event name="layout_load_before">
+    <observer name="setupSalesRepLayout" instance="Epicor\SalesRep\Observer\Access\SetupSalesRepLayout"/>
+  </event>
+  <event name="epicor_comm_onepage_shipping_get_address">
+    <observer name="changeShippingAddress" instance="Epicor\SalesRep\Observer\Onepage\ChangeShippingAddress"/>
+  </event>
+  <event name="epicor_comm_onepage_get_steps">
+    <observer name="addSalesRepStep" instance="Epicor\SalesRep\Observer\Onepage\AddSalesRepStep"/>
+  </event>
+  <event name="epicor_comm_onepage_get_active_step">
+    <observer name="getActiveSalesRepStep" instance="Epicor\SalesRep\Observer\Onepage\GetActiveSalesRepStep"/>
+  </event>
+  <event name="epicor_comm_onepage_get_checkout_addresses">
+    <observer name="getCheckoutAddresses" instance="Epicor\SalesRep\Observer\Onepage\GetCheckoutAddresses"/>
+  </event>
+  <event name="customer_address_format">
+    <observer name="preFormatAddress" instance="Epicor\SalesRep\Observer\Onepage\PreFormatAddress"/>
+  </event>
+  <event name="epicor_comm_customer_can_masquerade_as">
+    <observer name="canMasqueradeAs" instance="Epicor\SalesRep\Observer\Customer\CanMasqueradeAs"/>
+  </event>
+  <event name="customer_logout">
+    <observer name="logoutActions" instance="Epicor\SalesRep\Observer\Customer\LogoutActions"/>
+  </event>
+  <event name="epicor_common_check_user_rights_before">
+    <observer name="epicor_salesrep_checkAccess" instance="Epicor\SalesRep\Observer\Customer\CheckAccess"/>
+  </event>
+  <event name="epicor_common_get_default_session_access_groups">
+    <observer name="epicor_salesrep_hideBlocks" instance="Epicor\SalesRep\Observer\Access\GetSalesRepAccessGroups"/>
+  </event>
+  <event name="layout_generate_blocks_after">
+     <observer name="hideMinicart" instance="Epicor\SalesRep\Observer\Cart\Removeminicart"/>
+  </event>
+   <event name="checkout_onepage_controller_success_action">
+    <observer name="update_customer_session" instance="Epicor\SalesRep\Observer\Cart\UpdateCustomerCookie"/>
+  </event>    
+</config>

@@ -1,0 +1,152 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $telephoneRequired = $this->getConfig('checkout/options/telephone_required');?>
+<div class='<?php echo $this->getOnRight() ? 'col-2 ' : 'col-1'; ?> box-info box-account'>
+    <?php if (!empty($this->getAddressData())) : ?>
+        <?php if ($this->isEditable()) : ?>
+            <div class="formfields">
+            <p class="required pop-up"><?php echo __('* Required Fields') ?></p>
+            <div id="shipping-form-fieldset-list" class="form-list  update-<?php echo $this->getAddressType(); ?>-form-list">
+                <?php if($this->getShowAddressCode() !== false) :?>
+                <div>
+                    <label for="<?php echo $this->getAddressType(); ?>_address_code" class="required"><em>*</em><?php echo __('Address Code') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="address_code" value="<?php echo $this->getAddressCode(); ?>" title="<?php echo __('Address Code') ?>" id="<?php echo $this->getAddressType(); ?>_address_code" class="input-text required-entry" />
+                    </div>
+                </div>
+                <?php else: ?>
+                    <input type="hidden" name="address_code" value="" id="<?php echo $this->getAddressType(); ?>_address_code" />
+                <?php endif; ?>
+                <div>
+                    <label for="<?php echo $this->getAddressType(); ?>_name" class="required"><em>*</em><?php echo __('Name') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="name" value="<?php echo $this->escapeHtml($this->getName()) ?>" title="<?php echo __('Name') ?>" id="<?php echo $this->getAddressType(); ?>_name" class="input-text required-entry" />
+                    </div>
+                </div>
+                <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+                <div>
+                    <label for="<?php echo $this->getAddressType(); ?>_address1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="address1" value="<?php echo $this->escapeHtml($this->getAddress1()) ?>" title="<?php echo __('Street Address') ?>" id="<?php echo $this->getAddressType(); ?>_address1" class="input-text <?php echo $_streetValidationClass ?>  required-entry" />
+                    </div>
+                </div>
+                <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                <div>
+                    <div class="input-box">
+                        <input type="text" name="address2" value="<?php echo $this->escapeHtml($this->getAddress2()) ?>" title="address2" id="<?php echo $this->getAddressType(); ?>_address2" class="input-text <?php echo $_streetValidationClass ?>" />
+                    </div>
+                </div>      
+                <div>
+                    <div class="input-box">
+                        <input type="text" name="address3" value="<?php echo $this->escapeHtml($this->getAddress3()) ?>" title="address3" id="<?php echo $this->getAddressType(); ?>_address3" class="input-text"  />
+                    </div>
+                </div> 
+                <div class="fields">
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_city" class="required"><em>*</em><?php echo __('City') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="city" value="<?php echo $this->escapeHtml($this->getCity()) ?>"  title="<?php echo __('City') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?> required-entry" id="<?php echo $this->getAddressType(); ?>_city" />
+                        </div>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_county" ><em class="required">*</em><?php echo __('State/Province') ?></label>
+                        <div class="input-box">
+                            <select id="<?php echo $this->getAddressType(); ?>_county_id" name="county_id" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                                <option value=""><?php echo __('Please select region, state or province') ?></option>
+                            </select>
+                            <script type="text/javascript">
+                            //<![CDATA[
+                                $('<?php echo $this->getAddressType(); ?>_county_id').setAttribute('defaultValue', "<?php echo $this->getRegionId() ?>");
+                            //]]>
+                            </script>
+                            <input type="text" id="<?php echo $this->getAddressType(); ?>_county" name="county" value="<?php echo $this->escapeHtml($this->getCounty()) ?>" title="<?php echo __('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_postcode" class="required"><em>*</em><?php echo __('Zip/Postal Code') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getPostcode()) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="<?php echo $this->getAddressType(); ?>_postcode" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?> required-entry" />
+                        </div>
+                    </div>
+                </div> 
+                <div class="fields">    
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_country" class="required"><em>*</em><?php echo __('Country') ?></label>
+                        <div class="input-box">
+                            <?php echo $this->getCountryHtmlSelect($this->getCountryCode(), 'country', $this->getAddressType() . '_country') ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_email" class="email"><?php echo __('Email') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="email" value="<?php echo $this->escapeHtml($this->getEmail()) ?>"  title="<?php echo __('Email') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('email') ?>"  id="<?php echo $this->getAddressType(); ?>_email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                    <?php if($telephoneRequired){ ?>
+                        <label for="<?php echo $this->getAddressType(); ?>_telephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="telephone" value="<?php echo $this->escapeHtml($this->getTelephoneNumber()) ?>"  title="<?php echo __('Telephone') ?>" class="input-text required-entry" id="<?php echo $this->getAddressType(); ?>_telephone" />
+                        </div>
+                    <?php }else{ ?>
+                        <label for="<?php echo $this->getAddressType(); ?>_telephone" > <?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="telephone" value="<?php echo $this->escapeHtml($this->getTelephoneNumber()) ?>"  title="<?php echo __('Telephone') ?>" class="input-text" id="<?php echo $this->getAddressType(); ?>_telephone" />
+                        </div>
+                    <?php } ?>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label for="<?php echo $this->getAddressType(); ?>_fax"><?php echo __('Fax Number') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="fax" value="<?php echo $this->escapeHtml($this->getFaxNumber()) ?>"  title="<?php echo __('Fax') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('phone') ?>" id="<?php echo $this->getAddressType(); ?>_fax" />
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div> 
+        <?php else: ?>
+            <dl class="vcard">
+                <dt class="address hidden">Address</dt>
+                <dd class="first fn org"><?php echo $this->getName(); ?></dd>
+                <dd class="adr break">
+                    <span class="street-address"><?php echo $this->getStreet(); ?></span>
+                    <span class="locality"><?php echo $this->getCity(); ?></span>
+                    <span class="region"><?php echo $this->getCounty(); ?></span>
+                    <span class="postal-code"><?php echo $this->getPostcode(); ?></span>
+                    <span class="country-name"><?php echo $this->getCountry(); ?></span>
+                </dd>
+                <?php if ($this->getAddressData()->getEmail()): ?>
+                    <dt class="sec email" style="width:45px;"><abbr title="Email">Email</abbr> :</dt>
+                    <dd class="sec email spaced"><?php echo $this->getAddressData()->getEmail(); ?></dd>
+                <?php endif; ?>
+                <?php if ($this->getTelephoneNumber()): ?>
+                    <dt class="sec tel"><abbr title="Telephone Number">T</abbr> :</dt>
+                    <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+                <?php elseif ($this->getAddressData()->getPhone()): ?>
+                    <dt class="sec tel"><abbr title="Telephone Number">T</abbr> :</dt>
+                    <dd class="sec tel spaced"><?php echo $this->getAddressData()->getPhone(); ?></dd>
+                <?php endif; ?>
+                <?php if ($this->getFaxNumber()): ?>
+                    <dt class="sec fax"><abbr title="Fax Number">F</abbr> :</dt>
+                    <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+                <?php elseif ($this->getAddressData()->getFax()): ?>
+                    <dt class="sec fax"><abbr title="Fax Number">F</abbr> :</dt>
+                    <dd class="sec fax spaced"><?php echo $this->getAddressData()->getFax(); ?></dd>
+                <?php endif; ?>
+            </dl>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
+

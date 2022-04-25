@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="requirejs/require.js"/>
+        <script src="Epicor_Comm::js/epicor/comm/editErpAccount/customerSku.js"/>
+        <script src="Epicor_Comm::js/epicor/comm/editErpAccount/productsList.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Adminhtml\Customer\Erpaccount\Edit" name="erp_customer"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Comm\Block\Adminhtml\Customer\Erpaccount\Edit\Tabs" name="erp_customer_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

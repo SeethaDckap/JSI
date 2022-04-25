@@ -1,0 +1,679 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+$helper = $this->helper('Epicor\Common\Helper\Data');
+$LocationName   = $this->split_name($block->escapeHtml($this->getLocationAddress()->getContactName()));
+$SoldToName  = $this->split_name($block->escapeHtml($this->getSoldToAddress()->getContactName()));
+$OwnName   = $this->split_name($block->escapeHtml($this->getOwnerAddress()->getContactName()));
+$actionMode = $this->getActionMode();
+$update =true;
+$style="display:none";
+if($actionMode !="update") {
+    $update =false;
+    $style="";
+}
+$getConfigFlag = $this->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/warranty');
+$warrantyOptions = $this->getListOfWarrantyCodes();
+$warrantyInfo = $this->getWarranyInformations();
+$warrantyCustomer = $this->checkWarrantyEnabledOrNot();
+$noWarrantyInfo = false;
+if((count($warrantyOptions) == 0) && (!$warrantyInfo['code'])) {
+    $warrantyCustomer = false;
+}
+$warrantyCodeAvailable = false;
+if((isset($warrantyInfo['code'])) && ($warrantyInfo['code'] !="")) {
+   $warrantyCodeAvailable = true; 
+}
+
+$editDates = false;
+if($warrantyCodeAvailable && !$warrantyCustomer) {
+   $editDates = true;
+}
+$this->getWarrantyDescription($warrantyInfo['code']);
+?>
+    <form action="<?php echo $this->getFormSaveUrl() ?>" method="post" id="form-validate">
+        
+        
+        <input type="hidden" name="deiubasicjson" id="deiubasicjson" value="<?php echo $block->escapeHtml($this->getBasicJsonDetails()); ?>" />
+        <input type="hidden" name="loc[actionMode]" value="<?php echo $actionMode ?>" />
+        <input type="hidden" name="actionModes" value="<?php echo $actionMode ?>" />
+        <input id="address_details" type="hidden" value="<?php echo $this->getUrl('dealerconnect/inventory/updateaddressajax'); ?>" />
+        
+        <?php if($getConfigFlag):?>
+        <div class="col-1 box-info  block-dashboard-info" style="width:45%;float:left;padding-right: 28px;">
+            <h2 class="legend" style="border:0px !important"><input <?php if($noWarrantyInfo): ?> disabled="disabled" <?php endif; ?> onclick="updateDeidInformation.deidWarranty()" type="checkbox" name="warrantyClaim" id="warrantyClaim"><?php echo __('Warranty Information') ?></h2>
+            <ul class="form-list" id="warranty_information" style="display:none">
+                <li class="wide">
+                    <label for="warrantycode"><?php echo __('Warranty Description') ?></label>
+                    <div class="input-box">
+                        <?php if($warrantyCodeAvailable):?>
+                        <input disabled="disabled" type="text" name="warranty[codes]" id="warranty_codes" value="<?php echo $this->getWarrantyDescription($warrantyInfo['code']); ?>" />
+                        <input type="hidden" name="warranty[code]" id="warranty_code" value="<?php echo $warrantyInfo['code']; ?>" />
+                        <?php else: ?>
+                        <select name="warranty[code]" id="warranty_code" <?php if(!$warrantyCustomer || $warrantyInfo['code']): ?> disabled="disabled" <?php endif; ?>>
+                            <?php if($noWarrantyInfo): ?>
+                                <option value="" ></option>
+                            <?php endif;?>                            
+                            <?php foreach ($warrantyOptions as $key => $value): ?>
+                                <?php if(!$warrantyInfo['code'] && $value->getDescription() && $warrantyCustomer):?>
+                                    <option value="<?php echo $value->getCode() ?>" <?php if($warrantyInfo['code'] == $value->getCode()): ?> selected="selected" <?php endif;?>><?php echo ($value->getDescription()) ? $value->getDescription() : $value->getCode() ; ?></option>
+                                <?php endif;?>
+                                <?php if($warrantyInfo['code']):?>
+                                    <option value="<?php echo $value->getCode() ?>" <?php if($warrantyInfo['code'] == $value->getCode()): ?> selected="selected" <?php endif;?>><?php echo ($value->getDescription()) ? $value->getDescription() : $value->getCode() ; ?></option> 
+                                <?php endif;?>
+                            <?php endforeach; ?>
+                        </select>  
+                        <?php endif;?>
+                        
+<!--                        <input maxlength="8"  type="text" name="warranty[code]" id="warrantycode" title="<?php echo __('Warranty Code') ?>"  class="input-text required-entry validate-length minimum-length-[0-9]+$ maximum-length-[0-9]+$" data-validate="{required:true,'validate-length':true, 'min_text_length':'8'}" aria-required="true" />-->
+                    </div>
+                </li>  
+                <?php if($editDates):?>
+                    <?php $warrantyCustomer = true; ?>
+                <?php endif;?>
+                <li class="wide">
+                    <label for="warrantystartdate"><?php echo __('Warranty Start Date') ?></label>
+                    <div class="input-box">
+                        <input <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" class="input-text required-entry" id="warrantystartdate" name="warranty[start]" aria-required="true" value="<?php echo $warrantyInfo['startdate'];?>" >
+                    </div>
+                </li>    
+                <li class="wide">
+                    <label for="warrantyexpiration"><?php echo __('Warranty Expiration Date') ?></label>
+                    <div class="input-box">
+                        <input <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" class="input-text required-entry" id="warrantyexpiration" name="warranty[expiry]" aria-required="true" value="<?php echo $warrantyInfo['enddate'];?>" >
+                    </div>
+                </li>      
+                <li class="wide">
+                    <label for="warrantycomment"><?php echo __('Warranty Comment') ?></label>
+                    <div class="input-box">
+                        <textarea <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" name="warranty[comment]" id="warrantycomment" title="<?php echo __('Warranty Comment') ?>"  class="input-text"><?php echo $warrantyInfo['comment'];?></textarea>
+                    </div>
+                </li>                      
+                
+            </ul>
+        </div>        
+        <?php endif;?>
+        <div class="col-1 box-info  block-dashboard-info" style="width:45%;float:left;padding-right: 28px;">
+            <h2 class="legend" <?php if($update):?>style="border:0px !important"<?php endif;?>><?php if($update):?><input onclick="updateDeidInformation.deidLocation()" type="checkbox" name="locationAddress" id="locationAddress"><?php endif;?><?php echo __('Location Address') ?></h2>
+            <div id="loc-address-main" style="<?php echo $style; ?>">
+                <ul>
+                    <li><?php echo $this->getLocationSelectBox('location');?></li>
+                </ul>
+                <div id="location-main">
+                <ul class="form-list" id="location_address">
+                    <li class="fields">
+                        <input id="address_code" type="hidden" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAddressCode()); ?>" />
+                        <div class="field field-name-firstname required">
+                            <label class="label" for="locfirstname">
+                                <span>First Name</span>
+                            </label>
+                            <div class="control">
+                                <input value="<?php echo $block->escapeHtml($LocationName[0]); ?>" id="locfirstname" name="loc[firstname]" value="" title="First Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text" >
+                            </div>
+                        </div>
+                        <div class="field field-name-lastname required">
+                            <label class="label" for="loclastname">
+                                <span>Last Name</span>
+                            </label>
+                            <div class="control">
+                                <input value="<?php echo $block->escapeHtml($LocationName[1]); ?>" id="loclastname" name="loc[lastname]" value="" title="Last Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                            </div>
+                        </div>
+                        <div class="field field-name-company required">
+                            <label class="label" for="loccompany">
+                                <em>*</em><span>Company</span>
+                            </label>
+                            <div class="control">
+                                <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getData('name')); ?>" id="loccompany" name="loc[company]" title="Company" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                            </div>
+                        </div>
+                        <input type="hidden" name="loc[address_code]" id="locaddresscode" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAddressCode()); ?>" />
+                        <input type="hidden" name="loc[account_number]" id="locaccountnumber" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAccountNumber()); ?>" />
+                    </li>
+                    <li class="wide">
+                        <label for="locstreet_1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+                        <div class="input-box">
+                            <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getData('address1')); ?>" type="text" name="loc[street][]" value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" title="<?php echo __('Street Address') ?>" id="locstreet_1" class="input-text required-entry" />
+                        </div>
+                    </li>
+                    <?php for ($_i = 2, $_n = 3; $_i <= $_n; $_i++): ?>
+                        <li class="wide">
+                            <div class="input-box">
+                                <input type="text" name="loc[street][]" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getData('address' . $_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="locstreet_<?php echo $_i ?>" class="input-text" />
+                            </div>
+                        </li>
+                    <?php endfor ?>                  
+                    <li class="wide">
+                        <label for="loccity"><?php echo __('City') ?></label>
+                        <div class="input-box">
+                            <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getCity()); ?>" type="text" name="loc[city]" id="loccity" title="<?php echo __('City') ?>"  class="input-text" />
+                        </div>
+                    </li>  
+                    <li class="wide">
+                        <label for="loccounty"><?php echo __('County') ?></label>
+                        <div class="input-box">
+                            <select id="loccounty_id" name="loc[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                                <option value=""><?php echo __('Please select region, state or province') ?></option>
+                            </select>	
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                  $('loccounty_id').setAttribute('defaultValue',  "<?php echo $block->escapeHtml($this->getLocationAddress()->getCounty()); ?>");
+                                //]]>
+                            </script>
+                            <input type="text" id="locregion" name="loc[region]" value="" title="<?php echo __('State/Province') ?>" class="input-text  <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                        </div>
+                    </li>  
+                    <li class="wide">
+                        <label for="loccountry"><?php echo __('Country') ?></label>
+                        <div class="input-box">
+                            <?php
+                            $_countries = $block->getCountryCollection()->loadData()->toOptionArray(false)
+                            ?>
+                            <?php if (count($_countries) > 0): ?>  
+                                <select name="loc[country]" id="loccountry" class=" input-text  required-entry">  
+                                    <option value="">– Please Select –</option>  
+                                    <?php foreach ($_countries as $_country): ?>  
+                                        <option value="<?php echo $_country['value'] ?>" <?php if ($block->escapeHtml($this->getLocationAddress()->getCountry()) == $_country['value']) { ?> selected="selected" <?php } ?>>  
+                                            <?php echo $_country['label'] ?>  
+                                        </option>  
+                                    <?php endforeach; ?>  
+                                </select>  
+                            <?php endif; ?>                        
+                        </div>
+                    </li>   
+                    <li class="fields">
+                        <div class="field">                    
+
+                            <label for="locpostcode" class="required"><em>*</em><?php echo __('Postcode') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="loc[postcode]" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getPostcode()); ?>" title="<?php echo __('Postcode') ?>" class="input-text required-entry" id="locpostcode" />
+                            </div>
+                        </div> 
+                    </li>                   
+                    <li class="fields">
+                        <div class="field">                    
+
+                            <label for="loctelephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+                            <div class="input-box">
+                                <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getTelephoneNumber()); ?>" type="text" name="loc[telephone]" title="<?php echo __('Telephone') ?>" class="input-text required-entry" id="loctelephone" />
+                            </div>
+                        </div> 
+                    </li>   
+                    <li class="fields">    
+                        <div class="field">
+                            <label for="locfax"><?php echo __('Fax') ?></label>
+                            <div class="input-box">
+                                <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getFaxNumber()); ?>" type="text" name="loc[fax]" id="locfax" title="<?php echo __('Fax') ?>"  class="input-text" />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="fields">    
+                        <div class="field">
+                            <label for="locemailaddress"><?php echo __('Email Address') ?></label>
+                            <div class="input-box">
+                                <input value="<?php echo $block->escapeHtml($this->getLocationAddress()->getEmailAddress()); ?>" type="email" name="loc[emailaddress]" id="locemailaddress" title="<?php echo __('Email Address') ?>" class="input-text" data-validate="{'validate-email':true}" />
+                            </div>
+                        </div>
+                    </li>                
+                </ul>
+            </div>
+                </div>
+        </div>
+        
+        <?php if($actionMode !="update"):?>
+        <div class="col-2 box-info  block-dashboard-info" style="width:45%;float:left;">
+            <h2 class="legend"><?php echo __('Sold To Address') ?></h2>
+            <ul class="form-list" id="sold_to_address">
+                <li class="fields">
+                        <div class="field field-name-firstname required">
+                        <label class="label" for="soldfirstname">
+                            <span>First Name</span>
+                        </label>
+                        <div class="control">
+                            <input value="<?php echo $block->escapeHtml($SoldToName[0]); ?>" id="soldfirstname" name="sold[firstname]" value="" title="First Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text" >
+                            <input type="hidden" name="sold[actionMode]" value="<?php echo $actionMode ?>" />
+                        </div>
+                    </div>
+                        <div class="field field-name-lastname required">
+                        <label class="label" for="soldlastname">
+                            <span>Last Name</span>
+                        </label>
+                        <div class="control">
+                            <input value="<?php echo $block->escapeHtml($SoldToName[1]); ?>" id="soldlastname" name="sold[lastname]" value="" title="Last Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                        </div>
+                    </div>
+                    <div class="field field-name-company required">
+                        <label class="label" for="soldcompany">
+                            <em>*</em><span>Company</span>
+                        </label>
+                        <div class="control">
+                            <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getData('name')); ?>" id="soldcompany" name="sold[company]" title="Company" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                        </div>
+                    </div>
+                            <input type="hidden" name="sold[address_code]" id="soldatoaddresscode" value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getAddressCode()); ?>" />
+                            <input type="hidden" name="sold[account_number]" id="soldaccountnumber" value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getAccountNumber()); ?>" />
+                    </li>
+                <li class="wide">
+                    <label for="soldstreet_1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getData('address1')); ?>" type="text" name="sold[street][]" value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" title="<?php echo __('Street Address') ?>" id="soldstreet_1" class="input-text required-entry" />
+                    </div>
+                </li>
+                <?php for ($_i = 2, $_n =3; $_i <= $_n; $_i++): ?>
+                    <li class="wide">
+                        <div class="input-box">
+                            <input type="text" name="sold[street][]" value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getData('address'.$_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="soldstreet_<?php echo $_i ?>" class="input-text" />
+                        </div>
+                    </li>
+                <?php endfor ?>                  
+                <li class="wide">
+                    <label for="soldcity"><?php echo __('City') ?></label>
+                    <div class="input-box">
+                        <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getCity()); ?>" type="text" name="sold[city]" id="soldcity" title="<?php echo __('City') ?>"  class="input-text" />
+                    </div>
+                </li>  
+                <li class="wide">
+                    <label for="soldcounty"><?php echo __('County') ?></label>
+                    <div class="input-box">
+                        <select id="soldcounty_id" name="sold[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                            <option value=""><?php echo __('Please select region, state or province') ?></option>
+                        </select>	
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                  $('soldcounty_id').setAttribute('defaultValue',  "<?php echo $block->escapeHtml($this->getSoldToAddress()->getCounty()); ?>");
+                                //]]>
+                            </script>
+                            <input type="text" id="soldregion" name="sold[region]" value="" title="<?php echo __('State/Province') ?>" class="input-text  <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                    </div>
+                </li>  
+                <li class="wide">
+                    <label for="soldcountry"><?php echo __('Country') ?></label>
+                    <div class="input-box">
+                                <?php
+                                $_countries = $block->getCountryCollection()->loadData()->toOptionArray(false)
+                                ?>
+                                <?php if (count($_countries) > 0): ?>  
+                                <select name="sold[country]" id="soldcountry" class=" input-text  required-entry">  
+                                <option value="">– Please Select –</option>  
+                                <?php foreach($_countries as $_country): ?>  
+                                <option value="<?php echo $_country['value'] ?>" <?php if($block->escapeHtml($this->getSoldToAddress()->getCountry()) == $_country['value']) {?> selected="selected" <?php  } ?>>  
+                                <?php echo $_country['label'] ?>  
+                                </option>  
+                                <?php endforeach; ?>  
+                                </select>  
+                                <?php endif; ?>                        
+                    </div>
+                </li>   
+                <li class="fields">
+                    <div class="field">                    
+                   
+                         <label for="soldpostcode" class="required"><em>*</em><?php echo __('Postcode') ?></label>
+                          <div class="input-box">
+                            <input type="text" name="sold[postcode]" value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getPostcode()); ?>" title="<?php echo __('Postcode') ?>" class="input-text required-entry" id="soldpostcode" />
+                        </div>
+                    </div> 
+                 </li>                   
+                <li class="fields">
+                    <div class="field">                    
+                   
+                         <label for="soldtelephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+                          <div class="input-box">
+                            <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getTelephoneNumber()); ?>" type="text" name="sold[telephone]" title="<?php echo __('Telephone') ?>" class="input-text required-entry" id="soldtelephone" />
+                        </div>
+                    </div> 
+                 </li>   
+                 <li class="fields">    
+                    <div class="field">
+                        <label for="soldfax"><?php echo __('Fax') ?></label>
+                        <div class="input-box">
+                            <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getFaxNumber()); ?>" type="text" name="sold[fax]" id="soldfax" title="<?php echo __('Fax') ?>"  class="input-text" />
+                        </div>
+                    </div>
+                </li>
+                 <li class="fields">    
+                    <div class="field">
+                        <label for="soldemailaddress"><?php echo __('Email Address') ?></label>
+                        <div class="input-box">
+                            <input value="<?php echo $block->escapeHtml($this->getSoldToAddress()->getEmailAddress()); ?>" type="email" data-validate="{'validate-email':true}"  name="sold[emailaddress]" id="soldemailaddress" title="<?php echo __('Email Address') ?>" class="input-text" />
+                        </div>
+                    </div>
+                </li>                
+            </ul>
+        </div>       
+        <?php endif;?>
+        
+        <div class="col-1 box-info  block-dashboard-info" style="width:49%;float:left;">
+            <h2 class="legend" <?php if($update):?>style="border:0px !important"<?php endif;?>><?php if($update):?><input onclick="updateDeidInformation.deidOwner()" type="checkbox" name="ownerAddress" id="ownerAddress"><?php endif;?><?php echo __('Owner Address') ?></h2>
+            <div id="owner-address-main" style="<?php echo $style; ?>">
+                <ul>
+                    <li><?php echo $this->getLocationSelectBox('owner'); ?></li>
+                </ul>
+                <div id="owner-main">
+                    <ul class="form-list" id="owner_address">
+                        <li class="fields">
+                            <div class="field field-name-firstname required">
+                                <label class="label" for="ownfirstname">
+                                    <span>First Name</span>
+                                </label>
+                                <div class="control">
+                                    <input value="<?php echo $block->escapeHtml($OwnName[0]); ?>" id="ownfirstname" name="own[firstname]" value="" title="First Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text" >
+                                </div>
+                            </div>
+                            <div class="field field-name-lastname required">
+                                <label class="label" for="ownlastname">
+                                    <span>Last Name</span>
+                                </label>
+                                <div class="control">
+                                    <input value="<?php echo $block->escapeHtml($OwnName[1]); ?>" id="ownlastname" name="own[lastname]" value="" title="Last Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                                </div>
+                            </div>
+                            <div class="field field-name-company required">
+                                <label class="label" for="owncompany">
+                                    <em>*</em><span>Company</span>
+                                </label>
+                                <div class="control">
+                                    <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getData('name')); ?>" id="owncompany" name="own[company]" title="Company" class="input-text required-entry" data-validate="{required:true}" aria-required="true" type="text">
+                                </div>
+                            </div>
+                            <input type="hidden" name="own[address_code]" id="ownaddresscode" value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getAddressCode()); ?>" />
+                            <input type="hidden" name="own[account_number]" id="ownaccountnumber" value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getAccountNumber()); ?>" />
+                        </li>
+                        <li class="wide">
+                            <label for="ownstreet_1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+                            <div class="input-box">
+                                <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getData('address1')); ?>" type="text" name="own[street][]" value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" title="<?php echo __('Street Address') ?>" id="ownstreet_1" class="input-text required-entry" />
+                            </div>
+                        </li>
+                        <?php for ($_i = 2, $_n = 3; $_i <= $_n; $_i++): ?>
+                            <li class="wide">
+                                <div class="input-box">
+                                    <input type="text" name="own[street][]" value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getData('address' . $_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="ownstreet_<?php echo $_i ?>" class="input-text" />
+                                </div>
+                            </li>
+                        <?php endfor ?>                  
+                        <li class="wide">
+                            <label for="owncity"><?php echo __('City') ?></label>
+                            <div class="input-box">
+                                <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getCity()); ?>" type="text" name="own[city]" id="owncity" title="<?php echo __('City') ?>"  class="input-text" />
+                                <input type="hidden" name="own[actionMode]" value="<?php echo $actionMode ?>" />
+                            </div>
+                        </li>  
+                        <li class="wide">
+                            <label for="owncounty"><?php echo __('County') ?></label>
+                            <div class="input-box">
+                                <select id="owncounty_id" name="own[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                                    <option value=""><?php echo __('Please select region, state or province') ?></option>
+                                </select>   
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                      $('owncounty_id').setAttribute('defaultValue',  "<?php echo $block->escapeHtml($this->getOwnerAddress()->getCounty()); ?>");
+                                    //]]>
+                                </script>
+                                <input type="text" id="ownregion" name="own[region]" value="" title="<?php echo __('State/Province') ?>" class="input-text  <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"  />
+                            </div>
+                        </li>  
+                        <li class="wide">
+                            <label for="owncountry"><?php echo __('Country') ?></label>
+                            <div class="input-box">
+                                <?php
+                                $_countries = $block->getCountryCollection()->loadData()->toOptionArray(false)
+                                ?>
+                                <?php if (count($_countries) > 0): ?>  
+                                    <select name="own[country]" id="owncountry" class=" input-text  required-entry">  
+                                        <option value="">– Please Select –</option>  
+                                        <?php foreach ($_countries as $_country): ?>  
+                                            <option value="<?php echo $_country['value'] ?>" <?php if ($block->escapeHtml($this->getOwnerAddress()->getCountry()) == $_country['value']) { ?> selected="selected" <?php } ?>>  
+                                                <?php echo $_country['label'] ?>  
+                                            </option>  
+                                        <?php endforeach; ?>  
+                                    </select>  
+                                <?php endif; ?>                        
+                            </div>
+                        </li>   
+                        <li class="fields">
+                            <div class="field">                    
+
+                                <label for="ownpostcode" class="required"><em>*</em><?php echo __('Postcode') ?></label>
+                                <div class="input-box">
+                                    <input type="text" name="own[postcode]" value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getPostcode()); ?>" title="<?php echo __('Postcode') ?>" class="input-text required-entry" id="ownpostcode" />
+                                </div>
+                            </div> 
+                        </li>                   
+                        <li class="fields">
+                            <div class="field">                    
+
+                                <label for="owntelephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+                                <div class="input-box">
+                                    <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getTelephoneNumber()); ?>" type="text" name="own[telephone]" title="<?php echo __('Telephone') ?>" class="input-text required-entry" id="owntelephone" />
+                                </div>
+                            </div> 
+                        </li>   
+                        <li class="fields">    
+                            <div class="field">
+                                <label for="ownfax"><?php echo __('Fax') ?></label>
+                                <div class="input-box">
+                                    <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getFaxNumber()); ?>" type="text" name="own[fax]" id="ownfax" title="<?php echo __('Fax') ?>"  class="input-text" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields">    
+                            <div class="field">
+                                <label for="ownemailaddress"><?php echo __('Email Address') ?></label>
+                                <div class="input-box">
+                                    <input value="<?php echo $block->escapeHtml($this->getOwnerAddress()->getEmailAddress()); ?>" type="email" data-validate="{'validate-email':true}" name="own[emailaddress]" id="ownemailaddress" title="<?php echo __('Email Address') ?>" class="input-text" />
+                                </div>
+                            </div>
+                        </li>                
+                    </ul>
+                </div>
+            </div>
+
+        </div>               
+        
+        <div class="col-1 box-info  block-dashboard-info">
+            <h2 class="legend" style="border:0px !important;font-size: 18px;padding: 0px !important;margin: 0px !important;margin-bottom: 20px !important;"><?php echo __('Transaction Comment') ?></h2>
+            <ul class="form-list" >
+                <li class="control">
+                    <div class="input-box">
+                        <textarea type="text" name="transComment" style="width:50%" id="transComment" title="<?php echo __('Transaction Comment') ?>"  class="input-text"></textarea>
+                    </div>
+                </li>                  
+            </ul>            
+        </div>
+        
+        <div class="buttons-set" style="padding-bottom:20px;">
+            <p class="required"><?php echo __('* Required Fields') ?></p>
+            <button id="submitAddress" type="submit" title="<?php echo __('Save') ?>" class="button"><span><span><?php echo __('Save') ?></span></span></button>
+        </div>
+    </form>
+
+
+
+ <script>
+       // var dataForm = new VarienForm('form-validate', true);
+       // dataForm.validator.validate();
+	//	$("locationEditButton").observe('click', function() {
+	//	     LocationEditSelector.locationeditsubmit();
+	//});       
+            require([
+                'jquery',
+                'mage/mage'
+            ], function($){
+                var dataForm = $('#form-validate');
+                var checkValidation = dataForm.mage('validation', {});
+                var updateistrue = "<?php echo $update;?>";
+                $('#submitAddress').click(function() {
+                    var checked = $("#form-validate input:checked").length > 0;
+                    if (!checked && updateistrue){
+                        alert("Please check at least one checkbox");
+                        return false;
+                    } else {
+                       // dataForm.find(':disabled').removeAttr('disabled');
+                        return true;
+                    }                 
+                    return false;
+                });               
+               
+            });        
+</script>
+<style>
+    .fields {
+        list-style-type: none;
+        padding: 0px 0px 10px 0px;
+    }
+    
+    ul li {
+        list-style-type: none;
+    }
+</style>
+<script type="text/javascript">
+        require([
+            "jquery",
+            "mage/adminhtml/form"
+        ], function($) {
+            //<![CDATA[
+            new RegionUpdater('loccountry', 'locregion', 'loccounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            //]]>
+        });
+</script>
+<?php if($actionMode !="update"):?>
+<script type="text/javascript">
+        require([
+            "jquery",
+            "mage/adminhtml/form"
+        ], function($) {
+            //<![CDATA[
+            new RegionUpdater('soldcountry', 'soldregion', 'soldcounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            //]]>
+        });
+</script>
+<?php endif;?>
+<script type="text/javascript">
+        require([
+            "jquery",
+            "mage/adminhtml/form"
+        ], function($) {
+            //<![CDATA[
+            new RegionUpdater('owncountry', 'ownregion', 'owncounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            //]]>
+        });
+</script>
+<script>
+     require([
+          "jquery",
+          "mage/calendar"
+     ], function($){
+         $("#warrantystartdate").calendar({
+                    showsTime: false,
+                    dateFormat: "M/d/yy",
+                    buttonText: "Select Date", 
+                    changeMonth: true, 
+                    changeYear: true, 
+                    showOn: "both"
+         });
+         $("#warrantyexpiration").calendar({
+                    showsTime: false,
+                    dateFormat: "M/d/yy",
+                    buttonText: "Select Date", 
+                    changeMonth: true, 
+                    changeYear: true, 
+                    showOn: "both"
+         }); 
+       });
+</script>
+<script>
+        require([
+            "jquery"
+        ], function($) {
+            $(function () {
+                Event.live('#delivery-address-select-location', 'change', function (el) {
+                    updateDeidInformation.updateAddressDetails(el, 'loc');
+                });
+                Event.live('#delivery-address-select-owner', 'change', function (el) {
+                    updateDeidInformation.updateAddressDetails(el,'own');
+                });
+            });
+            
+            window.updateDeidInformation = {
+                deidWarranty: function() {
+                  var isChecked = $('input#warrantyClaim').is(':checked');
+                  if(isChecked) {
+                    $('#warranty_information').show();     
+                   // $('.eccwaranty').removeAttr('disabled');     
+                  } else {
+                    $('#warranty_information').hide();   
+                    //$('.eccwaranty').attr('disabled', 'disabled');
+                  }
+                },
+                deidLocation: function() {
+                  var isChecked = $('input#locationAddress').is(':checked');
+                  if(isChecked) {
+                    $('#loc-address-main').show();  
+                    $('#locfirstname').focus();
+                  } else {
+                    $('#loc-address-main').hide();   
+                  }
+                },
+                deidOwner: function() {
+                  var isChecked = $('input#ownerAddress').is(':checked');
+                  if(isChecked) {
+                    $('#owner-address-main').show();
+                    $('#ownfirstname').focus();
+                  } else {
+                    $('#owner-address-main').hide();   
+                  }
+                },
+                updateAddressDetails: function(el, address_type) {
+                    
+                    var selectedAddress = el.options[el.selectedIndex].value
+                    $('.loading-mask').show();
+                    url = $('#address_details').val();
+                    url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+                    var form_data = {'addressid': selectedAddress,'addresstype':address_type, 'type': 'delivery', 'address-data': el.options[el.selectedIndex].readAttribute('data-address')};
+                    this.ajaxRequest = new Ajax.Request(url, {
+                        method: 'GET',
+                        parameters: form_data,
+                        onComplete: function (request) {
+                            this.ajaxRequest = false;
+                        }.bind(this),
+                        onSuccess: function (data) {
+                            $('.loading-mask').hide();
+                            if(address_type == "loc"){
+                               $('#location-main').html(data.responseText); 
+                            }else{
+                                $('#owner-main').html(data.responseText);
+                            }
+                        }.bind(this),
+                        onFailure: function (transport) {
+                            if ($('.loading-mask')) {
+                                $('.loading-mask').hide();
+                            }
+                            alert('error');
+                        }.bind(this),
+                        onException: function (request, e) {
+                            if ($('.loading-mask')) {
+                                $('.loading-mask').hide();
+                            }
+                            alert(e);
+                        }.bind(this)
+                    });
+                }
+            }                   
+        });    
+    
+</script>
+<style>
+#warrantystartdate ,#warrantyexpiration {
+
+    width: 410px;
+    margin-right: 14px;
+
+}    
+</style>

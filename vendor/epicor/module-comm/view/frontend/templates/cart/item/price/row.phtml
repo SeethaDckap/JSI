@@ -1,0 +1,79 @@
+<?php
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Weee\Block\Item\Price\Renderer */
+
+$item = $block->getItem();
+$product = $item->getProduct();
+$commonHelper = $this->helper('Epicor\Common\Helper\Data');
+$row_total_precision = $commonHelper->getScopeConfig()->getValue('checkout/options/row_total_precision', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? : 2;
+$row_total_tax_precision = $commonHelper->getScopeConfig()->getValue('checkout/options/row_total_tax_precision', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? : 2;
+?>
+<?php if (($block->displayPriceInclTax() || $block->displayBothPrices()) && !$item->getNoSubtotal()) : ?>
+    <span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')) ?>">
+        <?php if ($block->displayPriceWithWeeeDetails()) : ?>
+            <span class="cart-tax-total"
+                data-mage-init='{"taxToggle": {"itemTaxId" : "#subtotal-item-tax-details<?= (int) $item->getId() ?>"}}'>
+        <?php else : ?>
+            <span class="cart-price">
+        <?php endif; ?>
+            <?= /* @noEscape */ $product->getStore()->getCurrentCurrency()->formatPrecision($block->getRowDisplayPriceInclTax(), $row_total_tax_precision) ?>
+            </span>
+
+        <?php if ($this->helper(\Magento\Weee\Helper\Data::class)->getApplied($item)) : ?>
+            <div class="cart-tax-info" id="subtotal-item-tax-details<?= (int) $item->getId() ?>" style="display: none;">
+                <?php foreach ($this->helper(\Magento\Weee\Helper\Data::class)->getApplied($item) as $tax) : ?>
+                    <span class="weee" data-label="<?= $block->escapeHtmlAttr($tax['title']) ?>">
+                        <?= /* @noEscape */ $block->formatPrice($tax['row_amount_incl_tax'], true, true) ?>
+                    </span>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if ($block->displayFinalPrice()) : ?>
+                <span class="cart-tax-total"
+                    data-mage-init='{"taxToggle": {"itemTaxId" : "#subtotal-item-tax-details<?= (int) $item->getId() ?>"}}'>
+                    <span class="weee" data-label="<?= $block->escapeHtmlAttr(__('Total Incl. Tax')) ?>">
+                        <?= /* @noEscape */ $product->getStore()->getCurrentCurrency()->formatPrecision($block->getFinalRowDisplayPriceInclTax(), $row_total_tax_precision) ?>
+                    </span>
+                </span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </span>
+<?php endif; ?>
+
+<?php if ($block->displayPriceExclTax() || $block->displayBothPrices()) : ?>
+    <span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+        <?php if ($block->displayPriceWithWeeeDetails()) : ?>
+            <span class="cart-tax-total"
+                data-mage-init='{"taxToggle": {"itemTaxId" : "#esubtotal-item-tax-details<?= (int) $item->getId() ?>"}}'>
+        <?php else : ?>
+            <span class="cart-price">
+        <?php endif; ?>
+                <?= /* @noEscape */ $product->getStore()->getCurrentCurrency()->formatPrecision($block->getRowDisplayPriceExclTax(), $row_total_precision) ?>
+            </span>
+
+        <?php if ($this->helper(\Magento\Weee\Helper\Data::class)->getApplied($item)) : ?>
+            <span class="cart-tax-info" id="esubtotal-item-tax-details<?= (int) $item->getId() ?>"
+                style="display: none;">
+                <?php foreach ($this->helper(\Magento\Weee\Helper\Data::class)->getApplied($item) as $tax) : ?>
+                    <span class="weee" data-label="<?= $block->escapeHtmlAttr($tax['title']) ?>">
+                        <?= /* @noEscape */ $block->formatPrice($tax['row_amount'], true, true) ?>
+                    </span>
+                <?php endforeach; ?>
+            </span>
+
+            <?php if ($block->displayFinalPrice()) : ?>
+                <span class="cart-tax-total"
+                      data-mage-init='{"taxToggle": {"itemTaxId" : "#esubtotal-item-tax-details<?= (int) $item->getId() ?>"}}'>
+                    <span class="weee" data-label="<?= $block->escapeHtmlAttr(__('Total')) ?>">
+                        <?= /* @noEscape */ $product->getStore()->getCurrentCurrency()->formatPrecision($block->getFinalRowDisplayPriceExclTax(), $row_total_precision) ?>
+                    </span>
+                </span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </span>
+<?php endif; ?>

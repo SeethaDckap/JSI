@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><hr/>
+<div class="faq_vote_box">
+	<span class="faq_vote_summary"><?php echo $block->getMessageVote($block->getFaqId()) ?></span>
+	<span class="faq_subtext">
+		<?php echo __('Was this information useful?') ?>
+	</span>
+	<input type="hidden" class="faqId" value="<?php echo $block->getFaqId() ?>" />
+	<a href="<?php echo $block->getUrl('epicor_faqs/index/submitVote') ?>" class="faq_useful faq_vote"><?php echo __('Yes') ?></a>
+	<a href="<?php echo $block->getUrl('epicor_faqs/index/submitVote') ?>" class="faq_useless faq_vote"><?php echo __('No') ?></a>
+</div>

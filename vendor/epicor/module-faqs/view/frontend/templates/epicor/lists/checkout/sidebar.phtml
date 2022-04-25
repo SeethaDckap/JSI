@@ -1,0 +1,82 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/**
+ * Shoping cart sidebar
+ *
+ * @see Mage_Checkout_Block_Cart_Sidebar
+ */
+$postValues = $this->getRequest()->getParam('removeval');
+$addressid     = $this->getRequest()->getParam('addressid');
+$removeIds  = json_decode($postValues,true);
+$frontendHelper = Mage::helper('epicor_lists/frontend');
+$getItems = $this->getItems();
+foreach($getItems as $getItemVals){
+    if (in_array($getItemVals->getProductId(),$removeIds)) {
+        $itemIds[] = $getItemVals->getProductId();
+    }
+}
+$controller = $this->getRequest()->getParam('page');
+ if ($controller == 'onepage') {
+    $returnVals = 'cartChooseaddress.closepopup()';
+    $page = "onepage";
+ } else {
+    $page = "chooseaddress"; 
+    $returnVals = 'cartPage.closepopup()';
+ }
+?>
+<div class="block block-cart chooseaddressmaincontainer">
+    <?php $_cartQty = $this->getSummaryCount() ?>
+    <div class="block-content">
+    <div class="actions" id="chooseaddressactions">
+        <p class="block-subtitle"><?php echo __('The following items are not available for your selected Address') ?></p>
+        <br>
+        <p class="block-subtitle error">Would you like to delete these item(s)?</p>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape(__('Cancel')) ?>" class="button" onclick="<?php echo $returnVals?>"><span><span><?php echo __('Cancel') ?></span></span></button>
+        <form method="post" action="<?php echo $this->getUrl('epicor_lists/listModel/removeitemsincart',$frontendHelper->issecure()) ?>">
+        <input type="hidden" name="removeitems" id="removeitems" value="<?php echo implode(',', $itemIds) ?>">
+        <input type="hidden" name="addressid" id="addressid" value="<?php echo $addressid ?>">
+        <input type="hidden" name="page" id="page" value="<?php echo $page ?>">
+        <button style="margin-right: 10px;" type="submit" title="<?php echo Mage::helper('core')->quoteEscape(__('Delete Items')) ?>" class="button" ><span><span><?php echo __('Delete Items') ?></span></span></button>
+        </form>
+    </div>
+    <?php $_items = $this->getItems() ?>
+    <?php if(count($_items)): ?>
+        
+        <ol id="cart-sidebar-chooseaddress" class="mini-products-list">
+        <?php foreach($_items as $_item): 
+            if (in_array($_item->getProductId(),$removeIds)) {
+        ?>
+            <li>
+                <?php 
+                $getProductThumbnail  =$this->helper('catalog/image')->init($_item->getProduct(), 'thumbnail');
+                ?>
+               <span class="product-image"><img src="<?php echo $getProductThumbnail; ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></span>
+                <div class="product-details">
+                <h2 class="product-name">
+                   <?php echo $this->escapeHtml($_item->getName()) ?> 
+                </h2>
+                <div class="product-cart-sku">
+                <?php
+                    $fullsku = $_item->getSku();
+                    $helperComm = Mage::helper('epicor_comm');
+                    $sku = $helperComm->getSku($fullsku);    
+                    $storeId = Mage::app()->getStore()->getStoreId();
+                    $packSize = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_item->getProduct()->getId(), 'ecc_pack_size', $storeId);   
+                ?>
+                    SKU: <?php echo $this->escapeHtml($sku) ?> <br>
+                    Unit of Measure: <?php echo $packSize ?> <br>
+                </div>
+                </div>
+            </li>
+        <?php  } endforeach; ?>
+        </ol>
+        <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
+    <?php else: ?>
+        <p class="empty"><?php echo __('You have no items in your shopping cart.') ?></p>
+    <?php endif ?>
+    </div>
+</div>

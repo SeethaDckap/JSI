@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © 2010-2021 Epicor Software Corporation: All Rights Reserved
+ */
+
+/** @var \Epicor\Comm\Block\Catalog\Product\Configurator $block */
+$params = $block->getParams();
+$redirectUrl = $block->getRedirectUrl();
+?>
+<html>
+<head></head>
+<body onload="document.forms['proxy_form'].submit()">
+<form id="proxy_form" action="<?= $block->escapeUrl($redirectUrl) ?>"
+      method="POST" hidden class="no-display">
+    <?php foreach ($params as $name => $value):?>
+        <input value="<?= $block->escapeHtmlAttr($value) ?>" name="<?= $block->escapeHtmlAttr($name) ?>" type="hidden"/>
+    <?php endforeach?>
+</form>
+</body>
+</html>

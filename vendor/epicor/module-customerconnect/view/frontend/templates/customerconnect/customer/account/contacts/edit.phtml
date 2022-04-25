@@ -1,0 +1,75 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit contact
+ */
+//M1 > M2 Translation Begin (Rule p2-5.1)
+/* if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+  $customerData = Mage::getSingleton('customer/session')->getCustomer();
+  } */
+/** @var \Epicor\Customerconnect\Block\Customer\Address $this */
+if ($block->getCustomerSession()->isLoggedIn()) {
+    $customerData = $block->getCustomerSession()->getCustomer();
+}
+//M1 > M2 Translation End
+?>
+
+<?php $telephoneRequired = $this->getConfig('checkout/options/telephone_required'); ?>
+<div id="update-contact" style="display:none;" class="box-info box-account">
+    <input type="hidden" value="<?php echo $customerData->getEmail(); ?>" name="loggedin_customer_email" id="loggedin_customer_email" />
+    <input type="hidden" value="<?php echo $customerData->getEccMasterShopper(); ?>" name="loggedin_customer_mastershopper" id="loggedin_customer_master_shopper" />
+    <form action="<?php echo $this->getUrl('customerconnect/account/saveContact') ?>" method="post" id="update-contact-form">
+        <input type="hidden" name="old_data" id="contact_old_data" />
+        <div id="contacts-form-fieldset-list" class="fieldset address form-list update-contact-form-list"> 
+            <div class="field _required">
+                <label for="contact_name" class="label"><?php echo __('Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="name" title="<?php echo __('Name') ?>" id="contact_name" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field _required">
+                <label for="contact_function"class="label"><?php echo __('Function') ?></label>
+                <div class="input-box">
+                    <input type="text" name="function" title="<?php echo __('Function') ?>" id="contact_function" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="contact_email_address" id="contact_email_address_label" class="label"><?php echo __('Email Address') ?></label>
+                <div class="input-box">
+                    <input type="text" name="email_address" title="<?php echo __('Email Address') ?>" id="contact_email_address" class="input-text validate-email" />
+                </div>
+            </div>
+            <div class="field<?php if ($telephoneRequired) : ?> _required<?php endif; ?>">
+                <label for="contact_telephone_number" class="label"><?php echo __('Telephone Number') ?></label>
+                <div class="input-box">
+                    <input type="text" name="telephone_number" title="<?php echo __('Telephone Number') ?>" id="contact_telephone_number" class="input-text<?php if ($telephoneRequired) : ?> required-entry<?php endif; ?>" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="contact_fax_number" class="label"><?php echo __('Fax Number') ?></label>
+                <div class="input-box">
+                    <input type="text" name="fax_number" title="<?php echo __('Fax Number') ?>" id="contact_fax_number" class="input-text" />
+                </div>
+            </div>
+            <div class="field">
+                <input type="checkbox" name="web_enabled" title="<?php echo __('Web Enabled') ?>" id="contact_web_enabled" value="1"/>
+                <input type="hidden" name="login_id" id="contact_login_id" />
+                <label for="contact_web_enabled"class="label"><?php echo __('Web Enabled') ?></label>
+            </div>
+            <div id="master_shopper_li" class="field">
+                <?php $assignMasterAllowed = $block->assignMasterShopperAllowed(); ?>
+                <?php if (!$assignMasterAllowed): ?>
+                    <img id="ecc_master_shopper_yes" src="<?= $this->getViewFileUrl('Epicor_Common::epicor/common/images/success_msg_icon.gif') ?>" alt="Yes" />
+                    <img id="ecc_master_shopper_no" src="<?= $this->getViewFileUrl('Epicor_Common::epicor/common/images/cancel_icon.gif') ?>" alt="No" />
+                <?php endif; ?>
+                <input type="checkbox"  name="master_shopper" title="<?php echo __('Master Shopper') ?>" value="" id="contact_master_shopper" onclick="update_value()" style="<?php echo (!$assignMasterAllowed) ? 'display:none' : ''; ?>" />
+                <input type="hidden" name="ecc_master_shopper" id="contact_ecc_master_shopper" value="0" />
+                <label for="contact_mastershopper_enabled" class="label"><?php echo __('Master Shopper') ?></label>
+            </div>
+        </div>
+    </form>
+</div>  
+

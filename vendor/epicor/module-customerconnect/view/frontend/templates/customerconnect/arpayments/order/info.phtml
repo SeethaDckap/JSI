@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php /** @var $block \Epicor\Customerconect\Block\Customer\Arpayment\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<?php $payment = $_order->getPayment(); ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('About This Payment:') ?></strong>
+    </div>
+     <div class="box-content">
+         <div class="box box-order-billing-address">
+             <span><?php /* @escapeNotVerified */ echo __('AR Payment Date:') ?></span>
+            <span class="price"><?php echo $block->formatDate($block->getOrder()->getCreatedAt(), \IntlDateFormatter::LONG)  ?></span>
+         </div>
+     </div><br/>
+    <div class="block-content">
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Card Holders Billing Address') ?></span>
+            </strong>
+            <div class="box-content">
+                <address><?php /* @escapeNotVerified */ echo $block->getFormattedAddress($_order->getBillingAddress()); ?></address>
+            </div>
+        </div>
+        <div class="box box-order-billing-method">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Payment Method') ?></span>
+            </strong>
+            <div class="box-content">
+                <dl class="payment-method">
+                    <dt class="title"><?php  echo $payment->getMethodInstance()->getTitle(); ?></dt>
+                </dl>
+            </div>
+        </div>
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Allocated Amount') ?></span>
+            </strong>
+            <div class="box-content">
+                   <?php echo __('Total Amount Applied:') ?> <?php echo ($_order->getEccArpaymentsAllocatedAmount()) ?  $this->getOrder()->formatPrice($_order->getEccArpaymentsAllocatedAmount()) :"NIL" ;?>
+                    <br>
+                   <?php echo __(' Amount Left:') ?> <?php echo ($_order->getEccArpaymentsAmountleft()) ? $this->getOrder()->formatPrice($_order->getEccArpaymentsAmountleft()) :"NIL";?>
+                    <br>
+                    <?php echo __('Payment On Account:') ?> <?php echo ($_order->getEccArpaymentsIspayment()) ? "Yes" : "No";?>
+                    <?php
+                         if($_order->getEccArpaymentsIspayment()):
+                    ?>
+                    <br>
+                    <br>
+                    <br><strong><?php echo __('Total Amount Paid:') ?> </strong> <span class="price"><?php echo $this->getOrder()->formatPrice($_order->getEccArpaymentsAllocatedAmount())?></span>
+                    <?php  endif ?>
+            </div>
+        </div>
+    </div>
+</div>

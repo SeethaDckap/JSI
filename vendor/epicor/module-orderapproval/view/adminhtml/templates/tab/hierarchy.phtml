@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/** @var $block \Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Hierarchy */
+?>
+<div class="entry-edit">
+    <?= $block->getParentForm()->getHtml() ?>
+</div>
+<?= $block->getChildHtml('parent_grid') ?>
+<div class="entry-edit">
+    <?= $block->getChildForm()->getHtml() ?>
+</div>
+<?= $block->getChildHtml('children_grid') ?>
+<?= $block->getChildHtml('children_grid_serializer') ?>

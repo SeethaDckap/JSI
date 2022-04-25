@@ -1,0 +1,31 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="checkout-shipping-method" id="branchnextbutton">
+    <div class="actions-toolbar" id="shipping-branchpickup-method-buttons-container">
+        <div class="primary" style="margin-bottom:10px;font-size: 1.8rem;line-height: 2.2rem">
+            <form class="form methods-shipping" id="co-shipping-method-form" data-bind="submit: setShippingInformation" novalidate="novalidate">
+                    <button data-role="opc-continue" id="opc-branch-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+            </form>
+        </div>
+    </div>
+</div>   
+
+<div class="step-title opc-block-summary"  data-role="title" id="normalshippingcontainer">
+    <input  type="radio"  id="normalshipping" data-bind="attr: {name: 'selectshipping', id:'normalshipping', value: 'normalshipping'},click: showShippingAddress">Shipping Address
+</div>
+<style>
+    #branchpickup-addresses label {
+        font-size: 1.4rem;
+    }
+    #branchpickup-addresses .field {
+        margin: 0 0 20px;
+        width: 60%;
+    }
+</style>

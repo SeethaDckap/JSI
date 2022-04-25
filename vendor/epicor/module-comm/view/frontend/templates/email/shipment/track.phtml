@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_shipment = $block->getShipment() ?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_shipment && $_order && $_shipment->getAllTracks()): ?>
+<br />
+<table class="shipment-track">
+    <thead>
+        <tr>
+            <th><?= /* @escapeNotVerified */  __('Shipped By') ?></th>
+            <th><?= /* @escapeNotVerified */  __('Tracking Number') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($_shipment->getAllTracks() as $_item ): ?>
+        
+        <td align="left" valign="top" style="padding:3px 9px"><?php echo $block->escapeHtml($_item->getTitle()) ?> </td>
+        <td align="left" valign="top" style="padding:3px 9px"> <?php echo $this->getTrackingUrl($_item); ?></td>
+    <?php endforeach ?>
+    </tbody>
+</table>
+<?php endif; ?>

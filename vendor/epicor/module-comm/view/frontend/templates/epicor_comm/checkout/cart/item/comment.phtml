@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Checkout_Cart_Item_Comment */
+?>
+<?php if ($block->isCommentAllowed()) : ?>
+
+    <fieldset>
+        <label for="line_comment_<?php echo $this->getItem()->getId() ?>"><?php echo __('Line Comment') ?></label>
+        <div class="input-box">
+            <textarea name="cart[<?php echo $this->getItem()->getId() ?>][ecc_line_comment]" class="line_comment" id="line_comment_<?php echo $this->getItem()->getId() ?>"><?php echo $this->getItem()->getEccLineComment() ?></textarea>
+        </div>
+    </fieldset>
+    <?php if ($this->getCommentLimit() > 0): ?>
+        <script>
+//            jQuery(function () {
+//                jQuery('#line_comment_<?php echo $this->getItem()->getId() ?>').maxlength({
+//                    maxCharacters: <?php echo $this->getCommentLimit(); ?>, // Characters limit
+//                    statusClass: "max-len-feedback", // The class on the status div
+//                    statusText: "<?php echo __('Chars Remaining'); ?>", // The status text
+//                });
+//            })
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

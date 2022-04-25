@@ -1,0 +1,23 @@
+<?php /** @var $this \Epicor\Customerconnect\Block\DocumentPrint\ActionLinks*/  ?>
+<?php if($this->isLinkDisplayActive('print')):  ?>
+
+    <a data-account-number="<?= $this->getAccountNumber() ?>"
+       data-entity-document="<?= $this->getEntityDocument()?>"
+       data-entity-key="<?= $this->getEntityKey()?>"
+       data-action="P"
+       href="#"
+       class="link-print print-button" title="Print">
+    <img class="action-img-link" src=<?php echo $this->getViewFileUrl("Epicor_Customerconnect::epicor/customerconnect/images/icons8-print-40.png");?>>
+    </a>
+<?php endif  ?>
+
+<?php if($this->isLinkDisplayActive('email')):  ?>
+    <a data-account-number="<?= $this->getAccountNumber() ?>"
+        data-entity-document="<?= $this->getEntityDocument()?>"
+        data-entity-key="<?= $this->getEntityKey()?>"
+        data-action="E"
+        href="#"
+        class="link-email email-button" title="Email">
+    <img class="action-img-link" src=<?php echo $this->getViewFileUrl("Epicor_Customerconnect::epicor/customerconnect/images/icons8-send-email-40.png");?>>
+         </a>
+<?php endif  ?>

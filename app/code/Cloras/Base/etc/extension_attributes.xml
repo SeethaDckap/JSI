@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">        
+        <attribute code="uom" type="string" /> 
+        <attribute code="inv_mast_uid" type="string" />
+	      <attribute code="erp_product_id" type="string"></attribute>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+      <attribute code="cloras_erp_customer_id" type="string" />  
+      <attribute code="cloras_erp_contact_id" type="string" />  
+      <attribute code="cloras_erp_shipto_id" type="string" />      
+      <attribute code="sales_location_id" type="string" />
+
+     
+      <attribute code="payment_amt" type="string" />
+      <attribute code="payment_type" type="string" />
+      <attribute code="trans_id" type="string" />
+      <attribute code="authorize_no" type="string" />
+      <attribute code="card" type="string" />
+
+    </extension_attributes>
+</config>

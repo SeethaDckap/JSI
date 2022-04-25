@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_Punchout>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_Punchout>
+        </ecc_version_info>
+        <connection_mappings>
+            <description>
+                <header>ItemDetail_Description</header>
+                <type>Regular</type>
+                <map>short_description</map>
+                <include>1</include>
+            </description>
+            <manufacturer_part_id>
+                <header>ItemDetail_ManufacturerPartID</header>
+                <type>Regular</type>
+                <map>ecc_manufacturers</map>
+                <include>1</include>
+            </manufacturer_part_id>
+            <manufacturer_name>
+                <header>ItemDetail_ManufacturerName</header>
+                <type>Regular</type>
+                <map>ecc_manufacturers</map>
+                <include>1</include>
+            </manufacturer_name>
+        </connection_mappings>
+    </global>
+</config>

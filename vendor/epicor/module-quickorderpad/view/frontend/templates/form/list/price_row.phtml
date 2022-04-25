@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$_product = $this->registry('current_product');
+$loopProduct = $this->registry('current_loop_product') ?: $_product;
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+$showPrice = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+//locations stuff
+$locHelper = $this->getHelper();
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$productLocation = $this->registry('current_location');
+$dealerHelper = $this->helper('Epicor\Dealerconnect\Helper\Data');
+$productHelper = $this->helper('Epicor\Comm\Helper\Product');
+/* @var $helper \Epicor\Comm\Helper\Product */
+$dealerPrice = $this->getPricingHelper()->currency($productHelper->getdealerPrice($loopProduct), true, false);
+$cusPrice = $this->getPricingHelper()->currency($loopProduct->getFinalPrice(), true, false);
+$isDealerScope =  $dealerHelper->isDealerPortal();
+$currentMode = $this->getCustomerSession()->getDealerCurrentMode();
+$loopProduct->setStaticLocationPrice(true);
+$price = $loopProduct->getFinalPrice();
+$price = $this->getPriceForConfigurable($loopProduct, $price);
+if($isDealerScope){
+    $price = $currentMode === "shopper" ? $productHelper->getdealerPrice($loopProduct) : $loopProduct->getFinalPrice();
+}
+$finalPrice = $this->getPricingHelper()->currency($price, true, false); 
+?>
+<?php if ($showPrice) : ?>
+    <td class="price">
+        <?php if ($loopProduct->getFinalPrice() == 0 && $loopProduct->getEccConfigurator()): ?>
+            <?php echo __('Price on configuration'); ?>
+        <?php else: ?>
+            <?php if ($showLocations && !$this->getForceHideLocations()): ?>
+                <span class="price" cusprice = "<?php echo $cusPrice ?>" dealerprice = "<?php echo $dealerPrice ?>"><?php echo $productLocation ? $finalPrice : 'Product Not Available'; ?></span>
+            <?php else: ?>
+                <span class="price" cusprice = "<?php echo $cusPrice ?>" dealerprice = "<?php echo $dealerPrice ?>"><?php echo $finalPrice ?></span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </td>
+
+<?php endif; ?>

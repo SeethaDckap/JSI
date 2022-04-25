@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Faqs::epicor/faqs/css/faqStyle.css"/>
+        <css src="Epicor_Faqs::epicor/faqs/css/accordionStyle.css"/>
+    </head>
+    <body>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="current-link" ifconfig="faqs/view/enabled">
+                <arguments>
+                    <argument name="label" xsi:type="string">F.A.Q.</argument>
+                    <argument name="path" xsi:type="string">faq</argument>
+                    <argument name="prepare" xsi:type="string">true</argument>
+                    <argument name="urlParams" xsi:type="string"/>
+                    <argument name="position" xsi:type="string">50</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

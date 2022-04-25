@@ -1,0 +1,346 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+if ($this->getRequest()->getParam('id')) {
+    //M1 > M2 Translation Begin (Rule p2-1)
+    //$model = Mage::getModel('epicor_lists/listModel')->load($this->getRequest()->getParam('id'));
+    $model = $block->getListModel()->load($this->getRequest()->getParam('id'));
+    //M1 > M2 Translation End
+    $data = $model->getData();
+    $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
+    if ($data['start_date']) {
+        //M1 > M2 Translation Begin (Rule p2-6.4)
+        /*$date = Mage::app()->getLocale()
+            ->date(
+                $data['start_date'], $format
+            )->toString($format);*/
+        $date = $block->getResolver()->getLocale()
+            ->date(
+                $data['start_date'], $format
+            )->toString($format);
+        //M1 > M2 Translation End
+        $dateSplit = explode(' ', $date);
+        $start_date = $dateSplit[0];
+        $start_time = explode(':', $dateSplit[1]);
+    }
+
+
+    if ($data['end_date']) {
+        //M1 > M2 Translation Begin (Rule p2-6.4)
+        /*$date = Mage::app()->getLocale()
+            ->date(
+                $data['end_date'], $format
+            )->toString($format);*/
+        $date = $block->getResolver()->getLocale()
+            ->date(
+                $data['end_date'], $format
+            )->toString($format);
+        //M1 > M2 Translation End
+        $dateSplit = explode(' ', $date);
+        $end_date = $dateSplit[0];
+        $end_time = explode(':', $dateSplit[1]);
+    }
+}
+if ($this->getRequest()->getParam('id')) {
+    $action = '/lists/list/save';
+} else {
+    $action = '/lists/list/create';
+}
+?>
+
+<form enctype="multipart/form-data" method="post" action="<?php echo $this->getBaseUrl() . $action; ?>" id="list_form">
+    <div><input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key">
+<form enctype="multipart/form-data" method="post" action="<?php echo Mage::getBaseUrl() . $action; ?>" id="list_form">
+    <div><input type="hidden" value="<?php
+        //M1 > M2 Translation Begin (Rule p2-5.1)
+        //echo Mage::getSingleton('core/session')->getFormKey();
+        echo $block->getFormKey();
+        //M1 > M2 Translation End
+        ?>" name="form_key">
+        <input type="hidden" value="<?php echo $this->getRequest()->getParam('id'); ?>" name="id">
+    </div>
+    <div style="" id="form_tabs_details_content" class="loadedtab">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend">Primary Details</h4>
+                <div class="form-buttons"></div>
+            </div>
+            <div id="primary" class="fieldset ">
+                <div class="hor-scroll">
+                    <table cellspacing="0" class="form-list">
+                        <tbody>
+                            <tr>
+                                <td class="label"><label for="title">Title <span class="required">*</span></label></td>
+                                <td class="value">
+                                    <input type="text" class="input-text required-entry" value="<?php
+                                    if (isset($data['title'])) {
+                                        echo $data['title'];
+                                    }
+                                    ?>" name="title" id="title">            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="type">Type</label></td>
+                                <td class="value">
+                                    <select class=" select" name="type" id="type" <?php
+                                    if ($this->getRequest()->getParam('id')) {
+                                        echo 'disabled ="disabled"';
+                                    }
+                                    ?> >
+
+                                        <?php
+                                        ?>
+                                        <option value="Pl" <?php
+                                        if (isset($data) && $data['type'] == 'Pl') {
+                                            echo 'selected="selected"';
+                                        }
+                                        ?> >Predefined Lists</option>
+                                        <option value="Fa" <?php
+                                        if (isset($data) && $data['type'] == 'Fa') {
+                                            echo 'selected="selected" ';
+                                        }
+                                        ?> >Favorites</option>
+                                    </select>            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="erp_code">Code <span class="required">*</span></label></td>
+                                <td class="value">
+                                    <input type="text" class=" input-text required-entry" value="<?php
+                                    if (isset($data) && $data['erp_code']) {
+                                        echo $data['erp_code'];
+                                    }
+                                    ?>" name="erp_code" id="erp_code" <?php
+                                           if ($this->getRequest()->getParam('id')) {
+                                               echo 'disabled ="disabled"';
+                                           }
+                                    ?> >  
+                                    <p id="note_erp_code" class="note"><span>Unique reference code for this list</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="notes">Notes</label></td>
+                                <td class="value">
+                                    <textarea class=" textarea" cols="15" rows="2" name="notes" id="notes"><?php
+                                           if (isset($data) && $data['notes']) {
+                                               echo $data['notes'];
+                                           }
+                                    ?></textarea>  
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend">Active Details</h4>
+                <div class="form-buttons"></div>
+            </div>
+            <div id="active_fields" class="fieldset ">
+                <div class="hor-scroll">
+                    <table cellspacing="0" class="form-list">
+                        <tbody>
+                            <tr>
+                                <td class="label"><label for="active">Is Active?</label></td>
+                                <td class="value">
+
+                                    <input type="checkbox" tabindex="1" <?php
+                                           if (isset($data) && $data['active'] == '1') {
+                                               echo 'checked="checked"';
+                                           }
+                                    ?> value="<?php if (isset($data) && $data['active']) echo $data['active']; ?>" name="active" id="active">            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="start_date">Start Date</label></td>
+                                <td class="value">
+                                    <input type="text"  value="<?php
+                                           if (isset($start_date)) {
+                                               echo $start_date;
+                                           }
+                                    ?>" style="width:110px !important;" class="validate-date input-text" 
+                                           tabindex="1" value="" id="start_date" name="start_date"> 
+                                    <img style="" title="Select Date" id="start_date_trig" class="v-middle" alt="" src="<?php echo $this->getViewFileUrl('Epicor_BranchPickup::epicor/branchpickup/images/grid-cal.gif'); ?>">
+                                    <script type="text/javascript">
+                                        //&lt;![CDATA[
+                                        Calendar.setup({
+                                            inputField: "start_date",
+                                            ifFormat: "%Y-%m-%d",
+                                            showsTime: false,
+                                            button: "start_date_trig",
+                                            align: "Bl",
+                                            singleClick: true
+                                        });
+                                        //]]&gt;
+                                    </script><small>YYYY-MM-DD</small><br><small>To Update Date Click on Calendar Icon</small>            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="start_time">Start Time</label></td>
+                                <td class="value">
+
+                                    <input type="hidden" id="start_time">
+                                    <select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                        <?php for ($i = 0; $i <= 23; $i++) { ?>
+
+                                            <option  <?php
+                                                if (isset($start_time)) {
+                                                    if (sprintf("%02d", $i) == $start_time[0]) {
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                                ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                        <?php } ?>
+
+                                    </select>
+                                    &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                        <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                            <option <?php
+                                                if (isset($start_time)) {
+                                                    if (sprintf("%02d", $i) == $start_time[1]) {
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                                ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                        <?php } ?> 
+                                    </select>
+                                    &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                        <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                            <option <?php
+                                                if (isset($start_time)) {
+                                                    if (sprintf("%02d", $i) == $start_time[2]) {
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                                ?>  value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+<?php } ?> 
+
+                                    </select>            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="end_date">End Date</label></td>
+                                <td class="value">
+                                    <input type="text" style="width:110px !important;" class="validate-date input-text" tabindex="1" value="<?php
+if (isset($end_date)) {
+    echo $end_date;
+}
+?>" id="end_date" name="end_date"> <img style="" title="Select Date" id="end_date_trig" class="v-middle" alt="" src="<?php echo $this->getViewFileUrl('Epicor_BranchPickup::epicor/branchpickup/images/grid-cal.gif') ?>">
+                                    <script type="text/javascript">
+                                        //&lt;![CDATA[
+                                        Calendar.setup({
+                                            inputField: "end_date",
+                                            ifFormat: "%Y-%m-%d",
+                                            showsTime: false,
+                                            button: "end_date_trig",
+                                            align: "Bl",
+                                            singleClick: true
+                                        });
+                                        //]]&gt;
+                                    </script><small>YYYY-MM-DD</small><br><small>To Update Date Click on Calendar Icon</small>            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="end_time">End Time</label></td>
+                                <td class="value">
+                                    <input type="hidden" id="end_time"><select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                            <?php for ($i = 0; $i <= 23; $i++) { ?>
+                                            <option <?php
+                                            if (isset($end_time)) {
+                                                if (sprintf("%02d", $i) == $end_time[0]) {
+                                                    echo "selected='selected'";
+                                                }
+                                            }
+                                                ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                        <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                            <option <?php
+                                            if (isset($end_time)) {
+                                                if (sprintf("%02d", $i) == $end_time[1]) {
+                                                    echo "selected='selected'";
+                                                }
+                                            }
+                                            ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                        <?php } ?> </select>
+                                    &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                        <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                            <option <?php
+                                        if (isset($end_time)) {
+                                            if (sprintf("%02d", $i) == $end_time[2]) {
+                                                echo "selected='selected'";
+                                            }
+                                        }
+                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+<?php } ?> </select>            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend">Settings</h4>
+                <div class="form-buttons"></div>
+            </div>
+            <div id="settings_fields" class="fieldset ">
+                <div class="hor-scroll">
+                    <table cellspacing="0" class="form-list">
+                        <tbody>
+                            <tr>
+                                <td class="value">
+                                    <ul class="checkboxes">
+                                        <li><input <?php
+                                            if (isset($data['settings']) && strpos($data['settings'], 'M') !== false) {
+                                                echo 'checked="checked"';
+                                            }
+                                            ?> type="checkbox" value="M" name="settings[]" id="settings_M"> <label for="settings_M">Mandatory: The list must always be used</label></li>
+
+
+                                        <li><input <?php
+                                            if (isset($data['settings']) && strpos($data['settings'], 'F') !== false) {
+                                                echo 'checked="checked"';
+                                            }
+                                            ?> type="checkbox" value="F" name="settings[]" id="settings_F"> <label for="settings_F">Force: Customer forced to select 1 list with this flag</label></li>
+
+
+                                        <li><input <?php
+                                            if (isset($data['settings']) && strpos($data['settings'], 'D') !== false) {
+                                                echo 'checked="checked"';
+                                            }
+                                            ?> type="checkbox" value="D" name="settings[]" id="settings_D"> <label for="settings_D">Default: Automatically assigned to Customer</label></li>
+
+
+                                        <li><input <?php
+                                            if (isset($data['settings']) && strpos($data['settings'], 'Q') !== false) {
+                                                echo 'checked="checked"';
+                                            }
+                                            ?> type="checkbox" value="Q" name="settings[]" id="settings_Q"> <label for="settings_Q">Quick Order Pad: Auto load for the quick order pad</label></li>
+
+                                    </ul>            </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><label for="priority">Priority</label></td>
+                                <td class="value">
+                                    <input type="text" class="validate-number input-text" value="<?php
+                                    if (isset($data['priority'])) {
+                                        echo $data['priority'];
+                                    }
+                                            ?>" name="priority" id="priority">            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<?php if (!$this->getRequest()->getParam('id')) { ?>
+        <button type="submit" value="Submit">Submit List</button>
+<?php } else { ?>
+        <button type="submit" value="Submit">Update List</button>
+<?php } ?>
+</form>
+
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('list_form');
+    //]]>
+</script>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">    
+    <head>
+        <link src="Epicor_Comm::epicor/comm/js/returns.js"/>
+        <remove src="css/styles-old.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Adminhtml\Sales\Returns\View" name="erp_returns"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Comm\Block\Adminhtml\Sales\Returns\View\Tabs" name="erp_returns_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

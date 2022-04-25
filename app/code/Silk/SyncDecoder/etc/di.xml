@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Silk\SyncDecoder\Console\Command\SyncDecoder">
+        <arguments>
+            <argument name="name" xsi:type="string">syncdecoder</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="syncdecoder" xsi:type="object">Silk\SyncDecoder\Console\Command\SyncDecoder</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\Repository">
+        <arguments>
+            <argument name="cartItemProcessors" xsi:type="array">
+                <item name="simple" xsi:type="object">Silk\SyncDecoder\Model\CartItemProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Item">
+      <plugin name="itemSkuPlugin" type="Silk\SyncDecoder\Plugin\ItemSkuPlugin" />
+    </type>
+
+    <preference for="Epicor\Comm\Model\Sales\Quote\Address\Total\Msq" type="Silk\SyncDecoder\Model\Epicor\Sales\Quote\Address\Total\Msq" />
+</config>

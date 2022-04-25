@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+    </head>
+        <update handle="customer_account"/>
+        <update handle="customer_connect"/>
+    <body>
+        <referenceContainer name="my.account.wrapper">
+            <action method="setElementClass">
+                <argument name="value" xsi:type="string">col2-set</argument>
+            </action>
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.contracts.info</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Lists</item>
+                        <item name="controller" xsi:type="string">Contract</item>
+                        <item name="action" xsi:type="string">details</item>
+                        <item name="block" xsi:type="string">customer_account_contracts_info</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">lists.contracts.shippingaddress</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Lists</item>
+                        <item name="controller" xsi:type="string">Contract</item>
+                        <item name="action" xsi:type="string">details</item>
+                        <item name="block" xsi:type="string">customer_account_contracts_shippingaddress_list</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">lists.contracts.parts</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Lists</item>
+                        <item name="controller" xsi:type="string">Contract</item>
+                        <item name="action" xsi:type="string">details</item>
+                        <item name="block" xsi:type="string">customer_account_contracts_parts_list</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <block class="Epicor\Lists\Block\Customer\Account\Contracts\Info" name="customer.contracts.info"/>
+                <block class="Epicor\Lists\Block\Customer\Account\Contracts\Shippingaddress\List" name="lists.contracts.shippingaddress"/>
+                <block class="Epicor\Lists\Block\Customer\Account\Contracts\Parts\List" name="lists.contracts.parts"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

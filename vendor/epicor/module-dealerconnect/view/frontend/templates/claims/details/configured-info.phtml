@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/** @var $this \Epicor\Dealerconnect\Block\Claims\Details\ConfiguredInfo */
+?><div class="box-info box-account <?php echo ($this->getOnRight()) ? 'col-2' : ($this->getOnLeft() ? 'col-1' : 'col-full'); ?>  block">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list col-count-<?=$this->getColumnCount() ?>">
+        <p id="location_number">
+            <input type="hidden" id="input_location_num" name = "locationNumber" value="<?=$this->getClaimLocationNumber()?>" />
+        </p>
+        <input type="hidden" id="case_number" name="case_number" value="<?php echo $this->getCaseNumber() ?>" />
+        <p id="product_code">
+            <span class="label"><?php echo __('Product Code'); ?>:</span>
+            <span class="value" id="sp_prod_code"><?=$this->getProductCode()?></span>
+        </p>
+        <?php foreach ($this->getInfoData() as $key => $value): ?>
+        <?php if($this->isViewableValue($value['index'])):  ?>
+            <p id="<?=$key; ?>">
+                <?php if (!empty($key)) : ?>
+                    <span class="label"><?=$value['header'] ?>:</span>
+                <?php endif; ?>
+                <?php if (isset($this->getLinkTo()[$key]['active'])
+                            && isset($this->getLinkTo()[$key])
+                            && $this->getLinkTo()[$key]['active']
+                ) { ?>
+                    <?php echo '<a href="' . $this->getLinkTo()[$key]['link'] . '">'; ?>
+                <?php } ?>
+                <span class="value" id="sp_<?=$this->getIdIdentifier($value['index'])?>"><?=$this->getResultValue($value['value']) ?></span>
+                <?php if (isset($this->getLinkTo()[$key]['active'])
+                    && isset($this->getLinkTo()[$key])
+                    && $this->getLinkTo()[$key]['active']
+                ) { ?>
+                    <?php echo '</a>'; ?>
+                <?php } ?>
+            </p>
+        <?php endif;  ?>
+        <?php endforeach; ?>
+    </div>
+    <div class="info-list-extra">
+        <?php foreach ($this->getExtraData() as $label => $value): ?>
+            <p id="<?php echo $label; ?>">
+                <?php if (!empty($label)) : ?>
+                    <span class="label"><?php echo $label; ?></span>
+                <?php endif; ?>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '<a href="' . $this->getLinkTo()[$label]['link'] . '">'; ?>
+                <?php } ?>
+                <span class=""><?php echo $value; ?></span>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '</a>'; ?>
+                <?php } ?>
+            </p>
+        <?php endforeach; ?>
+    </div>
+</div>

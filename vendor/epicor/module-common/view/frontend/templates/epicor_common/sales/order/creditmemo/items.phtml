@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<?php
+    $helper = $this->helper('Epicor\Comm\Helper\Data');
+    // Start B2B hide prices
+    $eccHidePrices = $helper->getEccHidePrice();
+    $showPrices = true;
+    if ($eccHidePrices){
+        $showPrices = false;
+    }
+    // End B2B hide prices
+?>
+<div class="actions-toolbar">
+    <a href="<?= /* @escapeNotVerified */ $block->getPrintAllCreditmemosUrl($_order) ?>"
+       onclick="this.target='_blank'"
+       class="action print">
+        <span><?= /* @escapeNotVerified */ __('Print All Refunds') ?></span>
+    </a>
+</div>
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
+<div class="order-title">
+    <strong><?= /* @escapeNotVerified */ __('Refund #') ?><?= /* @escapeNotVerified */ $_creditmemo->getIncrementId() ?> </strong>
+    <a href="<?= /* @escapeNotVerified */ $block->getPrintCreditmemoUrl($_creditmemo) ?>"
+       onclick="this.target='_blank'"
+       class="action print">
+        <span><?= /* @escapeNotVerified */ __('Print Refund') ?></span>
+    </a>
+</div>
+
+<div class="table-wrapper order-items-creditmemo">
+    <table class="data table table-order-items creditmemo" id="my-refund-table-<?= /* @escapeNotVerified */ $_creditmemo->getId() ?>">
+        <caption class="table-caption"><?= /* @escapeNotVerified */ __('Items Refunded') ?></caption>
+        <thead>
+            <tr>
+                <th class="col name"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
+                <th class="col sku"><?= /* @escapeNotVerified */ __('SKU') ?></th>
+                <?php if($showPrices) : ?>
+                    <th class="col price"><?= /* @escapeNotVerified */ __('Price') ?></th>
+                <?php endif; ?>
+                <th class="col qty"><?= /* @escapeNotVerified */ __('Qty') ?></th>
+                <?php if($showPrices) : ?>
+                    <th class="col subtotal"><?= /* @escapeNotVerified */ __('Subtotal') ?></th>
+                    <th class="col discount"><?= /* @escapeNotVerified */ __('Discount Amount') ?></th>
+                    <th class="col total"><?= /* @escapeNotVerified */ __('Row Total') ?></th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <?php $_items = $_creditmemo->getAllItems(); ?>
+        <?php foreach ($_items as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
+                <tbody>
+                    <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if($showPrices) : ?>
+            <tfoot>
+                <?= $block->getTotalsHtml($_creditmemo) ?>
+            </tfoot>
+        <?php endif; ?>
+    </table>
+</div>
+<?= $block->getCommentsHtml($_creditmemo) ?>
+<?php endforeach; ?>

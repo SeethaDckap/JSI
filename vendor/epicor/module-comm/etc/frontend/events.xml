@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="customer_address_validation_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\PostValidateAddress"/>
+  </event>
+  <event name="catalog_product_is_salable_after">
+    <observer name="epicor_comm_model_observer_product" instance="Epicor\Comm\Observer\Product\IsSalable"/>
+  </event>
+  <event name="epicor_common_can_access_url_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CanAccessUrlAfter"/>
+  </event>
+  <event name="view_block_abstract_to_html_before">
+    <observer name="location_setting" instance="Epicor\Comm\Observer\Locations\AddLocationVariables"/>
+  </event>
+  <event name="adminhtml_block_html_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ModifyBlockHtmlBefore"/>
+  </event>
+  <event name="epicor_common_check_user_rights_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CheckCommRights"/>
+  </event>
+  <event name="customer_login">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CheckCartAfterLogin"/>
+  </event>
+  <event name="customer_logout">
+    <observer name="catalogrule" instance="Epicor\Comm\Observer\LogoutActions"/>
+  </event>
+  <event name="sales_order_save_after">
+    <observer name="saveCustomerComment" instance="Epicor\Comm\Observer\SaveOrderComment"/>
+    <observer name="saveOrderLineComment" instance="Epicor\Comm\Observer\SaveOrderLineComment"/>
+  </event>
+  <event name="customer_customer_authenticated">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CommsCustomerCustomerAuthenticated"/>
+  </event>
+  <event name="controller_action_predispatch_sales_order_reorder">
+    <observer name="clearCartB4Reorder" instance="Epicor\Comm\Observer\ClearCartBeforeReorder"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_multishipping_overview">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\FlagCheckoutBsvNeeded"/>
+  </event>
+  <event name="controller_action_layout_generate_blocks_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ViewLayoutBlocks"/>
+  </event>
+  <event name="checkout_cart_product_add_after">
+    <observer name="checkQuickOrderPadUpload" instance="Epicor\Comm\Observer\CheckQuickOrderPadUpload"/>
+    <observer name="populateAddress" instance="Epicor\Comm\Observer\SaveQuoteAddress"/>
+  </event>
+  <event name="checkout_cart_after_add">
+    <observer name="checkQuickOrderPadUpload" instance="Epicor\Comm\Observer\CheckQuickOrderPadUpload"/>
+  </event>
+  <event name="checkout_cart_add_product_complete">
+    <observer name="checkQuickOrderPadUpload" instance="Epicor\Comm\Observer\CheckQuickOrderPadUpload"/>
+    <observer name="removeFromWishlist" instance="Epicor\Comm\Observer\RemoveFromWishlist"/>
+  </event>
+  <event name="sales_quote_save_before">
+    <observer name="set_cart_erp_account" instance="Epicor\Comm\Observer\SetCartErpAccount"/>
+  </event>
+  <event name="sales_quote_merge_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\CartMerged"/>
+  </event>
+  <event name="catalog_product_collection_load_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Msq\CompareProducts"/>
+  </event>
+  <event name="ecc_location_collection_load_before">
+    <observer name="filter_locations" instance="Epicor\Comm\Observer\Locations\FilterLocations"/>
+  </event>
+  <event name="catalog_controller_product_view">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Msq\ProductDetails"/>
+  </event>
+  <event name="wishlist_item_collection_products_after_load">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Msq\Wishlist"/>
+  </event>
+  <event name="sales_order_item_collection_load_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Msq\LastOrderedItems"/>
+  </event>
+  <event name="catalog_block_product_list_collection">
+      <observer name="epicor_comm_model_observer_productlist_msq" instance="Epicor\Comm\Observer\Msq\ProductList"/>
+  </event>
+  <event name="linked_products_collection_load">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\Msq\LinkedProductList"/>
+  </event>
+  <event name="featured_product_display">
+    <observer name="featured_product_msq" instance="Epicor\Comm\Observer\Msq\FeaturedProduct"/>
+    <observer name="featured_product_template" instance="Epicor\Comm\Observer\FeaturedProductTemplateOverride"/>
+  </event>
+  <event name="catalog_product_get_final_price">
+    <observer name="ecc_catalogrule" instance="Epicor\Comm\Observer\ProcessFinalPrice"/>
+  </event>
+  <event name="checkout_onepage_controller_success_action">
+    <observer name="catalogrule" instance="Epicor\Comm\Observer\SaveNewAddresses"/>
+  </event>
+  <event name="checkout_cart_update_items_before">
+    <observer name="add_line_comments" instance="Epicor\Comm\Observer\AddLineComments"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_comm_quickadd_add">
+    <observer name="prevent_bsv_addcartquickadd" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_sidebar_updateItemQty">
+    <observer name="prevent_bsv_minicart_item_update" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_updateItemOptions">
+    <observer name="prevent_bsv_minicart_item_edit" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_sidebar_removeItem">
+    <observer name="prevent_bsv_mimicart_item_delete" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_updatePost">
+    <observer name="prevent_bsv_cart_qty_update" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+    <event name="controller_action_predispatch_checkout_cart_delete">
+        <observer name="prevent_bsv_cart_qty_delete" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="bsv_sent_for_cart_page" instance="Epicor\Comm\Observer\UnsetBsvSession"/>
+    </event>
+  <event name="controller_action_predispatch_customerconnect_orders_reorder">
+    <observer name="prevent_bsv_customerconnect_orders_reorder" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_customerconnect_invoices_reorder">
+    <observer name="prevent_bsv_customerconnect_invoices_reorder" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_customerconnect_shipments_reorder">
+    <observer name="prevent_bsv_customerconnect_shipments_reorder" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_comm_locations_addToCartFromMyOrdersWidget">
+    <observer name="prevent_bsv_addToCartFromMyOrdersWidget" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_comm_cart_importProductCsv">
+    <observer name="prevent_bsv_importProductCsv" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_sales_order_reorder">
+    <observer name="prevent_bsv_sales_order_reorder" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_quotes_manage_accept">
+    <observer name="prevent_bsv_epicor_quotes_manage_accept" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_wishlist_index_cart">
+    <observer name="prevent_bsv_wishlist" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_lists_cart_applycontractselect">
+    <observer name="prevent_bsv_lists_cart_applycontractselect" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_couponPost">
+    <observer name="prevent_bsv_checkout_cart_couponPost" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+  <event name="controller_action_predispatch_epicor_comm_configurator_ewacomplete">
+    <observer name="prevent_bsv_checkout_cart_ewa" instance="Epicor\Comm\Observer\CheckBsvRestricted"/>
+  </event>
+
+  <event name="controller_action_predispatch_checkout_cart_index">
+    <observer name="prevent_bsv_addcart_cartpage" instance="Epicor\Comm\Observer\CheckBsvCartPage"/>
+  </event>
+  <event name="epicor_comm_products_required_configuration">
+    <observer name="add_line_comments" instance="Epicor\Comm\Observer\Msq\MsqForConfiguration"/>
+  </event>
+  <event name="customer_address_format">
+    <observer name="checkAddresses" instance="Epicor\Comm\Observer\CheckAddresses"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_add">
+    <observer name="checkForEmptyCart" instance="Epicor\Comm\Observer\CheckQtySelected"/>
+  </event>
+  <event name="payment_method_is_active">
+        <observer name="paymentfilter_payment_method_is_active" instance="Epicor\Comm\Observer\PaymentMethodIsActive"/>
+    </event>
+  <event name="controller_action_postdispatch_checkout_cart_couponpost">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\SendBsvCouponPost"/>
+  </event>
+  <event name="controller_action_predispatch_multishipping_checkout_overview">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\MultishippingResetTotals"/>
+  </event>
+  <event name="layout_generate_blocks_after">
+    <observer name="product_view_lazyload" instance="Epicor\Comm\Observer\Product\Lazyload"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_index_index">
+    <observer name="send_ast_checkout_index" instance="Epicor\Comm\Observer\SendAst"/>
+  </event>
+  <event name="msq_sendrequest_after">
+    <observer name="remove_out_of_stock" instance="Epicor\Comm\Observer\Msq\RemoveOutOfStock"/>
+  </event>
+</config>

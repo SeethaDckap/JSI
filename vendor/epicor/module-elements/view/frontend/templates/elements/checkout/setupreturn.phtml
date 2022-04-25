@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Elements
+ *
+ * @category    Epicor
+ * @package     Epicor_Elements
+ * @author      Epicor Web Sales Team
+ */
+?>
+
+<?php if($this->isSuccessful()) : ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        require(['jquery',
+                'Magento_Ui/js/modal/modal',
+                'Magento_Checkout/js/model/full-screen-loader',
+                'iframeElementsSetup',
+                'jquery/ui',
+                'mage/mage',
+                'domReady!'
+            ],
+            function($,modal,fullScreenLoader,iframeElementsSetup){
+                iframeElementsSetup.closeElementsIframePopup();
+                fullScreenLoader.stopLoader(true);
+                setTimeout(function() {
+                    iframeElementsSetup.placeOrderClick();
+                }, 1000);
+            });
+        //]]>
+    </script>
+<?php elseif ($this->isCancelled()) :?>
+    <script type="text/javascript">
+        //<![CDATA[
+        require(['jquery',
+                'Magento_Ui/js/modal/modal',
+                'iframeElementsSetup',
+                'jquery/ui',
+                'mage/mage',
+                'domReady!'
+            ],
+            function($,modal,iframeElementsSetup){
+                iframeElementsSetup.closeElementsIframePopup();
+                var ifr='Payment was cancelled';
+                if($('.modals-overlay', window.parent.document).length){
+                    $('.modals-overlay', window.parent.document).hide();
+                }
+                iframeElementsSetup.showErrorMessage(ifr);
+            });
+        //]]>
+    </script>
+<?php elseif ($this->hasExpiryDate() && !$this->isCardExpiryValid()) :?>
+    <script type="text/javascript">
+        //<![CDATA[
+        require(['jquery',
+                'Magento_Ui/js/modal/modal',
+                'iframeElementsSetup',
+                'jquery/ui',
+                'mage/mage',
+                'domReady!'
+            ],
+            function($,modal,iframeElementsSetup){
+                iframeElementsSetup.closeElementsIframePopup();
+                if($('.modals-overlay', window.parent.document).length){
+                    $('.modals-overlay', window.parent.document).hide();
+                }
+                var ifr='Card has Expired. Please Try again or use another payment method';
+                iframeElementsSetup.showErrorMessage(ifr);
+            });
+        //]]>
+    </script>
+<?php else: ?>
+    <h2><?php echo __('Error'); ?></h2>
+    <script type="text/javascript">
+        //<![CDATA[
+        require(['jquery',
+                'Magento_Ui/js/modal/modal',
+                'iframeElementsSetup',
+                'jquery/ui',
+                'mage/mage',
+                'domReady!'
+            ],
+            function($,modal,iframeElementsSetup){
+                iframeElementsSetup.closeElementsIframePopup();
+                if($('.modals-overlay', window.parent.document).length){
+                    $('.modals-overlay', window.parent.document).hide();
+                }
+                var ifr='Payment Failed.Please Try again or use another payment method';
+                iframeElementsSetup.showErrorMessage(ifr);
+            });
+        //]]>
+    </script>
+<?php endif; ?>

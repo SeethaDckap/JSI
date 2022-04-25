@@ -1,0 +1,12 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<div data-role="checkout-notices" class="messages" data-bind="visible: isVisible()">
+    <!-- ko foreach: messageContainer.getNoticeMessages() -->
+    <div role="alert" class="message message-notice notice">
+        <div data-ui-id="checkout-cart-validationmessages-message-notice" data-bind="text: $data"></div>
+    </div>
+    <!--/ko-->
+</div>

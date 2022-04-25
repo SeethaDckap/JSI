@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head fieldset-legend">Additional Products Summary</h4>
+    </div>
+
+    <div class="grid">
+        <table class="data" cellspacing="0">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col width="65">
+            </colgroup>
+            <thead>
+                <tr class="headings">
+                    <th><?php echo __('SKU'); ?></th>
+                    <th><?php echo __('Product Name'); ?></th>
+                    <th><?php echo __('Unit Price'); ?></th>
+                    <th><?php echo __('Qty'); ?></th>
+                    <th><?php echo __('Row Total'); ?></th>
+                </tr>
+            </thead>  
+            <tbody>
+                <?php foreach ($this->getProducts() as $product) : ?>
+                    <tr>
+                        <td><?php echo $product->getSku(); ?></td>
+                        <td><?php echo $product->getName(); ?></td>
+                        <td><?php echo $this->formatPrice($product->getPrice()); ?></td>
+                        <td><?php echo $product->getQty(); ?></td>
+                        <td><?php echo $this->formatPrice($product->getSubtotal()); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <table cellspacing="0">
+            <colgroup>
+                <col>
+                <col width="65">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td class="a-right"><?php echo __('Subtotal'); ?></td>
+                    <td><?php echo $this->formatPrice($this->getAdditionalAmount()); ?></td>
+                </tr>
+                <tr>
+                    <td class="a-right"><?php echo __('Current Order Total'); ?></td>
+                    <td><?php echo $this->formatPrice($this->getOrigGrandTotal()); ?></td>
+                </tr>
+                <tr>
+                    <td class="a-right"><strong><?php echo __('New Order Total'); ?></strong></td>
+                    <td class="emph"><strong><?php echo $this->formatPrice($this->getNewGrandTotal()); ?></strong></td>
+                </tr>
+                <?php if ($this->getValidAmendment()) : ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="a-right">
+                            <button onclick="addProduct.saveProducts();"><span>Accept Changes</span></button>
+                            <button onclick="addProduct.closeSummary();"><span>Cancel</span></button>
+                        <?php else : ?>
+                    <tr>
+                        <td class="a-right"><strong><?php echo __('Order Total Exceeds Maximum Value by'); ?></strong></td>
+                        <td class="exceedMax"><strong><?php echo $this->formatPrice($this->getGrandTotalDiff()); ?></strong></td>
+                    </tr>
+                    </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="a-right">
+                            <p><?php echo __("The value of the new line" . (count($this->getProducts()) > 1 ? 's have' : ' has') . " exceeded the maximum additional value allowed on an order for this payment method."); ?></p>
+
+                            <button onclick="addProduct.closeSummary();"><span>Close</span></button>
+                        <?php endif; ?>
+
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

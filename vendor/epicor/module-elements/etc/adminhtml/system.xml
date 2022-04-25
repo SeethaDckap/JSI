@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="elements" type="text" sortOrder="999" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Elements Payment Gateway</label>
+                <field id="heading_payment" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="live_mode" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mode</label>
+                    <source_model>Epicor\Elements\Model\Config\Source\Livestate</source_model>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="gateway_url" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Gateway URL</label>
+                </field>
+                <field id="gateway_url_mobile" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Gateway URL (Mobile)</label>
+                </field>
+                <field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="8" translate="label" type="text">
+                    <label>Sort Order</label>
+                </field>
+                <field id="instructions" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="9" translate="label" type="textarea">
+                    <label>Instructions</label>
+                </field>
+                <field id="enable_captcha" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Captcha</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="account_settings" translate="label" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="AccountID" translate="label" sortOrder="12" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Id</label>
+                </field>
+                <field id="AccountToken" translate="label" sortOrder="13" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Token</label>
+                </field>
+                <field id="AcceptorID" translate="label" sortOrder="14" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Acceptor Id</label>
+                </field>
+                <field id="ApplicationID" translate="label" sortOrder="15" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Id</label>
+                </field>
+                <field id="terminal_settings" translate="label" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Terminal Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="TerminalID" translate="label" sortOrder="17" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Terminal Id</label>
+                </field>
+                <field id="CVVEnabled" translate="label" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CVV Validation Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="authorizeInEcc" translate="label" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Authorize in ECC</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="CVVEnabled">0</field>
+                    </depends>
+                </field>
+                <field id="AVSEnabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>AVS Validation Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="heading_adv" translate="label" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advanced Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="adv_enabled" translate="label" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Advanced Settings</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cvv_successful_results" translate="label" type="multiselect" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed CVV Results</label>
+                    <source_model>Epicor\Elements\Model\Config\Source\Cvvresults</source_model>
+                    <depends>
+                        <field id="adv_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="avs_successful_results" translate="label" type="multiselect" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed AVS Results</label>
+                    <source_model>Epicor\Elements\Model\Config\Source\Avsresults</source_model>
+                    <depends>
+                        <field id="adv_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

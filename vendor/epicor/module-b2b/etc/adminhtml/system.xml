@@ -1,0 +1,550 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="epicor_search" translate="label">
+            <resource>Epicor_B2b::system_config</resource>
+            <group id="general" translate="label">
+                <field id="cpn_search_enabled" translate="label" sortOrder="30" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Search Catalog By Customer SKU</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cpn_search_weight" translate="label" sortOrder="40" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Customer SKU Search Relevance</label>
+                    <comment>Higher numbers appear higher in the results</comment>
+                </field>
+                <field id="cpn_search_weight_partial" translate="label" sortOrder="40" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Partial Customer SKU Search Relevance</label>
+                    <comment>Higher numbers appear higher in the results</comment>
+                </field>
+            </group>
+        </section>
+        <section id="epicor_b2b" translate="label" sortOrder="9" type="text" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>B2b Configuration</label>
+            <tab>epicor_config</tab>
+            <resource>Epicor_Common::b2b</resource>
+            <group id="registration" sortOrder="100" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>B2B Registration Options</label>
+                <field id="reg_noinfo" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1">
+                    <label>B2b Configurable Options Will Display Here If Licensed</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="reg_portaltype_heading" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1">
+                    <label>Home Customer Registration Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="reg_customer" sortOrder="10" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Enable Home Customer Registration</label>
+                    <comment>Allow users to register against the ERP cash account</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="b2c_acct_type" translate="label" sortOrder="20" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Home Customer Registration Action</label>
+                    <comment>Action when registering home customers</comment>
+                    <source_model>Epicor\B2b\Model\Config\Source\B2cAccountOptions</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                    </depends>
+                </field>
+                <field id="b2c_guest_acct_admin_email_template" translate="label" sortOrder="21" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on guest account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type">guest_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_guest_acct_admin_email_address" translate="label" sortOrder="22" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for guest account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type">guest_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_erp_acct_admin_email_template" translate="label" sortOrder="23" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on erp account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type">erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_erp_acct_admin_email_address" translate="label" sortOrder="24" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for erp account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type">erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_address_options_heading" translate="label" sortOrder="30" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Home Customer Registration Address Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="home_reg_heading_wording" translate="label" type="text" sortOrder="31"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Home Registration Heading</label>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                    </depends>
+                </field>
+                <field id="home_reg_button_wording" translate="label" type="text" sortOrder="32"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Home Registration Button</label>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                    </depends>
+                </field>
+                <field id="home_reg_content_wording" translate="label" sortOrder="33" type="textarea" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Home Registration Content</label>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                    </depends>
+                </field>
+                <field id="b2c_registered_address" sortOrder="34" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Registered Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_registered_address_phone_fax" sortOrder="35" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Registered Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="b2c_registered_address">1</field>
+                    </depends>
+                </field>
+                <field id="b2c_invoice_address" sortOrder="36" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Invoice Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_invoice_address_phone_fax" sortOrder="37" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Invoice Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="b2c_invoice_address">1</field>
+                    </depends>
+                </field>
+                <field id="b2c_delivery_address" sortOrder="38" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Delivery Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="b2c_delivery_address_phone_fax" sortOrder="39" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Delivery Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="b2c_delivery_address">1</field>
+                    </depends>
+                </field>
+                <field id="b2c_show_address_fields" sortOrder="40" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Address Fields On Registration Form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                        <field id="b2c_acct_type" separator=",">guest_acct,guest_acct_email</field>
+                    </depends>
+                </field>
+                <field id="customer_success_message" translate="label" sortOrder="41" type="textarea" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Message Displayed On Successful Account Creation</label>
+                    <depends>
+                        <field id="reg_customer">1</field>
+                    </depends>
+                </field>
+                <field id="reg_portaltype" sortOrder="42" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Use Portal Page</label>
+                    <comment>Is this site for Logged in users only</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reg_portal_heading" translate="label" sortOrder="44" showInDefault="1" showInWebsite="1">
+                    <label>Business Registration</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="reg_portal" sortOrder="46" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Enable Business Registration</label>
+                    <comment>Allow users to register against their own erp account</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reg_options_heading" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Business Registration Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <!-->
+                Added by Tani Ray for WSO_6383
+                <!-->
+                <field id="pre_reg_pswd" translate="label" sortOrder="70" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Allow Pre-Registration Passwords</label>
+                    <comment>When set to yes, this will enable registration using Pre-Registration password</comment>
+                    <source_model>Epicor\B2b\Model\Config\Source\PreRegOptions</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="bus_reg_heading_wording" translate="label" type="text" sortOrder="73"
+                        showInDefault="1" showInWebsite="1">
+                    <label>Business Registration Heading</label>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="bus_reg_button_wording" translate="label" type="text" sortOrder="74"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Business Registration Button</label>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="bus_reg_content_wording" translate="label" type="textarea" sortOrder="75"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Business Registration Content</label>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="pre_reg_admin_email_template" translate="label" sortOrder="80" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on business registration using pre registration password</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="pre_reg_pswd">2</field>
+                    </depends>
+                </field>
+                <field id="pre_reg_admin_email_address" translate="label" sortOrder="90" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for pre registration password</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="pre_reg_pswd">2</field>
+                    </depends>
+                </field>
+                <field id="enable_pre_reg_welcome_email" sortOrder="92" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Send Welcome Email On Pre-Registration</label>
+                    <comment></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="pre_reg_pswd" negative="1">0</field>
+                    </depends>
+                </field>
+                <field id="pre_reg_welcome_email_template" translate="label" sortOrder="94" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Welcome Email</label>
+                    <comment>Template for welcome email on business registration using pre-registration password</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="pre_reg_pswd" negative="1">0</field>
+                    </depends>
+                </field>
+                <field id="b2b_action_heading" translate="label" sortOrder="96" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Account Registration Action</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="b2b_acct_type" translate="label" sortOrder="100" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Actions</label>
+                    <comment>Action when registering business users</comment>
+                    <source_model>Epicor\B2b\Model\Config\Source\B2bAccountOptions</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="no_acct_admin_email_template" translate="label" sortOrder="105" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on registration action as Account Creation Request</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">no_acct</field>
+                    </depends>
+                </field>
+                <field id="no_acct_admin_email_address" translate="label" sortOrder="110" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for account creation request</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">no_acct</field>
+                    </depends>
+                </field>
+                <field id="guest_acct_admin_email_template" translate="label" sortOrder="115" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on registration action as Guest Account Creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="guest_acct_admin_email_address" translate="label" sortOrder="120" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for guest account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="enable_guest_acct_welcome_email" sortOrder="121" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Send Welcome Email On Guest Account Creation</label>
+                    <comment></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="guest_acct_welcome_email_template" translate="label" sortOrder="122" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Welcome Email</label>
+                    <comment>Template for welcome email on registration action as guest account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="enable_guest_to_b2b_welcome_email" sortOrder="123" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Send Welcome Email On Guest To B2B Conversion</label>
+                    <comment></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="guest_to_b2b_welcome_email_template" translate="label" sortOrder="124" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Welcome Email</label>
+                    <comment>Template for welcome email on guest to B2B conversion</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">guest_acct</field>
+                    </depends>
+                </field>
+                <field id="erp_acct_admin_email_template" translate="label" sortOrder="125" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Admin Email</label>
+                    <comment>Template for admin email on registration action as ERP Account Creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="erp_acct_admin_email_address" translate="label" sortOrder="130" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Admin Contact To Use For Email</label>
+                    <comment>Email address to use for erp account creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="enable_erp_acct_welcome_email" sortOrder="131" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Send Welcome Email On ERP Account Creation</label>
+                    <comment></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="erp_acct_welcome_email_template" translate="label" sortOrder="132" type="select"
+                       showInDefault="1" showInWebsite="1">
+                    <label>Template For Welcome Email</label>
+                    <comment>Template for welcome email on registration action as ERP Account Creation</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+
+                <field id="allowed_cus_types" translate="label" sortOrder="135" type="multiselect" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Allowed ERP Account Types</label>
+                    <comment>ERP account types allowed for business registration</comment>
+                    <source_model>Epicor\B2b\Model\Config\Source\AccountType</source_model>
+                    <can_be_empty>0</can_be_empty>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="email_request_success_message" sortOrder="137" type="textarea" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Message Displayed When Account Creation Request Is Sent</label>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type">no_acct</field>
+                    </depends>
+                </field>
+                <field id="b2b_address_options_heading" translate="label" sortOrder="145" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Business Registration Address Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="registered_address" sortOrder="150" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Registered Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="registered_address_phone_fax" sortOrder="155" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Registered Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="registered_address">1</field>
+                    </depends>
+                </field>
+                <field id="invoice_address" sortOrder="160" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Invoice Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="invoice_address_phone_fax" sortOrder="165" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Invoice Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="invoice_address">1</field>
+                    </depends>
+                </field>
+                <field id="delivery_address" sortOrder="170" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Delivery Address Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                    </depends>
+                </field>
+                <field id="delivery_address_phone_fax" sortOrder="175" type="select" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Show Telephone/Fax In Delivery Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">erp_acct,erp_acct_email</field>
+                        <field id="delivery_address">1</field>
+                    </depends>
+                </field>
+                <field id="b2b_common_options_heading" translate="label" sortOrder="180" showInDefault="1"
+                       showInWebsite="1">
+                    <label>Standard Account Creation Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="reg_show_password" sortOrder="182" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Password</label>
+                    <comment>Show the password field on registration form</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="show_address_fields" sortOrder="184" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Show Address Fields on Registration Form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                        <field id="b2b_acct_type" separator=",">no_acct,guest_acct</field>
+                    </depends>
+                </field>
+                <field id="success_redirection" sortOrder="185" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Default Page On Successful Account Creation</label>
+                    <comment>Default Page on Successful Account Creation</comment>
+                    <source_model>Epicor\B2b\Model\Config\Source\Regredirection</source_model>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+                <field id="success_message" sortOrder="190" type="textarea" showInDefault="1" showInWebsite="1">
+                    <label>Message Displayed On Successful Account Creation</label>
+                    <comment>Default Page on Successful Account Creation</comment>
+                    <depends>
+                        <field id="reg_portal">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

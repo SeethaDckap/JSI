@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Epicor\Comm\Block\Catalog\Product\View */
+?>
+<?php $isLazyLoadin = $block->isLazyLoad(); ?>
+<?php if ($isLazyLoadin): ?>
+    <?php
+    $config["sendMessageUrl"] = $block->getCurrentUrl();
+    $config["loaderImageUrl"] = $block->getLoaderImageUrl();
+    $config["viewType"] = "view";
+    ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        require([
+            "jquery",
+            'mage/translate',
+            'Epicor_Comm/epicor/comm/js/lazy-load'
+        ], function ($, $tr, lazyLoad) {
+            $(document).ready(function (element) {
+                var config =<?php echo json_encode($config)?>;
+                payment = new lazyLoad(config);
+            });
+        });
+        //]]>
+    </script>
+<?php endif; ?>

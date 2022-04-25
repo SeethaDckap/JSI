@@ -1,0 +1,91 @@
+<?php
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+$customerSession = $helper->getCustomerSession()->create();
+$email = $customerSession->getCustomer()->getEmail();
+?>
+<div class="email-doc-popup" style="display:none">
+    <form data-mage-init='{"validation": {}}' class="form"  autocomplete="off" action="" method="post" id="email-doc-popup-form">
+        <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>" />
+        <fieldset class="fieldset">
+            <div class="field required">
+                <label for="doc-print-email-to" class="label"><?php echo __('To') ?></label>
+                <div class="control">
+                    <input type="text"
+                           name="email-to"
+                           value="<?php echo $customerSession->getPreqToAddr() ? $block->escapeHtml($customerSession->getPreqToAddr())  : $block->escapeHtml($email);?>"
+                           title="<?php echo __('TO') ?>" id="doc-print-email-to"
+                           class="input-text"
+                           data-validate="{required:true, 'validate-multiple-emails':true}"/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="doc-print-email-cc" class="label"><?php echo __('CC') ?></label>
+                <div class="input-box">
+                    <input type="text"
+                           name="email-cc"
+                           value="<?php echo $block->escapeHtml($customerSession->getPreqCcAddr());?>"
+                           title="<?php echo __('CC') ?>"
+                           id="doc-print-email-cc"
+                           class="input-text"
+                           data-validate="{'validate-multiple-emails':true}"/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="doc-print-email-bcc" class="label"><?php echo __('BCC') ?></label>
+                <div class="input-box">
+                    <input type="text"
+                           name="email-bcc"
+                           value="<?php echo $block->escapeHtml($customerSession->getPreqBccAddr());?>"
+                           title="<?php echo __('BCC') ?>"
+                           id="doc-print-email-bcc"
+                           class="input-text"
+                           data-validate="{'validate-multiple-emails':true}"/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="doc-print-email-subject" class="label"><?php echo __('Subject') ?></label>
+                <div class="input-box">
+                    <input type="text"
+                           name="email-subject"
+                           value="<?php echo $block->escapeHtml($customerSession->getPreqSub());?>"
+                           title="<?php echo __('Subject') ?>"
+                           id="doc-print-email-subject"
+                           class="input-text"/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="oc-print-email-message" class="label"><?php echo __('Message') ?></label>
+                <div class="input-box">
+                    <textarea type="text"
+                           name="email-msg"
+                           value=""
+                           title="<?php echo __('Message') ?>"
+                           id="doc-print-email-message"
+                           class="textarea"><?php echo $block->escapeHtml($customerSession->getPreqMsg());?></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit"
+                        id="email-doc-popup-submit"
+                        class="action submit primary"
+                        title="<?php  echo __('Submit') ?>"><span><?php echo __('Send Email') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="preq-wait-main" style="display:none"><?php echo __('Please Wait Loading ...')?></div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Epicor_Customerconnect/js/document_print/document-email" : {},
+        "Epicor_Customerconnect/js/document_print/document-print" : {},
+        "Epicor_Customerconnect/js/document_print/validations" : {},
+        "Epicor_Customerconnect/js/document_print/download-attachment" : {}
+    }
+}
+</script>

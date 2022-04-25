@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Sales Rep Sub Menu
+ * 
+ * @category   Epicor
+ * @package    Epicor_SalesRep
+ * @author     Epicor Websales Team
+ */
+
+/* @var $block \Epicor\SalesRep\Block\Account\Manage\Menu */
+$first = true;
+?>
+<div id="sales_rep_menu">
+    <?php foreach ($block->getMenuItems() as $link => $label) : ?>
+        <?php if (!$first) : ?>&nbsp;|&nbsp;<?php endif; ?>
+        <?php if ($block->isCurrentPage($link)) : ?>
+            <span class="salesrep-link-selected"><?php echo __($label); ?></span>
+        <?php else: ?>
+            <a class="salesrep-link" href="<?php echo $block->getLink($link); ?>"><?php echo __($label); ?></a>
+        <?php endif; ?>
+        <?php $first = false; ?>
+    <?php endforeach; ?>
+</div>

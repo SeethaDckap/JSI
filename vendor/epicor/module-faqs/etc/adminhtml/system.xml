@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="epicor_config" translate="label" sortOrder="13">
+      <label>Epicor Configuration</label>
+    </tab>
+    <section id="faqs" sortOrder="11191" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Manage F.A.Q.'s</label>
+      <tab>epicor_config</tab>
+      <resource>Epicor_Faqs::faqs</resource>
+      <group id="view" translate="label" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Manage F.A.Q.'s</label>
+        <field id="heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Edit Frequently Asked Questions</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="enabled" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable/Disable F.A.Q. on Frontend</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="presentation" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Front-End Presentation</label>
+          <comment>Choose the F.A.Q. front-end presentation</comment>
+          <source_model>Epicor\Faqs\Model\Config\Presentation</source_model>
+        </field>
+        <field id="sort" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Sort F.A.Q. by</label>
+          <comment>The field by which the F.A.Q. are to be sorted</comment>
+          <source_model>Epicor\Faqs\Model\Config\Sort</source_model>
+        </field>
+        <field id="show_keywords" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show keywords</label>
+          <comment>Display keywords on frontend page</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

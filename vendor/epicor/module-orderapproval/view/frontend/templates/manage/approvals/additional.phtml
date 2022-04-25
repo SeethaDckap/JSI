@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */?>
+<form id="order-approval_approve-reject" action="<?php echo $this->getUrl('*/*/approvereject'); ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+    <?=$this->getChildHtml('approvals-manage')?>
+    <?=$this->getChildHtml('approve-reject')?>
+    <input id="order-approval-approved" type="hidden" name="approved" value=""/>
+    <input id="order-approval-rejected" type="hidden" name="rejected" value=""/>
+</form>
+<script type="text/x-magento-init">
+{
+	"*": {
+		"Epicor_OrderApproval/js/approvals": {}
+	}
+}
+</script>

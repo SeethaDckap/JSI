@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="customer_save_after">
+    <observer name="supplier_update_entity_register" instance="Epicor\Supplierconnect\Observer\SupplierEntityRegisterUpdate"/>
+  </event>
+  <event name="epicor_comm_customer_erpaccount_save_after">
+    <observer name="update_supplier_erpaccount_entity_register" instance="Epicor\Supplierconnect\Observer\SupplierErpAccountEntityRegisterUpdate"/>
+  </event>
+  <event name="epicor_comm_customer_erpaccount_delete_after">
+    <observer name="supplier_remove_entity_register" instance="Epicor\Supplierconnect\Observer\SupplierErpAccountEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_entity_purge_suppliererpaccount">
+    <observer name="purge_entity" instance="Epicor\Supplierconnect\Observer\PurgeSupplierErpAccount"/>
+  </event>
+  <event name="customer_delete_after">
+    <observer name="supplier_remove_entity_register" instance="Epicor\Supplierconnect\Observer\SupplierEntityRegisterRemove"/>
+  </event>
+  <event name="epicor_comm_entity_purge_supplier">
+    <observer name="purge_entity" instance="Epicor\Supplierconnect\Observer\PurgeSupplier"/>
+  </event>
+</config>

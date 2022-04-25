@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+?>
+
+
+<div id="errors-popup-modal" style="display:none">
+    
+<div class="messages">
+  
+    <?php $i = 1;
+    
+        foreach($this->getErrorLists() as $error){ ?>
+        <div class="message-error error message" > <div> <?php echo $error; ?></div> </div>
+   <?php $i++ ;
+   
+        } ?>
+ 
+</div>
+</div>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal','domReady!'
+        ],
+        function(
+            $,
+            modal
+        ) {
+        
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Errors',
+                buttons: [{
+                    text: $.mage.__('Continue'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            }; 
+            var popup = modal(options, $('#errors-popup-modal'));            
+            
+            $(document).on("click","#errors-lists", function() {
+                   $('#errors-popup-modal').modal('openModal');
+               });
+            }
+    );
+</script>

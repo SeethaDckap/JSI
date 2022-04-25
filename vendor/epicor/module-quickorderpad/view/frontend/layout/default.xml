@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Epicor\QuickOrderPad\Block\Link" name="quick_orderpad-link" template="Epicor_QuickOrderPad::header/link.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Quick Order Pad</argument>
+                    <argument name="path" xsi:type="string">quickorderpad/form</argument>
+                    <argument translate="true" name="title" xsi:type="string">Quick Order Pad</argument>
+                    <argument name="component" xsi:type="string">Epicor_QuickOrderPad/js/view/quick-order-pad-link</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$getRfqsData = $block->getClaimsData();
+if (count($getRfqsData) > 0) {
+    $title = __('Edit Reminder notifications');
+} else {
+    $title = __('Set Reminder notifications');
+}
+$canShowReminder = $this->helper('Epicor\Dealerconnect\Helper\Data')->claimStatusDataMappingExists(true);
+?>
+<?php if ($block->checkAnyReadAllowed() && ($block->checkManageAllowed('dashboard') || $block->checkManageAllowed('reminders'))): ?>
+    <div class="box-actions managedashreminder"
+         style="text-align: left;width: 70%;margin-top: 5px;float: right;font-size: 1.8rem;">
+        <?php if($block->checkManageAllowed('dashboard')):?>
+            |<a data-role="open-dashboard-popup" class="action edit" href="#"
+                data-mage-init='{"manangedashboard": {"event":"click","title":"Manage Dashboard","action":"managedashboardpopup","managepopurlpath":"dealerconnect/dashboard/manage"}}'
+            ">
+            <span>Manage Dashboard</span>
+            </a>
+        <?php endif;?>
+        <?php if($block->checkManageAllowed('reminders') && $canShowReminder):?>
+            |<a data-role="open-notification-popup" class="action edit" href="#"
+                data-mage-init='{"manangedashboard": {"event":"click","modalDashboardForm":"#modal-reminder-form","title":"Manage Reminder notification","action":"managedashboardpopup","managepopurlpath":"dealerconnect/dashboard/reminder"}}'>
+                <span><?php echo $title ?></span>
+            </a>
+        <?php endif;?>
+    </div>
+<div id="modal-dashboard-form">
+</div>
+<div id="modal-reminder-form">
+</div>
+<div id="modal-reminderorders-form">
+</div>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        if ($(".managedashreminder").siblings().hasClass("ac-info")) {
+            $(".managedashreminder").css("width", "70%");
+        } else {
+            $(".managedashreminder").css("width", "100%");
+        }
+    });
+</script>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Epicor_Common/js/epicor/common/digits-range-custommsg" : {}
+    }
+}
+</script>
+<?php endif; ?>

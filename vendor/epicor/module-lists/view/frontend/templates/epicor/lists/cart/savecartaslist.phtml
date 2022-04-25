@@ -1,0 +1,57 @@
+<?php
+// display on cart page
+//if($block instanceof \Magento\Checkout\Block\Cart\Grid || $block instanceof \Magento\Checkout\Block\Onepage\Success){
+//    $cartHasItems = $block->getQuote()->getItemsCount() ? true :false;
+//}else{
+//    //display on minicart
+//    $cartHasItems = $block->cartHasItems();
+//}
+
+switch ($block) {
+    case ($block instanceof \Magento\Checkout\Block\Cart\Grid) :
+        //cart page
+        $cartHasItems = $block->getQuote()->getItemsCount() ? true :false;
+        break;
+    case ($block instanceof \Magento\Checkout\Block\Onepage\Success) :
+        //success page(display even if cart is empty - order is used to create list)
+        $cartHasItems = true;
+        break;
+    default:
+        //default: display on minicart
+        $cartHasItems = $block->cartHasItems();
+        break;
+}
+
+?>
+<?php if($cartHasItems): ?>
+    <div id="save-cart-as-list" data-bind="scope:'savecartaslist'">
+        <a href="" onclick="return false;">
+            <button id="save-cart" class="btn-update action primary"  data-bind="click: saveCartOptionsPopup"><span data-bind="text: title">Save Cart As List</span></button>
+        </a>
+    </div>
+    <div id="cart-is-saved-msg-div"></div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+
+{
+    "*": {
+           "Magento_Ui/js/core/app": {
+               "components": {
+                   "savecartaslist": {
+                       "component": "Epicor_Lists/epicor/lists/js/cart/savecartaslist",
+                       "title": "Save Cart As List"
+                   }
+               }
+           }
+       }
+}
+</script>
+<style type="text/css">
+    #save-cart-as-list, #cart-is-saved-msg-div{text-align:center;}
+    .checkout-cart-index #cart-main-actions #save-cart-as-list{
+        display:inline-block;
+        float: left;
+    }
+    .checkout-onepage-success #save-cart {padding: 9px 15px};
+
+</style>

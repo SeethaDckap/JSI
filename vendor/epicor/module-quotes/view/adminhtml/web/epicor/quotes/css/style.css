@@ -1,0 +1,43 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : style.css
+    Created on : 30-Apr-2013, 09:23:31
+    Author     : Paul.Ketelle
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.main-col .entry-edit.box-left{float:left;width:50%}
+.entry-edit.box-left .fieldset table.form-list td.label{width:290px;padding-top:5px !important;padding-bottom:5px !important;}
+.entry-edit.box-left .fieldset table.form-list td.label label{display:block;padding-right:15px;padding-top:1px;}
+.entry-edit.box-left .fieldset table.form-list td.value{}
+.main-col .entry-edit.box-right{float:left;width:50%}
+
+.entry-edit.box-right .fieldset table.form-list td.label{width:290px;padding-top:5px !important;padding-bottom:5px !important;}
+.entry-edit.box-right .fieldset table.form-list td.label label{display:block;padding-right:15px;padding-top:1px;}
+.entry-edit.box-right .fieldset table.form-list td.value{}
+
+.a-center input.qty{width:40px !important;}
+.a-center input.price{width:50px !important;text-align: right;}
+#product-lines .headings th{text-align:left;padding-left:2px;}
+.a-right{text-align:right !important}
+#quote-notes .entry-edit.box-left{width:51%}
+.entry-edit.box-right .quote-totals{float:none;}
+#quote-notes dd.even,dd.odd{margin-left:0px}
+
+.main-col .entry-edit.clear{margin-top:51px;padding-top:10px;}
+.entry-edit.box-right.quote-totals{float:right;width:49%}
+.order-totals{margin-left:auto;border:1px solid #d7c699 !important;padding:12px 0;background:#fcfac9;text-align:right;float:none;}
+.right{float:right;}
+.order-totals table td.label{white-space: normal;padding: 3px 10px 3px 20px;}
+.order-totals table td{padding: 3px 20px 3px 10px;}
+
+.form-list tbody tr:nth-child(odd) td {background-color: #f1f1f1;}
+.entry-edit .entry-edit-head h4.icon-head.head-account{font-size: 1.8rem;}

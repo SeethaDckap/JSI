@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+
+    <add id="Epicor_Common::hostingmanager" title="Epicor Hosting" translate="title" parent="Magento_Backend::stores" module="Epicor_HostingManager" sortOrder="200" resource="Epicor_Common::hostingmanager"/>
+    <add id="Epicor_Common::hostingmanager_sites" title="Sites" translate="title" parent="Epicor_Common::hostingmanager" module="Epicor_HostingManager" sortOrder="10" resource="Epicor_Common::hostingmanager_sites" action="adminhtml/hostingmanager_sites" />
+    <add id="Epicor_Common::hostingmanager_certificates" title="SSL Certificates" translate="title" parent="Epicor_Common::hostingmanager" module="Epicor_HostingManager" sortOrder="20" resource="Epicor_Common::hostingmanager_certificates" action="adminhtml/hostingmanager_certificates" />
+    <add id="Epicor_HostingManager::nginx_log" resource="Epicor_HostingManager::nginx_log" module="Epicor_HostingManager" title="Nginx logs" sortOrder="40" action="adminhtml/hostingmanager_nginxlog" parent="Epicor_Common::advanced"/>
+  </menu>
+</config>

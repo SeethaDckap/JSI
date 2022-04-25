@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_SalesRep>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_SalesRep>
+        </ecc_version_info>
+        <xml_salesrep_dashboard>
+            <path>epicor_salesrep/account/index</path>
+        </xml_salesrep_dashboard>
+        <xml_message_types>
+            <sync>
+                <sales_reps>
+                    <label>Sales Reps</label>
+                    <sort_order>60</sort_order>
+                    <messages>
+                        <cusr>CUSR</cusr>
+                    </messages>
+                </sales_reps>
+            </sync>
+            <request></request>
+            <upload>
+                <cusr>
+                    <label>CUSR - Upload Customer Sales Reps</label>
+                    <order>2000</order>
+                    <base>epicor_salesrep</base>
+                </cusr>
+            </upload>
+        </xml_message_types>
+        <ecc_account_selector_types>
+            <salesrep>
+                <label>Sales Rep</label>
+                <field>ecc_sales_rep_account_id</field>
+                <model>epicor_salesrep/account</model>
+                <url>adminhtml/epicorsalesrep_customer_salesrep/listsalesrepaccounts/</url>
+                <priority>30</priority>
+            </salesrep>
+        </ecc_account_selector_types>
+    </global>
+</config>

@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<?php 
+$_order = $block->getOrder();
+$paymentOnAccount = $_order->getEccArpaymentsIspayment();
+$_items = $_order->getItemsCollection();
+$count = $_items->count();
+$hideItems = false;
+if(($count ==0) &&($paymentOnAccount)) {
+            $hideItems = true;
+}
+if(!$hideItems):
+?>
+<div class="order-details-items ordered">
+       <?php echo $block->getChildHtml('order_items') ?>
+ </div>
+<?php endif; ?>

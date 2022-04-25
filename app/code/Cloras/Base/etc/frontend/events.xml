@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- <event name="checkout_cart_product_add_after">
+        <observer name="cloras_base_cart_product_add_after" instance="Cloras\Base\Observer\Cart"/>
+    </event> -->
+    <!-- <event name="customer_login">
+        <observer name="cloras_base_customer_login" instance="Cloras\Base\Observer\CustomerloginObserver" />
+    </event> -->
+    <!-- <event name="checkout_cart_update_items_after">
+        <observer name="cloras_base_checkout_cart_update_items_after" instance="Cloras\Base\Observer\Updatecart"/>
+    </event> -->
+</config>

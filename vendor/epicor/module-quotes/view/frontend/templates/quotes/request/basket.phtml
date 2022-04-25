@@ -1,0 +1,121 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+/*$showUom = $this->getConfig('Epicor_Comm/units_of_measure/display_in_cart');
+$showInColumn = $this->getConfig('Epicor_Comm/units_of_measure/display_in_cart_column');
+$quoteNotes = $this->getConfig('epicor_quotes/notes/quote_note_type');
+$lineNotes = $this->getConfig('epicor_quotes/notes/line_note_type');
+$customerGlobal = $this->getConfig('epicor_quotes/general/allow_customer_global');
+*/
+$scopehelper = $this->helper('Epicor\Quotes\Helper\Data');
+$eccHidePrices = $this->helper('Epicor\Comm\Helper\Data')->getEccHidePrice();
+$showPrices = true;
+if ($eccHidePrices == 1  || $eccHidePrices == 3){
+    $showPrices = false;
+}
+$checkItems = $scopehelper->getTotalItemsCount();
+$showUom = $scopehelper->getConfig('Epicor_Comm/units_of_measure/display_in_cart',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$showInColumn = $scopehelper->getConfig('Epicor_Comm/units_of_measure/display_in_cart_column',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$quoteNotes = $scopehelper->getConfig('epicor_quotes/notes/quote_note_type',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+$lineNotes = $scopehelper->getConfig('epicor_quotes/notes/line_note_type',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$customerGlobal = $scopehelper->getConfig('epicor_quotes/general/allow_customer_global',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+//M1 > M2 Translation Begin (Rule p2-5.1)
+//$customer = Mage::getSingleton('customer/session')->getCustomer();
+//$customer = $this->getCustomerSession()->getCustomer();
+//M1 > M2 Translation End
+/* @var $customer Epicor_Comm_Model_Customer */
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $locHelper Epicor_Comm_Helper_Locations */
+
+?> 
+
+<div class="cart">
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getUrl('epicor_quotes/request/submit') ?>" method="post">
+        <fieldset>
+            <table id="shopping-cart-table" class="data-table cart-table">
+                <col />
+                <?php if($showUom && $showInColumn) :?>
+                    <col/>
+                <?php endif; ?>
+                <?php if ($locHelper->showIn('cart') && $locHelper->showColumnIn('cart')) :?>
+                    <col/>
+                <?php endif; ?>
+                <?php if($showPrices) :?>
+                    <col/>
+                <?php endif; ?>
+                <col />
+                <?php if($showPrices) :?>
+                    <col/>
+                <?php endif; ?>
+                <?php if ($lineNotes !== 'disabled') : ?>
+                    <col />
+                <?php endif; ?>
+                <col />
+
+                <?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+                <thead>
+                    <tr>
+                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo __('Products') ?></span></th>
+                        <?php if($showUom && $showInColumn) :?>
+                        <th rowspan="<?php echo $mergedCells; ?>"><?php echo __('Unit of Measure') ?></th>
+                        <?php endif; ?>
+                        <?php if ($locHelper->showIn('cart') && $locHelper->showColumnIn('cart')) :?>
+                        <th rowspan="<?php echo $mergedCells; ?>"><?php echo __('Location') ?></th>
+                        <?php endif; ?>
+                        <?php if($showPrices) :?>
+                            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo __('Unit Price') ?></span></th>
+                        <?php endif; ?>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo __('Qty') ?></th>
+                        <?php if($showPrices) :?>
+                            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo __('Subtotal') ?></th>
+                        <?php endif; ?>
+                        <?php if ($lineNotes !== 'disabled') : ?>
+                        <th class="a-center" rowspan="<?php echo $mergedCells; ?>"><?php echo __('Comment') ?></th>
+                        <?php endif; ?>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center">&nbsp;</th>
+                    </tr>
+                    <?php if ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()): ?>
+                        <tr>
+                            <th class="a-right"><?php echo __('Excl. Tax') ?></th>
+                            <th><?php echo __('Excl. Tax') ?></th>
+                            <th class="a-right"><?php echo __('Excl. Tax') ?></th>
+                            <th><?php echo __('Incl. Tax') ?></th>
+                        </tr>
+                    <?php endif; ?>
+                </thead>
+                <tbody>
+                    <?php  foreach ($this->getItems() as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                    <?php  endforeach ?>
+                </tbody>
+            </table>
+            <!--<script type="text/javascript">decorateTable('shopping-cart-table')</script> -->
+            <div class="quote-collaterals">
+                <?php if ($quoteNotes !== 'disabled') : ?>
+                <h3><?php echo __('Quote Comment'); ?></h3>
+                <textarea name="comment[quote]" class="quote-note" cols="50" rows="5"></textarea>
+                <?php endif; ?>
+                <?php if ($customerGlobal) : ?>
+                <input type="checkbox" name="is_global" value="1" id="quote_is_global" />
+                <label for="quote_is_global"><?php echo __('Account-wide Quote?'); ?></label>
+                <?php endif; ?>
+                <button class="button btn-update"><span><span><?php echo __('Request Quote'); ?></span></span></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

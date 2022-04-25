@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Comm::epicor/comm/css/addProduct.css" />
+        <link src="Epicor_Comm::epicor/comm/js/orderView.js"/>
+        <link src="Epicor_Comm::epicor/comm/js/searchGrid.js"/>
+    </head>
+    <body>
+        <referenceBlock name="sales_order_tabs">
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">order_design_details</argument>
+                <argument name="block" xsi:type="string">Epicor\Comm\Block\Adminhtml\Sales\Order\View\Tab\Erpinfo</argument>
+                <argument name="after" xsi:type="string">order_history</argument>
+            </action>
+            <block class="Epicor\Comm\Block\Adminhtml\Sales\Order\View\Tab\Log" name="sales_order_log.grid.container" />
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">order_design_log</argument>
+                <argument name="block" xsi:type="string">sales_order_log.grid.container</argument>
+                <argument name="after" xsi:type="string">order_design_details</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block template="Epicor_Comm::epicor_comm/sales/order/view/addProduct.phtml" class="Epicor\Comm\Block\Adminhtml\Sales\Order\View\Addproduct" name="addProduct"/>
+        </referenceContainer>
+        <referenceBlock name="sales_order_log.grid.container">
+            <uiComponent name="sales_order_view_log_grid"/>
+        </referenceBlock>
+    </body>
+</page>

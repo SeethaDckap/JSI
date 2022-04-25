@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header">
+            <referenceBlock name="logo" remove="true"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\DocumentPrint\PrintImageFile"
+                   name="erp_print_doc"
+                   template="Epicor_Customerconnect::customerconnect/document_print/erp_document_print.phtml" />
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+            <referenceBlock name="copyright" remove="true"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="epicor_lists" translate="label" sortOrder="9999" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Lists</label>
+      <tab>epicor_config</tab>
+      <!--<resource>Epicor_Common::admin_epicor_common_lists_configure</resource>-->
+      <resource>Epicor_Lists::configure</resource>
+      <group id="global" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Lists</label>
+        <field id="lists_heading" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Global Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="enabled" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="lists_widget_enabled" translate="label" sortOrder="15" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Display My Item Lists Widget</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="allowed_list_types" translate="label" sortOrder="20" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select List Type to be included for creation</label>
+          <source_model>Epicor\Lists\Model\Config\Source\ListTypes</source_model>
+          <comment>Defines the type of list that can be created by shoppers in My Account > Manage Lists</comment>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+      </group>
+      <group id="savecartaslist" translate="label" sortOrder="15" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Save Cart as List</label>
+        <field id="globalheading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Global Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="enabled" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="savelistas" translate="label" sortOrder="30" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Save List As</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Savelistas</source_model>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+        <field id="quicksavesettings" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Quick Save Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+        <field id="defaultlistname" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Default List Name</label>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+        <field id="callpointssettings" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Call Points Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+        <field id="enablecarttolistat" translate="label" sortOrder="70" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable Cart To List at</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Enablecarttolistat</source_model>
+          <depends>
+            <field id="enabled">1</field>
+          </depends>
+        </field>
+      </group>
+      <group id="contracts" translate="label" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Contracts</label>
+        <field id="globalheading" translate="label" sortOrder="-40" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Global Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="allowedcontract" translate="label" sortOrder="-30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Allowed Contract Type Default</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Contractallowed</source_model>
+        </field>
+        <field id="requiredcontract" translate="label" sortOrder="-20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Required Contract Type Default</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Contractrequired</source_model>
+        </field>
+        <field id="allowcontractitem" translate="label" sortOrder="-10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Allow Non Contract Items Default</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="shiptoheading" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Ship To Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="shipto" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Use Ship to Address to Filter Contracts</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="shiptoselection" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Default Ship To Selection</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Shiptoselection</source_model>
+          <depends>
+            <field id="shipto">1</field>
+          </depends>
+        </field>
+        <field id="shiptodate" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Use Ship To Based on Contract Date</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Shiptocontractdate</source_model>
+          <depends>
+            <field id="shipto">1</field>
+          </depends>
+        </field>
+        <field id="shiptoprompt" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Prompt for Ship To Selection if More Than 1</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="shipto">1</field>
+          </depends>
+        </field>
+        <field id="headerheading" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Header Contract Selection Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="header" translate="label" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="headerselection" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Contract Selection</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Headerselection</source_model>
+          <depends>
+            <field id="header">1</field>
+          </depends>
+        </field>
+        <field id="headerprompt" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Prompt for Header Selection if More than 1</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="header">1</field>
+          </depends>
+        </field>
+        <field id="headeralways" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Always use Header Contract when Available</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="header">1</field>
+          </depends>
+        </field>
+        <field id="lineheading" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Line Contract Selection Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="line" translate="label" sortOrder="110" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="lineselection" translate="label" sortOrder="120" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Contract Selection</label>
+          <source_model>Epicor\Lists\Model\Config\Source\Lineselection</source_model>
+          <depends>
+            <field id="line">1</field>
+          </depends>
+        </field>
+        <field id="lineprompt" translate="label" sortOrder="130" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show Dropdown for Optional Contracts</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="line">1</field>
+          </depends>
+        </field>
+        <field id="linealways" translate="label" sortOrder="140" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Always use Line Level Contract when Available</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="line">1</field>
+          </depends>
+        </field>
+      </group>
+    </section>
+    <section id="epicor_comm_field_mapping" translate="label">
+      <resource>Epicor_Lists::system_config</resource>
+      <group id="cupg_mapping" translate="label" sortOrder="35" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>CUPG Update Product Group Lists</label>
+        <field id="message_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1">
+          <label>The CUPG Message updates product group lists in ECC</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="overwritten_on_update" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+          <label>Overwritten On Update</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="title_update" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="settings_update" translate="label" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Settings</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="stores_update" translate="label" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Stores</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="erp_accounts_update" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>ERP Accounts</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="products_update" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Products</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="list_description_update" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="status_update" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Status</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+      <group id="cccn_mapping" translate="label" sortOrder="15" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>CCCN Upload Customer Contracts</label>
+        <field id="message_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1">
+          <label>The CCCN Message uploads customer contracts in ECC</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="overwritten_on_update" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+          <label>Overwritten On Update</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="title_update" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="contract_status_update" translate="label" sortOrder="45" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Contract Status</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="start_date_update" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Start Date</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="end_date_update" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>End Date</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="purchase_order_number_update" translate="label" sortOrder="110" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Purchase Order Number</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="stores_update" translate="label" sortOrder="140" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Stores</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="contract_description_update" translate="label" sortOrder="150" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+      <group id="curp_mapping" translate="label" sortOrder="38" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>CURP Upload Customer Restricted Purchase</label>
+        <field id="message_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1">
+          <label>The CURP Message uploads customer restricted purchase in ECC</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="overwritten_on_update" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+          <label>Overwritten On Update</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="curp_code_update" translate="label" sortOrder="35" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Code</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="curp_title_update" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="settings_update" translate="label" sortOrder="45" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Settings</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="account_list_update" translate="label" sortOrder="110" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Account List</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="restriction_update" translate="label" sortOrder="140" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Restriction</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="products_update" translate="label" sortOrder="150" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Products</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+    <section id="customerconnect_enabled_messages">
+      <group id="CCCD_request" translate="label" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>CCCD Customer Contracts</label>
+        <field id="cccd_heading_settings" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="logging_heading" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+          <label>Logging</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="log_all_requests" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Log all Requests</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_heading" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1">
+          <label>Error Handling</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="error_action" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Action</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+        </field>
+        <field id="error_magento_notifcation" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Magento Admin Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_severity" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Severity</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+        </field>
+        <field id="error_user_notification" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send User Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_user_notification_erp" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show ERP Error Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_email_notifcation" translate="label" sortOrder="110" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Admin Email</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_heading" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1">
+          <label>Warning Actions</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="warning_magento_notifcation" translate="label" sortOrder="130" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Magento Admin Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_severity" sortOrder="140" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Severity</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+        </field>
+        <field id="warning_user_notification" translate="label" sortOrder="150" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send User Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_user_notification_erp" translate="label" sortOrder="160" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show ERP Warning Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_email_notifcation" translate="label" sortOrder="170" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Admin Email</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+      <group id="CCCS_request" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>CCCS Customer Contracts Search</label>
+        <field id="cccs_heading_settings" translate="label" sortOrder="00" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Settings</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="active" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="grid_config" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Grid Setup</label>
+          <comment>Configuration for the grid display</comment>
+          <frontend_model>Epicor\Customerconnect\Block\Adminhtml\Config\Form\Field\Cccs\Grid</frontend_model>
+          <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+        </field>
+        <field id="logging_heading" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+          <label>Logging</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="log_all_requests" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Log all Requests</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_heading" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1">
+          <label>Error Handling</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="error_action" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Action</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+        </field>
+        <field id="error_magento_notifcation" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Magento Admin Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_severity" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Severity</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+        </field>
+        <field id="error_user_notification" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send User Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_user_notification_erp" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show ERP Error Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="error_email_notifcation" translate="label" sortOrder="110" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Admin Email</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_heading" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1">
+          <label>Warning Actions</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="warning_magento_notifcation" translate="label" sortOrder="130" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Magento Admin Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_severity" sortOrder="140" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Severity</label>
+          <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+        </field>
+        <field id="warning_user_notification" translate="label" sortOrder="150" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send User Notification</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_user_notification_erp" translate="label" sortOrder="160" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show ERP Warning Description</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="warning_email_notifcation" translate="label" sortOrder="170" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Admin Email</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+    <section id="epicor_comm_message_logging" translate="label">
+      <resource>Epicor_Lists::system_config</resource>
+      <group id="customerconnect" translate="label">
+        <field id="CCCD" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>CCCD - Customer Contracts Detail</label>
+          <config_path>customerconnect_enabled_messages/CCCD_request/log_all_requests</config_path>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="CCCS" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>CCCS - Customer Contracts Search</label>
+          <config_path>customerconnect_enabled_messages/CCCS_request/log_all_requests</config_path>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

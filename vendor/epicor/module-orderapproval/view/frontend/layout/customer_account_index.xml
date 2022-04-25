@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_OrderApproval::css/approvals-dashboard.css" />
+        <css src="Epicor_OrderApproval::css/budget-summaries.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\OrderApproval\Block\Dashboard\Budgets\ShopperBudgetAllocations"
+                   template="Epicor_OrderApproval::dashboard/budgets/shopper-allocations.phtml"
+                   name="shopper.budget.allocations"
+                   after="customer_account_dashboard_address" />
+                <block class="Epicor\OrderApproval\Block\Dashboard\Summary"
+                       template="Epicor_OrderApproval::dashboard/summary.phtml"
+                       name="summary.approvals.dashboard" after="customer_account_dashboard_address" />
+        </referenceContainer>
+    </body>
+</page>

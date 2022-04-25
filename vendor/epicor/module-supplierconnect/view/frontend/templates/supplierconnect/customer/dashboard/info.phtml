@@ -1,0 +1,46 @@
+<div class="block block-dashboard-info ac-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Account Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Contact Information')) ?></span>
+            </strong>
+            <div class="box-content">
+                <p>
+                    <?= $block->escapeHtml($block->getName()) ?><br>
+                    <?= $block->escapeHtml($block->getCustomer()->getEmail()) ?><br>
+                </p>
+                <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+            </div>
+            <div class="box-actions">
+                <a href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>" class="action change-password">
+                    <?= $block->escapeHtml(__('Change Password')) ?>
+                </a>
+            </div>
+        </div>
+        <?php if($this->getAddressData()){?>
+            <div class="box box-newsletter">
+                <div class="box-content">
+                    <dl class="vcard">
+                        <dt class="address hidden">Address</dt>
+                        <dd class="first fn org"><?php echo $this->getAddressName(); ?></dd>
+                        <dd class="adr break">
+                            <span class="street-address"><?php echo $this->getStreet(); ?></span>
+                            <span class="locality"><?php echo $this->getCity(); ?></span>
+                            <span class="region"><?php echo $this->getCounty(); ?></span>
+                            <span class="postal-code"><?php echo $this->getPostcode(); ?></span>
+                            <span class="country-name"><?php echo $this->getCountry(); ?></span>
+                        </dd>
+                        <?php if ($this->getTelephoneNumber()): ?>
+                            <dt class="sec tel"><abbr title="Telephone Number">T</abbr> :</dt>
+                            <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+                        <?php endif; ?>
+                        <?php if ($this->getFaxNumber()): ?>
+                            <dt class="sec fax"><abbr title="Fax Number">F</abbr> :</dt>
+                            <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+                        <?php endif; ?>
+                    </dl></div>
+            </div>
+        <?php } ?>
+    </div>
+</div>

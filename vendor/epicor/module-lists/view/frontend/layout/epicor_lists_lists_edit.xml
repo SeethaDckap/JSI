@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/> 
+    <head>
+         <title></title>
+        <link src="Epicor_Lists::epicor/lists/js/edit.js"/>
+        <css src="Epicor_Lists::epicor/lists/css/manage.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Lists::epicor/lists/details_sp1.phtml" class="Epicor\Lists\Block\Customer\Account\Listing\Details" name="list_details"/>
+        </referenceContainer>
+    </body>
+</page>

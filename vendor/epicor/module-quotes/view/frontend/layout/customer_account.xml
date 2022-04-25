@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current"
+                    ifconfig="epicor_quotes/general/enabled"
+                   name="managequotes" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">quotes/manage/</argument>
+                    <argument name="label" xsi:type="string">My Quotes</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_quotes</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

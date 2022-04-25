@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+            <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+        </tr>
+    </table>
+</div>
+<?php if( !$this->isSingleStoreMode() ): ?>
+    <?php  echo $this->getStoreSwitcherHtml('store_switcher');?>
+<?php endif;?>
+<div>
+    <?php echo $this->getGridHtml() ?>
+</div>
+<style type="text/css">
+     fieldset div label span {
+        font-size: larger;
+      }
+    .page-main-actions:not(._hidden), .page-actions._fixed {
+        padding: 0.5rem;
+    }
+   .admin__fieldset > .admin__field {
+        margin-bottom: 0;
+    }
+</style>

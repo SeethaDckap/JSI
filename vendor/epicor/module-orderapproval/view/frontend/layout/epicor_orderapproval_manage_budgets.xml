@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Magento\Framework\View\Element\Text\ListText" name="budget_tab">
+            <block class="Magento\Backend\Block\Template"
+                   template="Epicor_OrderApproval::budgets/tab/form-container.phtml"
+                   name="budget_form_container"/>
+            <block class="Epicor\OrderApproval\Block\Adminhtml\Budgets\ErpAccounts\Edit\Tab\BudgetButton"
+                   template="Epicor_OrderApproval::budgets/tab/addbutton.phtml" name="add_button" />
+            <block class="Epicor\OrderApproval\Block\Group\Budgets\BudgetGrid" name="budget_grid" />
+            <block class="Epicor\OrderApproval\Block\Adminhtml\Budgets\ErpAccounts\Edit\Tab\BudgetButton"
+                   template="Epicor_OrderApproval::budgets/tab/budget-remaining.phtml" name="budget_type_count"/>
+        </block>
+    </container>
+</layout>

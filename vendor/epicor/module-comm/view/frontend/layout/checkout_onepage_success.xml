@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="checkout.success.print.button">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Checkout::button.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="page.messages">
+            <block class="Magento\Framework\View\Element\Template" name="ajax.message.placeholder"
+                   template="Magento_Theme::html/messages.phtml">
+            </block>
+            <block class="Magento\Framework\View\Element\Messages" name="messages" as="messages"
+                   template="Magento_Theme::messages.phtml">
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="checkout.success">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/success.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

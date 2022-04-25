@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <action method="setTitle">
+            <argument translate="true" name="title" xsi:type="string">Sales Rep CRQ Details</argument>
+        </action>
+    </head>
+    <body>
+        <update handle="customerconnect_rfqs_update"/>
+        <referenceContainer name="my.account.wrapper">
+            <block class="Epicor\SalesRep\Block\Crqs\Details\Info" name="rfqs.info"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="epicor_message_gor_alter">
+        <observer name="gor_alter_method_code" instance="Epicor\Punchout\Observer\Gor\AlterMethodCode"/>
+    </event>
+    <event name="customer_login">
+        <observer name="punchout_send_ast" instance="Epicor\Punchout\Observer\Ast\Send"/>
+    </event>
+    <event name="msq_sendrequest_before">
+        <observer name="punchout_msq_update" instance="Epicor\Punchout\Observer\Msq\UpdateData"/>
+        <observer name="epicor_lists_pricelist_preparedata_msq_sendrequest_before" instance="Epicor\Lists\Observer\Pricelist\PrepareDataBeforeSendMsq"/>
+    </event>
+    <event name="msq_sendrequest_after">
+        <observer name="epicor_lists_pricelist_processdata_msq_sendrequest_after" instance="Epicor\Lists\Observer\Pricelist\ProcessDataAfterSendMsq"/>
+    </event>
+</config>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class='<?php echo $this->getOnRight() ? 'col-2 ':'col-1'; ?> box-info box-account'>
+    <div class="box-head">
+        <h2><?php echo $this->getTitle(); ?></h2>
+    </div>
+    <dl class="vcard">
+        <dt class="address hidden">Address</dt>
+        <dd class="first fn org"><?php echo $this->getName(); ?></dd>
+        <dd class="adr break">
+            <span class="street-address"><?php echo $this->getStreet(); ?>,</span>
+            <span class="locality"><?php echo $this->getCity(); ?>,</span>
+            <span class="region"><?php echo $this->getCounty(); ?>,</span>
+            <span class="postal-code"><?php echo $this->getPostcode(); ?>,</span>
+            <span class="country-name"><?php echo $this->getCountry(); ?></span>
+        </dd>
+        <?php echo 'test';?>
+        <?php if ($this->getTelephoneNumber()): ?>
+            <dt class="sec tel"><abbr title="Telephone Number">T</abbr> :</dt>
+            <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+        <?php endif; ?>
+        <?php if ($this->getFaxNumber()): ?>
+            <dt class="sec fax"><abbr title="Fax Number">F</abbr> :</dt>
+            <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+        <?php endif; ?>
+    </dl>
+</div>

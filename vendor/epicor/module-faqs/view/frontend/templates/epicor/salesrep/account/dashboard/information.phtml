@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class='<?php echo $this->getOnRight() ? 'col-2 ' : 'col-1'; ?> box-info box-account'>
+    <div class="box-head">
+        <h2><?php echo $this->getTitle(); ?></h2>
+    </div>
+    <?php if ($this->_data): ?>        
+        <dl class="vcard">
+            <?php if ($this->getName()): ?>
+                <dt class="sec fn org"><?php echo __('Name'); ?>:</dt>
+                <dd class="sec fn org"><?php echo $this->getName(); ?></dd>
+            <?php endif; ?>
+            <?php if ($this->getFunction()): ?>
+                <dt class="sec fn org"><?php echo __('Function'); ?>:</dt>
+                <dd class="sec fn org"><?php echo $this->getFunction(); ?></dd>
+            <?php endif; ?>
+            <?php if ($this->getEmail()): ?>
+                <dt class="sec fn org"><?php echo __('Email'); ?>:</dt>
+                <dd class="sec fn org"><?php echo $this->getEmail(); ?></dd>
+            <?php endif; ?>
+            <?php if ($this->getTelephoneNumber()): ?>
+                <dt class="sec fn org"><?php echo __('Telephone'); ?>:</dt>
+                <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+            <?php endif; ?>
+        </dl>
+    <?php endif; ?>
+</div>
+
+

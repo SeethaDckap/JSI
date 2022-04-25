@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty" >
+    <head>
+        <css src="Epicor_Common::epicor/common/css/boxes.css"/>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css"/>
+    </head>
+    <body>
+        <referenceBlock name="right" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="header" remove="true"/>
+         <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Customer\Account\Masqueradesearch\Listing" name="masquerade.search.popup"/>
+            <block class="Magento\Framework\View\Element\Template" name="masquerade.search.js" template="Epicor_SalesRep::epicor/salesrep/masqueradesearchgrid.phtml" />
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Backend\Block\Page\RequireJs" name="require.js.sec"  template="Epicor_Customerconnect::customerconnect/page/js/require_js.phtml"/>
+            <block class="Magento\Framework\View\Element\Html\Calendar" name="head.calendar" as="calendar" template="Epicor_Customerconnect::customerconnect/page/js/calendar.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

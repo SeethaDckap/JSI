@@ -1,0 +1,202 @@
+<?php
+$orderFrom ='';
+$rfqsData = $ordersData= $block->getRfqsData();
+$openPos = ($ordersData['order_open_po_options']) ? $ordersData['order_open_po_options'] : 'weekly';
+$orderpo = ($ordersData['order_po_line_options']) ? $ordersData['order_po_line_options'] : 'weekly';
+$upcoming = ($rfqsData['rfqs_upcoming_options']) ? $rfqsData['rfqs_upcoming_options'] : 'weekly';
+$rfqs_open_options = ($rfqsData['rfqs_open_options']) ? $rfqsData['rfqs_open_options'] : 'weekly';
+$all_overdue_rfqs_options = ($rfqsData['all_overdue_rfqs_options'])? $rfqsData['all_overdue_rfqs_options']: 'weekly';
+?>
+<form class="form"  action="#" id="supplier-rfqs-validate" method="post" name="supplier-rfqs-validate" autocomplete="off">
+    <div class="primary" style="float: right;">
+        <button id="sendInstantEmail" onclick="supplierJs._sendInstantEmail();"  type="button" class="action submit primary" title="Save"><span>Send Instant Email</span></button>
+    </div>
+    <h2 class="rfqreminderhead">Set Email Reminder</h2>
+    <div class="rfqsReminderDiv">
+        <label class="switchEcc">
+            <input type="checkbox" name="rfqs_due_today_enable" <?php if($rfqsData->getData('rfqs_due_today_enable') =="1") :?> checked <?php endif;?>>
+            <span class="sliderSupplier roundSupplier"></span>
+        </label>
+        <label class="rfqsTest">Rfqs Due today</label>
+        <p class="commentsRfqs">This will send notification only if there is one or more due RFQ's today</p>
+    </div>
+
+    <div class="rfqsReminderDiv">
+        <label class="switchEcc">
+            <input type="checkbox" name="rfqs_due_this_week_enable" <?php if($rfqsData->getData('rfqs_due_this_week_enable') =="1") :?> checked <?php endif;?>>
+            <span class="sliderSupplier roundSupplier"></span>
+        </label>
+        <label class="rfqsTest">Rfqs Due this week</label>
+        <p class="commentsRfqs">This will send notification only if there is one or more due RFQ's this week</p>
+    </div>
+
+    <h2 class="rfqreminderhead">Set Email Schedule</h2>
+    <section class="rfqEmailSchedule">
+        <div class="rfqsReminderDiv oddDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="upcoming_rfqs_enable" name="upcoming_rfqs_enable" <?php if($rfqsData->getData('upcoming_rfqs_enable') =="1") :?> checked <?php endif; ?> >
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="rfqsTest">Upcoming Rfqs</label>
+            <select name="rfqs_upcoming_options[]" id="rfqs_upcoming_options"  <?php if($rfqsData->getData('upcoming_rfqs_enable') !="1") :?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($upcoming =="daily"): ?>selected="selected" <?php endif;?>>Daily</option>
+                <option value="weekly" <?php if ($upcoming =="weekly"): ?>selected="selected" <?php endif;?>>Weekly</option>
+                <option value="monthly" <?php if ($upcoming =="monthly"): ?>selected="selected" <?php endif;?>>Monthly</option>
+            </select>
+        </div>
+        <div class="rfqsReminderDiv evenDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="all_open_rfqs_enable" name="all_open_rfqs_enable" <?php if($rfqsData->getData('all_open_rfqs_enable') =="1") :?> checked <?php endif; ?> >
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="rfqsTest">All Open Rfqs</label>
+            <select name="rfqs_open_options[]" id="rfqs_open_options"  <?php if($rfqsData->getData('all_open_rfqs_enable') !="1") :?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($rfqs_open_options =="daily"): ?>selected="selected" <?php endif;?>>Daily</option>
+                <option value="weekly" <?php if ($rfqs_open_options =="weekly"): ?>selected="selected" <?php endif;?>>Weekly</option>
+                <option value="monthly" <?php if ($rfqs_open_options =="monthly"): ?>selected="selected" <?php endif;?>>Monthly</option>
+            </select>
+        </div>
+        <div class="rfqsReminderDiv oddDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="all_overdue_rfqs_enable" name="all_overdue_rfqs_enable" <?php if($rfqsData->getData('all_overdue_rfqs_enable') =="1") :?> checked <?php endif;?>>
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="rfqsTest">All Overdue Rfqs</label>
+            <select name="all_overdue_rfqs_options[]" id="all_overdue_rfqs_options"  <?php if($rfqsData->getData('all_overdue_rfqs_enable') !="1") :?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($all_overdue_rfqs_options =="daily"): ?>selected="selected" <?php endif;?>>Daily</option>
+                <option value="weekly" <?php if ($all_overdue_rfqs_options =="weekly"): ?>selected="selected" <?php endif;?>>Weekly</option>
+                <option value="monthly" <?php if ($all_overdue_rfqs_options =="monthly"): ?>selected="selected" <?php endif;?>>Monthly</option>
+            </select>
+        </div>
+        <div class="ordersReminderDiv evenDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="order_open_po_enable" name="order_open_po_enable" <?php if($ordersData->getData('order_open_po_enable') =="1") :?> checked <?php endif; ?> >
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="ordersTest">Open POs</label>
+            <select name="order_open_po_options[]" id="order_open_po_options"  <?php if($ordersData->getData('order_open_po_enable') !="1") :?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($openPos =="daily"): ?>selected="selected" <?php endif;?>>Daily</option>
+                <option value="weekly" <?php if ($openPos =="weekly"): ?>selected="selected" <?php endif;?>>Weekly</option>
+                <option value="monthly" <?php if ($openPos =="monthly"): ?>selected="selected" <?php endif;?>>Monthly</option>
+            </select>
+        </div>
+        <div class="ordersReminderDiv oddDiv">
+            <label class="switchEcc">
+                <input type="checkbox" id="order_po_line_enable" name="order_po_line_enable" <?php if($ordersData->getData('order_po_line_enable') =="1") :?> checked <?php endif; ?> >
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="ordersTest">PO Line / Release Changes</label>
+            <select name="order_po_line_options[]" id="order_po_line_options"  <?php if($ordersData->getData('order_po_line_enable') !="1") :?> style="display: none;" <?php endif; ?>>
+                <option value="daily" <?php if ($orderpo =="daily"): ?>selected="selected" <?php endif;?>>Daily</option>
+                <option value="weekly" <?php if ($orderpo =="weekly"): ?>selected="selected" <?php endif;?>>Weekly</option>
+                <option value="monthly" <?php if ($orderpo =="monthly"): ?>selected="selected" <?php endif;?>>Monthly</option>
+            </select>
+        </div>
+
+    </section>
+
+    <h2 class="rfqreminderhead">Expiry Date</h2>
+    <section class="rfqEmailSchedule">
+        <div class="rfqsReminderDiv evenDiv" >
+            <label class="switchEcc">
+                <input type="checkbox" id="reminder_expiry_date_enable" name="reminder_expiry_date_enable" <?php if($rfqsData->getData('reminder_expiry_date_enable') =="1") :?> checked <?php endif;?>>
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="rfqsTest">Set Reminder Expiry Date</label>
+            <?php if($rfqsData->getData('reminder_expiry_date_enable') !="1") {?>
+                <style>
+                    #modal-supplier-reminderrfqs-form .ui-datepicker-trigger {
+                        display: none;
+                    }
+                </style>
+            <?php } ?>
+            <input <?php if($rfqsData->getData('reminder_expiry_date_enable') !="1") :?> style="display: none;" <?php endif;?>  type="text" class="input-text required-entry" id="reminder_expiry_date" name="reminder_expiry_date" aria-required="true" value="<?php echo  ($rfqsData->getData('reminder_expiry_date') =="0000-00-00") ? '' : $rfqsData->getData('reminder_expiry_date') ?>" >
+        </div>
+        <div class="rfqsReminderDiv" id="expiryremainderoption" <?php if($rfqsData->getData('reminder_expiry_date_enable') !="1") :?> style="display: none;" <?php endif;?>>
+            <label class="switchEcc">
+                <input type="checkbox" name="email_reminder_enable" <?php if($rfqsData->getData('email_reminder_enable') =="1") :?> checked <?php endif;?>>
+                <span class="sliderSupplier roundSupplier"></span>
+            </label>
+            <label class="rfqsTest">Send Email notitication on expiry</label>
+        </div>
+        <div class="actions-toolbar" style="padding-bottom: 20px;clear: both">
+            <div class="primary">
+                <button  id="submitReminderRfqsDashboard" onclick="supplierJs._submitSave();"  type="button" class="action submit primary" title="<?php  echo __('Save') ?>"><span><?php echo __('Save') ?></span></button>
+            </div>
+        </div>
+
+    </section>
+</form>
+<div id="supplier-scripts">
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function($){
+            $("#reminder_expiry_date").calendar({
+                showsTime: false,
+                dateFormat: "yy-M-d",
+                buttonText: "Select Date",
+                changeMonth: true,
+                changeYear: true,
+                showOn: "both"
+            });
+            $('#upcoming_rfqs_enable').change(function() {
+                if(this.checked) {
+                    $('#rfqs_upcoming_options').show();
+                } else {
+                    $('#rfqs_upcoming_options').hide();
+                }
+            });
+            $('#all_open_rfqs_enable').change(function() {
+                if(this.checked) {
+                    $('#rfqs_open_options').show();
+                } else {
+                    $('#rfqs_open_options').hide();
+                }
+            });
+            $('#all_overdue_rfqs_enable').change(function() {
+                if(this.checked) {
+                    $('#all_overdue_rfqs_options').show();
+                } else {
+                    $('#all_overdue_rfqs_options').hide();
+                }
+            });
+            $('#order_open_po_enable').change(function() {
+                if(this.checked) {
+                    $('#order_open_po_options').show();
+                } else {
+                    $('#order_open_po_options').hide();
+                }
+            });
+            $('#order_po_line_enable').change(function() {
+                if(this.checked) {
+                    $('#order_po_line_options').show();
+                } else {
+                    $('#order_po_line_options').hide();
+                }
+            });
+            $('#reminder_expiry_date_enable').change(function() {
+                if(this.checked) {
+                    $('#reminder_expiry_date').show();
+                    $('.ui-datepicker-trigger').show();
+                    $('#expiryremainderoption').show();
+                } else {
+                    $('#reminder_expiry_date').hide();
+                    $('.ui-datepicker-trigger').hide();
+                    $('#expiryremainderoption').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        require([
+            'jquery',
+            'mage/url',
+            'mage/mage'
+        ], function($,url){
+            var dataForm = $('#supplier-rfqs-validate');
+            var checkValidation = dataForm.mage('validation', {});
+        });
+    </script>
+</div>

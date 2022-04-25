@@ -1,0 +1,189 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$sectionsDatas = $block->getDashboardConfiguration();
+?>
+<form class="form dealer-manage-dashboard" data-mage-init='{"validation": {}}' action="#" id="form-validate" method="post" name="form-validate"
+      autocomplete="off">
+
+    <?php foreach ($sectionsDatas as $section => $data):?>
+        <?php if($section == 'summary'): ?>
+            <?php if (!$data['allowed']):?>
+                <div hidden>
+            <?php endif;?>
+            <div class="summary_section">
+                <div class="box-info  box-account dashboard-account col-1">
+                    <div class="box-head">
+                        <h2><?php echo __('Manage %1 details', ucfirst($section)); ?></h2>
+                    </div>
+                </div>
+                <?php foreach ($data as $_subsection => $subdata): ?>
+                    <?php $sectionsDatas[$_subsection] = $subdata; ?>
+                    <?php if (!$subdata['allowed']):?>
+                        <div hidden>
+                    <?php endif;?>
+                    <div id="<?php echo $_subsection; ?>-container" class="accordiondashboard">
+                        <div class="field choice" style="clear: both;">
+                            <?php $title = str_replace("_", " ", $subdata['type']); ?>
+                            <label class="label" for="enable_grid"><span><?php echo __('Enable  %1', ucwords($title)); ?></span></label>
+                            <input type="checkbox" name="<?php echo $_subsection ?>[status]"
+                                   id="enable_<?php echo $subdata['type']; ?>_grid"
+                                <?php if ($subdata['status']): ?> checked="checked" <?php endif; ?>
+                                   value="<?php echo $subdata['status'] ?>" title="<?php echo __('Enable  %1', $title); ?>"
+                                   class="checkbox">
+                        </div>
+                        <div id="<?php echo $subdata['type']; ?>-containers1"
+                             class="accordiondashboard" <?php if (!$subdata['status']): ?> style="display: none" <?php endif; ?>>
+                            <?php if (isset($subdata['filters']['statuses']) && $subdata['filters']['statuses']): ?>
+                                <?php $selectedStatuses = $subdata['filters']['statuses']; ?>
+                                <?php
+                                $_section = str_replace("_Section", "", $subdata['type']);
+                                $type =  strtolower($_section);
+                                ?>
+                                <?php $_statuses = $this->helper('\Epicor\Dealerconnect\Helper\Messaging')->getStatuses($type); ?>
+                                <div class="field choice">
+                                    <label class="label"
+                                           for="<?php echo $_subsection ?>_filters"><span><?php echo __('Fields To Display'); ?></span></label>
+                                    <select name="<?php echo $_subsection ?>[statuses][]" style="height: auto" multiple="true" size="<?= count($_statuses); ?>">
+                                        <?php foreach ($_statuses as $key => $value): ?>
+                                            <option value="<?= $key ?>" <?php if (in_array($key, $selectedStatuses)): ?>selected="selected" <?php endif;?>><?= $value ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php if (!$subdata['allowed']):?>
+                        </div>
+                    <?php endif;?>
+                <?php endforeach; ?>
+            </div>
+            <?php if (!$data['allowed']):?>
+                </div>
+            <?php endif;?>
+        <?php else: ?>
+            <?php if (!$data['allowed']):?>
+                <div hidden>
+            <?php endif;?>
+            <div class="box-info  box-account dashboard-account col-1">
+                <div class="box-head">
+                    <h2><?php echo __('Manage %1 details', ucfirst($data['type'])); ?></h2>
+                </div>
+            </div>
+            <div id="<?php echo $section; ?>-container" class="accordiondashboard">
+                <div class="field choice" style="clear: both;">
+                    <label class="label" for="enable_grid"><span><?php echo __('Enable  %1 Grid', $data['type']); ?></span></label>
+                    <input type="checkbox" name="<?php echo $section ?>[status]"
+                           id="enable_<?php echo $data['type']; ?>_grid"
+                        <?php if ($data['status']): ?> checked="checked" <?php endif; ?>
+                           value="<?php echo $data['status'] ?>" title="<?php echo __('Enable  %1 Grid', $data['type']); ?>"
+                           class="checkbox">
+                </div>
+                <div id="<?php echo $data['type']; ?>-containers1"
+                     class="accordiondashboard" <?php if (!$data['status']): ?> style="display: none" <?php endif; ?>>
+
+                    <?php if (isset($data['filters']) && $data['filters']) { ?>
+                        <div class="field choice">
+                            <label class="label"
+                                   for="<?php echo $section ?>_filters"><span><?php echo __('Choose  %1 Type', ucfirst($data['type'])); ?></span></label>
+                            <select name="<?php echo $section ?>[filters]" style="height: auto">
+                                <option value="Y"
+                                        <?php if ($data['filters']['dealer'] == "Y"): ?>selected="selected" <?php endif; ?>>
+                                    <?php echo __('Dealer only'); ?>
+                                </option>
+                                <option value="N"
+                                        <?php if ($data['filters']['dealer'] == "N"): ?>selected="selected" <?php endif; ?>>
+                                    <?php echo __('Not Dealer %1s', ucfirst($data['type'])); ?>
+                                </option>
+                                <option value="ALL"
+                                        <?php if ($data['filters']['dealer'] == "ALL"): ?>selected="selected" <?php endif; ?>>
+                                    <?php echo __('All  %1s', ucfirst($data['type'])); ?>
+                                </option>
+                            </select>
+                        </div>
+                    <?php } ?>
+                    <div class="field choice">
+                        <label class="label"
+                               for="<?php echo $section ?>_from"><span><?php echo __('Show Open %1s', $data['type']); ?></span></label>
+                        <select name="<?php echo $section ?>[date_range]" style="height: auto">
+                            <option value="30d"
+                                    <?php if ($data['date_range'] == "30d"): ?>selected="selected" <?php endif; ?>>Last 30
+                                Days
+                            </option>
+                            <option value="3m"
+                                    <?php if ($data['date_range'] == "3m"): ?>selected="selected" <?php endif; ?>>Last 3
+                                Months
+                            </option>
+                            <option value="all"
+                                    <?php if ($data['date_range'] == "all"): ?>selected="selected" <?php endif; ?>>All
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field choice" style="clear: both;">
+                        <label class="label"
+                               for="<?php echo $section ?>_count"><span><?php echo __('No Of %1s to show', $data['type']); ?></span></label>
+                        <input maxlength="2"
+                               data-validate="{'validate-digits-range-custommsg':true}"
+                               class="input-text validate-length maximum-length-2 minimum-length-1 digits-range-1-20
+                                validate-greater-than-zero validate-number validate-digits required-entry"
+                               type="text" name="<?php echo $section ?>[grid_count]"
+                               value="<?php echo $data['grid_count'] ?>"
+                               title="<?php echo __('No Of %1 to show', $data['type']); ?>">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <?php if (!$data['allowed']):?>
+                </div>
+            <?php endif;?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <div class="actions-toolbar" style="padding-bottom: 20px">
+        <div class="primary">
+            <button id="submitManageDashboard" type="button" class="action submit primary"
+                    title="<?php echo __('Save') ?>"><span><?php echo __('Save') ?></span></button>
+        </div>
+    </div>
+</form>
+<script>
+    require([
+        'jquery',
+        'mage/url',
+        'mage/mage'
+    ], function ($, url) {
+        var dataForm = $('#form-validate');
+        var checkValidation = dataForm.mage('validation', {});
+        $(document).on('click', '#submitManageDashboard', function () {
+            if ($('#form-validate').valid()) {
+                var $form = $("#form-validate");
+                var dataVals = $form.serializeArray();
+                $.ajax({
+                    showLoader: true,
+                    data: dataVals,
+                    url: "<?php echo $block->getDashboardSaveUrl(); ?>",
+                    type: "POST",
+                }).done(function (data) {
+                    $(".action-close").click(); // Close pop modal
+                    location.reload(true);
+                });
+            }
+        });
+        <?php foreach($sectionsDatas as $section=>$data): ?>
+            <?php if ($section == 'summary'): ?>
+                <?php continue; ?>
+            <?php endif; ?>
+            $('#enable_<?php echo $data['type']; ?>_grid').change(function () {
+                if (this.checked) {
+                    $('#<?php echo $data['type']; ?>-containers1').show();
+                    $('#enable_<?php echo $data['type']; ?>_grid').val(1);
+                } else {
+                    $('#<?php echo $data['type']; ?>-containers1').hide();
+                    $('#enable_<?php echo $data['type']; ?>_grid').val(0);
+                }
+            });
+        <?php endforeach; ?>
+    });
+</script>

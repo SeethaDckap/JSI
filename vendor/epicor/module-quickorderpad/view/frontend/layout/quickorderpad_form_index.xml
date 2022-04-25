@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
+    <update handle="quickorderpad_cart_item_renderers"/>
+    <head>
+        <css src="Epicor_QuickOrderPad::css/quickorderpad.css" />
+        <link src="Epicor_QuickOrderPad::js/quickorderpad.js"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Quick Order Pad</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block template="Epicor_QuickOrderPad::form/wrapper.phtml" class="Epicor\QuickOrderPad\Block\Form\Wrapper" name="quickorderpad_wrapper" cacheable="false">
+                <block template="Epicor_Comm::epicor_comm/cart/product/csvupload_quickorderpad.phtml" class="Epicor\Comm\Block\Cart\Product\Csvupload" name="csvupload" before="search"/>
+                <block template="Epicor_QuickOrderPad::form/search.phtml" class="Epicor\QuickOrderPad\Block\Form\Search" name="search">
+                    <block template="Epicor_QuickOrderPad::form/list_selector.phtml" class="Epicor\Lists\Block\Quickorderpad\Listing\Selector" name="list.selector"/>
+                </block>
+            </block>
+            <block template="Epicor_QuickOrderPad::form/errors.phtml" class="Epicor\QuickOrderPad\Block\Errors" name="qoperrors" as="qoperrors"/>
+        </referenceContainer>
+    </body>
+</page>

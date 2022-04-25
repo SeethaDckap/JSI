@@ -1,0 +1,42 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $this->getOrder(); ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo $block->getTabTitle(); ?></h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table class="admin__table-secondary erp-payment-info-table">
+            <tr>
+                <th><?= __('Payment sent to Erp'); ?></th>
+                <td>
+                    <select name="caap_sent" class="select" id="gor_sent" style="display:inline;">
+                    <?php foreach ($block->getStatuses() as $_code=>$_label): ?>
+                            <option value="<?= $_code ?>"<?php if($_code == $_order->getEccCaapSent()): ?> selected="selected"<?php endif; ?>><?= $_label ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                    <button type="button" class="scalable" onclick="submitAndReloadArea($('order_erp_status_form'), '<?= $block->getErpStatusUrl(); ?>')" >Save Changes</button>
+                    <p class="note"><span>Changing this value could cause discrepancies within the erp and/or duplicate payments</span></p>
+                </td>
+            </tr>
+            <?php if($_order->getEccCaapSent() == 3 || $block->getManuallySet()) :?>
+            <tr>
+                <th><?= __('Erp Payment Message') ?></th>
+                <td>
+                    <strong><?php echo $_order->getEccCaapMessage() ?></strong>
+                </td>
+            </tr>
+            <?php endif; ?>
+            <tr>
+                <th><?= __('Erp Payment Number') ?></th>
+                <td><strong><?= $block->getErpOrderNumber() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

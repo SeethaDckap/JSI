@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="layout_generate_blocks_after">
+     <observer name="hideLocationpicker" instance="Epicor\BranchPickup\Observer\BranchPickup\RemoveLocationPicker"/>
+  </event>
+  <event name="customer_login">
+    <observer name="epicor_branchpickup_frontend_branchpickup_forcelogin" instance="Epicor\BranchPickup\Observer\BranchPickup\BranchForceLogin"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_add">
+    <observer name="epicor_branchpickup_cart_add" instance="Epicor\BranchPickup\Observer\LogCartAdd"/>
+  </event>
+  <event name="customer_logout">
+    <observer name="epicor_branchpickup_frontend_clearSession" instance="Epicor\BranchPickup\Observer\BranchPickup\LogoutClearSession"/>
+  </event>
+  <event name="epicor_comm_masquerade_end">
+    <observer name="salesRepEndMasqueradeBranchPichup" instance="Epicor\BranchPickup\Observer\BranchPickup\EndMasqueradeBranchPickup"/>
+  </event>
+  <event name="checkout_controller_onepage_save_shipping_method">
+    <observer name="saveShippingBranchPickup" instance="Epicor\BranchPickup\Observer\SetShippingSession"/>
+  </event>
+  <!-- <event name="checkout_submit_all_after">
+    <observer name="branchpickup_customer_save_default_guest" instance="Epicor\BranchPickup\Observer\GetNewCustomer" shared="false"/>
+  </event>  -->
+</config>

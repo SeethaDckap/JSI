@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Quickadd contract selector
+ *
+ * @see Epicor_Lists_Block_Mage_Customer_Block_Contract_Selection_Quickadd
+ */
+
+$contract = Mage::helper('epicor_lists/frontend_contract');
+
+if($this->showDropdown() || $this->dropdownMandatory()):
+?>
+
+<li id="quick_add_contract" class="wide">
+    <label for="contract" class="required"><em>*</em><?php echo __('Select Contract') ?></label>
+    <div class="input-box">
+        <select name="product_contract_select_options" id="product_contract_select_options">  
+            <?php if($this->addNoSelectedContract()): ?>
+                <option id="product_contract_no_contract_selected" value="" selected><?php echo __('No Contract Selected'); ?></option>
+            <?php endif ?>
+        </select>
+    </div>
+</li>
+<?php endif ?>
+<script type="text/javascript">
+    //<![CDATA[   
+        $('quick_add_contract').hide(); 
+    //]]>;
+</script>                        

@@ -1,0 +1,66 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : style.css
+    Created on : 26-Apr-2013, 16:08:23
+    Author     : Paul.Ketelle
+    Description:
+        Styles for Quote Pages
+*/
+
+.quote-collaterals {
+    width:40%;
+    float:right;
+    display:inline;
+    padding:5px;
+}
+
+.quote-collaterals textarea {
+    width:100%;
+    margin-bottom:10px;
+}
+
+.link-spacer {
+    padding:0 5px;
+}
+
+.comment-history-box .odd {
+    background: #fff;
+}
+
+.comment-history-box .even {
+    background: #f6f6f6;
+}
+
+.comment-history-box dt {
+    padding:5px 5px 0;
+}
+
+.comment-history-box dt .date {
+    display:inline-block;
+    float:right;
+}
+
+.comment-history-box dd {
+    display:block;
+    border-bottom:1px solid #9BABB9;
+    padding:5px;
+} 
+
+.new-comment-box button {
+    margin-top:10px;
+}
+
+.quote_details {
+    float:left;
+    width:45%;
+    height: 160px;
+}
+
+.quote_options {
+    float:right;
+    width:45%;
+    height: 160px;
+}

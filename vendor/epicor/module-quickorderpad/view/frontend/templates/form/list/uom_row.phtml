@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$_product = $this->registry('current_product');
+$loopProduct = $this->registry('current_loop_product') ? : $_product;
+
+$showUom = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart');
+$showInColumn = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart_column');
+$rowspan = $this->registry('current_rowspan');
+?>
+<?php if ($showUom && $showInColumn) : ?>
+    <td class="uom" rowspan="<?php echo $rowspan; ?>">
+        <?php if (($_product->getTypeId() != 'grouped') || ($loopProduct->getEccPackSize() != '' && $_product->getEccStkType() == 'grouped')) : ?>                
+            <?php echo __($this->escapeHtml($loopProduct->getEccPackSize() ? : $_product->getEccDefaultUom())) ?>
+        <?php else: ?>
+            <?php echo __($this->escapeHtml($loopProduct->getName())) ?>
+        <?php endif; ?> 
+    </td>
+<?php endif; ?>

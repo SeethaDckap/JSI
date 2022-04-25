@@ -1,0 +1,295 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+
+
+.emailSchedule {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.claimsReminderDiv {
+    clear: both;
+    padding-bottom: 31px;
+    flex: 1 0 41%;
+}
+.switchEcc {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    line-height:2.4;
+}
+.switchEcc input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.sliderReminder {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.sliderReminder:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .sliderReminder {
+    background-color: #09BC4A;
+}
+
+input:focus + .sliderReminder {
+    box-shadow: 0 0 1px #09BC4A;
+}
+
+input:checked + .sliderReminder:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.sliderReminder.roundReminder {
+    border-radius: 34px;
+}
+
+.sliderReminder.roundReminder:before {
+    border-radius: 50%;
+}
+label.rfqsTest {
+    clear: both;
+    font-size: 15px;
+    font-weight: bold;
+    line-height:2.4;
+}
+p.commentsRfqs {
+    text-align: left;
+    padding-left: 66px;
+    margin-top: -9px;
+    font-size: 10px;
+}
+
+#reminder_expiry_date {
+    width: 150px;
+}
+.ui-datepicker .ui-datepicker-title {
+    margin: 0 1.3em;
+}
+label.ordersTest {
+    clear: both;
+    font-size: 15px;
+    font-weight: bold;
+}
+.ordersReminderDiv {
+    width: 50%;
+    padding-bottom: 31px;
+}
+.claimsReminderDiv select {
+    height: auto;
+    width: 19%;
+}
+
+.ordersReminderDiv select {
+    height: auto;
+    width: 19%;
+}
+#expiryremainderoption {
+
+}
+
+.dashboard-account h2, .claim-section h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #c6c6c6;
+    line-height: 37px;
+}
+#form-validate select {
+    height: 100px;
+    padding: 0px;
+    width: 25%;
+}
+#modal-dashboard-data div.field {
+    clear: both;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+#modal-dashboard-data div.field label {
+    vertical-align: top;
+    width: 200px;
+    float: left;
+    text-align: left;
+}
+#modal-dashboard-data div.field input[type="text"] {
+    width: 5%;
+}
+#modal-dashboard-data div.field input[type="number"] {
+    width: 5%;
+}
+.managedashboard div.modal-content {
+    height: 500px;
+}
+.schedule {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.summery-container {
+    display: flex;
+    flex-direction: row;
+    width:100%;
+}
+
+.summery-container .box-container-account {
+    width:45%;
+    border: 1px solid #c6c6c6;
+    padding: 10px;
+    margin: 10px;
+}
+.summery-container .box-info.box-account .info-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.dashboard-account h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #c6c6c6;
+    line-height: 37px;
+}
+
+.col-1.box-info.box-account.dashboard-account {
+    width: 100%;
+}
+
+.claim-section .box-info span.label {
+    font-weight: bold;
+}
+
+.claim-section .box-info span.value {
+    color: #006bb4;
+}
+
+.claim-section .box-info p {
+    width: 60%;
+    text-align: right;
+}
+
+.claim-section .box-head h2 {
+    margin: 0 0 1rem;
+}
+
+.claim-section .box-head p {
+    font-size: 1.3rem;
+}
+
+.claim-section .box-info.col-1, .claim-section .box-info.col-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.claim-section .box-info.col-2 p#Request, .claim-section .box-info.col-1 p#Open {
+    order: 1;
+}
+.claim-section .box-info.col-2 p#Overdue, .claim-section .box-info.col-1 p#Waiting {
+    order: 2;
+}
+.claim-section .box-info.col-2 p#Today, .claim-section .box-info.col-1 p#Closed {
+    order: 3;
+}
+.claim-section .box-info.col-2 p#Future, .claim-section .box-info.col-1 p#Locked {
+    order: 4;
+}
+
+.claim-refresher, .claim-updating {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(51, 51, 51, 0.55);
+    width: 100%;
+}
+
+.claim-refresher .loader, .claim-updating .loader {
+    width: 30%;
+    margin: 0 auto;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    display: block;
+    z-index: 1111111;
+    height: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.claim-updating .loader {
+    top: 40%;
+    font-size: 1.8rem;
+    text-align:center;
+}
+
+.claim-refresher .loader p {
+    font-size: 1.7rem;
+}
+
+.claim-refresher .loader img, .claim-refresher .loader a {
+    position: relative;
+    left: 40%;
+    right: 0;
+}
+
+.claim-refresher .loader a {
+    left:60%;
+}
+
+.claim-refresher .cancel {
+    text-decoration: none;
+}
+
+.claim-refresher .cancel span {
+    padding: 10px 20px;
+    background-color: #007bdb;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.dealer-summary-container .box-container-account {
+    width: 45%;
+    border: 1px solid #c6c6c6;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.dealer-manage-dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.dealer-manage-dashboard .summary_section{
+    order: -1;
+}

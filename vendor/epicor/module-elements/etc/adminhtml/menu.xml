@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<!--<add action="epicor_elements/elements/index" id="Epicor::epicor_elements_elements" module="Epicor_Elements"  resource="Magento_Backend::content" sortOrder="32" title="Elements" parent="Epicor_Common::manage"/>-->
+		<add action="epicor_elements/elements/index" id="Epicor::epicor_elements_elements" module="Epicor_Elements"  resource="Epicor_Elements::elements" sortOrder="32" title="Elements" parent="Epicor_Common::manage"/>
+	</menu>
+</config>

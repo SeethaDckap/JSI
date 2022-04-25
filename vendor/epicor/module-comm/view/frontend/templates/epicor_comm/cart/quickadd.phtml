@@ -1,0 +1,107 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $helper Epicor\Comm\Helper\Locations */
+
+$showLocations = $locHelper->isLocationsEnabled();
+//M1 > M2 Translation Begin (Rule p2-5.1)
+//$isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+$isLoggedIn = $this->getCustomerSession()->isLoggedIn();
+//M1 > M2 Translation End
+?>
+<?php if (!$this->registry('quickadd_displayed')) : ?>
+    <input type="hidden" id="quickadd_logged_in" value="<?php echo $isLoggedIn ?>" />
+    <div id="cart-quick-add" class="block block-quick-add" tabindex="-1" >
+        <div class="block-title">
+            <strong><span><?php echo $this->getTitle(); ?></span></strong>
+        </div>
+        <div class="block-content">
+            <div class="empty">
+                <form action="<?php echo $this->getUrl('comm/quickadd/add'); ?>" method="post" id="quickadd-form">
+                     <?php if($this->showLocations()) : ?>                    
+                        <input type="hidden" id="qa_sku_locations_on" value="<?php echo $this->getUrl('comm/quickadd/nonAutoLocations') ?>" id="qa_sku_locations_on" />
+                    <?php endif; ?>
+
+                    <div class="quickadd-form-list">
+                        <div class="field _required">
+                            <label for="sku" class="required"><em>*</em><?php echo __('SKU') ?></label>
+                            <div class="input-box quickadd-autocomplete-container">
+                                <input type="text" name="sku" value="" title="<?php echo __('SKU') ?>" id="qa_sku" class="input-text required-entry" tabindex="-1" />
+                                <div class="quickadd-autocomplete" id="quickadd_autocomplete"></div>
+
+                            </div>
+                        </div>
+                        <div class="field _required">
+                            <label for="qty" class="required"><em>*</em><?php echo __('Qty') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="qty" value="" title="<?php echo __('Qty') ?>" id="qa_qty" class="input-text required-entry validate-number qty" />
+                            </div>
+                        </div>
+                        <?php if($this->showLocations()) : ?>
+                        <div id="qa_location" class="wide" style="display:none;">
+                            <label for="qty" class="required"><em>*</em><?php echo __('Location') ?></label>
+                            <div class="location_input"></div>
+                        </div>
+                        <?php endif; ?>
+                        <div class="target">
+                            <div class="field">
+                                <span><?php echo __('Add to:') ?></span>
+                                <?php if($this->getConfig('wishlist/general/active') == 1 && $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed('Epicor_Customer::my_account_wishlist')): ?>
+                                    <input type="radio" name="target" value="wishlist"  title="<?php echo __('Wishlist') ?>" class="input-text" />
+                                    <label for="county" class="required"><?php echo __('Wishlist') ?></label>
+                                <?php endif ?>
+                                <input type="radio" name="target" value="basket"  title="<?php echo __('Cart') ?>" class="input-text" checked="checked" />
+                                <label for="county" class="required"><?php echo __('Cart') ?></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons-set actions">
+                        <input type="hidden" name="product_id" value="" id="qa_product_id" />
+                        <input type="hidden" name="configurator" value="" id="qa_configurator" />
+                        <input type="hidden" name="super_group" value="" id="qa_super_group" />
+                        <input type="hidden" name="form_key" value="<?php echo $block->getFormKey(); ?>" />
+                        <p class="required"><?php echo __('* Required Fields') ?></p>
+                        <p><button type="submit" title="<?php echo __('Add') ?>" class="action tocart primary" id="quickadd-submit"><span><span><?php echo __('Add') ?></span></span></button></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/js/quickadd.js'); ?>"></script>
+        
+        <?php if ($this->autoCompleteAllowed()) : ?>
+            <script type="text/javascript">
+                //<![CDATA[
+                require([
+                'jquery',
+                'mage/cookies',
+                'mage/translate',
+                'mage/mage',
+                ], function (jQuery) {
+                    jQuery('#quickadd-form').on('submit', function(event) {
+                       var valid = validateDecimalPlaces(jQuery(this));
+                       if (!valid) {
+                           event.preventDefault();
+                           return false;
+                       }
+                    });
+                    jQuery(window).on('load', function() {
+                        var qaSearchForm = new Epicor.searchForm('quickadd-form', 'qa_sku', 'qa_super_group', '', '', '', 'qa_product_id', <?php if($showLocations) : ?>'qa_location'<?php else: ?>''<?php endif;?>,'qa_qty', 'qa_configurator');
+                        qaSearchForm.initAutocomplete('<?php  echo $this->getUrl('epicor_comm/quickadd/autocomplete'); ?>', 'quickadd_autocomplete');
+                    });
+                });
+                //]]>;
+            </script> 
+    <?php endif; ?>
+    </div>   
+    <?php $this->register('quickadd_displayed', true); ?>
+<?php endif; ?>

@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ info
+ * 
+ * @category   Epicor
+ * @package    Epicor_Dealerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Dealerconnect\Block\Claims\Details\Info */
+$claim = $this->registry('dealer_connect_claim_details');
+/* @var $rfq \Epicor\Common\Model\Xmlvarien */
+?>
+<?php if($claim->getErpReturnsNumber()): ?>
+<div class = "box-info box-account col-full block">
+    <div class="block-title">
+        <strong><?php echo __('Claim Returns'); ?></strong>
+    </div>
+    <div class="info-list">
+        <strong><?php echo __('Return Number: '); ?></strong>
+        <a href="<?php echo $block->getErpReturnsUrl(); ?>"><?php echo $claim->getErpReturnsNumber(); ?></a>
+    </div>
+</div>
+<?php endif; ?>

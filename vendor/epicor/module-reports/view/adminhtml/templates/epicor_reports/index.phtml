@@ -1,0 +1,242 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $modelRawData Epicor_Reports_Model_Rawdata */
+$modelRawData = $this->getModelRawData();
+?>
+
+
+
+
+
+<script type="text/javascript">
+
+</script>
+
+
+
+<div>
+    <?php echo $this->getChildHtml('messaging.reports.filter') ?>
+</div>
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+    
+     $("#export").on('click',function(){ 
+          var dataForm = $('#filter_form');
+          
+        //var $form = jQuery('#filter_form');
+       dataForm.attr('action', '<?php echo $this->getUrl('*/*/exportCsv') ?>');
+        if (dataForm.mage('validation', {})) {
+            dataForm.submit();
+        }
+    });
+     $("#filter").on('click',function(){ 
+          var dataForm = $('#filter_form');
+          
+        //var $form = jQuery('#filter_form');
+       dataForm.attr('action', '<?php echo $this->getUrl('*/*/graph') ?>');
+        if (dataForm.mage('validation', {})) {            
+            $('loading-mask').show();
+            jQuery('#chart').html('');
+            var action = dataForm.attr('action');
+            jQuery.post(dataForm.attr('action'), dataForm.serialize(), function(response) {
+                $('loading-mask').hide();
+                refreshChartcust(JSON.parse(response));
+            }
+            );
+    
+        }
+    });
+     $("#refresh_chart").on('click',function(){ 
+          var dataForm = $('#filter_form');
+          
+        //var $form = jQuery('#filter_form');
+       dataForm.attr('action', '<?php echo $this->getUrl('*/*/graph') ?>');
+        if (dataForm.mage('validation', {})) {            
+            $('loading-mask').show();
+            jQuery('#chart').html('');
+            var action = dataForm.attr('action');
+            jQuery.post(dataForm.attr('action'), dataForm.serialize(), function(response) {
+                $('loading-mask').hide();
+                refreshChartcust(JSON.parse(response));
+            }
+            );
+    
+        }
+    });
+            
+ 
+    function refreshChartcust(response) {
+       Highcharts.chart('chart', {
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'Message Report',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: response.xAxis
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+               // tickInterval: 1,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ' '+response.valueSuffix
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: response.series
+   });
+ }
+    
+    
+    function filterForm() {
+        var $form = jQuery('#filter_form');
+        $form.attr('action', '<?php echo $this->getUrl('*/*/graph') ?>');
+        var myForm = new varienForm($form.get(0), true);
+        if (myForm.validator.validate()) {
+            $('loading-mask').show();
+            jQuery('#chart').html('');
+            var action = $form.attr('action');
+            jQuery.post($form.attr('action'), $form.serialize(), function(response) {
+                $('loading-mask').hide();
+                jQuery('#chart').html(response);
+                refreshChart();
+            }
+            );
+        }
+        return false;
+    }
+
+    function refreshChart(switched) {
+        if (switched === undefined)
+            switched = false;
+        var $chart_container = jQuery('#chart'), $holder = jQuery('#holder'), r;
+        $holder.html('');
+        var chart_options = {width: $chart_container.width(), gutter: 10, switched: switched, type: jQuery('#messaging_report_chart_type').val()};
+        //var chart_options = { width: 800, gutter: 10, switched: switched, type: jQuery('#messaging_report_chart_type').val() };
+        chart_options.initial_x = 30;
+        chart_options.initial_y = 30;
+        chart_options.width = chart_options.switched ? chart_options.width - 150 : chart_options.width;
+        chart_options.width -= (chart_options.gutter * 2) + 200;
+        if (chart_options.type == 'minmaxavg')
+            r = drawLineChart('chart_data', chart_options, 30);
+        else
+            r = drawLineChart('chart_data', chart_options, 0);
+
+        var $svg = jQuery('svg');
+        var dimensions = $svg.get(0).getBBox();
+
+
+        $svg.css('height', dimensions.height + chart_options.gutter * 2 + chart_options.initial_y).css('width', dimensions.width + chart_options.gutter * 2 + chart_options.initial_x);
+        $holder.css('height', dimensions.height + chart_options.gutter * 2 + chart_options.initial_y).css('width', dimensions.width + chart_options.gutter * 2 + chart_options.initial_x);
+    }
+    function drawLineChart(chart_id, chart_options, legend_offset) {
+        var r = Raphael('holder');
+        var data = loadData(chart_id);
+        data.legends['offset'] = legend_offset;
+        
+        var lines = r.linechart(chart_options.initial_x, chart_options.initial_y, chart_options.width, chart_options.width / 2,
+                data.labels_index_matrix,
+                data.data, {gutter: chart_options.gutter, shade: true, legend: data.legends, legendpos: "south", nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: false, axisxstep: data.labels_index.length - 1, axisystep: 10, colors: data.colors}).hover(
+                function() {
+                    var angle = this.x < 300 ? 0 : 180;
+                    this.tags = r.set();
+                    var tag = r.tag(this.x, this.y, data.data_labels[this.axis.toString()][this.value.toString()], angle, 10).insertBefore(this).attr([{fill: "#fff"}, {fill: this.symbol.attr("fill")}]);
+                    this.tags.push(tag);
+                }, function() {
+            this.tags && this.tags.remove();
+        });
+
+        var xText = lines.axis[0].text.items;
+        var max_x_labels_displayed = 6;
+        var labels_length = xText.length;
+        for (var i in xText) {
+            if (xText[i].constructor.prototype == Raphael.el) {
+                var _oldLabel = xText[i].attr('text'), _newLabel = '', label_x = xText[i].attr('x'), label_y = xText[i].attr('y');
+                _newLabel = data.labels_values[_oldLabel];
+                xText[i].attr({'text': _newLabel, 'text-anchor': 'start'}).transform("r45 " + label_x + "," + label_y); // Set the text of the current elem with the result and rotate 45 degrees
+            }
+        }
+
+        return lines;
+    }
+    function drawBarChart(chart_id, chart_options) {
+        var r = Raphael('holder');
+        var data = loadData(chart_id);
+
+        var chart, bBox, fin = function() {
+            this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+        },
+                fout = function() {
+                    this.flag.animate({opacity: 0}, 300, function() {
+                        this.remove();
+                    });
+                };
+        chart = r.barchart(chart_options.initial_x, chart_options.initial_y, chart_options.width, chart_options.width / 2, data.data, {gutter: chart_options.gutter}).hover(fin, fout);
+
+        /* CODE FOR ADDING X AXIS */
+        var total_bars = data.data.length;
+        for (var i = 0; i < data.data[0].length; i++) {
+            if (total_bars > 1) {
+                if (total_bars % 2 == 0) {
+                    var floor = total_bars / 2 - 1;
+                    var ceil = total_bars / 2;
+                    var bar_floor = chart.bars[floor][i];
+                    var bar_ceil = chart.bars[ceil][i];
+                    chart.push(r.text((bar_ceil.x + bar_floor.x) / 2, bar_floor.y + bar_floor.h + 10, data.labels_values[i]));
+                }
+                else {
+                    var bar = chart.bars[Math.floor(total_bars / 2)][i];
+                    chart.push(r.text(bar.x, bar.y + bar.h + 10, data.labels_values[i]));
+                }
+            }
+            else {
+                var bar = chart.bars[0][i];
+                chart.push(r.text(bar.x, bar.y + bar.h + 10, data.labels_values[i]));
+            }
+
+        }
+
+        /* CODE FOR ADDING LEGENDS AT THE BOTTOM OF THE CHART */
+        chart.labels = r.set();
+        var height_legends = 0;
+        var center = chart_options.width / 2;
+        for (var j = 0; j < chart.bars.length; j++) {
+            var bar = chart.bars[j][0], txt;
+            height_legends = height_legends == 0 ? bar.y + bar.h + 40 : height_legends + 20;
+            chart.labels.push(r.set());
+
+            chart.labels[j].push(r['circle'](center - chart_options.gutter, height_legends, 5).attr({fill: chart.bars[j][0].attr('fill'), stroke: chart.bars[j][0].attr('fill')}));
+            chart.labels[j].push(txt = r.text(center, height_legends, data.legends[j]).attr({fill: "#000", "text-anchor": "start"}));
+        }
+
+        return r;
+    }
+
+});
+</script>
+<div id="chart">
+</div>

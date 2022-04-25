@@ -1,0 +1,72 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php // $childAccounts = array('100034', '100035', '100036', '100037', '100038') used for testing only?> 
+<?php if($this->getChildAccounts()){ ?>
+    <div id="erpfilter_link">
+        <a id="select_erp" href="" >Select ERP accounts</a>
+        <a id="hide_erp" href="" >Hide ERP accounts</a>
+    </div>       
+    <div id="erpfilter" class="box-info box-account">
+        <form id="erp_account_filter_form" method="post" enctype="multipart/form-data">
+            <div class="fieldset">
+                <h2 class="legend"><?php echo __('Select Erp Accounts to Filter'); ?></h2>
+                <input type="hidden" id="selected_erp_accounts" value="" />
+                <ul class="form-list">
+                    <li>
+                        <select multiple="multiple" size="5" id="erp_account_filter" name="erp_account_filter" class="">                       
+                            <?php foreach ($this->getChildAccounts() as $_selection): ?>
+                            <?php // foreach ($childAccounts as $_selection): ?>
+                                <option value="<?php echo $_selection ?>"><?php echo $_selection ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </li>
+                    <li>
+                        <input id="submit" type="submit" value="<?php echo __('Save'); ?>" />
+                    </li>                
+                </ul>
+            </div>
+        </form>
+    </div>
+<?php } ?>
+<script type="text/javascript">
+    	document.observe('dom:loaded', function(){
+            $('erpfilter').hide();
+            $('hide_erp').hide();           
+            $('erpfilter_link').observe('click', function(event) {
+                $('erpfilter').toggle();               
+                $('select_erp').toggle();
+                $('hide_erp').toggle();
+                Event.stop(event);
+            })
+            $('submit').observe('click', function(event) {
+               Event.stop(event); 
+               selected_options = [];
+               $$('select#erp_account_filter option').each(function(a){
+                    if(a.selected){
+                        selected_options.push(a.text);
+                    } 
+              })
+               var json_data = JSON.stringify(selected_options);
+               var erpheader; 
+               var url = window.location.href;
+               erpheader = "?selectederpaccts=";
+               var split_url = url.split("?selectederpaccts=");
+               url = split_url[0];
+               //encode string
+               baseurl = location.protocol + "//" + location.hostname;
+               ajaxurl = baseurl + '/epicor/account/encodedata';				
+               ajaxurl = ajaxurl + (ajaxurl.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+               this.ajaxRequest = new Ajax.Request(ajaxurl,{
+                        method: 'post',
+                        parameters: {'jsondata':json_data},
+                        onSuccess: function(request){
+                            var encoded_data = request.responseText;
+                            search_string = erpheader + encoded_data;
+                            window.location.href = url + search_string;
+                        }.bind(this),
+                 });
+            })
+        })												
+</script>    

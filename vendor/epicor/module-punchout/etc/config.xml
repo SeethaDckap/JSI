@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <epicor_punchout>
+            <general>
+                <enabled>0</enabled>
+                <psr_url>punchout/setuprequest/index</psr_url>
+                <po_url>punchout/purchaseorder/index</po_url>
+            </general>
+        </epicor_punchout>
+        <carriers>
+            <punchout_carrier>
+                <active>1</active>
+                <title>Punchout Carrier</title>
+                <name>Punchout Shipping Method</name>
+                <shipping_cost>0</shipping_cost>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>15</sort_order>
+                <model>Epicor\Punchout\Model\Carrier\PunchoutShipping</model>
+            </punchout_carrier>
+        </carriers>
+    </default>
+</config>

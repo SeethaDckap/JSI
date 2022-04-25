@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * 
+ */
+/* @var $this Epicor_SalesRep_Block_Account_Manage_Erpaccounts */
+?>
+<h3 class="icon-head head-account-manage-salesreps"><?php echo __('ERP Accounts'); ?></h3>
+<?php if ($this->canEdit()) : ?>
+    <form id="erpaccounts_manage_form" action="<?php echo $this->getUrl('*/*/erpaccountspost'); ?>" method="post">
+        <button type="submit" class="button" title="<?php echo __('Save Changes') ?>" name="save"><span><span><?php echo __('Save Changes') ?></span></span></button>
+                    <?php echo $this->getChildHtml('manage.erpaccounts', false); ?>
+                    <?php echo $this->getChildHtml('grid_serializer', false); ?>
+    </form>
+<?php else: ?>
+    <?php echo $this->getChildHtml('manage.erpaccounts', false); ?>
+<?php endif; ?>

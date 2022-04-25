@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">    
+    <head>
+        <script src="Epicor_Lists::js/epicor/list/contractSelect/selectContract.js"/>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css"/>
+        <css src="Epicor_Lists::epicor/lists/css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Lists\Block\Contract\Shipto" name="contract_shipto" as="contract.shipto"/>
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Backend\Block\Page\RequireJs" name="require.js.sec"  template="Epicor_Customerconnect::customerconnect/page/js/require_js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,121 @@
+<?php $replacements = $block->getReplacements(); ?>
+<?php $orders = $block->getOrders(); ?>
+<div class="order section">
+    <div class="section-title"><?= __('Ready for Replacments') ?></div>
+    <div class="items">
+        <?php foreach ($orders as $index => $order): ?>
+            <div class="quote-item child-item">
+                <div class="item-title"><?= __('Purchase Order') ?></div>
+                <div class="item-description"><?= __('Pending') ?></div>
+                <div class="item-detail">
+                    <div class="item-image">
+                        <img src="<?= $order['selectedDoors'][0]['image']; ?>">
+                    </div>
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Order Number: ') ?></span>
+                                <span><?= $order['number'] ?></span>
+                            </div>
+                        </div>
+
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Primary Door Style: ') ?></span>
+                                <span><?= $order['selectedDoors'][0]['title'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Cost: ') ?></span>
+                                <span><?= $order['cartTotal'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Designer: ') ?></span>
+                                <span><?= $order['designer'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="actions-toolbar">
+                                <div class="action-button primary">
+                                     <a class="action" href="<?= '/customaccount/replace/create?orderid=' . ($index+1) ?>">New RPMT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>
+
+<div class="replacement section">
+    <div class="section-title"><?= __('Replacements') ?></div>
+    <div class="items">
+        <?php foreach ($replacements as $replacement): ?>
+            <?php $replacementData = json_decode($replacement->getData('data'), true); ?>
+            <div class="child-item">
+                <div class="item-title"><?= $replacementData['name'] ?></div>
+                <div class="item-description"><?= __('Pending') ?></div>
+                <div class="item-detail">
+                    <div class="item-image">
+                        <img src="<?= $replacementData['selectedDoors'][0]['image'] ?>">
+                    </div>
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('RPMT Order #: ') ?></span>
+                                <span><?= isset($replacementData['number']) ? $replacementData['number'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Order PO: ') ?></span>
+                                <span><?= isset($replacementData['order']['name']) ? $replacementData['order']['name'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Order Number: ') ?></span>
+                                <span><?= isset($replacementData['order']['number']) ? $replacementData['order']['number'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('RPMT Cost: ') ?></span>
+                                <span><?= $replacementData['cartTotal'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Door Style: ') ?></span>
+                                <span><?= $replacementData['selectedDoors'] ? $replacementData['selectedDoors'][0]['title'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Designer: ') ?></span>
+                                <span><?= isset($replacementData['designer']) ? $replacementData['designer'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Reference: ') ?></span>
+                                <span><?= isset($replacementData['reference']) ? $replacementData['reference'] : '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="actions-toolbar">
+                                <div class="action-button primary">
+                                    <a class="action" href="<?= '/customaccount/replace/create?id=' . $replacement->getId() ?>"><?= __('Edit RPMT') ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>

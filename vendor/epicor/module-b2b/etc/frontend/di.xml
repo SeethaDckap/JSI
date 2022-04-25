@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <type name="Magento\Framework\Url\SecurityInfo">
+    <arguments>
+      <argument name="secureUrlList" xsi:type="array">
+        <item name="b2b" xsi:type="string">/b2b/</item>
+      </argument>
+    </arguments>
+  </type>
+  <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="b2bCustomerErrorMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Epicor_B2b::messages/complexErrorMessage.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+  </type>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="ecc_customer_accountmanagement" type="Epicor\B2b\Plugin\Customer\AccountManagement" sortOrder="1"/>
+    </type>
+</config>

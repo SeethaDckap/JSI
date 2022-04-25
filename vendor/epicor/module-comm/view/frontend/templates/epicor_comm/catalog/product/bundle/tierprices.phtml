@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * @see Mage_Catalog_Block_Product_View
+ */
+
+/* @var $this Epicor_Comm_Block_Bundle_Catalog_Product_View */
+
+$helper = $this->helper('epicor_comm');
+/* @var $helper Epicor_Comm_Helper_Data */
+$showPrices = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+
+$_product = $this->getProduct();
+$_tierPrices = $this->getTierPrices();
+?>
+<?php if (count($_tierPrices) > 0 && $showPrices): ?>
+    <ul class="tier-prices product-pricing">
+    <?php if($_product->getPriceType() == 1) : ?>
+        <?php foreach($_tierPrices as $_price): ?>
+            <li><?php echo __('Buy %1$s for %2$s each and save %3$s', $_price['price_qty'], '<strong class="benefit">'.($_price['price']*1).'</strong>', '<span class="percent tier-0">'.$_price['savePercent'].'</span>%') ?></li>
+        <?php endforeach ?>
+    <?php else: ?>
+        <?php foreach($_tierPrices as $_price): ?>
+            <li><?php echo __('Buy %1$s with %2$s discount each', $_price['price_qty'], '<strong class="benefit">'.($_price['price']*1).'%</strong>') ?></li>
+        <?php endforeach ?>
+    <?php endif;?>
+    </ul>
+<?php endif;?>

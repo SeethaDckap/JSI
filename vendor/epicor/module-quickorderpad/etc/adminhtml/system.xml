@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="Epicor_Comm" translate="label">
+      <group id="quickorderpad" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Quick Order Pad</label>
+        <field id="default_sort_order" translate="label" sortOrder="160" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Default Sort Order in results</label>
+          <source_model>Epicor\QuickOrderPad\Model\Source\SortDirections</source_model>
+        </field>
+        <field id="show_quickorderpad_images" translate="label" sortOrder="160" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show Product Images in Search Results</label>
+          <config_path>quickorderpad/general/show_quickorderpad_images</config_path>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

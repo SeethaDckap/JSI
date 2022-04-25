@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <link src="mage/captcha.js"/>
+    </head>
+    <body>
+        <referenceContainer name="header-wrapper">
+            <referenceBlock name="selected.branch" remove="true"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Epicor\B2b\Block\Portal\Login" name="b2b_portal_login" template="Epicor_B2b::b2b/portal/login.phtml" cacheable="false">
+                <container name="form.additional.info" as="form_additional_info"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Captcha\Block\Captcha" name="captcha" cacheable="false">
+                <action method="setFormId">
+                    <argument name="formId" xsi:type="string">user_login</argument>
+                </action>
+                <action method="setImgWidth">
+                    <argument name="width" xsi:type="string">226</argument>
+                </action>
+                <action method="setImgHeight">
+                    <argument name="width" xsi:type="string">50</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

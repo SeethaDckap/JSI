@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_connect"/>
+    <head>
+        <title>Customer Connect Account Details</title>
+        <css src="Epicor_Common::epicor/common/css/commongrid.css" />
+    </head>
+    <body>
+        <attribute name="class" value="custom_account" />
+        <referenceContainer name="content">
+            <!--<action method="setElementClass">
+                <argument name="value" xsi:type="string">col2-set</argument>
+            </action>-->
+            <block class="Epicor\Customerconnect\Block\Customer\Account\Billingaddress"
+                   name="customer.account.billing"/>
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.accountinfo</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">account_information</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.periodbalances</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">period_balances</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.agedbalances</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">aged_balances</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.shippingaddress</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">shipping_addresses</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.contacts</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">contacts</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.account.cusomaddressallowed</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">contact_address_permissions</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <block class="Epicor\Customerconnect\Block\Customer\Account\Accountinfo"
+                       name="customer.account.accountinfo"/>
+                <block class="Epicor\Customerconnect\Block\Customer\Account\Balances\Period\Listing"
+                       name="customer.account.periodbalances"/>
+                <block class="Epicor\Customerconnect\Block\Customer\Account\Balances\Aged\Listing"
+                       name="customer.account.agedbalances"/>
+                <!--block class="Epicor\Customerconnect\Block\Customer\Account\Shippingaddress\Listing"
+                       name="customer.account.shippingaddress"/-->
+                <!--block class="Epicor\Customerconnect\Block\Customer\Account\Contacts\Listing"
+                       name="customer.account.contacts"/-->
+                <!--block class="Epicor\Customerconnect\Block\Customer\Account\Customaddressallowed"
+                       name="customer.account.cusomaddressallowed"/-->
+            </block>
+            <container name="invoice-container" htmlTag="div" htmlClass="invoice-container">
+                <block class="Epicor\Customerconnect\Block\Customer\Invoices\Listing" name="invoiceslist"/>
+                <block class="Magento\Framework\View\Element\Html\Calendar" name="head.calendar" as="calendar" template="Epicor_Customerconnect::customerconnect/page/js/gridcalendar.phtml"/>
+            </container>
+
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_end">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.billing.update</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">saveBillingAddress</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.shippingaddress.update</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">saveShippingAddress</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.contact.update</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Account</item>
+                        <item name="action" xsi:type="string">saveContact</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <block template="Epicor_Customerconnect::customerconnect/customer/account/address/edit.phtml"
+                       class="Epicor\Customerconnect\Block\Customer\Account\Billingaddress"
+                       name="customer.billing.update"/>
+                <block template="Epicor_Customerconnect::customerconnect/customer/account/address/edit.phtml"
+                       class="Epicor\Customerconnect\Block\Customer\Account\Shippingaddress"
+                       name="customer.shippingaddress.update"/>
+                <block template="Epicor_Customerconnect::customerconnect/customer/account/contacts/edit.phtml"
+                       class="Epicor\Customerconnect\Block\Customer\Address" name="customer.contact.update"/>
+            </block>
+            <block template="Epicor_Customerconnect::customerconnect/loader.phtml" class="Magento\Framework\View\Element\Template" name="customer.account.loader"/>
+        </referenceContainer>
+    </body>
+</page>

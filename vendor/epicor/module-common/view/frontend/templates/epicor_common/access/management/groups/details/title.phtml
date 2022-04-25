@@ -1,0 +1,10 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $name = $this->registry('access_group')->getEntityName(); ?>
+<?php if(!empty($name)) : ?>
+    <h1><?php echo __('Access Group: %1', $this->registry('access_group')->getEntityName()); ?></h1>
+<?php else: ?>
+    <h1><?php echo __('New Access Group'); ?></h1>
+<?php endif; ?>

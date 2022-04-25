@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="message" translate="label,description" instance="Epicor\Common\Model\Cache\Type\Message">
+        <label>MSQ Cache</label>
+        <description>Contains data relating to MSQ</description>
+    </type>
+</config>

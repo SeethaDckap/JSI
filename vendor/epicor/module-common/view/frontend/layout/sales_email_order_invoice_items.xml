@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Common::epicor_common/email/order/invoice/items.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="invoice_totals">
+            <action method="setLabelProperties">
+                <argument name="value" xsi:type="string">colspan="4" align="right"</argument>
+            </action>
+            <action method="setValueProperties">
+                <argument name="value" xsi:type="string">colspan="4" align="right"</argument>
+            </action>
+           
+        </referenceBlock>
+    </body>
+</page>

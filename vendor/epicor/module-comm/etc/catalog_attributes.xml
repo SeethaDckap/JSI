@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/catalog_attributes.xsd">
+  <group name="quote_item">
+    <attribute name="ecc_default_uom"/>
+    <attribute name="ecc_pack_size"/>
+    <attribute name="ecc_line_comments_enabled"/>
+    <attribute name="ecc_configurator"/>
+    <attribute name="ecc_decimal_places"/>
+    <attribute name="is_ecc_discontinued"/>
+    <attribute name="is_ecc_non_stock"/>
+  </group>
+</config>

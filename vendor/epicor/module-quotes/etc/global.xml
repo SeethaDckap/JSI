@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_Quotes>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_Quotes>
+        </ecc_version_info>
+        <erps>
+            <e10>
+                <epicor_quotes>
+                    <general>
+                        <prefix></prefix>
+                    </general>
+                </epicor_quotes>
+            </e10>
+            <xVP>
+                <epicor_quotes>
+                    <general>
+                        <prefix></prefix>
+                    </general>
+                </epicor_quotes>
+            </xVP>
+            <tropos>
+                <epicor_quotes>
+                    <general>
+                        <prefix></prefix>
+                    </general>
+                </epicor_quotes>
+            </tropos>
+            <p21>
+                <epicor_quotes>
+                    <general>
+                        <prefix>Q-</prefix>
+                    </general>
+                </epicor_quotes>
+            </p21>
+        </erps>
+    </global>
+</config>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$_log = $this->getLog();
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title">
+        <h4>Message Details</h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list  admin__table-secondary ">
+            <tr>
+                <td class="label"><label><?php echo __('Parent') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getMessageParent();?><strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Type') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getMessageType() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Subject') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getMessageSubject() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Secondary Subject') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getMessageSecondarySubject() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('ERP Url') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getErpUrl() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="silk_customforms_contactsupport_data_source" xsi:type="string">Silk\CustomForms\Model\ResourceModel\ContactSupport\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Silk\CustomForms\Model\ResourceModel\ContactSupport\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">customforms_contact_support</argument>
+            <argument name="resourceModel" xsi:type="string">Silk\CustomForms\Model\ResourceModel\ContactSupport</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="silk_customforms_dealerrequest_data_source" xsi:type="string">Silk\CustomForms\Model\ResourceModel\DealerRequest\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Silk\CustomForms\Model\ResourceModel\DealerRequest\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">customforms_dealer_request</argument>
+            <argument name="resourceModel" xsi:type="string">Silk\CustomForms\Model\ResourceModel\DealerRequest</argument>
+        </arguments>
+    </virtualType>
+</config>

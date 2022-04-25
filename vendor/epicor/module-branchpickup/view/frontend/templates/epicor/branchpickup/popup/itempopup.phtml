@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/**
+ * Shoping cart sidebar
+ *
+ * @see Epicor\BranchPickup\Block\Cart\Sidebar
+ */
+$postValues = $this->getRequest()->getParam('removeval');
+$branch     = $this->getRequest()->getParam('branch');
+$searchpopup    = $this->getRequest()->getParam('searchpopup');
+$javascript=false;
+if($searchpopup =="true") {
+   $javascript = true;
+}
+$removeIds  = $postValues;
+$helperBranchPickup  = $this->helper('Epicor\BranchPickup\Helper\Branchpickup');
+$imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+$helperComm = $this->helper('Epicor\Common\Helper\Data');
+$cartHelper = $this->helper('Magento\Checkout\Helper\Cart');
+?>
+<div class="block block-cart branchmaincontainer">
+    <?php $_cartQty = $cartHelper->getSummaryCount() ?>
+    <div class="block-content">
+    <div class="actions" id="branchpictionactions">
+        <form method="post" action="<?php echo $block->getUrl('branchpickup/pickup/removeitemsincart',$helperBranchPickup->issecure()) ?>">
+            <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+            <input type="hidden" name="removeitems" id="removeitems" value="<?php echo implode(',', $removeIds) ?>">
+            <input type="hidden" name="branch" id="branch" value="<?php echo $branch ?>">
+            <div class = "buttons-container" style="display: inline-block;padding-bottom: 20px;">
+                 <p class="title" style="display: inline-block"><?php /* @escapeNotVerified */ echo __('Would you like to delete these item(s)?') ?></p>
+                 <button  id='delete-button' type="submit" title="<?php echo $block->escapeQuote(__('Delete Items')) ?>" class="button" ><span><span><?php echo __('Delete Items') ?></span></span></button>
+            </div>
+        </form>
+    </div>
+    <?php $_items = $this->getItems() ?>
+    <?php if(count($_items)): ?>
+        <ol id="cart-sidebar-branch" class="minicart-items">
+        <?php foreach($_items as $_item): 
+            if (in_array($_item->getProductId(),$removeIds)) {
+        ?>
+            <li class="product-item">
+                <?php 
+                    $getProductThumbnail = $imageHelper->init($_item->getProduct(), 'product_thumbnail_image')->getUrl();
+                ?>
+                <span class="product-image-container" style="height: 75px;width: 75px;">
+                    <span class="product-image-wrapper" style="height: auto;padding: 0 !important;"><img src="<?php echo $getProductThumbnail; ?>" width="50" height="50" alt="<?php echo $block->escapeHtml($_item->getName()) ?>" /></span>
+               </span>
+                <div class="product-item-details" style="display: inline-block;">
+                    <div class="product-item-name-block">
+                        <strong class="product-item-name"><?php echo $block->escapeHtml($_item->getName()) ?></strong>
+                    </div>
+                    <div class="details-qty">
+                    <?php
+                        $fullsku = $_item->getSku();
+                        $sku = $helperComm->getSku($fullsku);
+                        $storeId = $block->getStoreId();
+                        $packSize = $block->getEccPackSize($_item->getProduct()->getId());
+                        if(is_array($packSize)) {
+                            $packSize = '';
+                        }
+                    ?>
+                        <?php echo $block->escapeQuote(__('SKU: ')); echo $block->escapeHtml($sku) ?> <br>
+                        <?php echo $block->escapeQuote(__('Unit of Measure: ')); echo $block->escapeHtml($packSize) ?> <br>
+                    </div>
+                </div>
+            </li>
+        <?php  } endforeach; ?>
+        </ol>
+    <?php else: ?>
+        <p class="empty"><?php echo __('You have no items in your shopping cart.') ?></p>
+    <?php endif ?>
+    </div>
+</div>
+
+<?php 
+if($javascript):?>
+<script type="text/javascript">
+//<![CDATA[
+        require([
+            "jquery",
+            'mage/translate',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, $tr, modal) {
+            $('#delete-button').live('click',function() {
+                setTimeout(function(){ 
+                    $( ".action-close", window.parent.document).trigger( "click" );
+                    window.parent.location.reload();                                
+                },2000);                
+            });
+    });
+    //]]>
+</script>
+<?php endif;?>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <payment>
+      <elements>
+        <live_mode>0</live_mode>
+        <active>0</active>
+        <model>Epicor\Elements\Model\Payment\Elements</model>
+        <order_status>processing</order_status>
+        <gateway_url>https://{{prefix}}transaction.hostedpayments.com/?TransactionSetupID={{transactionSetupId}}</gateway_url>
+        <gateway_url_mobile>https://{{prefix}}transaction.hostedpayments.com/mobile/?TransactionSetupID={{transactionSetupId}}</gateway_url_mobile>
+        <title>Elements Card Payment</title>
+        <enable_captcha>0</enable_captcha>
+        <payment_action>authorize</payment_action>
+        <can_authorize>1</can_authorize>
+        <purchaseenabled>1</purchaseenabled>
+        <AccountID>1000422</AccountID>
+        <AccountToken>F788B798F7F0F79C55AF22230E2BFF0480EB344255E6CE2D33BBE4BAC82FE103223D8D01</AccountToken>
+        <AcceptorID>3928907</AcceptorID>
+        <ApplicationID>000</ApplicationID>
+        <ApplicationName>Magento Elements Gateway</ApplicationName>
+        <ApplicationVersion>6.0.37</ApplicationVersion>
+        <TerminalID>0001</TerminalID>
+        <TerminalType>2</TerminalType>
+        <CardPresentCode>3</CardPresentCode>
+        <CardholderPresentCode>7</CardholderPresentCode>
+        <CardInputCode>4</CardInputCode>
+        <TerminalCapabilityCode>5</TerminalCapabilityCode>
+        <TerminalEnvironmentCode>6</TerminalEnvironmentCode>
+        <MotoECICode>7</MotoECICode>
+        <PaymentAccountType>0</PaymentAccountType>
+        <MarketCode>3</MarketCode>
+        <CVVEnabled>0</CVVEnabled>
+        <authorizeInEcc>1</authorizeInEcc>
+        <AVSEnabled>0</AVSEnabled>
+        <cvv_successful_results>M,P,S,U,Y</cvv_successful_results>
+        <avs_successful_results>A,B,C,D,E,F,G,I,J,K,M,P,R,S,T,U,W,X,Y,Z,0</avs_successful_results>
+      </elements>
+    </payment>
+  </default>
+</config>

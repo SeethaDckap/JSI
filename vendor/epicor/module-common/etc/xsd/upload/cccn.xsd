@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:include schemaLocation="urn:magento:module:Epicor_Common:etc/xsd/message.xsd"/>
+    
+    <xs:complexType name="requestMsg">
+        <xs:complexContent>					
+            <xs:extension base="requestBody">
+                <xs:sequence>
+                    <xs:element name="contract">
+                        <xs:complexType>
+                            <xs:all>
+                                <xs:element type="brands" name="brands"/>
+                                <xs:element type="nonEmptyString" name="accountNumber"/>
+                                <xs:element type="nonEmptyString" name="contractCode"/>
+                                <xs:element type="nonEmptyString" name="currencyCode"/>
+                                <xs:element type="nonEmptyString" name="contractTitle"/>
+                                <xs:element type="xs:string" name="startDate"/>
+                                <xs:element type="xs:string" name="endDate"/>
+                                <xs:element name="contractStatus">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:pattern value="A|I" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element type="nonEmptyString" name="lastModifiedDate" />
+                                <xs:element type="xs:string" name="salesRep" />
+                                <xs:element type="xs:string" name="contactName" />
+                                <xs:element type="xs:string" name="purchaseOrderNumber" />
+                                <xs:element type="xs:string" name="contractDescription" />                                
+                                <xs:element name="deliveryAddresses">
+                                    <xs:complexType>
+                                        <xs:sequence>                                            
+                                            <xs:element name="deliveryAddress" type="deliveryAddress" maxOccurs="unbounded" minOccurs="0" />                                            
+                                        </xs:sequence>                                       
+                                    </xs:complexType>                                            
+                                </xs:element>
+                                <xs:element name="parts">
+                                    <xs:complexType>
+                                        <xs:sequence>                                            
+                                            <xs:element name="part" type="part" maxOccurs="unbounded" minOccurs="0" />                                            
+                                        </xs:sequence>                                       
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:all>
+                            <xs:attribute name="delete" use="required" type="yesNo" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    
+    <xs:complexType name="part">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="productCode"/>
+            <xs:element type="nonEmptyString" name="contractLineNumber"/>
+            <xs:element type="xs:string" name="contractPartNumber" minOccurs="0"/>
+            <xs:element type="xs:string" name="effectiveStartDate" minOccurs="0"/>
+            <xs:element type="xs:string" name="effectiveEndDate" minOccurs="0"/>
+            <xs:element type="nonEmptyString" name="lineStatus"/>
+            <xs:element name="unitOfMeasures">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="unitOfMeasure" type="uom" maxOccurs="unbounded" minOccurs="1" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="delete" use="required" type="yesNo" />
+    </xs:complexType>  
+    
+     <xs:complexType name="uom">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="unitOfMeasureCode"/>
+            <xs:element type="xs:string" name="minimumOrderQty" />
+            <xs:element type="xs:string" name="maximumOrderQty"/>
+            <xs:element type="xs:string" name="contractQty"/>
+            <xs:element type="nonEmptyString" name="isDiscountable" />
+            <xs:element name="currencies">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="currency" type="cccncurrency" maxOccurs="unbounded" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="default" type="yesNo" />
+    </xs:complexType>
+        
+    <xs:complexType name="cccncurrency">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="currencyCode"/>   
+            <xs:element type="nonEmptyString" name="contractPrice"/>
+            <xs:element name="breaks">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="break" type="break" maxOccurs="unbounded" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element> 
+            <xs:element name="valueBreaks">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="valueBreak" type="valueBreak" maxOccurs="unbounded" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element> 
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="break">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="quantity"/> 
+            <xs:element type="nonEmptyString" name="contractPrice"/>
+            <xs:element name="discount"> 
+                <xs:complexType>
+                    <xs:sequence>
+                         <xs:element type="xs:string" name="description"/>            
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>   
+        </xs:all>             
+    </xs:complexType>
+    <xs:complexType name="valueBreak">
+        <xs:all>
+            <xs:element type="nonEmptyString" name="lineValue"/>
+            <xs:element type="nonEmptyString" name="contractPrice"/>
+            <xs:element name="discount">
+                <xs:complexType>
+                    <xs:sequence>
+                         <xs:element type="xs:string" name="description"/>            
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>   
+        </xs:all>            
+    </xs:complexType>   
+    
+    <xs:complexType name="deliveryAddress">
+        <xs:all>
+            <xs:element type="xs:string" name="addressCode"/>
+            <xs:element type="xs:string" name="purchaseOrderNumber" />
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="xs:string" name="address1"/>
+            <xs:element type="xs:string" name="address2" minOccurs="0"/>
+            <xs:element type="xs:string" name="address3" minOccurs="0"/>
+            <xs:element type="xs:string" name="city"/>
+            <xs:element type="xs:string" name="county"/>
+            <xs:element type="xs:string" name="country" minOccurs="0"/>
+            <xs:element type="xs:string" name="postcode"/>
+            <xs:element type="xs:string" name="telephoneNumber" minOccurs="0"/>
+            <xs:element type="xs:string" name="faxNumber" minOccurs="0"/>
+            <xs:element type="xs:string" name="emailAddress" minOccurs="0"/>
+            <xs:element type="xs:string" name="activationDate" minOccurs="0"/>
+            <xs:element type="xs:string" name="expiryDate" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>   
+    
+</xs:schema>

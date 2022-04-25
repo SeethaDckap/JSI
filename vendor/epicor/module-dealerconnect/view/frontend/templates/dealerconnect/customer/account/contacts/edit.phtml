@@ -1,0 +1,118 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit contact
+ */
+//M1 > M2 Translation Begin (Rule p2-5.1)
+/* if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+  $customerData = Mage::getSingleton('customer/session')->getCustomer();
+  } */
+/** @var \Epicor\Customerconnect\Block\Customer\Address $this */
+if ($block->getCustomerSession()->isLoggedIn()) {
+    $customerData = $block->getCustomerSession()->getCustomer();
+}
+$isDealer = $block->getDealerAccount();
+$checkDealerMasterShopper = $block->checkDealerMasterShopper();
+//M1 > M2 Translation End
+?>
+
+<?php $telephoneRequired = $this->getConfig('checkout/options/telephone_required'); ?>
+<div id="update-contact" style="display:none;" class="box-info box-account">
+    <input type="hidden" value="<?php echo $customerData->getEmail(); ?>" name="loggedin_customer_email" id="loggedin_customer_email" />
+    <input type="hidden" value="<?php echo $customerData->getEccMasterShopper(); ?>" name="loggedin_customer_mastershopper" id="loggedin_customer_master_shopper" />
+    <input type="hidden" value="<?php echo $block->getNewContactInfo(); ?>" name="ecc_newcontact_info" id="ecc_newcontact_info" />
+    <form action="<?php echo $this->getUrl('customerconnect/account/saveContact') ?>" method="post" id="update-contact-form">
+        <input type="hidden" name="ecc_access_role" id="contact_ecc_access_role" />
+        <input type="hidden" name="old_data" id="contact_old_data" />
+        <div id="contacts-form-fieldset-list" class="fieldset address form-list update-contact-form-list"> 
+            <div class="field _required">
+                <label for="contact_firstname" class="label"><?php echo __('First Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="firstname" title="<?php echo __('First Name') ?>" id="contact_firstname" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field _required">
+                <label for="contact_lastname" class="label"><?php echo __('Last Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="lastname" title="<?php echo __('Last Name') ?>" id="contact_lastname" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field _required">
+                <label for="contact_function"class="label"><?php echo __('Function') ?></label>
+                <div class="input-box">
+                    <input type="text" name="function" title="<?php echo __('Function') ?>" id="contact_function" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="contact_email_address" id="contact_email_address_label" class="label"><?php echo __('Email Address') ?></label>
+                <div class="input-box">
+                    <input type="text" name="email_address" title="<?php echo __('Email Address') ?>" id="contact_email_address" class="input-text validate-email" />
+                </div>
+            </div>
+            <div class="field<?php if ($telephoneRequired) : ?> _required<?php endif; ?>">
+                <label for="contact_telephone_number" class="label"><?php echo __('Telephone Number') ?></label>
+                <div class="input-box">
+                    <input type="text" name="telephone_number" title="<?php echo __('Telephone Number') ?>" id="contact_telephone_number" class="input-text<?php if ($telephoneRequired) : ?> required-entry<?php endif; ?>" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="contact_fax_number" class="label"><?php echo __('Fax Number') ?></label>
+                <div class="input-box">
+                    <input type="text" name="fax_number" title="<?php echo __('Fax Number') ?>" id="contact_fax_number" class="input-text" />
+                </div>
+            </div>
+            <div class="field">
+                <input type="checkbox" name="web_enabled" title="<?php echo __('Web Enabled') ?>" id="contact_web_enabled" value="1"/>
+                <input type="hidden" name="login_id" id="contact_login_id" />
+                <label for="contact_web_enabled"class="label"><?php echo __('Web Enabled') ?></label>
+            </div>
+            <div id="master_shopper_li" class="field">
+                <?php $assignMasterAllowed = $block->assignMasterShopperAllowed(); ?>
+                <?php if (!$assignMasterAllowed): ?>
+                    <img id="ecc_master_shopper_yes" src="<?= $this->getViewFileUrl('Epicor_Common::epicor/common/images/success_msg_icon.gif') ?>" alt="Yes" />
+                    <img id="ecc_master_shopper_no" src="<?= $this->getViewFileUrl('Epicor_Common::epicor/common/images/cancel_icon.gif') ?>" alt="No" />
+                <?php endif; ?>
+                <input type="checkbox"  name="master_shopper" title="<?php echo __('Master Shopper') ?>" value="" id="contact_master_shopper" onclick="update_value()"  <?php echo ($checkDealerMasterShopper) ? "disabled" : '' ?> style="<?php echo (!$assignMasterAllowed) ? 'display:none' : ''; ?>"/>
+                <input type="hidden" name="ecc_master_shopper" id="contact_ecc_master_shopper" value="0" />
+                <label for="contact_mastershopper_enabled" class="label"><?php echo __('Master Shopper') ?></label>
+            </div>
+            <?php if($this->helper('Epicor\Comm\Helper\Data')->isHidePriceEnabledForContact()) : ?>
+                <div id="ecc_contact_hide_prices" class="field">
+                    <label for="ecc_hide_prices" class="label"><?php echo __('Hide Prices:') ?></label>
+                    <input type="radio" name="ecc_hide_prices" id="contact_hide_prices_no" value="0"> No
+                    <input type="radio" name="ecc_hide_prices" id="contact_hide_prices_yes" value="1"> Yes
+                    <input type="radio" name="ecc_hide_prices" id="contact_hide_prices_show_default" value="2"> Show Default
+                    <input type="radio" name="ecc_hide_prices" id="contact_hide_prices_yes_checkout" value="3"> Yes Checkout
+                </div>
+            <?php endif;?>
+
+            <div id="ecc_contact_access_roles" class="field">
+                <label for="contact_accessrole_checked" class="label"><?php echo __('Assign Access Role') ?></label>
+            </div>
+            <div id="ecc_contact_access_roles_options" class="field">
+                <select multiple="multiple" name="customer_access_roles" class="admin__control-select" id="customer_access_roles">
+                </select>
+                <div><p>*Note: Selecting "Account Default" will apply ERP Account level Access Roles</p></div>
+            </div>
+            <div id="ecc_contact_access_roles_disabled" class="field" style="display:none">
+                <p>The Access rights has been disabled by the admin. Please contact the Admin.</p>
+            </div>
+ 
+            <?php if($isDealer): ?>
+                <div class="field">
+                    <label for="login_mode_type"class="label"><?php echo __('Login Mode Type: ') ?></label>
+                    <input type="radio"  name="login_mode_type" id="login_mode_dealer" value="dealer"  <?php echo $checkDealerMasterShopper ?>> Dealer</input>
+                    <input type="radio" name="login_mode_type" id="login_mode_shopper" value="shopper" <?php echo $checkDealerMasterShopper ?>>End Customer</input>
+                </div>
+                <div class="field">
+                    <label for="is_toggle_allowed"class="label"><?php echo __('Is Toggle allowed: ') ?></label>
+                    <input type="radio" name="is_toggle_allowed" id= "is_toggle_yes" value="1" <?php echo $checkDealerMasterShopper ?>>Yes</input>
+                    <input type="radio" name="is_toggle_allowed"  id= "is_toggle_no" value="0" <?php echo $checkDealerMasterShopper ?>>No</input>
+                </div>
+            <?php endif;?>
+        </div>
+    </form>
+</div>  

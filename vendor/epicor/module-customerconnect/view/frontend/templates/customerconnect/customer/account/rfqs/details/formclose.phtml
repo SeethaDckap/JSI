@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?></form>
+<form id="rfq_submit_wrapper_form" name="rfq_submit_wrapper_form" target="rfq-form-iframe" action="<?php echo $block->getRegistry('rfq_new') ? $block->getUrl('*/*/add/') : $block->getUrl('*/*/update'); ?>" method="post" enctype="multipart/form-data" style="display:none">
+    <input id="rfq_serialize_data" name='rfq_serialize_data' type="hidden" value="" />
+    <input type="hidden" name='form_key' id="form_key" value="<?php echo $block->getFormKey() ?>" /> 
+</form>
+<iframe id="rfq-form-iframe" name="rfq-form-iframe" style="display:none"></iframe>
+<?php if (!$block->_isFormAccessAllowed()): ?>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+        $(document).ready(function(){
+            $('#rfq_update').find(':input').attr('disabled', 'disabled');
+            $('#rfq_update').find('a').css('pointer-events', 'none');
+            $('#rfq_update').find('p.back-link a').css('pointer-events', '');
+            $('#rfq_update').find('a.attachment_view').css('pointer-events', '');
+            var duplicate = "<?php echo $block->_isCreateAllowed(); ?>";
+            if (duplicate&& $("#rfq_duplicate") != undefined) {
+                $("#rfq_duplicate").removeAttr('disabled');
+            }
+            if ($("#rfq_confirm") != undefined) {
+                $("#rfq_confirm").removeAttr('disabled');
+            }
+            if ($("#rfq_reject") != undefined) {
+                $("#rfq_reject").removeAttr('disabled');
+            }
+        });
+    });
+</script>
+<?php endif; ?>

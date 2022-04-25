@@ -1,0 +1,11 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php // $rfq = $this->registry('supplier_connect_rfq_details'); ?>
+<h1><?php // echo __('RFQ : %1', $rfq->getRfqNumber()); ?></h1>
+<?php if ($block->_isFormAccessAllowed() && $this->registry('rfq_editable')) : ?>
+    <div class="a-right">    
+        <button id="rfq_save" class="scalable" type="submit">Save and Continue</button>
+    </div>
+<?php endif; ?>

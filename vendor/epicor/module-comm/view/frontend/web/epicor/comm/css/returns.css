@@ -1,0 +1,328 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+#window-overlay #window-overlay-content {
+    max-width:500px;
+    margin: 0 auto;
+    text-align:left;
+    position:fixed;
+    padding:5px;
+    position:fixed;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #666;
+    overflow:hidden;
+}
+
+#window-overlay h2 {
+    margin-bottom:0;
+}
+
+#window-overlay .formfields {
+    overflow: auto;
+    position:relative;
+    margin-top:12px;
+    margin-bottom:0;
+    padding-right: 20px;
+    clear: both;
+}
+
+#window-overlay-close {
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index: 100;
+}
+
+#window-overlay li {
+    margin-top:5px;
+}
+
+
+#window-overlay .box-account {
+    margin:0;
+    padding-top:0;
+    padding-bottom:0;
+}
+
+#window-overlay .buttonbar {
+    text-align:right;
+    margin-top:10px;
+}
+
+
+/*retin tabs end */
+
+/* -------------------------------------------- *
+ * Section Styling - Default
+ */
+.opc select {
+  width: 365px;
+}
+.opc .section .step-title {
+  width: 100%;
+  border-top: 1px solid #ececec;
+  position: relative;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.opc .section .step-title:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.opc .section.allow:not(.active) .step-title {
+  cursor: pointer;
+}
+
+/* Using .no-touch since touch devices emulate hover, thereby making steps look active that are not */
+.no-touch .opc .section.allow:not(.active) .step-title:hover {
+  background-color: #f4f4f4;
+}
+
+.opc .section.active .step-title {
+  border-bottom: 1px solid #ececec;
+}
+
+.opc .section .step-title a {
+  display: none;
+}
+
+.opc .section.allow:not(.active) .step-title a {
+  display: block;
+  float: right;
+  line-height: 40px;
+  height: 40px;
+  padding: 0px 10px;
+}
+
+.no-touch .opc .section .step-title a:hover {
+  text-decoration: none;
+}
+
+.opc .section .step-title .number,
+.opc .section.allow.active .step-title .number,
+.no-touch .opc .section.allow:hover .step-title .number {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  color: #FFFFFF;
+  line-height: 26px;
+  background-color: #3399cc;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -13px;
+}
+
+.opc .section.allow .step-title .number {
+  background-color: #99cce5;
+}
+
+.opc .section.allow .step-title h2 {
+  color: #a0a0a0;
+}
+
+.opc .section.allow .step-title:hover h2,
+.opc .section.active .step-title h2 {
+  color: #3399cc;
+}
+
+.opc .section .step-title h2 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 40px;
+  height: 40px;
+  float: left;
+  margin: 0px 4px 0px 45px;
+}
+
+.opc .section .step {
+  padding: 20px;
+}
+.opc .section .step:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+@media only screen and (max-width: 979px) {
+  .opc .section .step {
+    padding: 10px;
+  }
+}
+
+.opc select {
+  max-width: 365px;
+  width: 100%;
+}
+
+.opc h3 {
+  font-weight: 500;
+}
+
+.opc .buttons-set {
+  text-align: left;
+  clear: both;
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid #ededed;
+}
+.opc .buttons-set button.button {
+  float: left;
+  margin-left: 0;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+.opc .buttons-set p.required {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+.opc .buttons-set .back-link {
+  float: right;
+  margin: 0;
+}
+.opc .buttons-set a {
+  line-height: 20px;
+  display: inline-block;
+  padding: 5px 5px 5px 0;
+}
+
+@media only screen and (max-width: 479px) {
+  .opc .buttons-set .button + .buttons-set .button,
+  .paypal-express-review .buttons-set .button + .buttons-set .button {
+    margin-left: 0;
+  }
+}
+.opc #opc-login .step {
+  padding: 0px;
+}
+.opc #opc-login .buttons-set {
+  border-top: 0;
+  padding-top: 5px;
+}
+
+@media only screen and (max-width: 770px) {
+  .opc #opc-login .description,
+  .opc #opc-login p.required {
+    display: none;
+  }
+}
+#opc-payment .note {
+  padding: 10px;
+}
+
+/* -------------------------------------------- *
+ * This section hides everything but the "Checkout Method" step of the checkout process and fades in the content
+ * once the customer progresses to the next step. The purpose of this is to simplify what the customer has to focus on.
+ * It is limited to larger viewports since smaller devices are inherently going to be focused solely on the
+ * "Checkout Method" step.
+ */
+.opc.opc-firststep-login .section:not(#opc-login) .step-title,
+.opc-block-progress-step-login {
+  -webkit-transition: opacity 300ms linear;
+  -webkit-transition-delay: 0;
+  -moz-transition: opacity 300ms linear 0;
+  -o-transition: opacity 300ms linear 0;
+  transition: opacity 300ms linear 0;
+}
+
+.opc.opc-firststep-login .section#opc-login .step-title .number {
+  -webkit-transition: width 80ms linear;
+  -webkit-transition-delay: 0;
+  -moz-transition: width 80ms linear 0;
+  -o-transition: width 80ms linear 0;
+  transition: width 80ms linear 0;
+}
+
+.opc.opc-firststep-login .section#opc-login .step-title h2 {
+  -webkit-transition: margin-left 80ms linear;
+  -webkit-transition-delay: 0;
+  -moz-transition: margin-left 80ms linear 0;
+  -o-transition: margin-left 80ms linear 0;
+  transition: margin-left 80ms linear 0;
+}
+
+/* Content Columns */
+.col2-set {
+  width: 100%;
+}
+.col2-set .col-1,
+.col2-set .col-2 {
+  width: 45%;
+  padding: 20px;
+}
+@media only screen and (max-width: 770px) {
+  .col2-set .col-1,
+  .col2-set .col-2 {
+    padding: 10px;
+  }
+}
+.col2-set .col-1 {
+  float: left;
+  padding-left: 0;
+}
+.col2-set .col-2 {
+  float: right;
+  padding-right: 0;
+}
+@media only screen and (max-width: 479px) {
+  .col2-set .col-1,
+  .col2-set .col-2 {
+    float: none;
+    width: auto;
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.col2-set .narrow {
+  width: 33%;
+}
+.col2-set .wide {
+  width: 65%;
+}
+.col2-set:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#returnSteps fieldset {
+     margin: 0; 
+     padding: 0; 
+     border: 0; 
+}
+ul.form-list,  ol.form-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.form-list label.required:after, span.required:after {
+    content: ' *';
+    color: #df280a;
+    font-weight: normal;
+    font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+    font-size: 12px;
+}
+.please-wait {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 5px;
+    line-height: 24px;
+    height: 24px;
+    white-space: nowrap;
+}
+
+.please-wait img {
+    float: left;
+    margin-right: 5px;
+    width: 24px;
+}
+/*retin tabs end */

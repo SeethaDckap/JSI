@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceBlock name="render.product.prices">
+        <arguments>
+            <argument name="default" xsi:type="array">
+                <item name="default_render_class" xsi:type="string">Epicor\Comm\Pricing\Render\PriceBox</item>
+                <item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Epicor\Comm\Pricing\FinalPriceBox</item>
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/price/final_price.phtml</item>
+                    </item>
+                     <item name="wishlist_configured_price" xsi:type="array">
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/price/configured_price.phtml</item>
+                    </item>
+                    <item name="configured_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Epicor\Comm\Block\Catalog\Pricing\Renderer\ConfiguredPriceBox</item>
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/bundle/price/configured_price.phtml</item>
+                    </item>
+                </item>
+            </argument>
+            <argument name="bundle" xsi:type="array">
+                <item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Epicor\Comm\Pricing\Bundle\FinalPriceBox</item>
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/bundle/price/final_price.phtml</item>
+                    </item>
+                </item>
+            </argument>
+            <argument name="grouped" xsi:type="array">
+                <item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Epicor\Comm\Pricing\FinalPriceBox</item>
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/grouped/price/final_price.phtml</item>
+                    </item>
+                </item>
+            </argument>
+            <argument name="configurable" xsi:type="array">
+                <item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Epicor\Comm\Pricing\Configurable\FinalPriceBox</item>
+                        <item name="render_template" xsi:type="string">Epicor_Comm::product/configurable/price/final_price.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </referenceBlock>
+</layout>

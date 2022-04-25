@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="ecc.list.mass" exchange="magento-db" type="db">
+        <queue name="ecc.list.mass" consumer="ecc.list.mass" consumerInstance="Magento\Framework\MessageQueue\Consumer" handler="Epicor\Lists\Model\Queue\MassUpload\Consumer::process"/>
+    </broker>
+</config>

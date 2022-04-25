@@ -1,0 +1,18 @@
+<?php
+
+$listHelper = $this->helper('Epicor\Lists\Helper\Frontend');
+$productHelper = $this->helper('Epicor\Lists\Helper\Frontend\Product');
+$metadata = $productHelper->cookieMetadataFactory->createPublicCookieMetadata()->setPath('/');
+/* @var $helper Epicor_Lists_Helper_Frontend_Product */
+$arHelpers = $this->helper('Epicor\Customerconnect\Helper\Arpayments');
+if(!$arHelpers->checkArpaymentsPage()):
+?>
+<?php if ($listHelper->listsEnabled() && $productHelper->hasFilterableLists()): ?>
+    <script type="text/x-magento-init">
+        {
+        "*": { "Epicor_Lists/epicor/lists/js/filterproducts": {} }
+        }
+    </script>
+<?php else: $productHelper->getCookieManager()->setPublicCookie('isListFilterReq',0, $metadata); endif;
+endif;
+?>

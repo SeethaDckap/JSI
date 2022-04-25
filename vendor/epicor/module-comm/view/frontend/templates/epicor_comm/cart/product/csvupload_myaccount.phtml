@@ -1,0 +1,62 @@
+<?php
+/**
+ * Copyright Â© 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit cart/csvupdate template
+ *
+ * @see Epicor_Comm_Block_Cart_Product_Csvupdate
+ */
+$itemsInCart = $this->helper('Magento\Checkout\Helper\Cart')->getItemsCount();
+?>
+<?php
+if ($block->getScopeConfig()->isSetFlag('checkout/basket_csv_upload/enabled_my_account', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) :
+    ?>
+    <div class="fieldset">
+        <form id="product_csv_import_form" action="<?php echo $this->getUrl('epicor_comm/cart/importProductCsv') ?>" 
+                  method="post" enctype="multipart/form-data">
+                <p><?php echo __('Click to select file') ?></p>
+                <fieldset>
+                    <ul class="form-list">
+                        <li class="wide">
+                            <label for="createCsvUploadFileLink"><?php echo __('Click to create a new csv file'); ?></label>
+                            <div class="input-box">
+                                <input id="createCsvUploadFileLink" onclick="location.href='<?php echo $this->getUrl('epicor_comm/data/generateCartCsv'); ?>'"  type="button" value="Create"></a> 
+                            </div>
+                        </li>
+                        <li>
+                            <label for="input-file"><?php echo __('Click to select file'); ?></label>
+                            <div class="input-box">
+                                <input id="input-file" type="file" name="import_product_csv_file" class="input-file required-entry" accept=".csv" />
+                            </div>
+                        </li>
+                        <?php
+                        if ($block->getCart()->getItemsCount()):
+                        ?>
+                        <li>
+                            <input type="checkbox" name="replace_cart" value="1" id="replace_cart" />
+                            <label for="replace_cart"><?php echo __('Replace Current Cart Contents ') ?>&nbsp</label>
+                        </li>
+                 <?php endif; ?>          
+                <?php
+                    if ($block->getCustomerSession()->getConfigureProducts()):
+                    ?>
+                        <li>
+                           <input type="checkbox" name="remove_products_to_be_configured" value="1" id="remove_products_to_be_configured" />
+                           <label for="remove_products_to_be_configured"><?php echo __('Remove Products Still to be Configured') ?>&nbsp</label>
+                        </li>
+                   <?php endif; ?>  
+                        <li>
+                            <label for="input-box"><?php echo __('Click to Upload Selected file') ?></label>
+                            <div class="input-box">
+                                <input type="submit" value="<?php echo __('Upload'); ?>" />
+                            </div>  
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+    </div>
+<?php else: ?> 
+    <p><?php echo __('Add to Cart by CSV has been disabled by the system administrators') ?></p>
+<?php endif; ?>

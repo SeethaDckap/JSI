@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="requirejs/require.js"/>
+    </head>
+    <update handle="formkey" />
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\SalesRep\Block\Adminhtml\Customer\Salesrep\Edit" name="salesrep_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\SalesRep\Block\Adminhtml\Customer\Salesrep\Edit\Tabs" name="salesrep_tabs">
+                <block class="Epicor\SalesRep\Block\Adminhtml\Customer\Salesrep\Edit\Tab\Details" name="salesrep_tabs_details"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">salesrep_tabs_details</argument>
+                    <argument name="block" xsi:type="string">salesrep_tabs_details</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_related =  $this->helper('Epicor\Comm\Helper\Product')->processRelated($_product->getEccRelatedDocuments()); ?>
+<?php if (!empty($_related) && $_related != 'no') : ?>
+    <ul class="related_documents">
+        <?php foreach ($_related as $relatedDoc) : ?>
+            <li class="<?php echo $relatedDoc['file_type']; ?>"><a target="_blank" href="<?php echo ($relatedDoc['is_external']) ? $relatedDoc['link'] : $relatedDoc['link']; ?>" title="<?php echo $relatedDoc['description']; ?>"><?php echo $relatedDoc['description'] ? : $relatedDoc['filename']; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+

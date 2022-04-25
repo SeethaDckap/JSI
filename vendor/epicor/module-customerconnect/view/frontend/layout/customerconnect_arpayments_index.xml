@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Account AR Payment</title>
+         <css src="Epicor_Customerconnect::epicor/customerconnect/css/styles.css"/>
+         <script type="text/javascript" src="Epicor_Customerconnect::js/customerconnect/arpayments/arpayments.js"/>
+         <script type="text/javascript" src="Epicor_Customerconnect::js/customerconnect/arpayments/serializer.js"/>
+         <script type="text/javascript" src="Epicor_Customerconnect::js/customerconnect/arpayments/payment.js"/>         
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.arpayments.agedbalances</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Arpayments</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">aged_balances</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.arpayments.invoices</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Arpayments</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">invoices</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <block class="Epicor\Customerconnect\Block\Customer\Arpayments\Balances\Aged\Listing"
+                       name="customer.arpayments.agedbalances"/>
+                <block class="Epicor\Customerconnect\Block\Customer\Arpayments\Invoices\Listing\Grid"
+                       name="customer.arpayments.invoices"/>
+                <block class="Epicor\Common\Block\Widget\Grid\Serializer" name="grid_serializer">
+                    <arguments>
+                        <argument name="input_names" xsi:type="array">
+                            <item name="0" xsi:type="string">select_arpayments</item>
+                            <item name="1" xsi:type="string">arpayment_amount[]</item>
+                            <item name="2" xsi:type="string">ar_remaining_value[]</item>
+                            <item name="3" xsi:type="string">arpaymentjson[]</item>
+                            <item name="4" xsi:type="string">settlement_discount</item>
+                            <item name="5" xsi:type="string">aroutstanding_value[]</item>
+                            <item name="6" xsi:type="string">dispute_invoices_serializecomments[]</item>
+                            <item name="7" xsi:type="string">dispute_invoice_serialize[]</item>
+                        </argument>                        
+                        <argument name="grid_block" xsi:type="string">customer.arpayments.invoices</argument>
+                        <argument name="callback" xsi:type="string">getSelected</argument>
+                        <argument name="input_element_name" xsi:type="string">links[invoices]</argument>
+                        <argument name="reload_param_name" xsi:type="string">invoices</argument>
+                    </arguments>
+                </block>          
+            </block>
+        </referenceContainer>
+    </body>
+</page>

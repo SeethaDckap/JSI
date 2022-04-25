@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <field name="ecc_misc_view_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_hide_price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="firstname" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="lastname" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_is_branch_pickup_allowed">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_allow_masquerade">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_allow_masq_cart_clear">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_allow_masq_cart_reprice">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_default_location_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_previous_erpaccount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_prev_supplier_erpaccount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_contact_code" class="Epicor\Comm\Ui\Component\Form\ContactCode">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_contracts_filter">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_erp_login_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_fax_number" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_function">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_mobile_number" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_salesrep_catalog_access">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_sales_rep_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_telephone_number" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_master_shopper">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_erp_account_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+        </field>        
+    </fieldset>
+</form>

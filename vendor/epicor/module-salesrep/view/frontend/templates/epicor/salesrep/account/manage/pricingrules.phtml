@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * 
+ */
+/* @var $block \Epicor\SalesRep\Block\Account\Manage\Pricingrules */
+?>
+<script type="text/javascript">
+    var BLANK_URL = '<?php echo $block->getJsUrl(); ?>blank.html';
+    var BLANK_IMG = '<?php echo $block->getJsUrl(); ?>spacer.gif';
+    var BASE_URL = '<?php echo $block->getUrl('*'); ?>';
+    var SKIN_URL = '<?php echo $block->getSkinUrl(); ?>';
+    var FORM_KEY = '<?php echo $block->getFormKey(); ?>';
+    require(['extjs/ext-tree'],function() {
+        Ext.BLANK_IMAGE_URL = BLANK_IMG;
+        Ext.UpdateManager.defaults.loadScripts = false;
+        Ext.UpdateManager.defaults.disableCaching = true;
+    });
+</script>
+<?php  echo $block->getChildHtml('manage.pricingrulesform', false); ?>
+<?php    echo $block->getChildHtml('manage.pricingrules', false); ?>
+<style>
+    .system-fieldset-sub-head {
+    margin-left: 0 !important;
+}
+</style>

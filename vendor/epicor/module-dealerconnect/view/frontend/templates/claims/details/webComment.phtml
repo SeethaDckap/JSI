@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ info
+ * 
+ * @category   Epicor
+ * @package    Epicor_Dealerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Dealerconnect\Block\Claims\Details\Info */
+$claim = $this->registry('dealer_connect_claim_details');
+/* @var $rfq \Epicor\Common\Model\Xmlvarien */
+?>
+<div class = "box-info box-account col-1 block">
+    <div class="block-title">
+        <strong><?php echo __('Comments History'); ?></strong>
+    </div>
+    <div class="info-list resizable" id="web_comment">
+        <div>
+            <pre><?php echo $claim->getWebComment(); ?></pre>
+        </div>
+    </div>
+</div>

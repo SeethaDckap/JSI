@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/** @var \Magento\Theme\Block\Html\Breadcrumbs $block */
+/** @var \Magento\Catalog\ViewModel\Product\Breadcrumbs $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div class="breadcrumbs" data-mage-init='{
+    "breadcrumbs": {
+        "categoryUrlSuffix": "<?= $block->escapeHtml($viewModel->getCategoryUrlSuffix()); ?>",
+        "useCategoryPathInUrl": <?= (int)$viewModel->isCategoryUsedInProductUrl(); ?>,
+        "product": "<?= $block->escapeHtml($block->escapeJs($viewModel->getProductName())); ?>"
+    }
+}'>
+</div>

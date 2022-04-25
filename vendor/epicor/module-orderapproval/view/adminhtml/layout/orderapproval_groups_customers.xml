@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Magento\Framework\View\Element\Text\ListText">
+            <block class="Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Customers" name="customers_grid"/>
+            <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="groups_customers_admintab_serializer">
+                <arguments>
+                    <argument name="input_names" xsi:type="string">row_id</argument>
+                    <argument name="grid_block" xsi:type="string">customers_grid</argument>
+                    <argument name="callback" xsi:type="string">getSelected</argument>
+                    <argument name="input_element_name" xsi:type="string">links[customers]</argument>
+                    <argument name="reload_param_name" xsi:type="string">customers</argument>
+                </arguments>
+            </block>
+        </block>
+    </container>
+</layout>

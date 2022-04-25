@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="save_order_id_elements_transaction"
+                  instance="Epicor\Elements\Observer\UpdateElementsTransaction" />
+    </event>
+    <event name="ar_checkout_order_create">
+        <observer name="save_order_id_elements_ar_transaction"
+                  instance="Epicor\Elements\Observer\UpdateElementsArTransaction" />
+    </event>
+</config>

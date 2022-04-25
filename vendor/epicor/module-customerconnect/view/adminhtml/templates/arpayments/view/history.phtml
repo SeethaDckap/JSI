@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+/** @var \Magento\Sales\Block\Adminhtml\Order\View\History $block */
+?>
+<div id="order_history_block" class="edit-order-comments">
+    <ul class="note-list">
+    <?php foreach ($block->getOrder()->getStatusHistoryCollection(true) as $_item): ?>
+        <li class="note-list-item">
+            <span class="note-list-date"><?= /* @noEscape */ $block->formatDate($_item->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?></span>
+            <span class="note-list-time"><?= /* @noEscape */ $block->formatTime($_item->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?></span>
+            <span class="note-list-status"><?= $block->escapeHtml($_item->getStatusLabel()) ?></span>
+            <span class="note-list-customer">
+                <?= /* @noEscape */ __('Customer') ?>
+                <?php if ($block->isCustomerNotificationNotApplicable($_item)): ?>
+                    <span class="note-list-customer-notapplicable"><?= /* @noEscape */ __('Notification Not Applicable') ?></span>
+                <?php elseif ($_item->getIsCustomerNotified()): ?>
+                    <span class="note-list-customer-notified"><?= /* @noEscape */ __('Notified') ?></span>
+                <?php else: ?>
+                    <span class="note-list-customer-not-notified"><?= /* @noEscape */ __('Not Notified') ?></span>
+                <?php endif; ?>
+            </span>
+            <?php if ($_item->getComment()): ?>
+                <div class="note-list-comment"><?= $block->escapeHtml($_item->getComment(), ['b', 'br', 'strong', 'i', 'u', 'a']) ?></div>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+</div>

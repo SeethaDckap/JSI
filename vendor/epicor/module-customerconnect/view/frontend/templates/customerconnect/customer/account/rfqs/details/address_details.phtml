@@ -1,0 +1,73 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ address details display
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Addressdetails */
+?><dl class="vcard">
+    <dt class="address hidden">Address</dt>
+    <?php if($this->showName()) : ?>
+        <dd class="first fn org"><?php echo $this->getName(); ?></dd>
+    <?php endif; ?>
+    <dd class="company org no-space"><?php echo $this->getCompany(); ?></dd>
+    <dd class="adr break no-space">
+        <span class="street-address"><?php echo $this->getStreet(); ?></span>
+        <span class="locality"><?php echo $this->getCity(); ?></span>
+        <span class="region"><?php echo $this->getCounty(); ?></span>
+        <span class="postal-code"><?php echo $this->getPostcode(); ?></span>
+        <span class="country-name"><?php echo $this->getCountry(); ?></span>
+    </dd>
+    <?php if ($this->getAddressData()->getEmailAddress()): ?>
+        <dt class="sec email"><abbr title="Email">Email</abbr>: </dt>
+        <dd class="sec email spaced"><?php echo $this->getAddressData()->getEmailAddress(); ?></dd>
+    <?php endif; ?>
+    <?php if ($this->getTelephoneNumber()): ?>
+        <dt class="sec tel"><abbr title="Telephone Number">T</abbr>: </dt>
+        <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+    <?php elseif ($this->getAddressData()->getPhone()): ?>
+        <dt class="sec tel"><abbr title="Telephone Number">T</abbr>: </dt>
+        <dd class="sec tel spaced"><?php echo $this->getAddressData()->getPhone(); ?></dd>
+    <?php endif; ?>
+    <?php if ($this->getFaxNumber()): ?>
+        <dt class="sec fax"><abbr title="Fax Number">F</abbr>: </dt>
+        <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+    <?php elseif ($this->getAddressData()->getFax()): ?>
+        <dt class="sec fax"><abbr title="Fax Number">F</abbr>: </dt>
+        <dd class="sec fax spaced"><?php echo $this->getAddressData()->getFax(); ?></dd>
+    <?php endif; ?>
+    <?php if ($this->getCarriageText()): ?>
+        <dt class="sec carriage"><?php echo __('Instructions'); ?>: </dt>
+        <dd class="sec carriage spaced"><?php echo $this->getCarriageText(); ?></dd>
+    <?php endif; ?>
+</dl>
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[address_code]" value="<?php echo $this->getAddressCode(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[name]" value="<?php echo $this->getName(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[company]" value="<?php echo $this->getCompany(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[address1]" value="<?php echo $this->getAddress1(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[address2]" value="<?php echo $this->getAddress2(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[address3]" value="<?php echo $this->getAddress3(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[city]" value="<?php echo $this->getCity(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[county]" value="<?php echo $this->getCounty(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[country]" value="<?php echo $this->getCountry(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[postcode]" value="<?php echo $this->getPostcode(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[email]" value="<?php echo $this->getEmail(); ?>" />
+<?php if ($this->getTelephoneNumber()): ?>
+    <input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[telephone]" value="<?php echo $this->getTelephoneNumber(); ?>" />
+<?php elseif ($this->getAddressData()->getPhone()): ?>
+    <input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[telephone]" value="<?php echo $this->getAddressData()->getPhone(); ?>" />
+<?php endif; ?>
+<?php if ($this->getFaxNumber()): ?>
+    <input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[fax]" value="<?php echo $this->getFaxNumber(); ?>" />
+<?php elseif ($this->getAddressData()->getFax()): ?>
+    <input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[fax]" value="<?php echo $this->getAddressData()->getFax(); ?>" />
+<?php endif; ?>
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[mobile_number]" value="<?php echo $this->getAddressData()->getMobileNumber(); ?>" />
+<input type="hidden" name="<?php echo $this->getAddressType(); ?>_address[instructions]" value="<?php echo $this->getCarriageText(); ?>" />
+

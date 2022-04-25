@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <preference for="Magento\Catalog\Model\ResourceModel\Category\Flat" type="Epicor\BranchPickup\Model\Catalog\Resource\Category\Flat"/>
+  <!--<preference for="\Epicor\FlexiTheme\Block\Frontend\Template\Quicklinks" type="Epicor\BranchPickup\Block\Template\Quicklinks"/>-->
+</config>

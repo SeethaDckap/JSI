@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Mage_Checkout_Block_Onepage_Progress */
+?>
+<?php if ($this->getCheckout()->getStepData('shipping_dates', 'is_show')): ?>
+    <div id="shipping_dates-progress-opcheckout">
+        <?php if ($this->getCheckout()->getStepData('shipping_dates', 'complete')): ?>
+            <dt class="complete">
+            <?php echo __('Shipping Dates') ?> <span class="changelink"><span class="separator">|</span>
+            <a href="#shipping_dates" onclick="checkout.gotoSection('shipping_dates');
+                return false;"><?php echo __('Change') ?></a></span>
+            </dt>
+            <dd class="complete">
+                <?php if ($this->getQuote()->getEccRequiredDate() !== '0000-00-00' && $this->getQuote()->getEccRequiredDate() !== '1970-01-01'): ?>
+                    <?php echo __('Selected Shipping Date :') ?>
+                    <?php echo $this->escapeHtml($this->getQuote()->getEccRequiredDate()) ?>
+
+                <?php else: ?>
+                    <?php echo __('Next Available Date') ?>
+                <?php endif; ?>
+            </dd>
+        <?php else: ?>
+            <dt>
+            <?php echo __('Shipping Dates') ?>
+            </dt>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

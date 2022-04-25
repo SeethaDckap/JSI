@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Epicor\Punchout\Api\Data\ConnectionsInterface" type="Epicor\Punchout\Model\Connections"/>
+    <preference for="Epicor\Punchout\Api\ConnectionsRepositoryInterface"
+                type="Epicor\Punchout\Model\ConnectionsRepository"/>
+    <preference for="Epicor\Punchout\Api\Data\TransactionlogsInterface" type="Epicor\Punchout\Model\Transactionlogs"/>
+    <preference for="Epicor\Punchout\Api\TransactionlogsRepositoryInterface"
+                type="Epicor\Punchout\Model\TransactionlogsRepository"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ecc_punchout_connections_listing_data_source" xsi:type="string">
+                    Epicor\Punchout\Model\ResourceModel\Connections\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Epicor\Punchout\Model\ResourceModel\Connections\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ecc_punchout_connections</argument>
+            <argument name="resourceModel" xsi:type="string">Epicor\Punchout\Model\ResourceModel\Connections</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ecc_punchout_connections_listing_data_source" xsi:type="string">
+                    Epicor\Punchout\Model\ResourceModel\Connections\Grid\Collection
+                </item>
+                <item name="ecc_punchout_transactionlogs_listing_data_source" xsi:type="string">
+                    Epicor\Punchout\Model\ResourceModel\Transactionlogs\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Model\Connections\DataProvider\DataProvider">
+        <arguments>
+            <argument name="configReader" xsi:type="object">
+                Epicor\Punchout\Model\Connections\DataProvider\MappingConfigReader
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Multishipping\Helper\Data">
+        <plugin name="punchout_multishipping_helper" type="Epicor\Punchout\Plugin\Multishipping\Data" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Helper\Data">
+        <plugin name="punchout_checkout_helper" type="Epicor\Punchout\Plugin\Cart\Data" sortOrder="10"/>
+    </type>
+    <type name="\Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="punchout_sidebar_config" type="Epicor\Punchout\Plugin\Cart\AdditionalConfig" />
+    </type>
+    <type name="Epicor\Punchout\Controller\Request">
+        <arguments>
+            <argument name="requestValidator" xsi:type="object">Epicor\Punchout\Model\Request\Validators\RequestValidatorInController</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="object">Epicor\Punchout\Model\Config</item>
+                <item name="response" xsi:type="object">Epicor\Punchout\Model\Response\Response</item>
+                <item name="url" xsi:type="object">Magento\Framework\UrlInterface</item>
+                <item name="tokenBuilder" xsi:type="object">Epicor\Punchout\Model\Request\TokenBuilder</item>
+                <item name="transactionLogs" xsi:type="object">Epicor\Punchout\Api\TransactionlogsRepositoryInterface</item>
+                <item name="publisher" xsi:type="object">Magento\Framework\MessageQueue\PublisherInterface</item>
+                <item name="purchaseOrder" xsi:type="object">Epicor\Punchout\Api\Data\Order\PurchaseOrderInterface</item>
+                <item name="logger" xsi:type="object">\Psr\Log\LoggerInterface</item>
+                <item name="operation" xsi:type="object">Epicor\Punchout\Model\Request\Operations\Operation</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Model\QuoteHandler">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="commLocationsHelper" xsi:type="object">Epicor\Comm\Helper\Locations</item>
+                <item name="commProductHelper" xsi:type="object">Epicor\Comm\Helper\Product</item>
+                <item name="commonHelper" xsi:type="object">Epicor\Common\Helper\Data</item>
+                <item name="listsFrontendProductHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Product</item>
+                <item name="listsFrontendContractHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Contract</item>
+                <item name="ChangeHandler" xsi:type="object">Epicor\Punchout\Model\ChangeHandler</item>
+                <item name="customerSessionObj" xsi:type="object">Magento\Customer\Model\Session</item>
+                <item name="customerModel" xsi:type="object">Magento\Customer\Model\Customer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Controller\SetupRequest\SessionStart">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="object">Epicor\Punchout\Model\Config</item>
+                <item name="messageManager" xsi:type="object">Magento\Framework\Message\ManagerInterface</item>
+                <item name="customerSessionObj" xsi:type="object">Magento\Customer\Model\Session</item>
+                <item name="checkoutSessionObj" xsi:type="object">Magento\Checkout\Model\Session</item>
+                <item name="registryObj" xsi:type="object">Magento\Framework\Registry</item>
+                <item name="cartObj" xsi:type="object">Epicor\Punchout\Model\Request\Operations\Create</item>
+                <item name="punchoutSessionObj" xsi:type="object">Epicor\Punchout\Model\PunchoutSession</item>
+                <item name="connectionRepository" xsi:type="object">Epicor\Punchout\Api\ConnectionsRepositoryInterface</item>
+                <item name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data</item>
+                <item name="TransferCartObj" xsi:type="object">\Epicor\Punchout\Model\TransferCart</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Model\Request\Validators\RequestValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="header" xsi:type="object">Epicor\Punchout\Model\Request\Validators\HeaderValidator</item>
+                <item name="shopper" xsi:type="object">Epicor\Punchout\Model\Request\Validators\ShopperValidator</item>
+                <item name="emptyCart" xsi:type="object">Epicor\Punchout\Model\Request\Validators\EmptyCartValidator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Model\Request\TokenBuilder">
+        <arguments>
+            <argument name="expirationTime" xsi:type="const">Epicor\Punchout\Model\Request\Validators\RequestValidator::EXPIRATION_TIME</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="object">Epicor\Punchout\Model\Config</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Punchout\Model\Request\Operations\CartOperation">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="storeManagerObj" xsi:type="object">Magento\Store\Model\StoreManagerInterface</item>
+                <item name="cartManagementObj" xsi:type="object">Magento\Quote\Api\CartManagementInterface</item>
+                <item name="cartRepositoryObj" xsi:type="object">Magento\Quote\Api\CartRepositoryInterface</item>
+                <item name="customerRepositoryObj" xsi:type="object">Magento\Customer\Api\CustomerRepositoryInterface</item>
+                <item name="commonHelperObj" xsi:type="object">Epicor\Common\Helper\Data</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Epicor\Punchout\Model\Request\Validators\RequestValidatorInController" type="Epicor\Punchout\Model\Request\Validators\RequestValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="header" xsi:type="object">Epicor\Punchout\Model\Request\Validators\HeaderValidator</item>
+                <item name="shopper" xsi:type="object">Epicor\Punchout\Model\Request\Validators\ShopperValidator</item>
+                <item name="emptyCart" xsi:type="object">Epicor\Punchout\Model\Request\Validators\EmptyCartValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="Epicor\Punchout\Model\Request\JwtPayloadValidatorInterface" type="Epicor\Punchout\Model\Request\JwtPayloadValidator" />
+    <preference for="Epicor\Punchout\Model\Response\ResponseInterface" type="Epicor\Punchout\Model\Response\Response" />
+    <preference for="Epicor\Punchout\Api\Data\Order\PurchaseOrderInterface" type="Epicor\Punchout\Model\Queue\Order\PurchaseOrder" />
+
+    <type name="Epicor\AccessRight\Model\ApplyRoles">
+        <plugin name="punchout_disable_links" type="Epicor\Punchout\Plugin\AccessRight\ApplyRoles" />
+    </type>
+    <type name="Epicor\BranchPickup\ViewModel\Cart\Shipping">
+        <plugin name="punchout_disable_links" type="Epicor\Punchout\Plugin\EstimateShipping" />
+    </type>
+    <type name="Magento\Customer\Block\Account\AuthorizationLink">
+        <plugin name="signout_link_hide" type="Epicor\Punchout\Plugin\AuthorizationLink" />
+    </type>
+    <type name="Magento\Customer\Block\Account\Link">
+        <plugin name="account_link_hide" type="Epicor\Punchout\Plugin\AccountLink" />
+    </type>
+    <type name="Magento\Checkout\Block\Cart">
+        <plugin name="payment_button_hide" type="Epicor\Punchout\Plugin\Cart\PaymentMethods" />
+    </type>
+    <type name="Epicor\BranchPickup\Helper\Data">
+        <plugin name="branchpickup_disable" type="Epicor\Punchout\Plugin\AccessRight\BranchPickupHelper" />
+    </type>
+    <type name="Epicor\BranchPickup\Block\Link">
+        <plugin name="branchpickup_link_hide" type="Epicor\Punchout\Plugin\AccessRight\BranchPickupLink" />
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Coupon">
+        <plugin name="coupon_link_hide" type="Epicor\Punchout\Plugin\Cart\Coupon" />
+    </type>
+    <type name="Magento\InstantPurchase\Model\Config">
+        <plugin name="instantpurchase_disable" type="Epicor\Punchout\Plugin\Payment\InstantPurchaseConfig" />
+    </type>
+    <type name="Magento\Paypal\Model\Config">
+        <plugin name="paypal_disable" type="Epicor\Punchout\Plugin\Payment\PaypalConfig" />
+    </type>
+    <type name="Magento\GiftMessage\Model\GiftMessageConfigProvider">
+        <plugin name="gift_disable" type="Epicor\Punchout\Plugin\Cart\GiftMessage" />
+    </type>
+    <type name="Epicor\Punchout\Model\Request\Operations\Create">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="quoteHandlerObject" xsi:type="object">Epicor\Punchout\Model\QuoteHandler</item>
+                <item name="customerModelObject" xsi:type="object">Magento\Customer\Model\Customer</item>
+                <item name="commMessagingHelper" xsi:type="object">Epicor\Comm\Helper\Messaging</item>
+                <item name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

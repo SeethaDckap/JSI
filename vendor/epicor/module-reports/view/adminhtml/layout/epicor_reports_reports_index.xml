@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Epicor_Reports::epicor/reports/js/highcharts.js"/>
+        <script src="Epicor_Reports::epicor/reports/js/series-label.js"/>
+        <script src="Epicor_Reports::epicor/reports/js/exporting.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Reports\Block\Adminhtml\Reports\Filter" name="messaging.reports.filter"/>
+            <block class="Epicor\Reports\Block\Adminhtml\Reportsfilter"  template="epicor_reports/index.phtml" name="messaging.reports" />
+<!--            
+            <block class="Epicor\Reports\Block\Adminhtml\Reports" name="messaging.reports">
+                <block class="Epicor\Reports\Block\Adminhtml\Reports\Filter"  name="messaging.reports.filter" />
+            </block>-->
+            
+        </referenceContainer>
+    </body>
+</page>

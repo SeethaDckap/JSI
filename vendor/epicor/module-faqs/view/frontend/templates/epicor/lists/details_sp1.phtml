@@ -1,0 +1,322 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$list = $this->getList();
+//M1 > M2 Translation Begin (Rule p2-5.1)
+//$customer = Mage::getSingleton('customer/session')->getCustomer();
+$customer = $block->getCustomerSession()->getCustomer();
+//M1 > M2 Translation End
+$formData = Mage::getSingleton('core/session')->getFormData(true);
+if (!empty($formData)) {
+    $helper = Mage::helper('epicor_comm');
+    /* @var $helper Epicor_Comm_Helper_Data */
+    $products = array_keys($helper->decodeGridSerializedInput($formData['links']['products']));
+    $customers = array_keys($helper->decodeGridSerializedInput($formData['links']['customers']));
+    $session->setSelectedProducts($products);
+    $session->setSelectedCustomers($customers);
+    $list->addData($formData);
+}
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+$isMasterShoper = $customer->getData('ecc_master_shopper');
+$hide=false;
+if ($list->getType() == 'Fa') {
+    $hide=true;
+}
+if ($list->isObjectNew()) {
+ $typeModel = Mage::getModel('epicor_lists/listModel_type');
+ /* @var $typeModel Epicor_Lists_Model_ListModel_Type */
+ $instance = Mage::getModel('epicor_lists/listModel_type_abstract');
+ /* @var $instance Epicor_Lists_Model_ListModel_Type_Abstract */
+ ?>
+<input type="hidden" name="listcodeurl" id="listcodeurl" value="<?php echo $this->getListCodeValidateUrl(); ?>" />
+<input type="hidden" name="supported_settings_all" id="supported_settings_all" value="<?php echo implode('', $instance->getSupportedSettings()) ?>">
+ <?php
+ foreach ($typeModel->getTypeInstances() as $type => $instanceName) {
+  $instance = Mage::getModel('epicor_lists/listModel_type_' . $instanceName);
+  /* @var $instance Epicor_Lists_Model_ListModel_Type_Abstract */
+ ?>
+<input type="hidden" name="supported_settings_<?php echo  $type ?>" id="supported_settings_<?php echo  $type ?>" value="<?php echo implode('', $instance->getSupportedSettings()) ?>">
+<?php
+ }
+}
+$erpExclusion = $list->getErpAccountsExclusion();
+$excludeSelectedProducts = $list->hasSetting('E');
+?>
+<div class="content-header">
+    <?php if (!$this->getListId()) { ?>
+    <h3 class="icon-head">New List</h3>
+    <?php }  else { ?>
+    <h3 class="icon-head">Edit List - <?php echo $list->getTitle()?></h3>
+    <?php } ?>
+</div>
+<div class="product-collateral toggle-content tabs">
+    <ul class="toggle-tabs">
+        <li class="current" onclick="primary_details(this.id);" id="primary_details"><span>Primary Details</span></li>
+        <li  onclick="list_product(this.id);" id="productli"><span>Products</span></li>
+        <?php if($isMasterShoper) { ?>
+        <li onclick="list_customer(this.id);" id="customerli"><span>Customers</span></li>
+        <?php } ?>
+    </ul>
+</div>
+<div id="tab_content">
+    <form enctype="multipart/form-data" method="post" action="<?php echo Mage::getBaseUrl(); ?>lists/list/save" id="list_form" name="list_form">
+        <div style="float:right;clear:both;padding-bottom: 10px;"> 
+            <button type="button"  id= "back_list" value="Back" onclick="location.href='<?php echo Mage::getBaseUrl(); ?>lists/list/';">Back</button>
+            <?php if (!$this->getListId()) { ?>
+                <button type="button"  id= "create_list" value="Submit">Submit List</button>
+            <?php } else { ?>
+                <button type="button"  id="update_list" value="Submit">Update List</button>
+            <?php } ?>
+        </div>
+        <div id="primary_detail_content">
+            <div><input type="hidden" value="<?php
+                //M1 > M2 Translation Begin (Rule p2-5.1)
+                //echo Mage::getSingleton('core/session')->getFormKey();
+                echo $block->getFormKey();
+                //M1 > M2 Translation End
+
+                ?>" name="form_key">
+                <input type="hidden" value="<?php echo $this->getListId(); ?>" name="id">
+            </div>
+            <ul class="form-list">
+                <li class="fields">
+                    <div style="" id="form_tabs_details_content" class="loadedtab">
+                        <div class="entry-edit">
+                            <div class="entry-edit-head">
+                                <h4 class="icon-head head-edit-form fieldset-legend">Primary Details</h4>
+                            </div>
+                            <table>
+                                <tr><td>
+                                        <label for="title">Title <span class="required"></span></label>
+                                    </td>
+                                </tr>
+                                <tr><td>
+                                        <input type="text" class="input-text required-entry" value="<?php echo $list->getTitle(); ?>" name="title" id="title"> 
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr><td>
+                                        <label for="type">Type</label>
+                                    </td></tr>
+                                <tr><td>
+                                        <select class=" select" name="type" id="type" <?php if ($this->getListId()) echo "disabled"; ?> >
+                                            <option value="Pl" <?php if ($list->getType() == 'Pl') echo 'selected'; ?> >Predefined Lists</option>
+                                            <option value="Fa" <?php if ($list->getType() == 'Fa') echo 'selected'; ?> >Favorites</option>
+                                            <option value="Pg" <?php if ($list->getType() == 'Pg') echo 'selected'; ?> >Product Group</option>
+                                        </select>   
+                                    </td></tr>
+                                <tr><td>
+                                        <label for="erp_code">Reference Code<span class="required"></span></label>
+                                    </td></tr>
+                                <tr><td>
+                                        <input type="text" class=" input-text required-entry validate-list-code" value="<?php echo $list->getErpCode(); ?>" name="erp_code" id="erp_code" <?php if ($this->getListId()) echo "disabled"; ?> >  
+                                        <input type="hidden" value="" id="code_allowed">
+                                    </td></tr>
+                                <tr><td>
+                                        <label for="notes">Notes</label>
+                                    </td></tr>
+                                <tr><td>
+                                        <textarea class=" textarea" cols="15" rows="2" name="notes" id="notes" style="width: 366px; height: 58px;"><?php echo $list->getNotes(); ?></textarea>
+                                    </td></tr>
+                            </table>
+                            <br/>
+                            <div class="entry-edit-head">
+                                <h4 class="icon-head head-edit-form fieldset-legend">Active Details</h4>
+                            </div>
+                            <div id="active_fields" class="fieldset ">
+                                <div class="hor-scroll">
+                                    <table>
+                                        <tr><td>
+                                                <label for="active">Is Active?</label></td></tr>
+                                        <tr><td>
+                                                <input type="checkbox" tabindex="1" <?php
+                                                if ($list->getActive() == '1') {
+                                                    echo 'checked';
+                                                }
+                                                ?> value="<?php echo $list->getActive() ?>" name="active" id="active">            
+                                            </td></tr>
+                                        <tr><td>
+                                                <label for="start_date">Start Date</label></td></tr>
+                                        <tr><td>
+                                                <input type="text"  value="<?php echo $this->getStartDate(); ?>" style="width:165px !important;" class="validate-date input-text" 
+                                                       tabindex="1" value="" id="start_date" name="start_date"> 
+                                            </td>
+                                            <td>
+                                                <img style="" title="Select Date" id="start_date_trig" class="v-middle" alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>/adminhtml/default/default/images/grid-cal.gif">
+                                            </td>
+                                        </tr>
+                                        <tr><td>
+                                                <label for="start_time">Start Time</label></td></tr>
+                                        <tr><td><input type="hidden" id="start_time">
+                                                <select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                                    <?php for ($i = 0; $i <= 23; $i++) { ?>
+                                                        <option  <?php
+                                                        if ($start_time = $this->getStartTime()) {
+                                                            if (sprintf("%02d", $i) == $start_time[0]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                        <?php } ?>
+
+                                                </select>
+                                                &nbsp;:&nbsp<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                                    <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                                        <option <?php
+                                                        if ($start_time = $this->getStartTime()) {
+                                                            if (sprintf("%02d", $i) == $start_time[1]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                        <?php } ?> 
+                                                </select>
+                                                &nbsp;&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="start_time[]">
+                                                    <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                                        <option <?php
+                                                        if ($start_time = $this->getStartTime()) {
+                                                            if (sprintf("%02d", $i) == $start_time[2]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?>  value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                        <?php } ?> 
+
+                                                </select>            
+                                            </td></tr>
+                                        <tr><td>
+                                                <label for="end_date">End Date</label>
+                                            </td></tr><tr><td>
+                                                <input type="text" style="width:165px !important;" class="validate-date input-text" tabindex="1" value="<?php echo $this->getEndDate(); ?>" id="end_date" name="end_date">
+                                            </td>
+                                            <td>
+                                                <img style="" title="Select Date" id="end_date_trig" class="v-middle" alt="" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) ?>/adminhtml/default/default/images/grid-cal.gif">
+                                            </td></tr>
+                                        <tr><td>
+                                                <label for="end_time">End Time</label>
+                                            </td></tr>
+                                        <tr><td>
+                                                <input type="hidden" id="end_time"><select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                                    <?php for ($i = 0; $i <= 23; $i++) { ?>
+                                                        <option <?php
+                                                        if ($end_time = $this->getEndTime()) {
+                                                            if (sprintf("%02d", $i) == $end_time[0]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                        <?php } ?>
+                                                </select>
+                                                &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                                    <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                                        <option <?php
+                                                        if ($end_time = $this->getEndTime()) {
+                                                            if (sprintf("%02d", $i) == $end_time[1]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                    <?php } ?> </select>
+                                                &nbsp;:&nbsp;<select style="width:40px" type="time" readonly="1" class="validate-time select" tabindex="1" name="end_time[]">
+                                                    <?php for ($i = 0; $i <= 59; $i++) { ?>
+                                                        <option <?php
+                                                        if ($end_time = $this->getEndTime()) {
+                                                            if (sprintf("%02d", $i) == $end_time[2]) {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="<?php echo sprintf("%02d", $i) ?>"><?php echo sprintf("%02d", $i) ?></option>
+                                                    <?php } ?> </select>            
+                                            </td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="entry-edit-head">
+                                <h4 class="icon-head head-edit-form fieldset-legend">Settings</h4>
+                            </div>
+                            <div id="settings_fields" class="fieldset ">
+                                <div class="hor-scroll">
+
+                                    <ul class="checkboxes">
+                                        <li <?php if ($hide) : ?> style="display:none" <?php endif; ?> ><input <?php if (in_array('M', $list->getSettings())) echo 'checked' ?> type="checkbox" value="M" name="settings[]" id="settings_M"> <label for="settings_M">Mandatory: The list must always be used</label></li>
+<!--                                        <li <?php if ($hide) : ?> style="display:none" <?php endif; ?> ><input <?php if (in_array('F', $list->getSettings())) echo 'checked' ?> type="checkbox" value="F" name="settings[]" id="settings_F"> <label for="settings_F">Force: Customer forced to select 1 list with this flag</label></li>-->
+                                        <li><input <?php if (in_array('D', $list->getSettings())) echo 'checked' ?> type="checkbox" value="D" name="settings[]" id="settings_D"> <label for="settings_D">Default: Automatically assigned to Customer</label></li>
+                                        <li><input <?php if (in_array('Q', $list->getSettings())) echo 'checked' ?> type="checkbox" value="Q" name="settings[]" id="settings_Q"> <label for="settings_Q">Quick Order Pad: Auto load for the quick order pad</label></li>
+                                    </ul>            
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label for="priority">Priority</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="validate-number input-text" value="<?php echo $list->getPriority(); ?>" name="priority" id="priority">            
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                </li>
+                <li>
+                </li>
+            </ul>
+            
+          
+        </div>
+          
+        <div id="products_exclusion_indicator" >
+           <input type="checkbox" name="exclude_selected_products"  <?php if ($excludeSelectedProducts == true) { echo 'checked'; }  ?> value="1">
+           <label for="exclude_selected_products">Exclude Selected Products</label>
+        </div>                        
+        <div id="product_grid">
+        </div>
+        <div id="customer_grid">
+        </div>
+    </form>             
+</div>
+
+<span id="please-wait" class="please-wait" style="display:none;">
+    <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" 
+         alt="<?php echo __('Loading...') ?>" title="<?php echo __('Loading...') ?>" c
+         lass="v-middle" /> <?php echo __('Loading...') ?>
+</span>
+
+<script type="text/javascript">
+    var product_url = "<?php echo $this->getProductUrl(); ?>";
+    var customer_url = "<?php echo $this->getCustomerUrl(); ?>";
+    Calendar.setup({
+        inputField: "start_date",
+        ifFormat: "%Y-%m-%d",
+        showsTime: false,
+        button: "start_date_trig",
+        align: "Bl",
+        singleClick: true
+    });
+    Calendar.setup({
+        inputField: "end_date",
+        ifFormat: "%Y-%m-%d",
+        showsTime: false,
+        button: "end_date_trig",
+        align: "Bl",
+        singleClick: true
+    });
+    document.observe('dom:loaded', function(){	
+        $('products_exclusion_indicator').hide();        
+        $('productli').observe('click', function(){
+            $('products_exclusion_indicator').show();
+        })    
+        if($('customerli')) {
+            $('customerli').observe('click', function(){
+                $('products_exclusion_indicator').hide()();
+            });
+        }
+        $('primary_details').observe('click', function(){
+            $('products_exclusion_indicator').hide();
+        })       
+    })
+</script>

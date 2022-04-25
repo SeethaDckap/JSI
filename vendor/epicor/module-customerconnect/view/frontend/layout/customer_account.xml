@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css" />
+        <css src="Epicor_Common::epicor/common/css/commongrid.css" />
+        <script src="Epicor_Common::epicor/common/js/account-common.js" />
+    </head>
+    <body>
+        <referenceContainer name="sidebar.additional" remove="true"/>
+        <referenceContainer name="sidebar.main">
+            <block class="Epicor\Common\Block\Customer\Account\Links" name="customer_connect_navigation"
+                   template="Epicor_Customerconnect::customerconnect/navigation.phtml" cacheable="false">
+                <action method="setTitle">
+                    <argument name="value" xsi:type="string">Customer Connect</argument>
+                </action>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="customerconnect_account_dashboard">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dashboard</argument>
+                        <argument name="path" xsi:type="string">customerconnect/dashboard/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_dashboard</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="customerconnect_account_detail_enquiry">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Information</argument>
+                        <argument name="path" xsi:type="string">customerconnect/account/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_information</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_orders">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Orders</argument>
+                        <argument name="path" xsi:type="string">customerconnect/orders/</argument>
+                        <argument name="msgtype" xsi:type="string">CUOS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_orders</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_invoices">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Invoices</argument>
+                        <argument name="path" xsi:type="string">customerconnect/invoices/</argument>
+                        <argument name="msgtype" xsi:type="string">CUIS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_invoices</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_payments">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Payments</argument>
+                        <argument name="path" xsi:type="string">customerconnect/payments/</argument>
+                        <argument name="msgtype" xsi:type="string">CUPS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_payments</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_arpayment">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account AR Payment</argument>
+                        <argument name="path" xsi:type="string">customerconnect/arpayments/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_ar_payment</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="customerconnect_account_shipments">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Shipments</argument>
+                        <argument name="path" xsi:type="string">customerconnect/shipments/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_shipments</argument>
+                        <argument name="msgtype" xsi:type="string">CUSS</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_rmas">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account RMAs</argument>
+                        <argument name="path" xsi:type="string">customerconnect/rmas/</argument>
+                        <argument name="msgtype" xsi:type="string">CURS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_rma</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="customerconnect_account_servicecalls">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Service Calls</argument>
+                        <argument name="path" xsi:type="string">customerconnect/servicecalls/</argument>
+                        <argument name="msgtype" xsi:type="string">CUCS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_service_calls</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_rfqs">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account RFQs</argument>
+                        <argument name="path" xsi:type="string">customerconnect/rfqs/</argument>
+                        <argument name="msgtype" xsi:type="string">CRQS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_rfqs</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_returns">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Returns</argument>
+                        <argument name="path" xsi:type="string">customerconnect/returns/</argument>
+                        <argument name="msgtype" xsi:type="string">CRRS</argument>
+                        <argument name="accessFunction" xsi:type="string">epicor_comm/returns::isReturnsEnabled</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_returns</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="common_access_management">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Permissions</argument>
+                        <argument name="path" xsi:type="string">customerconnect/access_management/</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="epicor_comm_field_mapping/cpn_mapping/active" name="customerconnect_account_skus">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account SKUs</argument>
+                        <argument name="path" xsi:type="string">customerconnect/skus/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_skus</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="lists_account_contracts">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Contracts</argument>
+                        <argument name="path" xsi:type="string">customerconnect/contracts</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_contracts</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="customerconnect_account_recentpurchases">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Recent Purchases</argument>
+                        <argument name="path" xsi:type="string">customerconnect/recentpurchases</argument>
+                        <argument name="msgtype" xsi:type="string">CPHS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Customerconnect::customerconnect_account_recentpurchases</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

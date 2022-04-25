@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Complex Error Message template
+ */
+?>
+<?php if($block->getData('magento_version') < '2.2.0'){ ?>
+    <?php /* @escapeVerified */ echo __('%1', $block->escapeHtml($block->getData('message_start'))) ?> <?php /* @escapeNotVerified */ echo __('Click <a href="%1">here</a> ', $block->escapeUrl($block->getData('url'))) ?> <?php /* @escapeNotVerified */ echo __('%1', $block->escapeHtml($block->getData('message_end')))?>
+<?php } else{ ?>
+    <?= $block->escapeHtml(__('%1', $block->getData('message_start'))) ?> <?= $block->escapeHtml(__('Click <a href="%1">here</a> ', $block->getData('url')), ['a']) ?><?= $block->escapeHtml(__('%1', $block->getData('message_end'))) ?>
+<?php } ?>

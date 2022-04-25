@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="adminhtml_customer_save_after">
+    <observer name="admin_customerconnect_update_cuau_observer" instance="Epicor\Customerconnect\Observer\UpdateCuau"/>
+  </event>
+</config>

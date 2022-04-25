@@ -1,0 +1,156 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$editable = $this->getEditableFields();
+$infoDetails = $this->getInfoData();
+$proCode = $block->getGridId() == 'add_form' ? '' : (isset($infoDetails['product_code']) ? $infoDetails['product_code'][1] : '');
+$dealerHelper = $this->helper('Epicor\Dealerconnect\Helper\Data');
+$basicInfo = $dealerHelper->getBasicInfo();
+$serialNumber = isset($basicInfo[3]) ? $basicInfo[3] : '';
+$dateFormats = $this->getFormattedDates();
+$slNumbers = $this->getSlNumbers();
+?>
+    <td class="top-none" colspan="<?php echo $block->getData('cols_span'); ?>"> 
+        <div style="display:none;" id="form-<?php echo $block->getData('unique_id'); ?>" class=" box-info box-account block block-dashboard-info <?php true ? 'col-2 ' : 'col-full'; ?>">
+            <form class="search-form" id="dmau_form_<?php echo $block->getData('unique_id'); ?>" method="post" action="<?php echo $this->getUpdateUrl(); ?>">
+                <div class="block-title">
+                    <strong><?php echo $this->getTitle(); ?></strong>
+                </div>
+                <div class="fieldset">
+                    <p>
+                        <div class="field _required _customkey">
+                            <label class="label" for="q"><?php echo __('Keyword / SKU Search'); ?></label><br />
+                        </div>
+                        <?php if(($block->getGridId() == 'dealerconnect_bom_built' && $dealerHelper->checkBomOrigCusReplace() != 'disable') ||
+                                ($block->getGridId() == 'dealerconnect_bom_add' && $dealerHelper->checkBomModCusReplace() != 'disable') ||
+                                ($block->getGridId() == 'add_form' && $dealerHelper->checkBomAllowCusAdd() != 'disable')): ?>
+                            <label for="custom_part">Custom Part?</label>
+                            <input class="qa_custompart" type="checkbox" name="custom_part" id="qa_custompart_<?php echo $block->getData('unique_id'); ?>" value="" title="Custom Part" />
+                        <?php endif; ?>
+                        <input style="width:400px;" class="input-text search-key"  type="text" id="qa_sku_<?php echo $block->getData('unique_id'); ?>" name="q" value="<?php echo $proCode; ?>" />
+                        <div style= "width: 26.3%;" class="quickadd-autocomplete" id="quickadd_autocomplete_<?php echo $block->getData('unique_id'); ?>"></div>
+                        <input type="hidden" name="product_id" value="" id="qa_product_id_<?php echo $block->getData('unique_id'); ?>" />
+                        <input type="hidden" name="super_group" value="" id="qa_super_group_<?php echo $block->getData('unique_id'); ?>" />
+                        <input type="hidden" name="qty" value="" id="qa_qty_<?php echo $block->getData('unique_id'); ?>" />
+                    </p>
+                    <div class="bom_linesearch" id="search_<?php echo $block->getData('unique_id'); ?>"></div>
+                    <?php if (false): ?>
+                        <p>
+                            <label for="instock"><?php echo __('Show In Stock Products Only'); ?></label>
+                            <input type="checkbox" id="instock" name="instock" value="1" <?php echo $this->getInstock() ? 'checked' : ''; ?> />
+                        </p>
+                    <?php endif; ?>
+                    <p>
+                        <button onclick="javascript:dmauUpdate.keySearch('<?php echo $block->getData('unique_id'); ?>' )" id="search-<?php echo $block->getData('unique_id'); ?>" type="button" title="<?php echo __('Search') ?>" class="pro-line-search action primary" ><span><?php echo __('Search') ?></span></button>
+                        <button type="button" onclick="javascript:dmauUpdate.formSubmit('<?php echo $block->getData('unique_id'); ?>', '<?php echo $basicInfo[1]?>',  '<?php echo $basicInfo[2]?>',  '<?php echo $basicInfo[3]?>' ); return false;" title="Add" class="dmau-save">
+                            <span>Save</span>
+                        </button>
+                        <?php if($block->getGridId() == 'add_form'):?>
+                            <button type="button" onclick="javascript:dmauUpdate.addFormClose('<?php echo $block->getData('unique_id'); ?>' ); return false;" title="Close" class="dmau-save">
+                                <span>Close</span>
+                            </button>
+                        <?php endif;?>
+                    </p>
+                </div>
+                </br>
+                <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+                    <?php
+                    foreach ($infoDetails as $label => $value):
+                        $labelKeys = $value[0];
+                        $lableVals = $block->getGridId() == 'add_form' ? '' : $value[1];
+                        $actualLabelVals = $lableVals;
+                        ?>
+                        <p>
+                            <span class="label "><?php echo $labelKeys; ?>: </span>
+                            <?php if (($value[0] == "Lot Numbers" || $value[0] == "Serial Numbers") && strlen($lableVals) >= 40): ?>
+                                <?php
+                                $len = strlen($lableVals);
+                                $subStr = substr($lableVals, 0, 40);
+                                $text = strrpos($subStr, ",");
+                                $text = substr($subStr, 0, $text);
+                                $lableVals = $text . " <span class='tip'>...<br><span class='tiptext'>" . $lableVals . "</span></span>";
+                                ?>
+                            <?php endif; ?> 
+                            <?php if (in_array($label, $editable)): ?>
+                                <?php if(in_array($label, $dateFormats)):?>
+                                    <input  aria-required="true" class="dmau-input date-type" type="text" name="new[<?php echo $label; ?>]" value ="<?php echo $this->formattedDate($lableVals); ?>"/>
+                                <?php elseif(in_array($label, $slNumbers)): ?>
+                                    <input  class="dmau-input" type="text" name="new[<?php echo $label; ?>]" value =""/>
+                                <?php else: ?>
+                                    <input  class="dmau-input" type="text" name="new[<?php echo $label; ?>]" value ="<?php echo $lableVals; ?>"/>
+                                <?php endif; ?>
+                                <?php elseif($label === 'quantity'): ?>
+                                    <span  name="new[<?php echo $label; ?>]" class="dmau-input value wrap-info-data"><?php echo "1.00000000"; ?></span>
+                                <?php else: ?>
+                                    <span  name="new[<?php echo $label; ?>]" class="dmau-input value wrap-info-data"><?php echo $lableVals; ?></span>
+                            <?php endif; ?>
+                            <input type="hidden" name="old[<?php echo $label; ?>]" value="<?php echo $actualLabelVals; ?>">
+
+                        </p>
+                    <?php endforeach; ?>
+                </div>
+            </form>
+
+        </div>
+    </td>
+<script type="text/javascript" src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/js/quickadd.js'); ?>"></script>
+<style>
+    .quickadd-autocomplete ul, .sku-autocomplete ul {
+        border: 1px solid #c2c2c2 !important;
+    }
+
+    .quickadd-autocomplete li, .sku-autocomplete li {
+        padding: 10px 8px 1px !important;
+    }  
+    .dmau-save{
+        float: right;
+        margin-right: 2%;
+    }
+    .date-type{
+        width: 40% !important;
+    }
+    ._customkey {
+        margin: 0px !important;
+    }
+    .border-none{
+        border-top: none !important;
+    }
+    input.dmau-input {
+        margin-top: 2px;
+    }
+</style>
+<script type="text/x-magento-init">
+    {
+        "*": {"Epicor_Dealerconnect/epicor/dealerconnect/js/dmau/update":{}}
+    }
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    require([
+        'jquery',
+        'mage/cookies',
+        'mage/translate',
+        'mage/mage',
+    ], function (jQuery) {
+        if ($('dmau_form_<?php echo $block->getData('unique_id'); ?>')) {
+            document.observe('dom:loaded', function () {
+                FORM_KEY = "<?php echo $this->getFormKey(); ?>";
+                var dataForm = jQuery('#dmau_form_<?php echo $block->getData('unique_id'); ?>');
+                dataForm.mage('validation', {});
+            });
+        }
+
+        var qaSearchForm = new Epicor.searchForm('dmau_form_<?php echo $block->getData("unique_id"); ?>', 'qa_sku_<?php echo $block->getData("unique_id"); ?>', 'qa_super_group_<?php echo $block->getData("unique_id"); ?>', '', '', '', 'qa_product_id_<?php echo $block->getData("unique_id"); ?>', '', 'qa_qty_<?php echo $block->getData("unique_id"); ?>');
+        qaSearchForm.initAutocomplete('<?php echo $this->getUrl('epicor_comm/quickadd/autocomplete'); ?>', 'quickadd_autocomplete_<?php echo $block->getData('unique_id'); ?>');
+        jQuery("#qa_sku_<?php echo $block->getData('unique_id'); ?>").keypress(function(e){
+            jQuery(this).css('border-color', '#c2c2c2');
+            jQuery(this).css('box-shadow', '');
+             
+        });
+    });
+    //]]>;
+</script> 
+

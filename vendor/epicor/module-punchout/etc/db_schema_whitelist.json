@@ -1,0 +1,64 @@
+{
+    "ecc_punchout_connections": {
+        "column": {
+            "entity_id": true,
+            "connection_name": true,
+            "format": true,
+            "domain": true,
+            "identity": true,
+            "shared_secret": true,
+            "default_shopper": true,
+            "extrinsic_email_tag": true,
+            "mappings": true,
+            "shipping_mappings": true,
+            "is_active": true,
+            "website_id": true,
+            "store_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "ECC_PUNCHOUT_CONNECTIONS_CONNECTION_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_PUNCHOUT_CONNECTIONS_IDENTITY_SHARED_SECRET": true,
+            "ECC_PUNCHOUT_CONNECTIONS_DEFAULT_SHOPPER_CSTR_ENTT_ENTT_ID": true,
+            "ECC_PUNCHOUT_CONNECTIONS_STORE_ID_STORE_STORE_ID": true,
+            "ECC_PUNCHOUT_CONNECTIONS_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID": true
+        }
+    },
+    "ecc_punchout_log": {
+        "column": {
+            "entity_id": true,
+            "connection_id": true,
+            "type": true,
+            "start_datestamp": true,
+            "end_datestamp": true,
+            "duration": true,
+            "message_code": true,
+            "message_status": true,
+            "cxml_request": true,
+            "cxml_response": true,
+            "source_url": true,
+            "target_url": true
+        },
+        "index": {
+            "FTI_A5010B434100E219D814EE5EF66A3331": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote": {
+        "column": {
+            "is_punchout": true,
+            "ecc_punchout_connection_id": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "ecc_punchout_order_ref": true
+        }
+    }
+}

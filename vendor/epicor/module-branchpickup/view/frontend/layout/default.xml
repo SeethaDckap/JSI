@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Epicor\BranchPickup\Block\Link" name="branchpickup-link" template="Epicor_BranchPickup::epicor/branchpickup/header/link.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Branch Pickup Selection</argument>
+                    <argument name="path" xsi:type="string" translate="true">branchpickup/pickup/select</argument>
+                    <argument name="title" xsi:type="string" translate="false">Branch Pickup Selection</argument>
+                    <argument name="component" xsi:type="string">Epicor_BranchPickup/js/epicor/view/branch-pick-up-link</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="header-wrapper">
+            <block class="Epicor\BranchPickup\Block\Selectedbranch" name="selected.branch" as="selectedBranch" after="-" template="Epicor_BranchPickup::epicor/branchpickup/selectedBranch.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

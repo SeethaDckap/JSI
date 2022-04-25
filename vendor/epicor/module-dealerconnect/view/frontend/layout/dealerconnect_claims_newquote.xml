@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.top" remove="true" />
+        <referenceContainer name="page.main.title" remove="true" />
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="footer" remove="true" />
+        <referenceBlock name="copyright" remove="true" />
+        <referenceContainer name="content">
+            <block template="Epicor_Dealerconnect::claims/details/quotes/details.phtml" class="Magento\Framework\View\Element\Template" name="rfq.details"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Address" name="rfqs.billing"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Delivery" name="rfqs.shipping"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Options" name="rfqs.options"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\Contacts" name="rfqs.contacts"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Linescontainer" name="rfqs.linescontainer">
+                <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Lineadd" name="rfqs.lineadd"/>
+                <block template="Epicor_Customerconnect::customerconnect/customer/account/rfqs/details/linesearch.phtml"
+                       class="Magento\Framework\View\Element\Template" name="rfqs.linesearch"/>
+                <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\Lines" name="rfqs.lines">
+                    <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\Totals" name="tfoot"/>
+                </block>
+            </block>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes\Attachments" name="rfqs.attachments"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Comment" name="rfqs.comment"/>
+        </referenceContainer>
+    </body>
+</page>

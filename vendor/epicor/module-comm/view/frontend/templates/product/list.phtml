@@ -1,0 +1,227 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var $epicorEccBlock \Epicor\Comm\Block\Catalog\Product\ListProduct
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$commHelper = $this->helper('Epicor\Comm\Helper\Data');
+$epicorEccBlock = $block->getChildBlock('epicor_ecc_product_list');
+$epicorEccBlock->setListMode($this->getMode());
+$isLazyLoad = $epicorEccBlock->isLazyLoad();
+$eccHideCheckout = $commHelper->getEccHidePrice();
+$eccHideCheckout = $eccHideCheckout && $eccHideCheckout != 3 ? true : false;
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?></div></div>
+<?php else: ?>
+    <?php echo $block->getToolbarHtml() ?>
+    <?php echo $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $image = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+
+    <?php if($isLazyLoad): ?>
+        <?php
+        $config["sendMessageUrl"] = $epicorEccBlock->getCurrentUrl();
+        $config["productIds"] = $_productCollection->getLoadedIds();
+        $config["loaderImageUrl"] = $epicorEccBlock->getLoaderImageUrl();
+        $config["viewType"] = "list";
+        ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            require([
+                "jquery",
+                'mage/translate',
+                'Epicor_Comm/epicor/comm/js/lazy-load'
+            ], function ($, $tr, lazyLoad) {
+                $(document).ready(function (element) {
+                    var config =<?php echo json_encode($config)?>;
+                    payment = new lazyLoad(config);
+                });
+            });
+            //]]>
+        </script>
+    <?php endif; ?>
+
+    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+        <?php $iterator = 1; ?>
+        <ol class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php $epicorEccBlock->setProductPrices($_product); ?>
+                <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <div class="product-item-info" data-container="product-grid">
+                    <?php
+                    $productImage = $block->getImage($_product, $image);
+                    if ($pos != null) {
+                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                            . 'top:' . $productImage->getHeight() . 'px;"';
+                    }
+                    ?>
+                    <?php // Product Image ?>
+                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
+                        <?php echo $productImage->toHtml(); ?>
+                    </a>
+                    <div class="product details product-item-details ecc-price-lazy-load-list" ecc-data-product-id="<?php echo $_product->getId(); ?>">
+                        <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                        ?>
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                               href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                            </a>
+                        </strong>
+                        <?php // EPICOR ECC START >>> ?>
+                        <?php echo $this->getChildHtml('epicor_ecc_sku_display', false); ?>
+                        <?php // EPICOR ECC END <<< ?>
+                        <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
+                        <?php if(!$isLazyLoad): ?>
+                        <?php // EPICOR ECC START >>> ?>
+                        <?php if ($epicorEccBlock->showPriceOnConfiguration($_product)): ?>
+                            <div class="price-box"><span class="price"><?php echo __('Price on configuration'); ?></span></div>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
+                        <?php endif; ?>
+                        <?php // EPICOR ECC END <<< ?>
+                        <?php // EPICOR ECC START >>> ?>
+                        <?php echo $this->getChildHtml('epicor_ecc_stock_display', false); ?>
+                        <?php // EPICOR ECC END <<< ?>
+                        <?php echo $block->getProductDetailsHtml($_product); ?>
+
+                        <div class="product-item-inner">
+                            <div class="product actions product-item-actions"<?php echo strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
+                                <?php // EPICOR ECC START >>> ?>
+                                 <?php $showAddToCart = false; ?>
+                                <?php if ($epicorEccBlock->showAddToCart($_product) && !$eccHideCheckout) : ?>
+                                 <?php $showAddToCart = true; ?>
+                                <?php // EPICOR ECC END <<< ?>
+                                    <div class="actions-primary"<?php echo strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
+                                        <?php if ($_product->isSaleable() && !$_product->canConfigure()): ?>
+                                            <?php // EPICOR ECC START >>> ?>
+                                            <?php if ($epicorEccBlock->showLocations()): ?>
+                                                <?php echo $this->getChildHtml('epicor_ecc_product_list_locations', false) ?>
+                                            <?php elseif ($_product->getEccConfigurator()): ?>
+                                                <?php echo $this->getChildHtml('epicor_ecc_product_configurator', false) ?>
+                                            <?php elseif ($_product->getTypeId() == 'grouped' || $_product->getTypeId() == 'configurable'): ?>
+                                                <form action="<?php /* @escapeNotVerified */ echo $_product->getProductUrl(); ?>">
+                                                    <button type="submit"
+                                                            title="<?php echo $block->escapeHtml(__('View Details')); ?>"
+                                                            class="action tocart primary">
+                                                        <span><?php /* @escapeNotVerified */ echo __('View Details') ?></span>
+                                                    </button>
+                                                </form>
+                                            <?php else: ?>
+                                            <?php // EPICOR ECC END <<< ?>
+                                                <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                                <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+                                                    <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                                                    <input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                                    <?php echo $block->getBlockHtml('formkey')?>
+                                                    <button type="submit"
+                                                            title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                            class="action tocart primary">
+                                                        <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                                                    </button>
+                                                    <?php // EPICOR ECC START >>> ?>
+                                                    <?php if ($_product->getTypeId() == 'bundle'): ?>
+                                                        <?php $selectionCollection = $_product->getTypeInstance(true)->getSelectionsCollection($_product->getTypeInstance(true)->getOptionsIds($_product), $_product); ?>
+                                                        <?php foreach ($selectionCollection as $option) : ?>
+                                                            <input type="hidden" name="bundle_option[<?php echo $option['option_id']; ?>]" value="<?php echo $option['selection_id']; ?>" />
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+
+                                                    <?php if ($epicorEccBlock->locationsEnabled() && $epicorEccBlock->getSingleLocation()): ?>
+                                                        <input type="hidden" name="location_code" value="<?php echo $epicorEccBlock->getSingleLocation()->getLocationCode(); ?>" />
+                                                    <?php endif; ?>
+                                                    
+                                                </form>
+                                                <?php // EPICOR ECC START >>> ?>
+                                            <?php endif; ?>
+                                        <?php elseif($_product->isSaleable() && $_product->canConfigure()): ?>
+                                                <form action="<?php /* @escapeNotVerified */ echo $_product->getProductUrl(); ?>">
+                                                    <button type="submit"
+                                                            title="<?php echo $block->escapeHtml(__('View Details')); ?>"
+                                                            class="action tocart primary">
+                                                        <span><?php /* @escapeNotVerified */ echo __('View Details') ?></span>
+                                                    </button>
+                                                </form>
+                                        <?php else: ?>
+                                            <div class="stock unavailable"><span><?php echo __('Product currently unavailable'); ?></span></div>
+                                        <?php endif; ?>
+                                        <?php // EPICOR ECC END <<< ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div data-role="add-to-links" class="actions-secondary"<?php echo strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>>
+                                    <?php if(!$showAddToCart || $eccHideCheckout): ?>
+                                        <?php if (($_product->getStockItem() && $_product->getStockItem()->getIsInStock())): ?>
+                                            <form action="<?php /* @escapeNotVerified */ echo $_product->getProductUrl(); ?>">
+                                                 <button type="submit" title="<?php echo $block->escapeHtml(__('View Details')); ?>" class="action tocart primary">
+                                                    <span><?php /* @escapeNotVerified */ echo __('View Details') ?></span>
+                                                </button>
+                                             </form>
+                                         <?php else: ?> 
+                                            <div class="stock unavailable"><span><?php echo __('Product currently unavailable'); ?></span></div>
+                                         <?php endif; ?>
+                                    <?php endif; ?>                                       
+                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml(); ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <?php if ($showDescription):?>
+                                <div class="product description product-item-description">
+                                    <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" title="<?php /* @escapeNotVerified */ echo $_productNameStripped ?>"
+                                       class="action more"><?php /* @escapeNotVerified */ echo __('Learn More') ?></a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php echo($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?php echo $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

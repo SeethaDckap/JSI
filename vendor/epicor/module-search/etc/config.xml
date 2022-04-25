@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <epicor_search>
+      <general>
+        <sku_search_enabled>1</sku_search_enabled>
+        <sku_search_weight>1000</sku_search_weight>
+        <sku_search_weight_partial>999</sku_search_weight_partial>
+      </general>
+    </epicor_search>
+  </default>
+</config>

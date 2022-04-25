@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_AccessRight:etc/access_right.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Frontend::all">
+                <resource id="Epicor_Customerconnect::change_company_link" title="Change Company" translate="title" sortOrder="90" />
+                <resource id="Epicor_Customerconnect::customerconnect" title="Customerconnect" translate="title"
+                         actioncontoler="true" sortOrder="100">
+                    <resource id="Epicor_Customerconnect::customerconnect_dashboard" title="Dashboard" translate="title" sortOrder="100"
+                              displaytype="subinfo">
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_information" title="Account Information"
+                              translate="title" sortOrder="120" displaytype="subinfo">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_billing" title="Billing"
+                                  translate="title" sortOrder="100" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_billing_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_billing_update" actioncode="update" title="Update"
+                                      sortOrder="110"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_information"
+                                  title="Account Information" translate="title" sortOrder="120" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_information_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_period_balances"
+                                  title="Period Balances" translate="title" sortOrder="130" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_period_balances_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_aged_balances" title="Aged Balances"
+                                  translate="title" sortOrder="130" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_aged_balances_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_shipping_details" actioncode="details"
+                                  title="Shipping Details" translate="title" sortOrder="140" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_shipping_details_read" actioncode="read"
+                                      title="Read" sortOrder="100"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_shipping_details_update" actioncode="update" title="Update"
+                                      sortOrder="110"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_shipping_details_create" actioncode="create"
+                                      title="Create" sortOrder="120"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_shipping_details_delete" actioncode="delete"
+                                      title="Delete" sortOrder="130"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts" title="Contacts"
+                                  translate="title" sortOrder="150" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_update" actioncode="update" title="Update"
+                                      sortOrder="110"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_create" actioncode="create" title="Create"
+                                      sortOrder="120"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_delete" actioncode="delete" title="Delete"
+                                      sortOrder="130"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_sync_contact" actioncode="sync_contact" title="Sync Contact"
+                                      sortOrder="140"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_information_contacts_assign_master_shopper" actioncode="assign_master_shopper" title="Assign Master Shopper"
+                                      sortOrder="150"/>
+                        </resource>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_orders" title="Account Orders" translate="title" sortOrder="130"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_return" actioncode="return" title="Return"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_print" actioncode="print" title="Print"
+                                  sortOrder="150"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_email" actioncode="email" title="Email"
+                                  sortOrder="160"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_orders_misc" actioncode="misc" title="Misc. Charges"
+                                  sortOrder="170"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_invoices" title="Account Invoices" translate="title" sortOrder="140"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_return" actioncode="return" title="Return"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_print" actioncode="print" title="Print"
+                                  sortOrder="150"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_email" actioncode="email" title="Email"
+                                  sortOrder="160"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_invoices_misc" actioncode="misc" title="Misc. Charges"
+                                  sortOrder="170"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_payments" title="Account Payments" translate="title" sortOrder="150"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_payments_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_payments_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment" title="Account AR Payment"
+                              translate="title" sortOrder="160" displaytype="subinfo">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_payment" title="AR Payment"
+                                  translate="title" sortOrder="100" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_payment_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_payment_payment" actioncode="payment" title="Payment"
+                                      sortOrder="110"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_payment_details" actioncode="details" title="Details"
+                                      sortOrder="120"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_billing" title="Billing"
+                                  translate="title" sortOrder="110" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_billing_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_billing_edit" actioncode="edit" title="Edit"
+                                      sortOrder="120"/>
+                        </resource>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_aged_debts" title="Aged Debts"
+                                  translate="title" sortOrder="120" displaytype="grid">
+                            <resource id="Epicor_Customerconnect::customerconnect_account_ar_payment_aged_debts_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                        </resource>
+                    </resource>
+
+                    <resource id="Epicor_Customerconnect::customerconnect_account_shipments" title="Account Shipments" translate="title"
+                              sortOrder="170"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_export" actioncode="export" title="Export"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_return" actioncode="return" title="Return"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_print" actioncode="print" title="Print"
+                                  sortOrder="150"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_shipments_email" actioncode="email" title="Email"
+                                  sortOrder="160"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_rma" title="Account RMA" translate="title"
+                              sortOrder="180"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rma_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rma_export" actioncode="export" title="Export"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rma_print" actioncode="print" title="Print"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rma_email" actioncode="email" title="Email"
+                                  sortOrder="140"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_service_calls" title="Account Service Calls"
+                              translate="title"
+                              sortOrder="190"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_service_calls_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_service_calls_export" actioncode="export" title="Export"
+                                  sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_rfqs" title="Account RFQs" translate="title"
+                              sortOrder="200"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_confirmrejects" actioncode="confirmrejects"
+                                  title="Confirm OR Reject" sortOrder="110"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_details" actioncode="details" title="Details"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_create" actioncode="create" title="Create"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_edit" actioncode="edit" title="Edit"
+                                  sortOrder="150"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_rfqs_misc" actioncode="misc" title="Misc. Charges"
+                                  sortOrder="160"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_returns" title="Account Returns" translate="title"
+                              sortOrder="210"
+                              displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_returns_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_returns_details" actioncode="details" title="Details"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_returns_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_returns_create" actioncode="create" title="Create"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_returns_edit" actioncode="edit" title="Edit"
+                                  sortOrder="150"/>
+                    </resource>
+                    <resource id="Epicor_Customerconnect::customerconnect_account_skus" title="Account SKUs"
+                              sortOrder="220" displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_skus_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_skus_create" actioncode="create" title="Create"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_skus_edit" actioncode="edit" title="Edit"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_skus_delete" actioncode="delete" title="Delete"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_skus_export" actioncode="export" title="Export"
+                                  sortOrder="140"/>
+                    </resource>
+
+                    <resource id="Epicor_Customerconnect::customerconnect_account_contracts" title="Account contracts"
+                              sortOrder="230" displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_contracts_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_contracts_export" actioncode="export" title="Export"
+                                  sortOrder="120"/>
+                    </resource>
+
+                    <resource id="Epicor_Customerconnect::customerconnect_account_recentpurchases" title="Account Recent Purchases" translate="title"
+                              sortOrder="240" displaytype="grid">
+                        <resource id="Epicor_Customerconnect::customerconnect_account_recentpurchases_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_recentpurchases_export" actioncode="export" title="Export"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_recentpurchases_edit" actioncode="edit" title="Edit"
+                                  sortOrder="140"/>
+                        <resource id="Epicor_Customerconnect::customerconnect_account_recentpurchases_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="150"/>
+                    </resource>
+
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

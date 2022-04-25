@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Elasticsearch6\Model\Client\Elasticsearch">
+        <plugin name="elasticsearch_6" type="Epicor\Elasticsearch\Plugin\ElasticsearchPlugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\Elasticsearch7\Model\Client\Elasticsearch">
+        <plugin name="elasticsearch_7" type="Epicor\Elasticsearch\Plugin\Elasticsearch7Plugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\Elasticsearch\Model\Adapter\Index\Builder">
+        <plugin name="elasticsearch_builder" type="Epicor\Elasticsearch\Plugin\BuilderPlugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\Elasticsearch\Elasticsearch5\SearchAdapter\Query\Builder">
+        <plugin name="elasticsearch_builder_maxsize" type="Epicor\Elasticsearch\Plugin\QueryBuilderPlugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\Elasticsearch\SearchAdapter\Filter\Builder">
+        <plugin name="elasticsearch_builder_andor" type="Epicor\Elasticsearch\Plugin\FilterBuilderPlugin" sortOrder="5"/>
+    </type>
+    <preference for="Magento\Elasticsearch\SearchAdapter\Filter\Builder\Wildcard" type="Epicor\Elasticsearch\SearchAdapter\Filter\Builder\Wildcard"/>
+    <type name="Magento\Elasticsearch\SearchAdapter\Query\Preprocessor\Stopwords">
+        <arguments>
+            <argument name="stopwordsModule" xsi:type="string">Epicor_Elasticsearch</argument>
+            <argument name="stopwordsDirectory" xsi:type="string">stopwords</argument>
+        </arguments>
+    </type>
+    <!-- "AdditionalFieldsForElasticsearchDataMapper" virtual Type is use for Magento 2.3.0 & 2.3.1  -->
+    <virtualType name="AdditionalFieldsForElasticsearchDataMapper"
+                 type="Magento\AdvancedSearch\Model\Adapter\DataMapper\AdditionalFieldsProvider">
+        <arguments>
+            <argument name="fieldsProviders" xsi:type="array">
+                <item name="location" xsi:type="object">
+                    Epicor\Elasticsearch\Model\Adapter\BatchDataMapper\LocationFieldsProviderProxy
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- "additionalFieldsProviderForElasticsearch" virtual Type is use for Magento above 2.3.1  -->
+    <virtualType name="additionalFieldsProviderForElasticsearch"
+                 type="Magento\AdvancedSearch\Model\Adapter\DataMapper\AdditionalFieldsProvider">
+        <arguments>
+            <argument name="fieldsProviders" xsi:type="array">
+                <item name="location" xsi:type="object">
+                    Epicor\Elasticsearch\Model\Adapter\BatchDataMapper\LocationFieldsProviderProxy
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Epicor\Elasticsearch\Model\Adapter\BatchDataMapper\LocationFieldsProviderProxy">
+        <arguments>
+            <argument name="locationFieldsProviders" xsi:type="array">
+                <item name="elasticsearch6" xsi:type="object">
+                    Epicor\Elasticsearch\Model\Adapter\BatchDataMapper\LocationFieldsProvider
+                </item>
+                <item name="elasticsearch7" xsi:type="object">
+                    Epicor\Elasticsearch\Model\Adapter\BatchDataMapper\LocationFieldsProvider
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\FieldMapperResolver">
+        <plugin name="location_field_mapper" type="Epicor\Elasticsearch\Plugin\FieldMapperResolverPlugin" />
+    </type>
+    <virtualType name="elasticsearchAdvancedCollection" type="Epicor\Elasticsearch\Model\ResourceModel\Advanced\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">advanced_search_container</argument>
+        </arguments>
+    </virtualType>
+    <type name="Epicor\Elasticsearch\Model\ResourceModel\Advanced\Collection">
+        <plugin name="epicor_filter_products_test" type="Epicor\Elasticsearch\Plugin\CatalogSearch\Advanced\FilterProducts" />
+    </type>
+    <preference for="Epicor\Elasticsearch\Api\QuickSearchResponseBuilderInterface" type="Epicor\Elasticsearch\Model\QuickSearchResponseBuilder" />
+    <type name="Epicor\Elasticsearch\Model\QuickSearchResponseBuilder">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="product" xsi:type="string">Epicor\Elasticsearch\Model\QuickSearch\Response\ProductBuilder</item>
+                <item name="did_you_mean" xsi:type="string">Epicor\Elasticsearch\Model\QuickSearch\Response\DidYouMeanBuilder</item>
+                <item name="category" xsi:type="string">Epicor\Elasticsearch\Model\QuickSearch\Response\CategoryBuilder</item>
+                <item name="cms_pages" xsi:type="string">Epicor\Elasticsearch\Model\QuickSearch\Response\CmspagesBuilder</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Elasticsearch\Model\QuickSearch\Response\DidYouMeanBuilder">
+        <arguments>
+            <argument name="fieldProvider" xsi:type="object">elasticsearch5FieldProvider</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Category">
+        <plugin name="ecc_catalog_reindex_category_after_category_reindex" type="Epicor\Elasticsearch\Plugin\Indexer\Category\Save\ReindexCategoryAfterSave" />
+    </type>
+    <type name="Magento\Cms\Model\ResourceModel\Page">
+        <plugin name="ecc_reindex_cms_page_after_save" type="Epicor\Elasticsearch\Plugin\Indexer\Page\Save\ReindexPageAfterSave" />
+    </type>
+    <preference
+            for="Epicor\Elasticsearch\Api\BoostRepositoryInterface"
+            type="Epicor\Elasticsearch\Model\BoostRepository"
+    />
+    <preference
+            for="Epicor\Elasticsearch\Api\Data\BoostInterface"
+            type="Epicor\Elasticsearch\Model\Boost"
+    />
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Epicor\Elasticsearch\Api\Data\BoostInterface" xsi:type="string">Epicor\Elasticsearch\Api\BoostRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Epicor\Elasticsearch\Api\Data\BoostInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">ecc_search_boost_rules</item>
+                    <item name="identifierField" xsi:type="string">boost_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Epicor\Elasticsearch\Api\Data\BoostInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference
+            for="Epicor\Elasticsearch\Api\Data\ConditionInterface"
+            type="Epicor\Elasticsearch\Model\Data\Condition"/>
+
+    <type name="Magento\Elasticsearch\Elasticsearch5\SearchAdapter\Mapper">
+        <plugin name="queryRewriteBoost" type="Epicor\Elasticsearch\Plugin\QueryRewrite" />
+    </type>
+</config>

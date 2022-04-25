@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Object/etc/fieldset.xsd">
+  <scope id="global">
+    <fieldset id="sales_convert_quote">
+      <field name="ecc_salesrep_customer_id">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_salesrep_chosen_customer_id">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_salesrep_chosen_customer_info">
+        <aspect name="to_order"/>
+      </field>
+    </fieldset>
+    <!-- below "sales_convert_quote_item" does not work in M2 anymore -->
+    <!--replacement of above fielset id --> 
+    <fieldset id="quote_convert_item">
+      <field name="ecc_salesrep_price">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_salesrep_discount">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_salesrep_rule_price">
+        <aspect name="to_order_item"/>
+      </field>
+    </fieldset>
+  </scope>
+</config>

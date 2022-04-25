@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Attachments */
+?>
+   <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/attachments',
+                'prototype'
+            ], function ($, Attachments) {
+                'use strict';
+                  var attachments = new Attachments('attachments-return-form',window.returns);
+                            
+            });
+
+            //]]>
+        </script>
+        
+<?php echo $this->getReturnBarHtml(); ?>
+<div>
+    <form id="attachments-return-form" target="attachment-form-iframe" action="<?php echo $this->getUrl('epicor_comm/returns/saveAttachments') ?>" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+            <?php $this->getChild('formkey'); ?>
+            <?php echo $this->getAttachmentsHtml(); ?>
+        </fieldset>
+        <div id="attachments-buttons-container" class="buttons-set">
+            <button class="button" title="<?php echo __('Continue'); ?>" type="submit" id="attachments-submit"><span><span><?php echo __('Continue'); ?></span></span></button>
+            <span style="display:none;" id="attachments-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </form>
+</div>

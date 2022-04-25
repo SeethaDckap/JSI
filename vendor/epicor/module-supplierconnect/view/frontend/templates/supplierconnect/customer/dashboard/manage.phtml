@@ -1,0 +1,42 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$getRfqsData = $block->getRfqsData();
+if(count($getRfqsData) > 0) {
+    $title = 'Edit Reminder notifications';
+} else {
+    $title = 'Set Reminder notifications';
+}
+?>
+<?php if($block->checkAnyReadAllowed()): ?>
+<div class="box-actions managedashreminder" style="text-align: left;width: 70%;margin-top: 5px;float: right;font-size: 1.8rem;">|
+    <a data-role="open-supplier-dashboard-popup" class="action edit" href="#"  data-bind="event: {click : supplierJs._bind}">
+        <span>Manage Dashboard</span>
+    </a> |
+    <a data-role="open-supplier-notification-popup" class="action edit" href="#"  data-bind="event: {click : supplierJs._bindReminderRfq}">
+        <span><?php echo $title?></span>
+    </a>
+</div>
+<?php endif; ?>
+<div id="modal-supplier-dashboard-form">
+</div>
+<div id="modal-supplier-reminderrfqs-form">
+</div>
+<div id="modal-supplier-reminderorders-form">
+</div>
+
+<script>
+        require([
+                'jquery'
+            ], function ($) {
+                        if($(".managedashreminder").siblings().hasClass("ac-info")) {
+                        $(".managedashreminder").css("width", "70%");
+                    }
+                else{
+                        $(".managedashreminder").css("width", "100%");
+                    }
+            });
+        </script>

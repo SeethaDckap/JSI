@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+
+/**
+ * WARNING: IF YOU MAKE ECC SPECIFIC CHANGES TO THIS FILE, THEY MUST ALSO BE ADDED TO THE BASE FILE TOO
+ * rwd/default/template/quotes/checkout_quotebtn.phtml
+ */
+
+
+
+
+
+
+$helper = $this->helper('Epicor\Quotes\Helper\Data');
+/* @var $helper \Epicor\Quotes\Helper\Data */
+
+$showButton = ($helper->isQuotesEnabledForCustomer()) ? true : false;
+$nonErpProducts = ($helper->cartContainsNonErpProducts()) ? true : false;
+
+if($showButton && !$nonErpProducts) : 
+//M1 > M2 Translation Begin (Rule p2-5.1)
+//$quote = Mage::getSingleton('checkout/session')->getQuote();
+$quote = $helper->getCheckoutSession()->getQuote();
+//M1 > M2 Translation End
+
+    ?>
+<?php if ($quote->getItemsCount() > 0 && !$quote->hasEccQuoteId()): ?>  
+    <?php $quote_url = $this->getUrl('epicor_quotes/request', array('_secure' => true)); ?>
+    <button id="covert2quote" class="button btn-update action primary" type="button" onclick="setLocation('<?php echo $quote_url; ?>');"><span><span><?php echo __('Convert to Quotation'); ?></span></span></button>
+
+    <script type="text/javascript">
+            //<![CDATA[
+            require([
+                'jquery',
+                'prototype'
+            ], function ($) {
+               var tfoot = $$('#shopping-cart-table tfoot td.last');
+                if(typeof(tfoot)=='object' && tfoot.length>0 && $('covert2quote')) {
+                    //tfoot[0].appendChild('&nbsp;');
+                    tfoot[0].insertBefore($('covert2quote'), tfoot[0].firstChild);
+                }
+            });
+            //]]>
+    </script>
+<?php elseif ($quote->hasEccQuoteId()): ?>
+<script type="text/javascript">
+    require([
+            "jquery",
+    ],function($){
+         $('#continueshopping').remove();
+         $('#updatecart').remove();
+
+        $('.cart-discount').hide();
+        $('.crosssell').each(function(a){      // prevent crosssells showing when quote is in basket
+            a.hide();
+        })
+    })
+</script>
+
+
+
+<?php endif; ?>
+<?php endif; ?>

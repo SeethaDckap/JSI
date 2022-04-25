@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <link src="Epicor_Lists::epicor/lists/js/edit.js"/>
+        <css src="Epicor_Lists::epicor/lists/css/manage.css"/>
+        <css src="Epicor_OrderApproval::css/order-approval.css" />
+        <css src="Epicor_OrderApproval::css/budget-form.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="page.main.title" remove="true"/>
+            <block template="Epicor_OrderApproval::manage/primary_details.phtml" class="Epicor\OrderApproval\Block\Group\Details" name="group_details"/>
+            <block template="Epicor_OrderApproval::budgets/tab/budgetjs.phtml"
+                   class="Epicor\OrderApproval\Block\Group\Budgets\Form"
+                   name="budget-js"/>
+        </referenceContainer>
+    </body>
+</page>

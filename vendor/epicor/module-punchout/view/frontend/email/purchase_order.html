@@ -1,0 +1,23 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<!--@subject {{trans "Error Notification for PO -"}} {{var po_number}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "Hello "}}{{var name}}{{trans ","}}</p>
+<p>{{trans "The system has encountered the below discrepancies. Please contact your respective supplier manager for more details."}}</p>
+
+{{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' template='Epicor_Punchout::email/messages.phtml' messages=$messages}}
+
+<p></p>
+
+{{template config_path="design/email/footer_template"}}

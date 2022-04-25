@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="catalog_product_get_final_price">
+    <observer name="catalogrule" instance="Epicor\Comm\Observer\ProcessFinalPrice"/>
+  </event>
+  <event name="adminhtml_store_edit_form_prepare_form">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\AddStoreFields"/>
+  </event>
+  <!-- blow event is not exist i"catalog_product_prepare_save"  in magento 2 -->
+  <!--
+  <event name="catalog_product_prepare_save">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\PrepareProductSave"/>
+  </event>
+  -->
+  <event name="catalog_product_save_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessProductSave"/>
+  </event>
+  <event name="store_group_save_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessStoreGroupSaveBefore"/>
+  </event>
+  <event name="website_save_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessWebsiteSaveBefore"/>
+  </event>
+  <event name="store_save_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessStoreSave"/>
+  </event>
+  <event name="store_group_save_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessStoreGroupSave"/>
+  </event>
+  <event name="website_save_after">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\ProcessWebsiteSave"/>
+  </event>
+  <event name="core_block_abstract_prepare_layout_after">
+    <observer name="epicor_comm_category_product_columns" instance="Epicor\Comm\Observer\AddCategoryProductColumns"/>
+  </event>
+  <event name="catalog_product_collection_load_before">
+    <observer name="epicor_comm_model_observer" instance="Epicor\Comm\Observer\FillNewCategoryProductColumns"/>
+  </event>
+  <event name="adminhtml_block_html_before">
+    <observer name="epicor_customer_edit_tabs" instance="Epicor\Comm\Observer\Block\CustomerEditTabUpdate"/>
+    <observer name="add_created_by_to_attribute_form" instance="Epicor\Comm\Observer\AddCreatedByToAttributeSetField"/>
+  </event>
+  <event name="adminhtml_customer_save_after">
+    <observer name="epicor_customer_prepare_save" instance="Epicor\Comm\Observer\Customer\CustomerPrepareSave"/>
+    <observer name="epicor_comm_set_erp_addresses" instance="Epicor\Comm\Observer\Customer\SetErpAddresses"/>
+  </event>
+  <event name="catalog_product_edit_action">
+    <observer name="lock_attributes" instance="Epicor\Comm\Observer\LockAttributes"/>
+  </event>
+  <event name="category_prepare_ajax_response">
+    <observer name="add_sync_urls_block" instance="Epicor\Comm\Observer\Category\AddSyncUrlsBlock"/>
+  </event>
+  <event name="adminhtml_block_eav_attribute_edit_form_init">
+    <observer name="add_created_by_to_attribute_form" instance="Epicor\Comm\Observer\AddCreatedByToAttributeField"/>
+  </event>
+  <event name="catalog_product_gallery_prepare_layout">
+        <observer name="change_template_image_erp_syn" instance="Epicor\Comm\Observer\ChangeTemplateimgsync" />
+  </event>
+</config>

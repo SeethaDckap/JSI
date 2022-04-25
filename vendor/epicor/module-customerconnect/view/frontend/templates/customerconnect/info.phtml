@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+$allowed_config = array(
+    'Balance' =>$this->showField('balance'),
+    'Credit Limit' =>$this->showField('credit_limit'),
+    'Min Order Value' =>$this->showField('min_order_value'),
+    'Unallocated Cash' => $this->showField('unallocated_cash')
+    );
+?><div class="box-info box-account block block-dashboard-info <?php echo $this->getOnRight() ? 'col-2 ' : 'col-full'; ?>">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+        <?php foreach ($this->getInfoData() as $label => $value): ?>
+            <?php if(array_key_exists($label, $allowed_config) && $allowed_config[$label]==false): ?>
+            <?php   continue;   ?>
+            <?php endif; ?>
+            <p>
+                <span class="label"><?php echo $label; ?>: </span>
+                <span class="value"><?php echo $value; ?></span>
+            </p>
+            <?php ?>
+        <?php endforeach; ?>
+    </div>
+</div>

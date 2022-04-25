@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block output="1" class="Magento\Framework\View\Element\Text\ListText" name="root">
+            <block class="Mage\Adminhtml\Block\Customer\Edit\Tab\Addresses" name="admin.customer.view.addresses">
+                <action method="initForm"/>
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/customer/tab/addresses.phtml</argument>
+                </action>
+            </block>
+        </block>
+    </body>
+</page>

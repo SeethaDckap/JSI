@@ -1,0 +1,170 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/** @var  $this \Epicor\OrderApproval\Block\Group\Details */
+
+$group = $this->getGroup();
+
+?>
+<div class="content-header">
+    <?php if (!$this->getGroupId()) { ?>
+        <h3 class="icon-head">New Group</h3>
+    <?php } else { ?>
+        <h3 class="icon-head">Edit Group</h3>
+    <?php } ?>
+</div>
+<div class="product-collateral toggle-content tabs">
+    <ul class="toggle-tabs">
+        <li class="current" id="primary_details"><span>Primary Details</span></li>
+        <li id="rules-tab"><span>Rules</span></li>
+        <li id="budgets-tab"><span>Budgets</span></li>
+        <li id="customers-tab"><span>Customers</span></li>
+        <li id="hierarchy-tab"><span>Hierarchy</span></li>
+    </ul>
+</div>
+<div id="tab_content">
+    <form enctype="multipart/form-data" method="post"
+          action="<?php echo $this->getBaseUrl(); ?>epicor_orderapproval/manage/save"
+          id="approval_group_form" name="approval_group_form" data-mage-init='{"validation": {}}'>
+        <div style="float:right;clear:both;padding-bottom: 10px;">
+            <button type="button" id="back_list" value="Back"
+                    onclick="location.href='<?= $this->getBaseUrl() ?>epicor_orderapproval/manage/';">Back
+            </button>
+            <?= $this->getSubmitButtonHtml()?>
+        </div>
+
+        <fieldset class="fieldset admin__fieldset " id="budget_config_form" style="display: none">
+            <legend class="admin__legend legend">
+                <span>Active Details</span>
+            </legend><br>
+
+            <div class="admin__field field field-is_budget_active">
+                <label class="<?= $group->getIsBudgetActive() ? '' : 'budget-disabled' ?> label admin__field-label" >
+                    <span>Is Active</span>
+                </label>
+                <div class="admin__field-control control">
+                    <input id="is_budget_active"
+                        <?= $group->getIsBudgetActive() ? 'checked="checked' : '' ?>
+                           name="is_budget_active"
+                           <?=$this->getDisableBudget()?>
+                           value="1"
+                           title="Is Active"
+                           type="checkbox">
+                </div>
+            </div>
+            <legend class="admin__legend legend">
+                <span>Budget Information</span>
+            </legend><br>
+        </fieldset>
+
+        <div id="primary_detail_content">
+            <div>
+                <input type="hidden" value="<?= $this->getFormKey() ?>" name="form_key">
+
+                <input type="hidden" value="<?= $this->getGroupId()?>" name="group_id_val" id="group-id-val">
+            </div>
+            <div style="" id="form_tabs_details_content" class="loadedtab">
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4 class="icon-head head-edit-form fieldset-legend">Primary Details</h4>
+                    </div>
+                    <table>
+                        <caption>Order approval details section</caption>
+                        <th id="order-approval-details-section"></th>
+                        <tr>
+                            <td>
+                                <div class="fieldset info">
+                                    <div class="field _required">
+                                        <label class="label" for="title">
+                                            <span><?php echo __('Name'); ?></span>
+                                        </label>
+                                        <input type="text" <?=$this->getDisabled()?>
+                                               data-validate='{"required":true}'
+                                               class="input-text required-entry validate-text"
+                                               value="<?= $group->getName() ?>" name="group_name" id="group-name">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fieldset info">
+                                    <div class="field">
+                                        <input type="checkbox"
+                                            <?=$this->getDisabled()?> value="<?= $group->getIsMultiLevel() ?>"
+                                               name="is_multi_level" id="active-multi-level"
+                                            <?= $this->getChecked('multi-level', $group) ?>
+                                        >
+                                        <label class="label" for="active-multi-level">
+                                            <span><?= __('Multi Level ') ?></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fieldset info">
+                                    <div class="field">
+                                        <input type="checkbox"
+                                            <?=$this->getDisabled()?> value="<?= $group->getIsMultiLevel() ?>"
+                                               name="is_active_group" id="active-group"
+                                            <?= $this->getChecked('active-group', $group) ?>
+                                        >
+                                        <label class="label" for="active-group">
+                                            <span><?= __('Is Active ') ?></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fieldset info">
+                                    <div class="field">
+                                        <label class="label" for="title">
+                                            <span><?php echo __('Priority'); ?></span>
+                                        </label>
+                                        <input type="text" <?=$this->getDisabled()?> class="input-text validate-digits"
+                                               value="<?= $group->getPriority() ?>" name="priority" id="priority">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="rules_grid">
+        </div>
+        <div id="customer_grid">
+        </div>
+        <div id="hierarchy_grid">
+        </div>
+    </form>
+    <div id="budgets_grid">
+    </div>
+</div>
+
+<span id="please-wait" class="please-wait" style="display:none;">
+    <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>"
+         alt="<?php echo __('Loading...') ?>" title="<?php echo __('Loading...') ?>" c
+         lass="v-middle"/>
+</span>
+
+<script type="text/x-magento-init">
+{
+	"*": {
+		"Epicor_OrderApproval/js/update-tab": {
+			"tabUrlData": <?= $this->getTabUrlData() ?>
+		},
+		"Epicor_OrderApproval/js/approval-groups": {},
+		"Epicor_OrderApproval/js/budgets/tool-tip": {}
+	}
+}
+
+
+</script>

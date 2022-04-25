@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><tfoot>
+    <tr class="subtotal first">
+        <td <?php echo 'colspan="'.$this->getColumns().'"';?> class="a-right">
+            <?php echo __('Subtotal :'); ?>
+        </td>
+        <td class="a-right">
+            <span class="price"><?php echo $this->getGoodsTotal(); ?></span>
+        </td>
+    </tr>
+    <tr class="shipping">     
+        <td <?php echo 'colspan="'.$this->getColumns().'"';?> class="a-right">    
+            <?php echo __('Shipping  &amp; Handling :'); ?>
+        </td>
+        <td class="a-right">
+            <span class="price"><?php echo $this->getCarriageAmount(); ?></span>
+        </td>
+    </tr>
+    <tr>
+        <td <?php echo 'colspan="'.$this->getColumns().'"';?> class="a-right">
+            <?php echo __('Tax :'); ?>
+        </td>
+        <td class="a-right">
+            <span class="price"><?php echo $this->getTaxAmount(); ?></span>
+        </td>
+    </tr>
+    <tr class="grand_total">
+        <td <?php echo 'colspan="'.$this->getColumns().'"';?> class="a-right">
+        <strong>
+            <?php echo __('Grand Total :'); ?>
+        </strong></td>
+        <td class="grand_total a-right">
+            <strong><span class="price"><?php echo $this->getGrandTotal(); ?></span></strong>
+        </td>
+    </tr>
+</tfoot>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Epicor_Customerconnect::arpayments" title="AR Payments" translate="title" module="Epicor_Customerconnect" sortOrder="11"
+             parent="Magento_Sales::sales_operation" action="adminhtml/arpayments"
+             resource="Epicor_Customerconnect::arpayments"/>
+    </menu>
+</config>

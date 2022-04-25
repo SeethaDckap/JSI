@@ -1,0 +1,53 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko if: (visibleAddress)-->
+<li data-bind="fadeVisible: isVisible, attr: { id: stepCode }">
+
+<div class="step-title opc-block-summary"  data-role="title">
+    <input    type="radio" data-bind="attr: {name: 'selectshipping', id:'branchpickupshipping', value: 'branchpickupshipping',checked: checkBranchPickupSelected()},click:showBranchPickupAddress">Branch Pickup
+</div>
+<div id="branchpickup-iframe-popup-modal">
+    <div id="show-branch-cartpopup"></div>
+</div>
+<div id="branch-pickup-grid">
+    <div style='padding-bottom: 20px;'>
+        <input type="hidden" value="" id="jsonBranchfiltervals">
+        <input type="hidden" value="" id="jsonBranchfilteraddress">
+        <input type="hidden" value="1" id="jsonBranchfiltererror">
+        <!-- ko ifnot: (inventoryView)-->
+        <button type="button"  click="showBranchSearchPopup">Search for Branch</button>
+        <!-- /ko -->
+        <!-- ko if: (inventoryView)-->
+        <button type="button"  click="showBranchSelectorPopup">Search for Branch</button>
+        <!-- /ko -->
+    </div>
+<div class="field addresses" id="branchpickup-addresses">
+    <div class="control">
+        <div class="branchpickup-shipping-address-items">
+            <!-- ko foreach: { data: elems, as: 'element' } -->
+            <!-- ko template: element.getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+    
+
+<div id="branch-grid-loader"></div>      
+    
+</div>
+<!-- /ko -->
+
+<style>
+    #branchpickup-addresses label {
+        font-size: 1.4rem;
+    }
+    #branchpickup-addresses .field {
+        margin: 0 0 20px;
+        width: 60%;
+    }
+</style>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column">
+   
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Groupdelete" name="groupdeletes" template="Epicor_Comm::epicor_comm/test/groupdownload.phtml" />
+         </referenceContainer>  
+          <referenceContainer name="footer" remove="true"/>
+    </body>
+</page>

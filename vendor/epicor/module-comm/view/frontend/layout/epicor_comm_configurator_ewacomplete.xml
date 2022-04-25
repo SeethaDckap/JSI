@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2021 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Epicor\Comm\Block\Catalog\Product\Configurator" name="configurator_redirect" template="Epicor_Comm::epicor_comm/catalog/product/redirect.phtml">
+            <arguments>
+                <argument name="route_path" xsi:type="string">comm/configurator/ewasubmit</argument>
+            </arguments>
+        </block>
+    </container>
+</layout>

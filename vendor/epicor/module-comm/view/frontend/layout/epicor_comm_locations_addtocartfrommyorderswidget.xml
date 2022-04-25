@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <title>Add to cart from My Orders Widget</title>
+    </head>
+    <update handle="quickorderpad_form_results"/>
+    <body>
+        
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Add to cart from My Orders Widget</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="search" remove="true"/>
+        <referenceBlock name="csvupload" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- <move element="top.search" destination="header-wrapper" before="account-link-btn" /> -->
+        <!-- <referenceBlock name="minicart" remove="true" /> -->
+        <referenceContainer name="header-wrapper">
+            <!-- <block class="Magento\Framework\View\Element\Template" name="accont-links" template="Magento_Theme::account-links.phtml" after="-"/> -->
+            
+            <block class="Magento\Framework\View\Element\Template" name="main_menu" template="Magento_Theme::header/main_menu.phtml" after="logo"/>
+            <block class="Magento\Framework\View\Element\Template" name="my-account_container" template="Magento_Theme::my-account_container.phtml" after="main_menu"/>
+        </referenceContainer>
+        <referenceContainer name="header.panel.wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="header-top_container" template="Magento_Theme::header/header-top_container.phtml" before="-"/>
+
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="additional.scription" template="Magento_Theme::script.phtml"  after="-" />
+        </referenceContainer>
+        <!-- <move element="top.search" destination="header-top_container" after="-" /> -->
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="additional-footer" template="Magento_Theme::footer/additional-footer.phtml" after="-" />
+        </referenceContainer>
+        <referenceBlock name="store.menu">
+            <block class="Magento\Framework\View\Element\Template" name="main_menu-mobile" template="Magento_Theme::header/main_menu.phtml" after="-"/>
+        </referenceBlock>
+        <move element="top.search" destination="my-account_container" after="-" />
+        <move element="minicart" destination="my-account_container" after="-" />
+    </body>
+</page>
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Epicor\Esdm\Block\Html\Link\Current" name="manageesdm" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">esdm/savedcards/</argument>
+                    <argument name="label" xsi:type="string">Esdm - My Saved Cards</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_esdm</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <move element="manageesdm" destination="customer_account_navigation" after="customer-account-navigation-newsletter-subscriptions-link" />
+    </body>
+</page>

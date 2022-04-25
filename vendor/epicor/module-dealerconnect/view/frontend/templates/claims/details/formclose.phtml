@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<input id="claim_isFormAccessAllowed" type="hidden" value="<?php echo $block->_isFormAccessAllowed() ? 1 : 0; ?>" />
+</form>
+<?php if (!$block->_isFormAccessAllowed()): ?>
+    <script type="text/javascript">
+        require([
+            'jquery'
+        ], function ($) {
+            $(document).ready(function(){
+                 $('#claim_update').find(':input').attr('disabled', 'disabled');
+                 $('#claim_update').find('a').css('pointer-events', 'none');
+                 $('#claim_update').find('p.back-link a').css('pointer-events', '');
+                 $('#claim_update').find('a.attachment_view').css('pointer-events', '');
+
+                $('#claim_update').find('.col-confirm').each(function() {
+                    var isDisabled = jQuery(this).find('.rfq_confirm_checkbox').val();
+                    if (isDisabled == 0) {
+                        $(this).find('.rfq_confirm').removeAttr('disabled');
+                    }
+                });
+                $('#claim_update').find('.col-reject').each(function() {
+                    var isDisabled = jQuery(this).find('.rfq_reject_checkbox').val();
+                    if (isDisabled == 0) {
+                        $(this).find('.rfq_reject').removeAttr('disabled')
+                    }
+                });
+
+                 if ($("#claim_rfq_confirmreject_save") != undefined) {
+                     $("#claim_rfq_confirmreject_save").removeAttr('disabled');
+                 }
+                $("input[id$='_customer_reference']" ).each(function() {
+                    $(this).removeAttr('disabled');
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
+<div id="claim_bom" style="display:none;"></div>
+<iframe id="rfq-form-iframe" name="rfq-form-iframe" style="display:none"></iframe>

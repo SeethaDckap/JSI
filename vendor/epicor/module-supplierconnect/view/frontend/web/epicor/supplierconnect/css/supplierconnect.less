@@ -1,0 +1,325 @@
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+*/
+
+/* 
+    Created on : Feb 25, 2019, 1:18:05 PM
+    Author     : madhusudhan.bhaskar
+*/
+
+.col-1 {
+    &.box-info{
+        &.box-account {
+            &.sup-account {
+                width: 100%;
+            }   
+        } 
+    }
+}
+
+.box-info {
+    &.sup-account {
+        &.info-list {
+            span.label {
+                text-align: left;
+                width: auto;
+                float: none;
+            }
+            
+            span.value {
+                width: auto;
+                display: inline-block;
+                float: none;                
+            }
+        }
+    }
+}
+
+.box-container-account {
+    padding-top: 40px;
+    width: 45%;
+}
+
+.account {
+    &.column.main {
+        &.sup-account {
+            h2 {
+                margin-top: 0;
+                border-bottom: 1px solid #c6c6c6;
+                line-height: 37px;                
+            }
+        }
+    }
+} 
+
+h3 {
+    &.icon-head {
+        &.head-customer-dashboard-orders {
+            float: left;            
+        }
+    }
+}
+
+#rfq_update ,#purchase_order_update {
+        position:relative;
+        display:block;
+}
+
+#rfq_update{
+    input{ 
+        &.suom_delete {
+            width: 10%;
+        }
+        
+        &.suom_unit_of_measure {
+            width: 85%;        
+        }
+    }
+}
+
+.col2-set {
+    .col-2{
+        clear:right; 
+    }   
+}
+#supplierconnect_password_update {
+    em {
+        color: #EB340A;    
+    }
+    li {
+        label{
+            width:200px;
+        }     
+    }
+} 
+
+.fields {
+    clear: both;
+}
+
+#supplierconnect_orders_lines_table {
+    tr {
+        td {
+            textarea {
+                width: 200px;
+            }
+        }
+    }
+}
+
+.box-info {
+    &.col-full {
+        margin:10px 0;
+    }
+    
+    .info-list {
+        li {
+            margin-top:3px;
+            clear:both;         
+            width:100%;
+        }
+        span {
+            &.label {
+                font-weight: bold;
+                padding-right: 5px;  
+                width: auto;
+            }
+            
+            &.value {
+                width:auto;
+            }
+        }
+        
+        &.col-count-2 {
+            span {
+                &.label {
+                    width: 200px;
+                }
+            }
+        }
+    }
+    
+    .info-list-extra {
+        clear: both;
+        margin-top: 30px;
+        text-align: center;
+        span {
+            &.value {
+                display: block;
+                height:100px;
+                overflow:auto;
+                border: 1px solid #D9DDE3;
+                text-align:left;
+                padding:5px;
+                width: 43%;
+            }
+            
+            &.label {
+                display:block;
+                font-weight:bold;                                 
+            }
+        }
+        li{
+            display:inline;
+        }
+    }
+    
+    &.col-2 {
+        .info-list {
+            &.col-count-2 {
+                span {
+                    &.value {
+                        width: 90px;
+                    }
+                    
+                    &.label {
+                        width:100px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen {
+    
+    .columnConstruct(@parma) {
+        column-count: @parma;
+        -moz-column-count: @parma;
+        -webkit-column-count: @parma;
+    }
+    
+    .multiLevel() {
+        display: block;
+        float: left;
+        width: 50% !important;
+    }
+        
+    .boxInfoConstruct(@param) {
+        .box-info {
+            ul {
+                &.col-count-3 {
+                    .columnConstruct(@param);                  
+                }
+                &.col-count-2 {
+                    .columnConstruct(@param);           
+                }
+                &.info-list {
+                    label {
+                        .label {
+                            width:100%;
+                        }
+                    }
+                }
+            }
+            .info-list { 
+                &.col-count-3, &.col-count-2, &.col-count-1 {
+                    li {
+                        >span { 
+                            &.label{
+                                .multiLevel();
+                            }
+                        }
+                    }
+                }
+                label {
+                    .multiLevel();
+                }
+                li {
+                    > span{
+                        &.label {
+                            .multiLevel();
+                        }  
+                    } 
+                }
+                span {
+                    &.value {
+                        display: block;
+                        float: left;
+                        width: 43%;       
+                    }
+                }
+                input {
+                    width:43%;
+                }
+            }
+        }
+    }
+    
+    @media (min-width: 321px) {
+        #rfq_save , #purchase_order_save {
+            position: absolute;
+            right: 0;
+            top: -5px;
+        }      
+    }
+    @media (max-width: 320px) {
+        #rfq_save , #purchase_order_save {
+            position: inherit;
+        }
+    }
+    
+    @media (min-width: 771px) {
+        .box-info {
+            .info-list {
+                input {
+                    padding:2px;
+                    width:50%;
+                }
+                select {
+                    width:51%;
+                }
+                
+                &.col-count-2, &.col-count-3{
+                    li {
+                        display: inline-block;
+                    }
+                }
+            }
+            
+            ul {
+                &.col-count-3 {
+                    .columnConstruct(3);
+                }
+                
+                &.col-count-2 {
+                    .columnConstruct(2);
+                }
+            }
+        } 
+    }
+    
+    @media (max-width: 770px) {
+        .multiLevel();
+        .boxInfoConstruct(2);
+    }
+    
+    @media (max-width: 500px) { 
+        .boxInfoConstruct(1);
+    }
+}
+
+#supplierconnect_invoices_lines {
+    table {
+        tfoot {
+            .totals {
+                tr {
+                    &.grand_total {
+                        td {
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+.box-info{
+    .info-list {
+        p {
+            overflow: hidden;
+            flex: 1 0 40%;
+        }      
+    }
+} 

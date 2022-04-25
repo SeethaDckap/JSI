@@ -1,0 +1,96 @@
+<?php
+$accessRights = $block->getAccessRights()->toOptionArray();
+$accessRolesOptions = $block->getAccessRoles()->getAllOptions();
+?>
+<div class="admin__field" data-index="ecc_access_rights" id="access_rights_element">
+    <label class="admin__field-label">
+        <span><?php echo __('Access Rights') ?></span>
+    </label>
+    <div class="admin__field-control">
+        <select name="customer_access_rights" class="admin__control-select" id="customer_access_rights" data-form-part="customer_form">
+            <?php foreach ($accessRights as $key => $value): ?>
+                <option value="<?php echo $value['value'] ?>" <?php if ($block->getEccAccessRights() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+<div class="admin__field" data-index="ecc_access_roles" id="access_roles_element">
+    <input type="hidden" name="auto_assigned_roles" id="auto_assigned_roles" value="" data-form-part="customer_form">
+    <label class="admin__field-label">
+        <span><?php echo __('Select Custom Access Role') ?></span>
+    </label>
+    <div class="admin__field-control">
+        <select multiple="multiple" name="customer_access_roles[]" class="admin__control-multiselect" id="customer_access_roles" data-form-part="customer_form">
+            <?php foreach ($accessRolesOptions as $key => $value): ?>
+                <option value="<?php echo $value['role_id'] ?>" 
+                        <?php if ($value['by_customer'] == 1) : ?>selected="selected"<?php endif; ?> 
+                        <?php if ($value['autoAssign'] == 1 || $value['by_erp_account'] == 1) : ?> autoassigned="yes" disabled<?php endif; ?>
+                        >
+                            <?php echo $value['label'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+    </div>
+</div>
+<style>
+    select#customer_access_roles > option[autoassigned="yes"] {
+        background: #c8c8c8;
+    }
+    #access_rights_element,#access_roles_element{
+        overflow: hidden;
+        clear: both;
+    }
+    #access_rights_element label.admin__field-label, #access_roles_element label.admin__field-label{
+        width: calc( (100%) * 0.25 - 30px );
+        float: left;
+        margin-left: 36px;
+    }
+    #access_rights_element div.admin__field-control, #access_roles_element div.admin__field-control{
+        width: calc( (100%) * 0.5 - 30px );
+        float: left;
+        margin-left: 30px;
+    }
+    .admin__fieldset > .admin__scope-old > .admin__field {
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .admin__field + admin__scope-old > .admin__field {
+        margin-top: 1.5rem;
+    }
+    .admin__fieldset > admin__scope-old > .admin__field {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        margin-left: -30px;
+    }
+</style>
+<script>
+
+    require(['jquery'],
+            function ($) {
+                // access rights
+                $(document).ready(function () {
+                    var accessRights = '#access_rights_element #customer_access_rights';
+                    var accessRoles = '#access_roles_element';
+                    $(accessRoles).hide();
+                    if ($(accessRights).val() == 1) {
+                        $(accessRoles).show();
+                    }
+                    $(accessRights).change(function () {
+                        if ($(this).val() == 1) {
+                            $(accessRoles).show();
+                        } else {
+                            $(accessRoles).hide();
+                        }
+                    });
+                    var roles = [];
+                    $("#customer_access_roles option[autoassigned = 'yes']").each(function()
+                    {
+                        roles.push($(this).val());
+                    });
+                    $("#auto_assigned_roles").val(roles.toString());                   
+                });
+            });
+</script>

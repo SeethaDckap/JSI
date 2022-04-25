@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$_product = $this->registry('current_product');
+$productLocation = $this->registry('current_location');
+
+$locHelper = $this->getHelper();
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = ($this->getConfig('epicor_comm_locations/global/stockvisibility') == 'all_source_locations') ? true : false;
+$rowspan = $this->registry('current_rowspan');
+?>
+<?php if ($showLocations && !$allSourceLocations) : ?>
+    <td rowspan="<?php echo $rowspan; ?>">
+        <p class="qop-loc"><?php echo ($productLocation) ? $productLocation->getName() : ''; ?></p>
+    </td>
+<?php endif; ?>

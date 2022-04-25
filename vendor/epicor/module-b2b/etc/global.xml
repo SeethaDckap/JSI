@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_B2b>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_B2b>
+        </ecc_version_info>
+        <allowed_account_types>
+            <customer>
+                <label>B2B Standard Account</label>
+                <license>Customer</license>
+                <value>B2B Standard Account|B</value>
+            </customer>
+            <dealer>
+                <label>Dealer</label>
+                <license>Dealer_Portal</license>
+                <value>Dealer|R</value>
+            </dealer>
+            <!--<distributor>-->
+            <!--<label>Distributor</label>-->
+            <!--<license>Dealer_Portal</license>-->
+            <!--<value>D</value>-->
+            <!--</distributor>-->
+        </allowed_account_types>
+    </global>
+</config>

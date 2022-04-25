@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_HostingManager::epicor/hostingmanager/css/hosting.css"/>
+    </head>
+    <update handle="formkey" />
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\HostingManager\Block\Adminhtml\Sites" name="hostingmanager.sites.grid.container"/>
+        </referenceContainer>
+    </body>
+</page>

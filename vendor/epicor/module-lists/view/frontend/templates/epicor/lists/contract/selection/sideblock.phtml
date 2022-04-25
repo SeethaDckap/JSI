@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Contract select sidebar
+ */
+/* @var $this Epicor_Lists_Block_Contract_Selection_Sideblock */
+?>
+<?php if ($this->showSideBarBlock()) : ?>
+    <?php
+    $contracts = $this->getContracts();
+    $sessionContract = $this->getSessionContract();
+    ?>
+    <div id="contract-selection" class="block block-contract-selection" >
+        <div class="block-title">
+            <strong><span><?php echo $this->getTitle(); ?></span></strong>
+        </div>
+        <div class="block-content">
+            <div class="empty">
+                <form action="<?php echo $this->getUrl('epicor_lists/contract/selectContract'); ?>" method="post">
+                    <ul class="quickadd-form-list">
+                        <li class="wide">
+                            <label for="sku" class="required"><em>*</em><?php echo __('Select Contract') ?></label>
+                            <div class="input-box">
+                                <select name="contract" id="contract">
+                                    <?php if ($this->showNoContractOption()): ?>
+                                        <option value="-1"><?php echo __('No Contract Selected'); ?></option>
+                                    <?php endif; ?>
+                                    <?php foreach ($contracts as $contract): ?>
+                                        <option value="<?php echo $contract->getId(); ?>"<?php echo $sessionContract == $contract->getId() ? ' selected="selected"' : '' ?>><?php echo $contract->getTitle(); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="buttons-set actions">
+                        <input type="hidden" name="return_url" value="<?php echo $this->getReturnUrl(); ?>" />
+                        <p class="required"><?php echo __('* Required Fields') ?></p>
+                        <button type="submit" title="<?php echo __('Change Contract') ?>" class="button" <?php echo $this->addOnClick(); ?>><span><span><?php echo __('Change Contract') ?></span></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

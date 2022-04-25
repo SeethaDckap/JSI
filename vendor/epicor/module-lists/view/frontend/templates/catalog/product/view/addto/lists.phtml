@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php $buttonTitle = __('Add to List'); ?>
+<?php
+$_product = $this->getProduct();
+$productId = $_product->getId();
+
+?>
+
+<div class="box-addtolists">
+    <div class="fieldset" >
+        <div class="actions">
+            <button type="button" data-mage-init='{"Epicor_Lists/js/view/productaddtolist":{"productId":"<?php echo $productId; ?>","page":"detailedpage","productinfo":<?php echo $block->getProductInfo(); ?>}}'
+                    title="<?php /* @escapeNotVerified */
+                    echo $buttonTitle ?>"
+                    class="action primary tolistsview"
+                    id="addtolists-button-<?php echo $productId ?>">
+                    <span><?php /* @escapeNotVerified */
+                        echo $buttonTitle ?></span>
+            </button>
+            <div id="addtolist-popup-modal-<?php echo $productId ?>" style="display:none;">
+            </div>
+        </div>
+    </div>
+</div>

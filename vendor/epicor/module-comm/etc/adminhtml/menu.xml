@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magento_Sales::returns" title="Returns" translate="title" module="Epicor_Comm" sortOrder="1"
+             parent="Magento_Sales::sales_operation" action="adminhtml/epicorcomm_sales_returns"
+             resource="Epicor_Comm::returns"/>
+        
+        <add id="Epicor_Comm::message" title="Messaging" translate="title" parent="Epicor_Common::epicor"
+             module="Epicor_Comm" sortOrder="50" resource="Epicor_Comm::message"/>
+
+        <add id="Epicor_Comm::message_log" title="Log" translate="title"
+             parent="Epicor_Comm::message" module="Epicor_Comm" sortOrder="10"
+             resource="Epicor_Comm::message_log"
+             action="adminhtml/epicorcomm_message_log"/>
+
+        <add id="Epicor_Comm::message_commsyn" title="Send SYN request" translate="title"
+             parent="Epicor_Comm::message" module="Epicor_Comm" sortOrder="73"
+             resource="Epicor_Comm::message_commsyn"
+             action="adminhtml/epicorcomm_message_syn"/>
+
+        <add id="Epicor_Comm::message_syn_log" title="SYN Log" translate="title"
+             parent="Epicor_Comm::message" module="Epicor_Comm" sortOrder="73"
+             resource="Epicor_Comm::message_syn_log"
+             action="adminhtml/epicorcomm_message_syn/log"/>
+
+        <add id="Epicor_Comm::message_xmlupload" title="Xml Upload" translate="title" parent="Epicor_Comm::message"
+             module="Epicor_Comm" sortOrder="80" resource="Epicor_Comm::message_xmlupload"
+             action="adminhtml/epicorcomm_message_xmlupload"/>
+
+        <add id="Epicor_Comm::erpaccount" title="ERP Accounts" translate="title" parent="Epicor_Common::manage"
+             module="Epicor_Comm" sortOrder="10" resource="Epicor_Comm::erpaccount"
+             action="adminhtml/epicorcomm_customer_erpaccount"/>
+
+
+        <add id="Epicor_Comm::returns_manage" title="Returns" translate="title" parent="Epicor_Common::manage"
+             module="Epicor_Comm" sortOrder="80" resource="Epicor_Comm::returns_manage"
+             action="adminhtml/epicorcomm_sales_returns"/>
+
+        <add id="Epicor_Comm::locations_manage" title="Locations" translate="title" parent="Epicor_Common::manage"
+             module="Epicor_Comm" sortOrder="50" resource="Epicor_Comm::locations_manage"
+             action="adminhtml/epicorcomm_locations"/>
+        
+        <add id="Epicor_Comm::location_groups_manage" title="Locations - Groups" translate="title" parent="Epicor_Common::manage"
+             module="Epicor_Comm" sortOrder="55" resource="Epicor_Comm::location_groups_manage"
+             action="adminhtml/epicorcomm_locationgroups/"/>
+
+        <add id="Epicor_Comm::entity_register" resource="Epicor_Comm::entity_register" module="Epicor_Comm" title="Uploaded Data" sortOrder="40" action="adminhtml/epicorcomm_advanced_entityreg" parent="Epicor_Common::advanced"/>
+
+    </menu>
+</config>

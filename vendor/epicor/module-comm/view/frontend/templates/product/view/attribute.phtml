@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+$canCustomerEditSkus = $this->helper('Epicor\Customerconnect\Helper\Skus')->canCustomerEditCpns(); 
+?>
+<div class="short-description sku-list">
+    <p><strong><?php echo __($_product->getSkuHeader()) ?></strong></p>
+    <?php foreach ($_product->getSkusDetailed() as $sku): ?>
+        <p>
+            <?php //echo '<pre>'; print_r($sku);  ?>
+            <?php echo $sku['sku']; ?>
+            <?php if ($canCustomerEditSkus && $sku['isCustomerSku']): ?>
+                <a href="<?php echo $this->getSkuEditUrl($sku['entityId']) ?>">Edit</a>
+            <?php endif; ?>
+        </p>
+    <?php endforeach; ?>
+    <?php if ($canCustomerEditSkus): ?>
+        <p>
+            <a href="<?php echo $this->getSkuAddUrl($_product->getId()) ?>">Add</a></li>
+        </p>
+    <?php endif; ?>
+</div>

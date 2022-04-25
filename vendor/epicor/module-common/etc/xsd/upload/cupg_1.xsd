@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:include schemaLocation="../message.xsd"/>
+    <xs:complexType name="requestMsg">
+        <xs:complexContent>					
+            <xs:extension base="requestBody">
+                <xs:sequence>
+                    <xs:element name="list">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                            <xs:anyAttribute processContents="skip"/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:sequence>
+                        <xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

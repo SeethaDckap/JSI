@@ -1,0 +1,94 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ editable options display
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Options */
+
+$helper = $this->getCustomerconnectHelper();
+
+$rfq = $this->registry('customer_connect_rfq_details');
+/* @var $rfq \Epicor\Common\Model\Xmlvarien */
+$rfqRequiredDate = $this->getRequiredDate();
+$updateType = $this->registry('rfqs_editable_partial') ? 'partial' : 'full';
+$editable = $this->registry('rfqs_editable');
+$class = $this->registry('rfq_new') ? 'col-full' : 'col-2';
+$currency = $helper->getCurrencyMapping($rfq->getCurrencyCode(), \Epicor\Comm\Helper\Messaging::ERP_TO_MAGENTO);
+$currencySymbol = $helper->getCurrencySymbol($currency);
+$_dob = $block->getLayout()->createBlock('Epicor\Common\Block\Widget\Dob');
+?>
+<input type="hidden" id="quote_currency_symbol" name="currency_symbol" value="<?php echo $currencySymbol; ?>"/>
+<input type="hidden" id="quote_currency_code" name="currency_code" value="<?php echo $rfq->getCurrencyCode(); ?>"/>
+<input type="hidden" id="quote_number" name="quote_number" value="<?php echo $rfq->getQuoteNumber(); ?>"/>
+<input type="hidden" id="quote_sequence" name="quote_sequence" value="<?php echo $rfq->getQuoteSequence(); ?>"/>
+<input type="hidden" id="update_type" name="update_type" value="<?php echo $updateType; ?>"/>
+<input type="hidden" id="web_reference" name="web_reference" value="<?php echo $this->getWebReference(); ?>"/>
+<input type="hidden" id="web_reference_prefix" name="web_reference_prefix" value="<?php echo $this->getWebReferencePrefix(); ?>"/>
+<script type="text/javascript">
+    //var priceFormatter = new Product.OptionsPrice(<?php //echo $this->getJsonConfig();       ?>);
+</script>
+
+<div class = "box-info box-account <?php echo $class; ?> block block-dashboard-info file-name-size"
+     data-attachment="<?=$block->escapeHtml($block->getMaxAttachmentFileSize())?>">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <?php if ($editable) : ?>
+        <div class="fieldset address form-list">
+            <div id="rfq_required"  class="field _required">
+                <label for="required_date" class="label"><?php echo __('Required Date'); ?>:</label>
+                <div class="input-box">
+
+                    <?php echo $_dob->toHtml(); ?>
+
+                </div>
+                <div style="display:none" class="mage-error" id="invalid-date-error"><?php echo __('Please enter a valid date'); ?></div>
+            </div>
+            <div id="rfq_customer_reference" class="field">
+                <label for="customer_reference" class="label"><?php echo __('Reference'); ?>:</label>
+                <div class="input-box">
+                    <input type="text" id="customer_reference" name="customer_reference" value="<?php echo $rfq->getCustomerReference(); ?>" />
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <input type="hidden" id="required_date" name="required_date" value="<?php echo $rfqRequiredDate; ?>" />
+        <input type="hidden" id="customer_reference" name="customer_reference" value="<?php echo $rfq->getCustomerReference(); ?>" />
+        <div class="info-list">
+            <p id="rfq_required">
+                <span class="label"><?php echo __('Required Date'); ?>:</span>
+                <span class="value"><?php echo $rfqRequiredDate; ?></span>
+            </p>
+            <p id="rfq_customer_reference">
+                <span class="label"><?php echo __('Reference'); ?>:</span>
+                <span class="value"><?php echo $rfq->getCustomerReference(); ?></span>
+            </p>
+        </div>
+    <?php endif; ?>
+</div>
+<?php if ($this->registry('rfqs_editable')) : ?>
+    <?php
+    //M1 > M2 Translation Begin (Rule p2-6.4)
+    //$format = Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+    $format = $this->getResolver()->getDateFormat(\IntlDateFormatter::SHORT);
+    //M1 > M2 Translation End
+    ?>
+    <input type="hidden" id="date_input_format" value="<?php echo $format; ?>"/>
+    <?php
+
+
+
+
+
+
+
+
+
+endif;

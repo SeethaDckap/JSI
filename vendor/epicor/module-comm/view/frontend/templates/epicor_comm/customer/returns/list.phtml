@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_List */
+
+$customerReturns = $this->getReturns();
+
+$helper = $this->helper('Epicor\Customerconnect\Helper\Messaging');
+/* @var $helper Epicor_Customerconnect_Helper_Messaging */
+
+
+$accessHelper = $this->helper('Epicor\Common\Helper\Access');
+/* @var $accessHelper Epicor_Common_Helper_Access */
+
+$returnHelper = $this->helper('Epicor\Comm\Helper\Returns');
+/* @var $returnHelper Epicor_Comm_Helper_Returns */
+
+$allowed = $returnHelper->checkConfigFlag('allow_create');
+
+?>
+<?php if ($allowed && $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+        'Epicor_Customer::my_account_returns_create'
+    )): ?>
+<p><button style="" onclick="setLocation('<?php echo $this->getUrl('epicor_comm/returns/customerindex') ?>')" class="scalable save" type="button" title="<?php echo __('New Return'); ?>"><span><span><span><?php echo __('New Return'); ?></span></span></span></button></p>
+<?php endif; ?>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th><?php echo __('Customer Reference') ?></th>
+            <th><?php echo __('Return No.') ?></th>
+            <th><?php echo __('RMA Date') ?></th>
+            <th><?php echo __('Returns Status') ?></th>
+            <th><?php echo __('RMA Case Number') ?></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <?php if (count($customerReturns) == 0): ?>
+            <tr>
+                <td colspan="6" class="a-center"><?php echo __('You have no Returns') ?></td>
+            </tr>
+        <?php else: ?>
+            <?php
+            foreach ($customerReturns as $return):
+                ?>
+                <tr>
+                    <td>
+                        <span><?php echo $this->escapeHtml($return->getCustomerReference()); ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $return->getErpReturnsNumber(); ?></span>
+                    </td>            
+                    <td>
+                        <span><?php echo $return->getRmaDate(); ?></span>
+                    </td>            
+                    <td>
+                        <span><?php echo $return->getStatusDisplay(); ?></span>
+                    </td>            
+                    <td>
+                        <span><?php echo $return->getRmaCaseNumber(); ?></span>
+                    </td>            
+                    <td>
+                        <?php if ($allowed && $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+                                'Epicor_Customer::my_account_returns_details'
+                            )): ?>
+                            <a href="<?php echo $this->getViewUrl($return) ?>">
+                                <?php echo __('View') ?>
+                            </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </tbody>
+</table>

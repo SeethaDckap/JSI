@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+namespace Epicor\Customerconnect\Block\Customer\Arpayments\History\Renderer;
+
+/**
+ * Serial number display
+ *
+ * @author     Epicor Websales Team
+ */
+class ArpaymentReference extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
+{
+  /**
+   * @var \Epicor\Customerconnect\Model\ArPayment\Order
+   */
+  protected $arpaymentOrder;
+  /**
+     * @param \Magento\Backend\Block\Context $context
+     * @param array $data
+     */
+  /**
+   *
+   * @var \Epicor\Comm\Model\Order
+   */
+  protected $sales_order;
+  
+    public function __construct(
+        \Magento\Backend\Block\Context $context,
+        \Epicor\Customerconnect\Model\ArPayment\OrderFactory $arpaymentOrder,
+        
+        array $data = []
+    ) {
+        $this->arpaymentOrder = $arpaymentOrder;
+        parent::__construct(
+            $context,
+            $data
+        );
+    }
+    
+    public function render(\Magento\Framework\DataObject $row)
+    {
+        $order = $this->arpaymentOrder->create();
+        $order_detail= $order->load($row->getId()); 
+        return $order_detail->getArpaymentsRealOrderId();
+    }
+
+}
+
+

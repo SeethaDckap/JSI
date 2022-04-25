@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="related.product.addto.ajax">
+            <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                   name="related.product.addto.lists" as="relatedaddtolistsajax"
+                   template="Epicor_Lists::catalog/product/list/addto/lists.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="upsell.product.addto.ajax">
+            <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                   name="upsell.product.addto.lists.upsell" as="upselladdtolistsajax"
+                   template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                   before="wishlist"/>
+        </referenceBlock>
+        <referenceBlock name="substitute.product.addto.ajax">
+            <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                   name="substitute.product.addto.lists.substitute" as="substituteaddtolistsajax"
+                   template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                   before="wishlist"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,122 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Locations template
+ *
+ */
+/* @var $this Epicor\Comm\Block\Catalog\Product\View\Type\Configurable\Locations */
+/* @var $block Epicor\Comm\Block\Catalog\Product\View\Type\Configurable\Locations */
+$_product = $this->getProduct();
+/* @var $_product \Epicor\Comm\Model\Product */
+
+$locations = $this->getLocations($_product);
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+
+$showQty = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+$showPrices = $helper->getEccHidePrice();
+$showPrices = !($showPrices && $showPrices != 2);
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+
+$currentStoreId = $this->getStoreInfo();
+$_product->setMainProductIsSaleable(true);
+$showOutOfStock = $locHelper->canShowOutOfStock($_product);
+?>
+    <?php if(!$showOutOfStock){
+        return;
+    }?>
+    <h3 class="locations_header"><?php echo __('Locations'); ?></h3>
+    <table class="data-table grouped-items-table" id="super-product-table">
+        <col />
+        <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+            <col />
+        <?php endif; ?>
+        <?php if ($showQty/* && $_product->isSaleable()*/): ?>
+            <col width="1" />
+        <?php endif; ?>
+        <thead>
+            <tr>
+                <th><?php echo __('Location') ?></th>
+                <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+                    <th class="a-right"><?php echo __('Price') ?></th>
+                <?php endif; ?>
+                <?php if ($showQty && $_product->isSaleable()/* && $_product->isSaleable()*/): ?>
+                    <th class="a-center"><?php echo __('Qty') ?></th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $x = 0; ?>
+            <?php foreach ($locations as $location): ?>
+                <?php $_product->setToLocationPrices($location); ?>
+                <tr>                
+                    <td>
+                        <?php if(!$this->canShowLocation($_product)){
+                            continue;
+                        } ?>
+                        <?php echo $location->getName(); ?>
+                            <?php if (!$_product->getIsEccNonStock()): ?>
+                            <?php switch ($_product->getStockType()): case 'bool': ?>
+                                    <?php if ($_product->isSalable()): ?>
+                                        <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                                    <?php else: ?>
+                                        <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                    <?php endif; ?>
+                                    <?php break; ?> 
+                                <?php case 'range': ?>
+                                    <?php $_img = $_product->getStockRange(); ?>
+                                    <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />        
+                                    <?php break; ?> 
+                                <?php case 'level': ?>
+                                    <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $_product->getStockLevel() ?></span></p>
+                                    <?php break; ?>         
+                            <?php endswitch; ?>
+                            <?php endif; ?>
+                        <?php
+                        if ($this->getChildBlock('epicor_ecc_product_list_related_branch') !== false) {
+                            $this->getChildBlock('epicor_ecc_product_list_related_branch')->setAssociatedProduct($_product);
+                            echo $this->getChildHtml('epicor_ecc_product_list_related_branch', false);
+                        }
+                        ?>
+                    </td>
+                    <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+                        <td class="a-right">
+                            <?php echo $this->getPriceHtml($location, $_product, true) ?>
+                            <?php echo $this->getTierPriceHtml($location, $_product, $this) ?>
+                        </td>
+                    <?php endif; ?>
+                        <td class="a-center">
+                    <?php if ($showQty && $_product->isSaleable()): ?>
+                        
+                            <input type="hidden" name="products[<?php echo $_product->getParentId() ?>][multiple][<?php echo $x; ?>][location_code]" value="<?php echo $location->getLocationCode() ?>" />
+                            <?php 
+                                $validation = $block->getQuantityValidators($_product->getParentId());
+                                $dataValidation = "";
+                                ?>
+                                <?php if(!empty($validation)) {
+                                    $dataValidation = 'data-validate="' . $block->escapeHtml(json_encode($validation)) . '"';
+                                }
+                            ?>
+                            <input <?php echo $dataValidation; ?> type="number" style="width: 45px;" name="products[<?php echo $_product->getParentId() ?>][multiple][<?php echo $x; ?>][qty]" maxlength="12" value="<?php echo $this->getEditQty(); ?>" title="<?php echo __('Qty') ?>" class="input-text qty" />
+                            <?php if ($_product->getEccConfigurator()): ?>
+                                <div class="configurable_addtocart">  
+                                    <?php $buttonTitle = __('Configure Product'); ?>
+                                    <div class="add-to-cart">
+                                                    <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="ewaProduct.submit({sku: '<?php echo $_product->getSku(); ?>',currentStoreId:'<?php echo $currentStoreId; ?>', productId: '<?php echo $_product->getId(); ?>', location: '<?php echo $location->getLocationCode() ?>',type: '<?php echo $_product->getEccProductType(); ?>'}, false);"><span><span><?php echo $buttonTitle ?></span></span></button>
+                                                    <?php echo $this->getChildHtml('', true, true) ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        
+                    <?php endif; ?>
+                            </td>
+                </tr>
+                <?php $x++; ?>
+            <?php endforeach; ?>
+            <?php $_product->restoreOrigData(); ?>
+        </tbody>
+    </table>

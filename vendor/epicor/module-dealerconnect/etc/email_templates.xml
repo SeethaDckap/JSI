@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="dealerconnect_enabled_messages_DCLU_request_claims_update_email_template" label="Epicor Dealerconnect Claims Status Update Notification" file="epicor_dealerconnect/claims_status_update_admin.html" type="html" area="frontend" module="Epicor_Dealerconnect"/>
+  <template id="dealer_email_clamis_reminder_email_template" label="Epicor Dealer Clamis Reminder" file="sendemailreminder.html" type="html" area="frontend" module="Epicor_Dealerconnect"/>
+  <template id="dealer_email_expiry_email_template" label="Epicor Dealer Expiry Reminder" file="expiryemail.html" type="html" area="frontend" module="Epicor_Dealerconnect"/>
+</config>

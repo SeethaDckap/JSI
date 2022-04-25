@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Model\ResourceModel\Grid\Collection"
+                type="Epicor\Comm\Model\ResourceModel\Grid\Collection"/>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <!--<item name="ecc_manufacturers" xsi:type="array">-->
+                    <!--<item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Manufactures</item>-->
+                    <!--<item name="sortOrder" xsi:type="number">200</item>-->
+                <!--</item>-->
+                <item name="ecc_related_documents" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\RelatedDocument</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+                <item name="customersku" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Customersku</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+                <item name="custom-options" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\CustomOptions</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+                <item name="productmessagelog" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Productmessagelog</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+                <item name="productlocations" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Locationsform</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+                <item name="substitute" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Related</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+   
+    <type name="Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Customersku">        
+        <arguments>
+            <argument name="formName" xsi:type="string">product_form</argument>
+            <argument name="dataScopeName" xsi:type="string">product_form.product_form</argument>
+            <argument name="dataSourceName" xsi:type="string">product_form.product_form_data_source</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Productmessagelog">        
+        <arguments>
+            <argument name="formName" xsi:type="string">product_form</argument>
+            <argument name="dataScopeName" xsi:type="string">product_form.product_form</argument>
+            <argument name="dataSourceName" xsi:type="string">product_form.product_form_data_source</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Related">
+        <arguments>
+            <argument name="scopeName" xsi:type="string">product_form.product_form</argument>
+        </arguments>
+    </type>
+<!--    <type name="Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Productlocations">        
+        <arguments>
+            <argument name="formName" xsi:type="string">product_form</argument>
+            <argument name="dataScopeName" xsi:type="string">product_form.product_form</argument>
+            <argument name="dataSourceName" xsi:type="string">product_form.product_form_data_source</argument>
+        </arguments>
+    </type>-->
+    
+    
+   <virtualType name="Magento\Customer\Model\ResourceModel\Grid\Collection">
+        <arguments>
+            <argument name="joins" xsi:type="array">
+                <item name="ecc_erp_account" xsi:type="array">
+                    <item name="table" xsi:type="string">ecc_erp_account</item>
+                    <item name="origin_column" xsi:type="string">ecc_erpaccount_id</item>
+                    <item name="target_column" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <argument name="columns" xsi:type="array">
+                <item name="customer_company" xsi:type="string">ecc_erp_account.company</item>
+            </argument>
+        </arguments>
+    </virtualType>
+   
+   <type name="Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper">
+        <plugin name="ecc_prepare_product_save" type="Epicor\Comm\Plugin\PrepareProductSave" sortOrder="1"/>
+    </type>
+<!-- 
+   <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="customer_listing_data_source" xsi:type="string">Epicor\Comm\Model\ResourceModel\Customer\Grid\Collection</item>
+                <item name="sales_order_grid_data_source" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+ -->
+     <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="hf_quantity" xsi:type="array">
+                    <item name="class" xsi:type="string">Epicor\Comm\Ui\DataProviders\Product\Form\Modifier\Quantity</item>
+                    <item name="sortOrder" xsi:type="number">10000000</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Temando\Shipping\Model\Shipping\Carrier">
+      <plugin name="ecc_temando_shipping_carrier" type="Epicor\Comm\Plugin\Temando\Shipping\Carrier" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Ui\Component\Listing\Address\DataProvider">
+        <plugin name="ecc_customer_listing_address_dataprovider" type="Epicor\Comm\Plugin\Customer\Listing\Address\DataProvider" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Model\Customer\DataProviderWithDefaultAddresses">
+        <plugin name="ecc_customer_default_address_dataprovider" type="Epicor\Comm\Plugin\Customer\Address\DataProviderWithDefaultAddresses" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Ui\Component\Form\AddressFieldset">
+        <plugin name="ecc_customer_default_address_componentrovider" type="Epicor\Comm\Plugin\Customer\Address\AddressFieldsetProvider" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Model\Customer\DataProvider">
+        <plugin name="ecc_customer_address_dataprovider" type="Epicor\Comm\Plugin\Customer\Address\DataProvider" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Controller\Adminhtml\Index\Delete">
+        <plugin name="ecc_customer_account_delete" type="Epicor\Comm\Plugin\Customer\Account\Delete" sortOrder="1" />
+    </type>
+    <preference  for="Magento\User\Block\Role\Tab\Edit" type="Epicor\Comm\Block\Adminhtml\User\Role\Tab\ResourceTab"/>
+
+    <type name="Epicor\Comm\Block\Adminhtml\Sales\Order\View\Tab\Erpinfo">
+        <arguments>
+            <argument name="orderApprovalStatus" xsi:type="object">Epicor\OrderApproval\Model\Status\Options</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Controller\Adminhtml\Epicorcomm\Sales\Order">
+        <arguments>
+            <argument name="orderApprovalStatus" xsi:type="object">Epicor\OrderApproval\Model\Status\Options</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Controller\Adminhtml\Epicorcomm\Sales\Order\Erpstatus">
+        <arguments>
+            <argument name="orderApprovalStatus" xsi:type="object">Epicor\OrderApproval\Model\Status\Options</argument>
+        </arguments>
+    </type>
+
+</config>

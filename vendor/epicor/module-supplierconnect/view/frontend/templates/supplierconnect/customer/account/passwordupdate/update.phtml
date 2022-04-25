@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div id="supplierconnect_password_update" class="box-info box-account box-form col-1">
+    <div class="box-head">
+        <h5 style="float:left" ><?php echo Mage::helper('supplierconnect')->__('Enter Details as Required'); ?></h5>
+    </div> 
+    <ul>
+         <li class="fields">    
+            <div id="new_password">
+                <label class="required" for="new_password"><em>* </em>New Password:</label>
+                <input id="new_password" class="input-text required-entry validate-password" type="password" title="New Password" name="login[new_password]">
+            </div>
+         </li>    
+         <li class="fields">    
+            <div class="input-box" id="confirm_new_password">
+                <label class="required" for="confirm_new_password"><em>* </em>Confirm New Password:</label>
+                <input id="confirm_new_password1" class="input-text required-entry validate-cpassword" type="password" title="Confirm New Password" name="login[confirm_new_password]">
+            </div> 
+         </li>
+    </ul>     
+</div> 
+<div class="supplierconnect_password_update_button">    
+        <button type="submit" class="scalable"  id="supplierconnect_password_update_button"><?php echo Mage::helper('supplierconnect')->__('Update Password'); ?></button>
+</div>
+

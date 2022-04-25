@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>RFQ Information</title>
+        <script src="Epicor_Supplierconnect::epicor/supplierconnect/js/rfq-details.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/rfq/formopen.phtml" class="Magento\Framework\View\Element\Template" name="rfqs.formopen"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/rfq/title.phtml" class="Epicor\Supplierconnect\Block\Customer\Rfqs\Template" name="rfqs.title"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Generalinfo" name="account.rfq.details.generalinfo"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Lineinfo" name="account.rfq.details.lineinfo"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Priceinfo" name="account.rfq.details.priceinfo"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Crossreferenceparts" name="account.rfq.details.xref"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Pricebreaks" name="account.rfq.pricebreaks"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Supplierunitofmeasures" name="account.supplier.uom"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Rfqs\Details\Attachments" name="account.rfq.attachments"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/rfq/formclose.phtml" class="Epicor\Supplierconnect\Block\Customer\Rfqs\Template" name="rfqs.formclose"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Supplierconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/rfq/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/rfq/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Rfq</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

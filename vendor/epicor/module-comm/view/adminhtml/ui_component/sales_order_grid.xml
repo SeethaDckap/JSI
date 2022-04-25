@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+    <massaction name="listing_massaction">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+            </item>
+        </argument>
+        <action name="changeerp_order_status">
+            <settings>
+                <type>changeerp_order_status</type>
+                <label translate="true">Change ERP Order Status</label>
+                <actions class="Epicor\Comm\Ui\Component\MassAction\Status\Options"/>
+            </settings>
+        </action>
+    </massaction>
+    </listingToolbar>
+    <columns name="sales_order_columns">
+        <column name="ecc_erp_order_number" class="Epicor\Comm\Ui\Component\Listing\Column\ErpOrderNumber">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">ERP Order #</item>
+                </item>
+            </argument>
+        </column>
+      <column name="ecc_gor_message" class="Epicor\Comm\Ui\Component\Listing\Column\GorMessage">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Send To Erp</item>
+                </item>
+            </argument>
+        </column>
+        <column name="comment" class="Epicor\Comm\Ui\Component\Listing\Column\OrderComment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Order Comment</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

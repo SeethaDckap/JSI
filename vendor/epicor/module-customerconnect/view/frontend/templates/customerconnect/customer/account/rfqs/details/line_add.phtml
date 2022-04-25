@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ line quick add
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Lineadd */
+?>
+<div class="empty" id="line-add" style="display:none">
+    <div class="formfields" id="la_rows">
+        <div class="la_row" id="la_row_1">
+            <?php if ($this->customAllowed()): ?>
+                <div class="la_field" id="la_custom_part">
+                    <label for="custom_part"><?php echo __('Custom Part?') ?></label>
+                    <input class="la_custompart" type="checkbox" name="custom_part[]" id="la_custompart_1" value="" title="<?php echo __('Custom Part') ?>" />
+                </div>
+            <?php endif; ?>
+            <div class="la_field la_sku_box lineadd-autocomplete-container" >
+                <label for="la_sku" class="required"><em>*</em><?php echo __('SKU') ?></label>
+                <input type="text" name="sku" value="" title="<?php echo __('SKU') ?>" id="la_sku_1" class="la_sku input-text" />
+                <input type="hidden" name="la_product_id" value="" id="la_product_id_1" class="la_product_id"  />
+                <div class="lineadd-autocomplete" id="lineadd_autocomplete_1"></div>
+                <input type="hidden" name="uom" value="" title="<?php echo __('UOM') ?>" id="la_uom_1" class="la_uom input-text" />
+            </div>
+            <div class="la_field la_name_box" style="display:none">
+                <label for="la_name" class="required"><em>*</em><?php echo __('Name') ?></label>
+                <input type="text" name="name" value="" title="<?php echo __('Name') ?>" id="la_name_1" class="la_name input-text" />
+            </div>
+            <div class="la_field">
+                <label for="qty" class="required"><em>*</em><?php echo __('Qty') ?></label>
+                <input type="text" name="qty" value="" title="<?php echo __('Qty') ?>" id="la_qty_1" class="la_quantity input-text" />
+            </div>
+            <div class="la_field la_packsize_field">
+                <span id="la_pack_1" class="la_packsize" style="display:none">x <span class="packsize"></span></span>
+            </div>
+            <div class="la_field">
+                <a href="" class="la_delete" style="display:none"><?php echo __('Remove') ?></a>
+            </div>
+        </div>
+    </div>
+    <button class="scalable add" type="button" title="<?php echo __('Add another row') ?>" id="lineadd-add"><span><span><span><?php echo __('Add another row') ?></span></span></span></button>
+    <p class="small"><?php echo __('Note: pressing tab in the quantity field above will also add another row'); ?></p>
+    <div class="buttons-set actions buttonbar">
+        <input type="hidden" name="la_submit_url" value="<?php echo $this->getUrl('customerconnect/rfqs/lineaddautocomplete'); ?>" id="la_submit_url" />
+        <input type="hidden" name="la_separator" value="<?php echo $this->helper('Epicor\Common\Helper\Data')->getUOMSeparator(); ?>" id="la_separator" />
+        <input type="hidden" name="msq_link" value="<?php echo $this->getUrl('epicor_comm/message/msq'); ?>" id="la_msq_link" />
+        <a id="line-add-close">Close</a>
+        <button class="scalable save" type="button" title="<?php echo __('Add Lines') ?>" id="lineadd-submit"><span><span><span><?php echo __('Add Lines') ?></span></span></span></button>
+    </div>
+</div>
+

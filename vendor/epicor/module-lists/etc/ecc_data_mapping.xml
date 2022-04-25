@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_Common:etc/data_mapping.xsd">
+    <message name="CCCD" label="CCCD - Customer Contracts Detail"/>
+    <message name="CCCN" label="CCCN - Upload Customer Contracts"/>
+    <message name="CUPG" label="CUPG - Update Product Group Lists"/>
+    <message name="CURP" label="CURP - Upload Customer Restricted Purchase"/>
+</config>

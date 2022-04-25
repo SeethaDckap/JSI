@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this \Epicor\Comm\Block\Store\Switcher */
+
+$storeUrl = '';
+
+$rowCount = 0;
+$storesPerRow = $this->getScopeConfig()->getValue('Epicor_Comm/brands/stores_per_row', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $this->getScopeConfig()->getValue('Epicor_Comm/brands/stores_per_row', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 3;
+?>
+<div id="header">
+    <h2><?php echo __('You Must Select a Store To Continue'); ?></h2>
+</div> 
+<div class="store-switcher">
+    <?php
+    $stores = $this->helper('\Epicor\Comm\Helper\Data')->getSelectableStores();
+    $storesLeft = count($stores);
+    $storesInRow = ($storesLeft < $storesPerRow) ? $storesLeft : $storesPerRow;
+    $rowWidth = floor(100 / $storesInRow);
+   
+    foreach ($stores as $_group):
+        /* @var $_group Mage_Core_Model_Store_Group */
+
+        $url = $this->getUrl('epicor_comm/store/select', array('store' => $_group->getId()));
+        ?><div class="store" style="width:<?php echo $rowWidth; ?>%;">
+            <a class="brandimage_link_<?php echo $_group->getId(); ?> store_link" href="<?php echo $url; ?>"> 
+                <?php if ($_group->getEccBrandimage()) : ?>
+                    <img id="brandimage" src="<?php echo $this->getBrandImageUrl($_group->getEccBrandimage()); ?>" alt="<?php echo $_group->getName() ?>"/>
+                <?php endif; ?>                        
+                <p class="store_name"><?php echo $_group->getName() ?></p>
+            </a>
+            <?php $rowCount++; ?>
+        </div> 
+        <?php
+        $storesLeft--;
+        if ($rowCount == $storesPerRow && $storesLeft > 0) :
+            $storesInRow = ($storesLeft < $storesPerRow) ? $storesLeft : $storesPerRow;
+            $rowWidth = floor(100 / $storesInRow);
+            ?>
+            <div class="newline">
+                <?php $rowCount = 1; ?>
+            </div>
+        <?php endif; ?> 
+
+    <?php endforeach; ?>   
+</div>

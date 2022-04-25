@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ecc_search_boost_rules" resource="default" engine="innodb"
+           comment="Setup rules to increase relevance of products in search result">
+        <column xsi:type="smallint" name="boost_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Boost ID"/>
+        <column xsi:type="smallint" name="store_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Store id"/>
+        <column xsi:type="tinyint" name="is_active" nullable="false" default="1"
+                comment="Is Boost Rule Active OR Not"/>
+        <column xsi:type="date" name="from_date" nullable="true"
+                comment="Start Date For Boost Rule"/>
+        <column xsi:type="date" name="to_date" nullable="true"
+                comment="End Date For Boost Rule"/>
+        <column xsi:type="varchar" length="255" name="name" nullable="false"
+                comment="Boost Name"/>
+        <column xsi:type="varchar" length="255" name="model"
+                comment="Boost Model" default="null"/>
+        <column xsi:type="text" name="config"
+                comment="Boost Config Data"/>
+        <column xsi:type="text" name="rule_condition"
+                comment="Boost Rule Condition Information"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="boost_id"/>
+        </constraint>
+    </table>
+</schema>

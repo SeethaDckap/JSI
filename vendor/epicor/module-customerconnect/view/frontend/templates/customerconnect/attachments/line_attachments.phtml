@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $lineAttachmentData = $this->getLineAttachmentsData(); ?>
+<?php if (is_array($lineAttachmentData) && count($lineAttachmentData) > 0): ?>
+    <?php foreach ($lineAttachmentData as $g => $value):
+        $g = $g + 1; ?>
+        <p>
+            <?php $fileNameToSend = $this->getFileNameToDisplay($value['filename']); ?>
+            <a data-order-number="<?= $this->getOrderPartNumber() . '_' . $value['attachment_number'] ?>"
+               data-erp-file-id="<?= $value['erp_file_id'];?>"
+               data-file-name="<?= $value['filename']?>"
+               data-action="D"
+               data-filename-to-download="<?= $fileNameToSend ?>"
+               href="#"
+               class="link-download-attachment button" title="Download Document">
+                <?php $fileName = $this->displayFilename($fileNameToSend); ?>
+                <?= ((isset($value['description']) && !empty($value['description'])) && (isset($value['filename']) && !empty($value['filename']))) ? $value['description'] : $g . '. ' . $fileName ?>
+            </a>
+        </p>
+    <?php endforeach; ?>
+<?php endif; ?>

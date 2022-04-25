@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$_order = $block->getOrder();
+$checkDisputeActive = $this->helper('Epicor\Customerconnect\Helper\Arpayments')->checkDisputeAllowedOrNot();
+?>
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items" id="my-orders-table" summary="<?php /* @escapeNotVerified */ echo __('Items Ordered') ?>">
+        <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Items Ordered') ?></caption>
+        <thead>
+            <tr>
+                <th><?php /* @escapeNotVerified */ echo __('Invoice No') ?></th>
+                <th><?php /* @escapeNotVerified */ echo __('Invoice Date') ?></th>
+                <th><?php /* @escapeNotVerified */ echo __('Due Date') ?></th>
+                <th><?php /* @escapeNotVerified */ echo __('Invoice Amount') ?></th>
+                <th><?php /* @escapeNotVerified */ echo __('Invoice Balance') ?></th>
+                <th><?php /* @escapeNotVerified */ echo __('Term Amount') ?></th>
+                <?php if($checkDisputeActive): ?>             
+                <th><?php /* @escapeNotVerified */  echo __('Dispute') ?></th>
+                <?php endif;?>             
+            <th class="a-right"><?php echo __('Payment Amount') ?></th>
+            </tr>
+        </thead>
+        <?php $_items = $_order->getItemsCollection(); ?>
+        <?php $_index = 0; ?>
+        <?php // $_count = $_items->count(); ?>
+        <?php foreach ($_items as $_item): ?>
+          <?php if ($_item->getParentItem()) {
+                continue;
+            } ?>
+            <tbody>
+                <?php echo $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+            <?php echo $block->getChildHtml('order_totals') ?>
+        </tfoot>
+    </table>
+</div>
+<style>
+.invoicetd{
+  text-align: left !important;
+}
+</style>

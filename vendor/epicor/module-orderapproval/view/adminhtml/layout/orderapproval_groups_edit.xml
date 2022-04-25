@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Epicor_Comm::epicor/comm/js/childrenGrid.js"/>
+        <link src="Epicor_OrderApproval::epicor/groups/js/erpaccounts.js"/>
+        <link src="Epicor_OrderApproval::epicor/groups/js/customers.js"/>
+        <css src="Epicor_OrderApproval::css/budgets-orderapproval.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="groups_form"/>
+        </referenceContainer>
+    </body>
+</page>

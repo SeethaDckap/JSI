@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><script type="text/javascript">
+var added = false;
+function addAttribute(closeAfter) {
+    if(window.opener!=null && !added) {
+        window.opener.Product.AttributesBridge.addAttributeRow(<?php echo $this->getAttributesBlockJson() ?>);
+        added = true;
+    }
+
+    if(closeAfter)
+    {
+        closeWindow();
+    }
+}
+
+function closeWindow()
+{
+    if (window.opener) {
+        window.opener.focus();
+    }
+    window.close();
+}
+
+addAttribute(false);
+setTimeout(closeWindow, 3000);
+</script>
+<div class="a-center">
+<?php echo $this->getCloseButtonHtml() ?>
+</div>

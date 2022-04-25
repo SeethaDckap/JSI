@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $_gridrecords = $block->getCollection(); ?>
+<?php if ($_gridrecords && count($_gridrecords)): ?>
+<?php $isDeleteAllowed = $block->isDeleteAllowed(); ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col cardtype"><?php echo __('Card Type') ?></th>
+                    <th scope="col" class="col lastfour"><?php echo __('Last 4 Digits') ?></th>
+                    <th scope="col" class="col date"><?php echo __('Expiry Date') ?></th>
+                    <?php if($isDeleteAllowed): ?>
+                    <th scope="col" class="col status"><?php echo __('Actions') ?></th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // read collection as magento1.x and display in list 
+                $helper = $this->helper('epicor\esdm\Helper\clienttokendata');
+                foreach ($_gridrecords as $_gridrecord):
+                    ?>
+                    <tr>
+                        <td class="col cardtype"><img src="<?php echo $block->getCardImage($_gridrecord->getCardType()); ?>"></td>
+                        <td class="col lastfour">**** **** **** <?php echo $_gridrecord->getLastFour() ?></td>
+                        <td>
+                            <?php
+                            $isCardExpoired = $helper->isCardValid($_gridrecord->getExpiryDate()); 
+                            $CardExpiredText = null;
+                            if (!$isCardExpoired):$CardExpiredText = __(' <span class="expiredcard">(Card Expired)<span>');
+                            endif;
+                            echo date('m / Y', strtotime($_gridrecord->getExpiryDate())) . $CardExpiredText;
+                            ?>
+                        </td>
+                        <?php if($isDeleteAllowed): ?>
+                        <td class="col action"><a onclick="return confirm('Are you sure?')" href="<?php echo $block->getDeleteUrl($_gridrecord->getId()) ?>">Delete</a></td>
+                        <?php endif; ?>
+                    </tr>
+    <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); // for display pager block which we create in block file.   ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('You have no saved cards.'); ?></span></div>
+<?php endif ?>

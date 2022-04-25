@@ -1,0 +1,163 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php 
+$helper = $this->helper('Epicor\BranchPickup\Helper\Data');
+/* @var $helper Epicor\BranchPickup\Helper\Data */
+$showSelectedLocation = $helper->showSelectedLocation();
+?>
+<?php if($showSelectedLocation): ?>
+    <?php
+    $selectedBranch = $helper->getSelectedBranch();
+    ?>
+    <?php if ($selectedBranch): ?>
+        <?php
+        $helperLocations = $this->helper('Epicor\Comm\Helper\Locations');
+        /* @var $helper Epicor\Comm\Helper\Locations */
+        $relatedLocations = $block->getRelatedLocations($selectedBranch); 
+        $allLocations = $block->getAllLocations();
+        $groupings = $block->getGroupLocations($selectedBranch);
+        $ischeckCheckoutPage = false;
+        ?>
+        <div id="selected-branch" class="selected-branch-wrapper" <?php if($ischeckCheckoutPage):?> style="display: none" <?php endif ?>>
+            <div class="selected-branch">
+                <?php if ($relatedLocations->getSize() > 0 || count($allLocations) > 0 || $groupings->getSize() > 0): ?>
+                    <p><?php echo __('Your Selected Branch'); ?></p>
+                    <a href="#" class="branch-link"><strong><?php echo __("%1", $helperLocations->getLocationName($selectedBranch)); ?></strong></a>
+                <?php else: ?>
+                    <p><?php echo __('Your Selected Branch'); ?></p>
+                    <span><strong><?php echo __("%1", $helperLocations->getLocationName($selectedBranch)); ?></strong></span>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if ($relatedLocations->getSize() > 0 || count($allLocations) > 0 || $groupings->getSize() > 0): ?>
+            <div id="branches-list-popup" class="branches-list-popup" style="display:none;">
+                <div class="branches-popup-body">
+                    <?php if((count($allLocations) > 0) && ($relatedLocations->getSize() == 0) && ($groupings->getSize() == 0)): ?>
+                        <!-- All Locations -->
+                        <div class="related-locations">
+                            <h3><?php echo __("All Locations");  ?></h3>
+                            <ul>
+                                <?php foreach($allLocations as $code => $_location): ?>
+                                <li>
+                                    <span class="location-details">
+                                        <p><b><?php echo $_location->getName(); ?></b></p>
+                                        <p><?php echo $block->getBranchAddress($_location); ?></p>
+                                    </span>
+                                    <span class="location-select">
+                                        <?php if ($code != $selectedBranch): ?>
+                                            <a data-custom="<?php echo $code; ?>" data-customid="<?php echo $_location->getId(); ?>" id="selectBranchlink" class="selectBranchlink"  href="#"><span><?php echo __("Select"); ?></span></a>
+                                        <?php else: ?>
+                                            <p><?php echo __("Currently Selected"); ?></p>
+                                        <?php endif; ?>
+                                    </span>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    <?php if($relatedLocations->getSize() > 0): ?>
+                        <div class="related-locations">
+                            <h3><?php echo __("Related Locations");  ?></h3>
+                            <ul>
+                            <?php foreach($relatedLocations as $relLocation): ?>
+                                <?php if (!$relLocation->getLocationVisible()): ?>
+                                    <?php continue; ?>
+                                <?php endif; ?>
+                            <li>
+                                <span class="location-details">
+                                    <p><b><?php echo $relLocation->getName(); ?></b></p>
+                                    <p><?php echo $block->getBranchAddress($relLocation); ?></p>
+                                </span>
+                                <span class="location-select">
+                                    <a data-custom="<?php echo $relLocation->getCode(); ?>" data-customid="<?php echo $relLocation->getId(); ?>" id="selectBranchlink" class="selectBranchlink"  href="#"><span><?php echo __("Select"); ?></span></a>
+                                </span>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        </div>
+                    <?php endif; ?>
+                    <?php $groupHeader = ""; ?>
+                    <?php foreach ($groupings as $location): ?>
+                        <?php if(!$location->getLocationVisible()): ?>
+                            <?php continue; ?>
+                        <?php endif; ?>
+                        <?php $display = ""; ?>
+                        <?php if ($groupHeader == ""): ?>
+                            <?php $groupHeader = $location->getGroupName(); ?>
+                            <?php $display = ($location->getGroupExpandable() == 1) ? "display:none;": ""; ?>
+                            <?php $event = ($location->getGroupExpandable() == 1) ? "class='accordion' style='cursor:pointer;' onclick=toggleBlock('#selected_branch_group_".$location->getGroupId()."')": ""; ?>
+                        <div class="related-locations">
+                            <h3 <?php echo $event; ?>><?php echo $groupHeader;  ?></h3>
+                                <ul style="<?php echo $display; ?>" id="selected_branch_group_<?php echo $location->getGroupId(); ?>">
+                        <?php elseif(($groupHeader != "") && ($groupHeader != $location->getGroupName())): ?>
+                            <?php $groupHeader = $location->getGroupName(); ?>
+                            <?php $display = ($location->getGroupExpandable() == 1) ? "display:none;": ""; ?>
+                            <?php $event = ($location->getGroupExpandable() == 1) ? "class='accordion' style='cursor:pointer;' onclick=toggleBlock('#selected_branch_group_".$location->getGroupId()."')": ""; ?>
+                                </ul>
+                        </div>
+                        <div class="related-locations">
+                            <h3 <?php echo $event; ?>><?php echo $groupHeader;  ?></h3>
+                            <ul style="<?php echo $display; ?>" id="selected_branch_group_<?php echo $location->getGroupId(); ?>">
+                        <?php endif; ?>
+                                <li>
+                                    <span class="location-details">
+                                        <p><b><?php echo $location->getName(); ?></b></p>
+                                        <p><?php echo $block->getBranchAddress($location); ?></p>
+                                    </span>
+                                    <span class="location-select">
+                                    <?php if ($location->getCode() != $selectedBranch): ?>
+                                        <a data-custom="<?php echo $location->getCode(); ?>" data-customid="<?php echo $location->getLocationId(); ?>" id="selectBranchlink" class="selectBranchlink"  href="#"><span><?php echo __("Select"); ?></span></a>
+                                    <?php else: ?>
+                                        <p><?php echo __("Currently Selected"); ?></p>
+                                    <?php endif; ?>
+                                    </span>
+                                </li>
+                    <?php endforeach; ?>
+                    <?php if ($groupings->getSize() > 0): ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
+<script type="text/javascript">
+//<![CDATA[
+    function toggleBlock(block) {
+        if (jQuery(block).prev().hasClass("active")) {
+            jQuery(block).prev().removeClass("active");
+            jQuery(block).prev().addClass("accordion");
+        } else {
+            jQuery(block).prev().removeClass("accordion");
+            jQuery(block).prev().addClass("active");
+        }
+        jQuery(block).toggle();
+    }
+    require([
+            "jquery",
+            'mage/translate',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, $tr, modal) {
+            $('.branch-link').click( function (e) {
+                showBranches('branches-list-popup');
+            });
+        function showBranches(id) {
+            var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    modalClass: 'branch_selector',
+                    title: '<?php echo __('Branch Selector'); ?>',
+                    buttons: []
+                }; 
+            var popup = modal(options, $('#'+id));
+            $('#'+id).modal("openModal");
+        }
+
+    });
+//]]>
+</script>

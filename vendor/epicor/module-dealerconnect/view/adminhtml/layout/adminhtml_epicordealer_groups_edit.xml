@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Dealerconnect::epicor/dealergroups/css/admin.css"/>
+        <link src="Epicor_Comm::epicor/comm/js/childrenGrid.js"/>
+        <link src="Epicor_Dealerconnect::epicor/dealergroups/js/erpaccounts.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Dealerconnect\Block\Adminhtml\Groups\Edit" name="dealer_groups"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Dealerconnect\Block\Adminhtml\Groups\Edit\Tabs" name="dealer_group_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

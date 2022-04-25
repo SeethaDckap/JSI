@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_AccessRight::css/role-admin.css"/>
+        <link src="Epicor_AccessRight::epicor/roles/js/edit.js"/>
+        <link src="Epicor_Comm::epicor/comm/js/childrenGrid.js"/> 
+        <link src="Epicor_AccessRight::epicor/roles/js/erpaccounts.js"/>
+        <link src="Epicor_AccessRight::epicor/roles/js/customers.js"/>
+        <css src="Epicor_AccessRight::css/accessrole-treeview.css" />
+        <link src="Epicor_AccessRight::js/accessrole-treeview.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\AccessRight\Block\Adminhtml\Roles\Edit" name="roles"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\AccessRight\Block\Adminhtml\Roles\Edit\Tabs" name="roles_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

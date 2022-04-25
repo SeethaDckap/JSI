@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+//ECC START
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper Epicor_Comm_Helper_Data */
+$showPrices = $helper->isFunctionalityDisabledForCustomer('prices') || $helper->getEccHidePrice() == 3 ? false : true;
+$contractHelper = $this->helper('Epicor\Lists\Helper\Frontend\Contract');
+/* @var $contractHelper Epicor_Lists_Helper_Frontend_Contract */
+$listEnabled = $contractHelper->contractsEnabled();
+//ECC END
+?>
+
+<?php $_item = $block->getItem() ?>
+<tr>
+    <td class="col item" data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>">
+        <?php echo $block->getRenderedBlock()->getItemHtml($_item) ?>
+    </td>
+    <?php if ($listEnabled): ?>
+        <td class="col item" data-th="<?php echo $block->escapeHtml(__('Contract')); ?>">
+            <?php
+            echo $contractHelper->getContractCodeByItem($_item->getQuoteItemId());
+            ?>
+        </td>
+    <?php endif; ?>
+    <?php if ($showPrices): ?>
+        <td class="col price" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
+            <?php /* Including Tax */ ?>
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceInclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()): ?>
+                <span class="price-including-tax" data-label="<?php echo $block->escapeHtml(__('Incl. Tax')); ?>">
+                    <?php echo $block->getUnitPriceInclTaxHtml($_item); ?>
+                </span>
+            <?php endif; ?>
+            <?php /* end Including Tax */ ?>
+            <?php /* Excluding Tax */ ?>
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceExclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()): ?>
+                <span class="price-excluding-tax" data-label="<?php echo $block->escapeHtml(__('Excl. Tax')); ?>">
+                    <?php echo $block->getUnitPriceExclTaxHtml($_item); ?>
+                </span>
+            <?php endif; ?>
+            <?php /* end Excluding Tax */ ?>
+        </td>
+    <?php endif; ?>
+    <td class="col qty" data-th="<?php echo $block->escapeHtml(__('Qty')); ?>"><?php /* @escapeNotVerified */ echo $_item->getQty() * 1 ?></td>
+    <?php if ($showPrices): ?>
+        <td class="col subtotal" data-th="<?php echo $block->escapeHtml(__('Subtotal')); ?>">
+            <?php /* Including Tax Subtotal */ ?>
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceInclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()): ?>
+                <span class="price-including-tax" data-label="<?php echo $block->escapeHtml(__('Incl. Tax')); ?>">
+                    <?php echo $block->getRowTotalInclTaxHtml($_item); ?>
+                </span>
+            <?php endif; ?>
+            <?php /* end Including Tax Subtotal */ ?>
+            <?php /* Excluding Tax Subtotal */ ?>
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceExclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()): ?>
+                <span class="price-excluding-tax" data-label="<?php echo $block->escapeHtml(__('Excl. Tax')); ?>">
+                    <?php echo $block->getRowTotalExclTaxHtml($_item); ?>
+                </span>
+            <?php endif; ?>
+            <?php /* end Excluding Tax Subtotal */ ?>
+        </td>
+    <?php endif; ?>
+</tr>
+

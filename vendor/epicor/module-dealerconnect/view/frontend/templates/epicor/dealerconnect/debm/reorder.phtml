@@ -1,0 +1,43 @@
+<?php
+$rowSku =   $block->getData('sku');
+$rowQty =   $block->getData('qty');
+$rowUom =   $block->getData('uom');
+$uniqueId = $block->getData('id');
+?>
+<div class="block-content">
+    <div class="empty">
+        <form action="<?php echo $this->getUrl('comm/quickadd/add'); ?>" method="post" id="quickadd-form__<?php echo $uniqueId;?>">
+            <?php if ($this->showLocations()) : ?>                    
+                <input type="hidden" id="qa_sku_locations_on" value="<?php echo $this->getUrl('comm/quickadd/nonAutoLocations') ?>" id="qa_sku_locations_on" />
+            <?php endif; ?>
+
+            <input type="hidden" name="sku" value="<?php echo $rowSku ?>" title="<?php echo __('SKU') ?>" id="qa_sku_<?php echo $uniqueId;?>" />
+            <input type="hidden" name="qty" value="<?php echo $rowQty ?>" title="<?php echo __('QTY') ?>" id="qa_qty_<?php echo $uniqueId;?>" />
+            <input type="hidden" name="uom" value="<?php echo $rowUom ?>" title="<?php echo __('UOM') ?>" id="qa_uom_<?php echo $uniqueId;?>" />
+            <input type="hidden" name="target" value="basket"  title="<?php echo __('Cart') ?>"  />
+
+            <div>
+                <p><button type="submit" title="<?php echo __('Reorder') ?>" class="debm-reorder-link action tocart primary" id="quickadd-submit__<?php echo $uniqueId;?>"><span><span><?php echo __('Reorder') ?></span></span></button></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    require([
+        'jquery',
+        'mage/translate',
+        'mage/mage',
+    ], function (jQuery) {
+        if (jQuery('quickadd-form')) {
+            jQuery(document).ready(function() {
+                FORM_KEY = "<?php echo $this->getFormKey(); ?>";
+                var dataForm = jQuery('#quickadd-form');
+                dataForm.mage('validation', {});
+            });
+        }
+    });
+    //]]>;
+</script> 
+

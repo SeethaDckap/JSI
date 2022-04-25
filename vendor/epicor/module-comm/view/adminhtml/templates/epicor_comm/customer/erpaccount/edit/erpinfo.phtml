@@ -1,0 +1,434 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Template for block \Epicor\Comm\Block\Adminhtml\Customer\Group\Edit\Erpinfo
+ */
+?>
+<?php
+$erpCustomer = $this->getErpCustomer();
+//M1 > M2 Translation Begin (Rule p2-1)
+/* $yesNoOptions =  Mage::getModel('epicor_comm/config_source_yesnonulloption')->toOptionArray();
+  $yesNoBranchOptions =  Mage::getModel('epicor_branchpickup/config_source_branchoptions')->toOptionArray(); */
+$yesNoOptions = $block->getYesNoNullOption()->toOptionArray();
+$yesNoBranchOptions = $block->getBranchOption()->toOptionArray();
+
+$accountType = $erpCustomer->getAccountType();
+
+$toggleoptions  = $block->getToggleOption()->toOptionArray();
+$loginModeTypeoptions = $block->getLoginModeOptions()->toOptionArray();
+$cusPriceOptions = $block->getCusPriceOptions()->toOptionArray();
+$marginOptions = $block->getMarginOptions()->toOptionArray();
+$arpaymentOptions = $block->getIsArpaymentAllowed()->toOptionArray();
+$warrantyOptions = $block->getIsWarrantyAllowed()->toOptionArray();
+$searchOptions = $block->getSearchOptions()->toOptionArray();
+$dealerGroups = $block->getDealerGroups()->toOptionArray();
+$accessRights = $block->getAccessRightOptions()->toOptionArray();
+$accessRolesOptions = $block->getAccessRoles()->getAllOptions();
+$miscViewOptions = $block->getMiscViewOptions()->toOptionArray();
+?>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php echo __('ERP Account Information') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tr>
+            <th><?php echo __('Company:') ?></th>
+            <td><?php echo $erpCustomer->getCompany() ?></td>
+        </tr>
+        <tr>
+            <th><?php echo __('Short Code:') ?></th>
+            <td><?php echo $erpCustomer->getShortCode() ?></td>
+        </tr>
+        <tr>
+            <th><?php echo __('ERP Account Number:') ?></th>
+            <td><?php echo $erpCustomer->getAccountNumber() ?></td>
+        </tr>
+        <tr>
+            <td><?php echo __('Name:') ?></td>
+            <td><?php echo $erpCustomer->getName() ?></td>
+        </tr>
+        <tr>
+            <td><?php echo __('Is Default Customer:') ?></td>
+            <td>
+                <?php echo $this->getScopeConfig()->getValue('customer/create_account/default_erpaccount', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == $erpCustomer->getEntityId() ? 'True' : 'False' ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php echo __('Linked Customer Group:') ?></td>
+            <td><?php echo $this->getCustomerGroup()->getCustomerGroupCode(); ?></td>
+        </tr>
+        <?php if ($erpCustomer->getDefaultPaymentMethodCode()) : ?>
+            <tr>
+                <td><?php echo __('Default Payment Method Code:') ?></td>
+                <td><?php echo $erpCustomer->getDefaultPaymentMethodCode(); ?></td>
+            </tr>
+        <?php endif; ?>
+        <?php if ($erpCustomer->getDefaultDeliveryMethodCode()) : ?>
+            <tr>
+                <td><?php echo __('Default Delivery Method Code:') ?></td>
+                <td><?php echo $erpCustomer->getDefaultDeliveryMethodCode(); ?></td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <td><?php echo __('Is Centrally Collected?') ?></td>
+            <td><?php echo $erpCustomer->getIsCentralCollection() ? '&#10004;': '&#10006;'; ?></td>
+        </tr>
+        <tr>
+            <td><label for="warranty_customer"><?php echo __('Warranty Customer?') ?></label></td>
+            <td><input name="is_warranty_customer" id="warranty_customer" type="checkbox" <?php if ($erpCustomer->getIsWarrantyCustomer()) : ?>checked="checked"<?php endif; ?> value="1"/></td>
+        </tr>
+        <tr>
+            <td><label for="warranty_customer"><?php echo __('Allow Backorders') ?></label></td>
+            <td><input name="allow_backorders" id="allow_backorders" type="checkbox" <?php if ($erpCustomer->getAllowBackorders()) : ?>checked="checked"<?php endif; ?> value="1"/></td>
+        </tr>
+        <tr>
+            <td><label for="po_mandatory"><?php echo __('Purchase Order Number Mandatory?') ?></label></td>
+            <td>
+                <select name="po_mandatory" id="po_mandatory">
+                    <?php foreach ($yesNoOptions as $key => $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getPoMandatory() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <?php if ($accountType == "B2B"): ?>
+            <tr>
+                <td><label for="hide_price_options"><?php echo __('Show Hide Prices Option') ?></label></td>
+                <td>
+                    <select name="hide_price_options" id="hide_price_options">
+                        <?php foreach ($yesNoOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getHidePriceOptions() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <td><label for="erp_default_location"><?php echo __('Default Location') ?></label></td>
+            <td>
+                <?php
+                $locations = $block->getLocationLists();
+                ?>
+            <select name="erp_default_location" id="erp_default_location">
+                <option value=""></option>
+                <?php foreach ($locations as $key => $location): ?>
+                    <option value="<?php echo $location->getCode(); ?>" <?php if ($erpCustomer->getDefaultLocationCode() == $location->getCode()) : ?>selected="selected"<?php endif; ?>><?php echo $location->getCode(); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </td>
+        </tr>
+        <?php if ($accountType != "Supplier"): ?>
+            <tr>
+                <td><label for="is_branch_pickup_allowed"><?php echo __('Branch Pickup Allowed') ?></label></td>
+                <td>
+                    <select name="is_branch_pickup_allowed" id="is_branch_pickup_allowed">
+                        <?php foreach ($yesNoBranchOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getIsBranchPickupAllowed() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="is_invoice_edit"><?php echo __('Invoice Selection Is Supported') ?></label></td>
+                <td>
+                    <select name="is_invoice_edit" id="is_invoice_edit">
+                        <?php foreach ($yesNoOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getIsInvoiceEdit() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>            
+            <tr>
+                <td><label for="is_arpayments_allowed"><?php echo __('AR Payment Allowed') ?></label></td>
+                <td>
+                    <select name="is_arpayments_allowed" id="is_arpayments_allowed">
+                        <?php foreach ($arpaymentOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getIsArpaymentsAllowed() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr> 
+            <?php if ($erpCustomer->getDefaultDeliveryMethodCode()) : ?>
+                <tr>
+                    <td><?php echo __('Send Invoice Email on SOU') ?></td>
+                    <td>
+                        <select name="sou_invoice_options" id="sou_invoice_options">
+                            <?php foreach ($yesNoOptions as $key => $value): ?>
+                                <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getSouInvoiceOptions() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                            <?php endforeach; ?>
+                        </select>       
+                    </td>
+                </tr>
+            <?php endif; ?>            
+        <?php endif; ?>
+        <?php if ($erpCustomer->getDefaultDeliveryMethodCode()) : ?>
+            <tr>
+                <td><?php echo __('Send New Shipment Details Email on SOU') ?></td>
+                <td>
+                    <select name="sou_shipment_options" id="sou_shipment_options">
+                        <?php foreach ($yesNoOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getSouShipmentOptions() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>       
+                </td>
+            </tr>
+        <?php endif; ?>            
+
+        <?php if ($erpCustomer->getAccountType() == "Dealer" || $erpCustomer->getAccountType() == "Distributor"): ?>    
+            <tr>
+                <td><label for="login_mode_type"><?php echo __('Login Mode Type') ?></label></td>
+                <td>
+                    <select name="login_mode_type" id="login_mode_type">
+                        <?php foreach ($loginModeTypeoptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getLoginModeType() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="is_toggle_allowed"><?php echo __('Is Toggle Allowed') ?></label></td>
+                <td>
+                    <select name="is_toggle_allowed" id="is_toggle_allowed">
+                        <?php foreach ($toggleoptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getIsToggleAllowed() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="show_customer_price"><?php echo __('Show Customer Price') ?></label></td>
+                <td>
+                    <select name="show_customer_price" id="show_customer_price">
+                        <?php foreach ($cusPriceOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getShowCustomerPrice() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="show_margin"><?php echo __('Show Margin') ?></label></td>
+                <td>
+                    <select name="show_margin" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getShowMargin() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_orig_replace"><?php echo __('BOM Allow replacement of originial parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_orig_replace" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowOrigReplace() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_orig_custom_replace"><?php echo __('BOM Allow replacement with custom parts of originial parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_orig_custom_replace" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowOrigCustomReplace() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_mod_replace"><?php echo __('BOM Allow replacement of modified parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_mod_replace" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowModReplace() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_mod_custom_replace"><?php echo __('BOM Allow replacement with custom parts of modified parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_mod_custom_replace" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowModCustomReplace() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_add"><?php echo __('BOM Allow addition of parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_add" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowAdd() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bom_allow_custom_add"><?php echo __('BOM Allow addition of custom parts') ?></label></td>
+                <td>
+                    <select name="bom_allow_custom_add" id="show_margin">
+                        <?php foreach ($marginOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getBomAllowCustomAdd() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="set_warranty_allowed"><?php echo __('Set Warranty Allowed ?') ?></label></td>
+                <td>
+                    <select name="set_warranty_allowed" id="set_warranty_allowed">
+                        <?php foreach ($warrantyOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getWarrantyConfig() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="inventory_search_type"><?php echo __('Inventory Search') ?></label></td>
+                <td>
+                    <select name="inventory_search_type" id="inventory_search_type">
+                        <option value="3" <?php if ($erpCustomer->getInventorySearchType() == "3") : ?>selected="selected"<?php endif; ?>><?php echo __("Global Default") ?></option>
+                        <?php foreach ($searchOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getInventorySearchType() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="inventory_dealer_groups"><?php echo __('Dealer Groups') ?></label></td>
+                <td>
+                    <select name="inventory_dealer_groups" id="inventory_dealer_groups">
+                        <option value="0" <?php if ($erpCustomer->getInventoryDealerGroups() == "0") : ?>selected="selected"<?php endif; ?>><?php echo __("Global Default") ?></option>
+                        <?php foreach ($dealerGroups as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getInventoryDealerGroups() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="claim_inventory_search_type"><?php echo __('Claim Inventory Search') ?></label></td>
+                <td>
+                    <select name="claim_inventory_search_type" id="claim_inventory_search_type">
+                        <option value="3" <?php if ($erpCustomer->getClaimInventorySearchType() == "3") : ?>selected="selected"<?php endif; ?>><?php echo __("Global Default") ?></option>
+                        <?php foreach ($searchOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getClaimInventorySearchType() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="claim_inventory_dealer_groups"><?php echo __('Claim Dealer Groups') ?></label></td>
+                <td>
+                    <select name="claim_inventory_dealer_groups" id="claim_inventory_dealer_groups">
+                        <option value="0" <?php if ($erpCustomer->getClaimInventoryDealerGroups() == "0") : ?>selected="selected"<?php endif; ?>><?php echo __("Global Default") ?></option>
+                        <?php foreach ($dealerGroups as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getClaimInventoryDealerGroups() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+
+        <?php endif; ?>
+        <tr>
+            <td>
+                <label for="min_order_amount_flag"><?php echo __('Min Order Amount Flag') ?></label>
+            </td>
+            <td>
+                <select name="min_order_amount_flag" id="min_order_amount_flag">
+                    <?= $this->getMinOrderAmountFlagOptionsHtml($erpCustomer->getMinOrderAmountFlag()) ?>
+                </select>
+            </td>
+        </tr>
+        <?php if (in_array($accountType, ["B2B", "Dealer"])): ?>
+            <tr>
+                <td><label for="misc_view_type"><?php echo __('View Miscellaneous Charges') ?></label></td>
+                <td>
+                    <select name="misc_view_type" id="misc_view_type">
+                        <option value="2" <?php if ($erpCustomer->getMiscViewType() == "2") : ?>selected="selected"<?php endif; ?>><?php echo __("Global Default") ?></option>
+                        <?php foreach ($miscViewOptions as $key => $value): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getMiscViewType() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <td><label for="is_tax_exempt"><?php echo __('Allow Tax Exempt') ?></label></td>
+            <td>
+                <select name="is_tax_exempt" id="is_tax_exempt">
+                    <?php foreach ($yesNoOptions as $key => $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getIsTaxExempt() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr id="access_rights_element">
+            <td><label for="erp_access_rights"><?php echo __('Access Rights') ?></label></td>
+            <td>
+                <select name="erp_access_rights" id="erp_access_rights">
+                    <?php foreach ($accessRights as $key => $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($erpCustomer->getErpAccessRights() == $value['value']) : ?>selected="selected"<?php endif; ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr id="access_roles_element">
+            <td><label for="erp_access_roles"><?php echo __('Select Custom Access Role') ?></label></td>
+            <td>
+                <select multiple name="erp_access_roles[]" class="admin__control-multiselect" id="erp_access_roles" size="10">
+                    <?php foreach ($accessRolesOptions as $key => $value): ?>
+                        <option value="<?php echo $value['role_id'] ?>" 
+                                <?php if ($value['by_erp_account'] == 1) : ?>selected="selected"<?php endif; ?> 
+                                <?php if ($value['autoAssign'] == 1) : ?>autoassigned="yes" disabled<?php endif; ?>
+                                >
+                                    <?php echo $value['value'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+    <?php echo $this->getChildHtml('erp-left-box-information') ?>
+    <?php echo $this->getChildHtml('erp-left-box') ?>
+</div>
+<div class="grid_display">
+    <?php echo $this->getChildHtml(); ?>
+</div>    
+<style>
+    .erp_infomation td {
+        padding:5px 15px 5px 5px;
+    }
+    .erp_infomation td.label {
+        width: 200px;
+    }
+    .grid_display{clear:both;}
+    select#erp_access_roles option[autoassigned="yes"] {
+        background: #c8c8c8;
+    }
+</style>
+<script>
+    require(['jquery'],
+            function ($) {
+                // access rights
+                $(document).ready(function () {
+                    var accessRights = 'select#erp_access_rights';
+                    var accessRoles = 'tr#access_roles_element';
+                    if ($(accessRights).val() != 1) {
+                        $(accessRoles).hide();
+                    }
+                    $(accessRights).change(function () {
+                        if ($(this).val() == 1) {
+                            $(accessRoles).show();
+                        } else {
+                            $(accessRoles).hide();
+                        }
+                    });
+                });
+            });
+</script>

@@ -1,0 +1,175 @@
+<?php $addresses = $block->getAddresses(); ?>
+<?php $customer = $block->getCustomer() ?>
+
+
+<div class="account-list">
+    <div class="quote section">
+        <div class="section-title"><?= __('Account Information') ?></div>
+        <div class="items">
+            <div class="child-item">
+                <div class="item-info">
+                    <div class="info">
+                        <span><?= __('User Name: ') ?></span>
+                        <span><?= $customer->getName() ?></span>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="info">
+                        <span><?= __('Account Name: ') ?></span>
+                        <span><?= 'Test Account Name' ?></span>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="info">
+                        <span><?= __('Account #: ') ?></span>
+                        <span><?= '100001' ?></span>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="info">
+                        <span><?= __('Email: ') ?></span>
+                        <span><?= $customer->getEmail() ?></span>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="info">
+                        <span><?= __('Website: ') ?></span>
+                        <span><?= '' ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="billing section">
+	    <div class="section-title"><?= __('Bill To\'s') ?></div>
+	    <div class="items">
+	        <?php foreach ($addresses as $address): ?>
+	            <div class="child-item">
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Name: ') ?></span>
+                                <span><?= $customer->getName() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Company: ') ?></span>
+                                <span><?= '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Address 1: ') ?></span>
+                                <span><?= $address->getStreet()[0] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Address 2: ') ?></span>
+                                <span><?= '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('City: ') ?></span>
+                                <span><?= $address->getCity() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('State: ') ?></span>
+                                <span><?= $address->getRegion()->getRegion() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Zip: ') ?></span>
+                                <span><?= $address->getPostCode() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Phone: ') ?></span>
+                                <span><?= $address->getTelephone() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Email: ') ?></span>
+                                <span><?= $customer->getEmail() ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	        <?php endforeach ?>
+	    </div>
+	</div>
+
+    <div class="billing section">
+        <div class="section-title"><?= __('Ship To\'s') ?></div>
+        <div class="items">
+            <?php foreach ($addresses as $address): ?>
+                <div class="child-item">
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Name: ') ?></span>
+                                <span><?= $customer->getName() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Company: ') ?></span>
+                                <span><?= '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Address 1: ') ?></span>
+                                <span><?= $address->getStreet()[0] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Address 2: ') ?></span>
+                                <span><?= '' ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('City: ') ?></span>
+                                <span><?= $address->getCity() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('State: ') ?></span>
+                                <span><?= $address->getRegion()->getRegion() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Zip: ') ?></span>
+                                <span><?= $address->getPostCode() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Phone: ') ?></span>
+                                <span><?= $address->getTelephone() ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Email: ') ?></span>
+                                <span><?= $customer->getEmail() ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>

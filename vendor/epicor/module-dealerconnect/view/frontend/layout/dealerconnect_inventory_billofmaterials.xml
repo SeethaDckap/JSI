@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Bill Of Materials</title>
+        <css src="Epicor_QuickOrderPad::css/quickorderpad.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+<!--            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\BillOfMaterials\Title" name="bom.title"/>-->
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\BillOfMaterials\Built" name="bom.built" />
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\BillOfMaterials\Additional" name="bom.additional" />
+            <block template="Epicor_Dealerconnect::dealerconnect/customer/account/link/back.phtml"
+                   class="Magento\Framework\View\Element\Template" name="inventory.link.back">
+                <action method="setBackUrls">
+                    <argument name="value" xsi:type="string">/dealerconnect/inventory/search</argument>
+                </action>
+            </block>        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <preference for="Magento\Customer\Block\Address\Book" type="Epicor\Comm\Block\Customer\Address\Book"/>
+  <preference for="Magento\Multishipping\Block\Checkout\Overview" type="Epicor\Comm\Block\Checkout\Multishipping\Overview"/>
+  <preference for="Magento\GroupedProduct\Block\Product\View\Type\Grouped" type="Epicor\Comm\Block\Catalog\Product\View\Type\Grouped\View"/>
+  <preference for="Magento\Wishlist\Block\Customer\Wishlist\Items" type="Epicor\Comm\Block\Wishlist\Customer\Wishlist\Items"/>
+  <preference for="Magento\Wishlist\Controller\Index\Index" type="Epicor\Comm\Controller\Wishlist\Index"/>
+  <type name="Magento\Framework\Url\SecurityInfo">
+    <arguments>
+      <argument name="secureUrlList" xsi:type="array">
+        <item name="epicor_comm" xsi:type="string">/comm/</item>
+      </argument>
+    </arguments>
+  </type>
+  <type name="Magento\Tax\Block\Checkout\Grandtotal">
+        <plugin name="magento_tax_checkout_grandtotal" type="Epicor\Comm\Plugin\Checkout\Multishipping\Grandtotal" sortOrder="99"/>
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="ecc_customer_order_ref_custom_field" type="Epicor\Comm\Plugin\Checkout\LayoutProcessor" sortOrder="100"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\LayoutProcessor">
+        <plugin name="ecc_cart_layout_process" type="Epicor\Comm\Plugin\Cart\LayoutProcessor" sortOrder="100"/>
+    </type>
+  <type name="Magento\Customer\Model\Address\CustomerAddressDataFormatter">
+        <plugin name="customer-addresses-idden-filed"
+                type="Epicor\Comm\Plugin\Checkout\ShippingAddressesListPlugin" sortOrder="100"/>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+       <arguments>
+           <argument name="configProviders" xsi:type="array">
+               <item name="additional_provider" xsi:type="object">Epicor\Comm\Model\AdditionalConfigProvider</item>
+           </argument>
+       </arguments>
+    </type>
+    <type name="\Magento\Catalog\Pricing\Render\FinalPriceBox">
+        <plugin name="epicor_comm_change_template" type="Epicor\Comm\Plugin\FinalPricePlugin" />
+    </type>
+    <type name="\Magento\Multishipping\Block\Checkout\Addresses">
+        <plugin name="address_force_type" type="Epicor\Comm\Plugin\Checkout\Multishipping\Addresses" />
+    </type>
+
+    <type name="\Magento\Multishipping\Block\Checkout\Address\Select">
+        <plugin name="address_force_type" type="Epicor\Comm\Plugin\Checkout\Multishipping\Select" />
+    </type>
+
+    <type name="\Magento\Customer\Block\Account\Link">
+        <plugin name="epicor_comm_change_myaccount" type="Epicor\Comm\Plugin\MyAccountLinkPlugin" />
+    </type>
+
+    <type name="\Magento\Framework\View\Element\Html\Link\Current">
+        <plugin name="epicor_comm_hide_myaccount_options" type="Epicor\Comm\Plugin\Framework\CurrentPlugin" />
+    </type>
+    <type name="\Magento\Checkout\CustomerData\Cart">
+        <plugin name="ecc_customerdata_cart" type="Epicor\Comm\Plugin\Checkout\CustomerData\CartPlugin" />
+    </type>
+    <type name="\Magento\Bundle\Pricing\Adjustment\Calculator">
+        <plugin name="ecc_comm_bundle_price" type="Epicor\Comm\Plugin\Bundle\Pricing\Adjustment\Calculator" />
+    </type>
+       <type name="Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="minicart_checkout_button_show" type="Epicor\Comm\Plugin\Checkout\SidebarPlugin" sortOrder="1"/>
+    </type>
+    <type name="Magento\Framework\View\Element\AbstractBlock">
+        <plugin name="modify_blockhtml" type="Epicor\Comm\Plugin\ModifyBlockHtmlAfterPlugin" />
+    </type>
+    <type name="\Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="ecc_comm_sidebar_config" type="Epicor\Comm\Plugin\Cart\AdditionalConfig" />
+    </type>
+    <type name="\Magento\Theme\Block\Html\Breadcrumbs">
+        <plugin name="ecc_comm_html_breadcrumbs" type="Epicor\Comm\Plugin\Html\Breadcrumbs" />
+    </type>
+    <!-- conflict M2.3.4 change class name and below code commit for WSO-5580 and it's still looking with TBD -->
+    <!-- <type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="multishipping_disabler" type="Magento\Multishipping\Controller\Checkout\Plugin" sortOrder="60" />
+    </type>-->
+    <type name="Magento\Sales\Helper\Reorder">
+        <plugin name="multishipping_disabler" type="Epicor\Comm\Plugin\Order\Helper\Reorder" sortOrder="60" />
+    </type>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="ewa_item_options_frontend" type="Epicor\Comm\Plugin\Catalog\Helper\Product\Configuration" />
+    </type>
+    <type name="Magento\Sales\Model\Order\Item">
+        <plugin name="ewa_order_item_options_frontend" type="Epicor\Comm\Plugin\Order\Item" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="ecc_catalog_product_view" type="Epicor\Comm\Plugin\Catalog\Product\View" />
+    </type>
+    <type name="Magento\Framework\View\Layout">
+        <plugin name="ecc_list_no_full_page_cache" type="Epicor\Comm\Plugin\Framework\View\Layout" />
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="locationPicker" xsi:type="string">Epicor\Comm\CustomerData\LocationPicker</item>
+                <item name="b2bmasquerade" xsi:type="string">Epicor\Comm\CustomerData\B2BMasquerade</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Checkout\Controller\Sidebar\UpdateItemQty" type="Epicor\Comm\Controller\Sidebar\UpdateItemQty" />
+    <type name="Magento\Checkout\Block\Registration">
+        <plugin name="checkout_onepage_success_registartion" type="Epicor\Comm\Plugin\Checkout\OnePageSuccessRegistration" />
+    </type>
+    <type name="Magento\Catalog\Model\Layer\Category\FilterableAttributeList">
+        <plugin name="removePriceFilter" type="Epicor\Comm\Plugin\Catalog\Pricing\RemovePriceFilter" />
+    </type>
+    <type name="Magento\Framework\Pricing\Render">
+        <plugin name="ecc_catalog_hide_price" type="Epicor\Comm\Plugin\Catalog\Pricing\HidePricePlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\CatalogSearch\Model\Advanced">
+        <plugin name="removeAdvPriceFilter" type="Epicor\Comm\Plugin\Catalog\Pricing\RemoveAdvPriceFilter" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\CartTotalsProcessor">
+        <plugin name="hideTotalsSummary" type="Epicor\Comm\Plugin\Cart\CartTotalsProcessor" sortOrder="100"/>
+    </type>
+    <type name="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option">
+        <plugin name="hideBundlePrice" type="Epicor\Comm\Plugin\Catalog\Product\View\Type\Bundle\HideOptionPrice" sortOrder="100"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="optionsSalableCheck" type="Epicor\Comm\Plugin\Catalog\Product\View\Type\Configurable\OptionsCheck" sortOrder="100"/>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="accountSummary" xsi:type="string">Epicor\Comm\CustomerData\AccountSummary</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="companylink" xsi:type="string">Epicor\Comm\CustomerData\Companylink</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Block\Account\Dashboard\Address">
+        <plugin name="epicor_comm_customer_dashboard_address" type="Epicor\Comm\Plugin\Block\Account\Address" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Model\Session">
+        <plugin name="epicor_comm_checkout_session" type="Epicor\Comm\Plugin\Checkout\Session" sortOrder="1"/>
+    </type>
+    <preference for="Magento\Catalog\Model\ResourceModel\Product\Link\Product\Collection"
+                type="Epicor\Comm\Model\ResourceModel\Product\Link\Product\Collection"/>
+    <type name="Magento\Framework\Pricing\Render\Amount">
+        <plugin name="epicor_comm_price_render_amount" type="Epicor\Comm\Plugin\Framework\Pricing\Render\Amount" sortOrder="1"/>
+    </type>
+    <type name="Magento\Framework\Locale\Format">
+        <plugin name="epicor_comm_locale_format" type="Epicor\Comm\Plugin\Framework\Locale\Format" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="epicor_comm_listcompare" type="Epicor\Comm\Plugin\Catalog\Product\Compare\ListCompare" sortOrder="1"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Pricing\Price\ConfigurableRegularPrice">
+        <plugin name="epicor_comm_configurableregularprice" type="Epicor\Comm\Plugin\ConfigurableProduct\Pricing\ConfigurableRegularPrice" sortOrder="1"/>
+    </type>
+    <type name="Epicor\Comm\Controller\Cart\Add">
+        <plugin name="epicor_comm_cart_add" type="Epicor\Comm\Plugin\Cart\Add" sortOrder="1"/>
+    </type>
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="bsvLineCodeError" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Epicor_Comm::epicor_comm/cart/messages/bsvLineCodeError.phtml</item>
+                    </item>
+                </item>
+                <item name="lineQtyError" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Epicor_Comm::epicor_comm/cart/messages/lineQtyError.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Wishlist\Controller\Index\Cart">
+        <plugin name="epicor_comm_wishlist_cart" type="Epicor\Comm\Plugin\Wishlist\Cart" sortOrder="1"/>
+    </type>
+</config>

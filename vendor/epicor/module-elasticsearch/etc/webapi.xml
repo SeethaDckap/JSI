@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- Quick Search Service
+    <route url="/V1/eccquicksearch" method="GET">
+        <service class="Epicor\Elasticsearch\Api\QuickSearchResponseBuilderInterface"
+                 method="buildQuickSearchResponse"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    -->
+</routes>

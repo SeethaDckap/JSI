@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="braintree.card.renderer">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Epicor_AccessRight::vault/customer_account/credit_card.phtml</argument>
+                </action>
+            </referenceBlock>
+            <referenceBlock name="braintree_paypal.token.renderer">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Epicor_AccessRight::vault/customer_account/vault_token.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

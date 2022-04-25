@@ -1,0 +1,132 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * @var $this \Epicor\QuickOrderPad\Block\Catalog\Product\Listing\Child
+ */
+$_product = $this->registry('current_product');
+$loopProduct = $this->registry('current_loop_product') ? : $_product;
+/* @var $loopProduct \Epicor\Comm\Model\Product */
+$productLocation = $this->registry('current_location') ? : $_product;
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+$_productHelper = $this->helper('Epicor\Comm\Helper\Product');
+/* @var $_productHelper \Epicor\Comm\Helper\Product */
+
+//locations stuff
+$locHelper = $this->getHelper();
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$locationVisibility = $locHelper->getStockVisibilityFlag();
+$singleLocation = (in_array($locationVisibility, ['all_source_locations', 'default'])) ? true : false;
+$prodQty = $this->getProductDefaultQty();
+if (($showLocations && $singleLocation)
+    || !$showLocations
+) {
+    $prodQty = $loopProduct->getQty();
+}
+if ($showLocations && !$this->registry('current_location') && !$this->getForceHideLocations()) :
+    $showAddToCart = false;
+else:
+    $showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+endif;
+
+$showUom = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart');
+$showInColumn = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart_column');
+?>
+<?php if ($showAddToCart || $this->getIsRfq()) : ?>
+
+    <td class="action last">
+        <?php echo $this->getChildHtml('epicor_extra', false); ?>
+        <?php if ($loopProduct->isSaleable() || ($loopProduct->isSalable() && $this->getIsRfq())): ?>
+            <?php if ($_product->getEccConfigurator() && !$this->getHideConfigurator()): ?>
+                <?php if ($this->getParentBlock()->getLicensed()): ?>
+                    <?php echo $this->getParentBlock()->getChildHtml('epicor_ecc_product_configurator', false); ?>
+                <?php endif; ?>
+            <?php elseif (($_product->getTypeId() == 'configurable' || $this->productHasOptions($_product, true)) && !$this->getHideConfigurator()): ?>
+                <div class="configurable_addtocart">  
+                    <?php $buttonTitle = __('Configure Product'); ?>
+                    <div class="add-to-cart">
+                        <a href="<?php echo $_productHelper->getProductUrl($_product, array('returnurl' => base64_encode($this->getCurrentUrl())), true); ?>">
+                            <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="">
+                                <span><span>
+                                        <?php echo $buttonTitle ?>
+                                    </span></span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            <?php else : ?>
+                <?php $qtyName = $this->getQtyFieldName($_product, $loopProduct, $productLocation); ?>
+                <?php $addHiddenLoc = $this->addHiddenLocationCode($_product); ?>
+                <form method="post" action="<?php echo $this->getAddToCartUrl($_product); ?>" class="addtobasketform">
+                    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
+                    <input type="hidden" value="<?php echo $this->getReturnUrl(); ?>" name ="return_url"/>                    
+                    <input type="hidden" value="<?php echo $_product->getId(); ?>" name="product">
+                    <?php if ($addHiddenLoc): ?>
+                        <?php
+                        $locationCode = $_product->getRequiredLocation();
+                        $branchHelper = $this->helper('Epicor\BranchPickup\Helper\Data');
+                        $branchSelected = $branchHelper->getSelectedBranch();
+                        if ($branchHelper->isBranchPickupAvailable() && $branchSelected) {
+                            $locationCode = $branchSelected;
+                        }
+                        ?>
+                        <input type="hidden" value="<?php echo $locationCode; ?>" name="location_code"/>
+                    <?php endif; ?>
+                    <?php 
+                    $validation = $block->getQuantityValidators();
+                    $dataValidation = "";
+                    ?>
+                    <?php if(!empty($validation)) {
+                        $dataValidation = 'data-validate="' . $block->escapeHtml(json_encode($block->getQuantityValidators())) . '"';
+                    }
+                    ?>
+                    <label for="qty_<?php echo $_product->getId(); ?>"></label>
+                    <input <?php echo $dataValidation; ?> id="qty_<?php echo $_product->getId(); ?>" qty="qty_<?php echo $_product->getId(); ?>" type="text" name="<?php echo $qtyName; ?>" maxlength="12" value="<?php echo $prodQty * 1 ?>" title="<?php echo __('Qty') ?>" class="input-text qty addall_qty" />
+                    <?php if ($loopProduct->getTypeId() == 'bundle'): ?>
+                        <?php $selectionCollection = $loopProduct->getTypeInstance(true)->getSelectionsCollection($loopProduct->getTypeInstance(true)->getOptionsIds($loopProduct), $loopProduct); ?>
+                        <?php foreach ($selectionCollection as $option) : ?>
+                            <input type="hidden" name="bundle_option[<?php echo $option->getOptionId(); ?>]" value="<?php echo $option->getSelectionId(); ?>" />
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <button type="sumbit" title="<?php echo __('Add to Cart') ?>" class="btn-qop action primary tocart" ><span><?php echo __('>>') ?></span></button>
+                </form>
+                <?php if ($this->productHasOptions($_product) && !$this->getHideConfigurator()): ?>
+                    <div class="configurable_addtocart">  
+                        <?php $buttonTitle = __('Configure Product'); ?>
+                        <div class="add-to-cart">
+                            <a href="<?php echo $_productHelper->getProductUrl($_product, array('returnurl' => base64_encode($this->getCurrentUrl()))); ?>">
+                                <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="">
+                                    <span><span>
+                                            <?php echo $buttonTitle ?>
+                                        </span></span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($showUom && !$showInColumn) : ?>
+                    <span class="nobr" style="display:block;">
+                        <?php if (($_product->getTypeId() != 'grouped') || ($loopProduct->getEccPackSize() != '' && $_product->getEccStkType() == 'grouped')) : ?>                
+                            <?php $uom = __($this->escapeHtml($loopProduct->getEccPackSize() ? : $_product->getEccDefaultUom())) ?>
+                        <?php else: ?>
+                            <?php $uom = __($this->escapeHtml($loopProduct->getName())) ?>
+                        <?php endif ?> 
+                        <?php if (!empty($uom)) : ?>
+                            <?php echo ' x ' . $uom; ?>
+                        <?php endif ?> 
+                    </span>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php else: ?>
+            <p class="availability out-of-stock"><span><?php echo __('Out of stock'); ?></span></p>
+
+        <?php endif; ?>
+<?php else: ?>
+     <td class="action last">
+<?php endif; ?>
+    </td>

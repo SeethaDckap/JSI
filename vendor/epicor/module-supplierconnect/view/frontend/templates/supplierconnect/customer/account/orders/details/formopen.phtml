@@ -1,0 +1,7 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><form id="purchase_order_update" action="<?php echo $this->getUrl('*/*/update', array('order' => $this->getRequest()->getParam('order'))); ?>" method="post" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey') ?>
+    <input type="hidden" name="back" value="<?php echo $this->getRequest()->getParam('back'); ?>"/>

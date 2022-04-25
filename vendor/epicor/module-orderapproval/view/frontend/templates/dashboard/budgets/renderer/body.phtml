@@ -1,0 +1,16 @@
+<?php /** Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved */ ?>
+<?php /** @var $block \Epicor\OrderApproval\Block\Dashboard\Budgets\Renderer\Columns */ ?>
+<?php foreach ($block->getBudgetAllocations() as $spend): ?>
+    <?php /** @var \Epicor\OrderApproval\Model\Budgets\Spend $spend */ ?>
+    <tr data-order-ids="<?= $spend->getOrdersIds() ?>"
+        data-orders-total="<?= $spend->getOrderTotals() ?>"
+        data-erp-total="<?= $spend->getErpTotal() ?>"
+        class="<?= $spend->getStatus() ?>"
+    >
+        <?php foreach ($block->getColumns() as $column): ?>
+            <?php if ($block->isColumnActive($column)): ?>
+                <td><?= $block->getColumnData($spend, $column) ?></td>
+            <?php endif ?>
+        <?php endforeach; ?>
+    </tr>
+<?php endforeach; ?>

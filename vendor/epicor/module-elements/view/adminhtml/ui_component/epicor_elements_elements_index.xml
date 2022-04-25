@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">epicor_elements_elements_index.epicor_elements_elements_grid_data_source</item>
+			<item name="deps" xsi:type="string">epicor_elements_elements_index.epicor_elements_elements_grid_data_source</item>
+		</item>
+		<item name="spinner" xsi:type="string">epicor_elements_elements_columns</item>
+	</argument>
+	<dataSource name="epicor_elements_elements_grid_data_source">
+		<argument name="dataProvider" xsi:type="configurableObject">
+			<argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+			<argument name="name" xsi:type="string">epicor_elements_elements_grid_data_source</argument>
+			<argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+			<argument name="requestFieldName" xsi:type="string">id</argument>
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+					<item name="update_url" path="mui/index/render" xsi:type="url"/>
+					<item name="storageConfig" xsi:type="array">
+						<item name="indexField" xsi:type="string">entity_id</item>
+					</item>
+				</item>
+			</argument>
+		</argument>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="sticky" xsi:type="boolean">true</item>
+			</item>
+		</argument>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="epicor_elements_elements_columns">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="childDefaults" xsi:type="array">
+					<item name="fieldAction" xsi:type="array">
+						<item name="provider" xsi:type="string">epicor_elements_elements_index.epicor_elements_elements_index.epicor_elements_elements_columns_editor</item>
+						<item name="target" xsi:type="string">startEdit</item>
+						<item name="params" xsi:type="array">
+							<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+							<item name="1" xsi:type="boolean">true</item>
+						</item>
+					</item>
+				</item>
+			</item>
+		</argument>
+		<column name="entity_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="sorting" xsi:type="string">desc</item>
+					<item name="label" translate="true" xsi:type="string">ID</item>
+					<item name="sortOrder" xsi:type="number">1</item>
+				</item>
+			</argument>
+		</column>
+		<column name="order_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" translate="true" xsi:type="string">Order Id</item>
+					<item name="sortOrder" xsi:type="number">2</item>
+				</item>
+			</argument>
+		</column>	
+		<column name="transaction_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" translate="true" xsi:type="string">Transaction Id</item>
+					<item name="sortOrder" xsi:type="number">3</item>
+				</item>
+			</argument>
+		</column>
+		<column name="transaction_setup_express_response_message">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" translate="true" xsi:type="string">Transaction Setup Express Response Message</item>
+					<item name="sortOrder" xsi:type="number">4</item>
+				</item>
+			</argument>
+		</column>
+		<column name="error">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" translate="true" xsi:type="string">Error</item>
+					<item name="sortOrder" xsi:type="number">5</item>
+				</item>
+			</argument>
+		</column>
+		<actionsColumn class="Epicor\Elements\Ui\Component\Listing\Column\ElementsActions" name="actions">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="indexField" xsi:type="string">entity_id</item>
+					<item name="sortOrder" xsi:type="number">6</item>
+				</item>
+			</argument>
+		</actionsColumn>
+	</columns>
+</listing>

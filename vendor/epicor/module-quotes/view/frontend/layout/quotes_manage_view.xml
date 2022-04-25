@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+         <title></title>
+          <script src="Epicor_Quotes::epicor/quotes/js/managequote.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">    
+            <block template="Epicor_Quotes::quotes/manage/view/quoteinfo.phtml" class="Epicor\Quotes\Block\View\Quoteinfo" name="quote_info" cacheable="false"/>
+            <block template="Epicor_Quotes::quotes/manage/view/productlines.phtml" class="Epicor\Quotes\Block\View\Productlines" name="quote_productliness" cacheable="false"/>
+            <block template="Epicor_Quotes::quotes/manage/view/commenthistory.phtml" class="Epicor\Quotes\Block\View\Commenthistory" name="quote_commentlines" cacheable="false"/>
+            <block template="Epicor_Quotes::quotes/manage/view/back.phtml" class="Epicor\Quotes\Block\View\Quoteinfo" name="customer.account.link.back"/>
+        </referenceContainer>
+    </body>
+</page>

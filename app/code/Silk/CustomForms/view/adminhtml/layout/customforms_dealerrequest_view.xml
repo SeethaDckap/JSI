@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="dealer-request-detail-container" htmlId="dealer-request-detail-container" htmlClass="dealer-request-detail" htmlTag="div">
+                <block class="Silk\CustomForms\Block\Adminhtml\DealerRequest" name="dealer-request-detail" template="Silk_CustomForms::dealerrequest/details.phtml" />
+                
+            </container>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="layout_load_before">
+        <observer name="access_order_view" instance="Epicor\AccessRight\Observer\Orderview" />
+    </event>
+    <event name="customer_login">
+        <observer name="epicor_accessrights_login" instance="Epicor\AccessRight\Observer\SetAllowedResource"/>
+    </event>
+    <event name="epicor_comm_masquerade_start">
+        <observer name="epicor_accessrights_after_masquerade" instance="Epicor\AccessRight\Observer\MasqueradeAllowedResource"/>
+    </event>
+    <event name="customer_logout">
+        <observer name="epicor_accessrights_logout" instance="Epicor\AccessRight\Observer\UnsetAllowedResource"/>
+    </event>
+
+</config>

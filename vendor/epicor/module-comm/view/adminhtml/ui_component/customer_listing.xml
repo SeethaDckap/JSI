@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="assign_account_type">
+                <settings>
+                    <type>assign_account_type</type>
+                    <label translate="true">Assign an Account</label>
+                    <actions class="Epicor\Comm\Ui\Component\MassAction\Customer\Erpaccounttype"/>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+     
+     <columns name="customer_columns" class="Magento\Customer\Ui\Component\Listing\Columns">
+             
+        <column name="ecc_erpaccount_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">ecc_erpaccount_id</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">53</item>
+                </item>
+            </argument>
+        </column>  
+        <column name="customer_company" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Company</item>
+                    <item name="sortOrder" xsi:type="number">53</item>
+                </item>
+            </argument>
+        </column>
+        <column name="short_code" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Short Code</item>
+                    <item name="sortOrder" xsi:type="number">53</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ecc_erp_account_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Epicor\Comm\Model\Source\Erpaccounttype</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Account Type</item>
+                    <item name="sortOrder" xsi:type="number">54</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ecc_previous_erpaccount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Previous</item>
+                    <item name="sortOrder" xsi:type="number">55</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ecc_master_shopper">            
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Epicor\Comm\Model\Source\MasterShopper</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Master Shopper</item>
+                    <item name="sortOrder" xsi:type="number">56</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

@@ -1,0 +1,35 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+#edit_form legend {
+    margin-bottom:0;
+}
+
+#edit_form div.field-post_data_store_id,
+#edit_form div.field-xml,
+#edit_form div.field-erp_response {
+    margin:0.3em 0;
+    width: 50%;
+}
+
+#edit_form div.field-xml,
+#edit_form div.field-erp_response
+{
+    float: left;
+}
+
+#edit_form div.field-xml label,
+#edit_form div.field-erp_response label,
+#edit_form div.field-post_data_store_id label
+{
+    float: none;
+}
+
+#edit_form div.field-xml .admin__field-control,
+#edit_form div.field-erp_response .admin__field-control,
+#edit_form div.field-post_data_store_id .admin__field-control
+{
+    float: none;
+    width:90%;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="udexample_settings" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="500" translate="label">
+            <label>UD Example Settings</label>
+            <tab>epicor_config</tab>
+            <resource>Epicor_UDExample::config_epicor_udexample</resource>
+            <group id="display_conformance_checkout" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Checkout Settings</label>
+                <field id="display_conformance" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Display Certificate of conformance</label>
+                    <comment>See Epicor/UDExample/Observer/Gor/RequestConvert2xmlBefore.php</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="display_payload_crqu" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>CRQU Settings</label>
+                <field id="display_payload_crqu" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Enable payload data sending in the CRQU</label>
+                    <comment>See Epicor/UDExample/Observer/Crqu/RequestConvert2xmlBefore.php</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

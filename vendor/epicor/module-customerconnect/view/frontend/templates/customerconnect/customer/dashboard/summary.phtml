@@ -1,0 +1,59 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * @var $this \Epicor\Customerconnect\Block\Customer\Account\Summary
+ */
+if ($this->getErpCustomer()->getId()) :
+    ?><div class="box-info box-account col-2 box-account block block-dashboard-info">
+        <div class="block-title">
+            <strong><?php echo __('Account Information') ?></strong>
+        </div>
+        <?php if ($this->getDisplayDashboard()) {  // display if dashboard available ?>   
+            <div class="info-list col-count-1">
+                <?php if ($this->showField('name')) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Name:') ?></span>
+                        <span class="value"><?php echo $this->getErpCustomer()->getName() ?></span>
+                    </p>
+                <?php endif; ?>
+                <?php if ($this->showField('code')) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Short Code:') ?></span>
+                        <span class="value"><?php echo $this->getErpCustomer()->getShortCode() ?></span>
+                    </p>
+                <?php endif; ?>
+
+                <?php if ($this->showField('credit_limit') && !$this->isHidePricesActive()) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Credit Limit:') ?></span>
+                        <span class="value"><?php echo $this->getCreditLimit(); ?></span>
+                    </p>
+                <?php endif; ?>
+                <?php if ($this->showField('min_order_value')  && !$this->isHidePricesActive()) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Min Order Value:') ?></span>      
+                        <span class="value"><?php echo $this->getMinOrderValue(); ?></span>
+                    </p>    
+                <?php endif; ?>          
+                <?php if ($this->showField('balance')  && !$this->isHidePricesActive()) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Current Balance:') ?></span>
+                        <span class="value"><?php echo $this->getBalance(); ?></span>
+                    </p>
+                <?php endif; ?>
+                <?php if ($this->showField('unallocated_cash')  && !$this->isHidePricesActive()) : ?>
+                    <p>
+                        <span class="label"><?php echo __('Unallocated Cash:') ?></span>
+                        <span class="value"><?php echo $this->getUnallocatedCash(); ?></span>
+                    </p>
+                <?php endif; ?>
+            </div>
+        <?php } ?>        
+    </div>
+    <?php
+
+
+endif;

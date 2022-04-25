@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey" />
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Adminhtml\Message\Log\View" name="erp_header" after="group"/>
+            <block template="Epicor_Comm::epicor_comm/message/log/view/details.phtml" class="Epicor\Comm\Block\Adminhtml\Message\Log\View\Log" name="log_view_details"/>
+            <block template="Epicor_Comm::epicor_comm/message/log/view/timing.phtml" class="Epicor\Comm\Block\Adminhtml\Message\Log\View\Log" name="log_view_timing"/>
+            <block template="Epicor_Comm::epicor_comm/message/log/view/status.phtml" class="Epicor\Comm\Block\Adminhtml\Message\Log\View\Log" name="log_view_status"/>
+            <block template="Epicor_Comm::epicor_comm/message/log/view/xml.phtml" class="Epicor\Comm\Block\Adminhtml\Message\Log\View\Log" name="log_view_xml"/>
+        </referenceContainer>
+    </body>
+</page>

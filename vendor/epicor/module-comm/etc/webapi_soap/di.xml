@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <type name="Magento\Sales\Model\Order\Item">
+        <plugin name="ewa_order_item_options_soap" type="Epicor\Comm\Plugin\Order\Item" />
+    </type>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="ewa_item_options_frontend_soap" type="Epicor\Comm\Plugin\Catalog\Helper\Product\Configuration" />
+    </type>
+</config>

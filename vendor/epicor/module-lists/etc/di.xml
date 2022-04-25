@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <preference for="UNKNOWN\catalogrule\rule_condition_product" type="Epicor\Lists\Model\Catalogrule\Rule\Condition\Product"/>
+    <type name="Epicor\Lists\Helper\Frontend">
+        <arguments>
+            <argument name="filterReader" xsi:type="object">Epicor\Lists\Model\ListFilterReader\Proxy</argument>
+        </arguments>
+    </type>
+     <type name="Epicor\Lists\Helper\Admin">
+        <arguments>
+            <argument name="listsTypeReader" xsi:type="object">Epicor\Lists\Model\ListsTypeModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Model\ListFilterReader">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="epicor_lists/list_filter_website" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Website</item>
+                <item name="epicor_lists/list_filter_store" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Store</item>
+                <item name="epicor_lists/list_filter_erpaccount" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Erpaccount</item>
+                <item name="epicor_lists/list_filter_erpaccounttype" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Erpaccounttype</item>
+                <item name="epicor_lists/list_filter_customer" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Customer</item>
+                <item name="epicor_lists/list_filter_restriction" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Restriction</item>
+                <item name="epicor_lists/list_filter_mandatory" xsi:type="object">Epicor\Lists\Model\ListModel\Filter\Mandatory</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Model\ListsTypeModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="pricelist" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Pricelist</item>
+                <item name="contract" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Contract</item>
+                <item name="favorite" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Favorite</item>
+                <item name="productgroup" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Productgroup</item>
+                <item name="restrictedpurchase" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Restrictedpurchase</item>
+                <item name="recentpurchase" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Recentpurchase</item>
+                <item name="predefined" xsi:type="object">Epicor\Lists\Model\ListModel\Type\Predefined</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Controller\Lists">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="filter_allow_products" type="Epicor\Lists\Plugin\FilterAllowProducts" />
+    </type>
+    <type name="Magento\CatalogSearch\Model\Advanced">
+        <plugin name="advance_search_filter" type="Epicor\Lists\Plugin\Catalogsearch\Advanced\Filter"/>
+    </type>
+    <type name="Epicor\Lists\Controller\Adminhtml\Epicorlists\Lists\Save">
+        <arguments>
+            <argument name="listProductPositionFactory" xsi:type="object">Epicor\Lists\Model\ResourceModel\ListProductPositionFactory</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Controller\Lists\SaveCartAsList">
+        <arguments>
+            <argument name="listProductPositionFactory" xsi:type="object">Epicor\Lists\Model\ResourceModel\ListProductPositionFactory</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Model\ListModel">
+        <arguments>
+            <argument name="listProductPosition" xsi:type="object">Epicor\Lists\Model\ResourceModel\ListProductPosition</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Controller\Lists\AddListToCart">
+        <arguments>
+            <argument name="positionOrder" xsi:type="object">Epicor\QuickOrderPad\Model\ResourceModel\Position\PositionOrder</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Block\Customer\Account\Listing\Renderer\Qty">
+        <arguments>
+            <argument name="productsGrid" xsi:type="object">Epicor\Lists\Block\Customer\Account\Listing\Products\Grid</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Lists\Block\Customer\Account\Listing\Renderer\Position">
+        <arguments>
+            <argument name="products" xsi:type="object">Epicor\Lists\Block\Adminhtml\Listing\Edit\Tab\Products</argument>
+        </arguments>
+    </type>
+    <preference for="Epicor\Lists\Api\Data\ImportInterface" type="Epicor\Lists\Model\Import" />
+    <preference for="Epicor\Lists\Api\ImportRepositoryInterface" type="Epicor\Lists\Model\ImportRepository" />
+    <preference for="Epicor\Lists\Api\Data\MassUploadInterface" type="Epicor\Lists\Model\Queue\Entity\MassUpload" />
+</config>

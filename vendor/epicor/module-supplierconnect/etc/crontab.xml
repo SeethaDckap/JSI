@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+  <group id="ecc">
+    <job name="send_supplier_email_schedules" instance="Epicor\Supplierconnect\Model\Cron" method="checkAndSendEmailRfqs">
+      <schedule>0 0 * * *</schedule>
+    </job>
+    <job name="send_supplier_reminder_expiry" instance="Epicor\Supplierconnect\Model\Cron" method="checkExpiryReminder">
+      <schedule>30 1 * * *</schedule>
+    </job>
+  </group>
+</config>

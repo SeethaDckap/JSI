@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>Supplier Connect Dashboard</title>    
+        <css src="Epicor_Supplierconnect::epicor/supplierconnect/css/supplierconnect.css"/>
+        <script src="Epicor_Supplierconnect::epicor/supplierconnect/js/managesupplierdashboard.js" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/dashboard/title.phtml" class="Magento\Framework\View\Element\Template" name="supplierconnect.dashboard.title"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Account\Info" name="customer_account_dashboard_info" as="info" template="Epicor_Supplierconnect::supplierconnect/customer/dashboard/info.phtml" cacheable="false"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/dashboard/manage.phtml" class="Epicor\Supplierconnect\Block\Customer\Dashboard\Manage" name="supplierconnect.dashboard.title"/>
+            <container name="summary.rfs.order.container" htmlTag="section" htmlId="rfq-summery-container" htmlClass="rfq-summery-container">
+                <block class="Epicor\Supplierconnect\Block\Customer\Account\Rfqs" name="supplier.account.rfqs"/>
+                <block class="Epicor\Supplierconnect\Block\Customer\Account\PurchaseOrders" name="supplier.purchase.orders"/>           
+            </container>
+
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">account.rfqs</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Supplierconnect</item>
+                        <item name="controller" xsi:type="string">Rfq</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">account.purchase.orders</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Supplierconnect</item>
+                        <item name="controller" xsi:type="string">Orders</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <block class="Epicor\Supplierconnect\Block\Customer\Dashboard\Rfqs" name="supplier.dashboard.rfqs"/>
+                <block class="Epicor\Supplierconnect\Block\Customer\Dashboard\Orders" name="supplier.dashboard.orders"/>
+                <block class="Epicor\Supplierconnect\Block\Customer\Dashboard\Invoices" name="supplier.dashboard.invoices"/>
+                <block class="Epicor\Supplierconnect\Block\Customer\Dashboard\Payments" name="supplier.dashboard.payments"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

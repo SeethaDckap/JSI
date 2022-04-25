@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<div class="actions" if="isPunchout()">
+    <div class="primary">
+        <button
+                id="top-cart-btn-punchout"
+                type="button"
+                class="action primary punchout"
+                data-action="punchout-redirect"
+                data-bind="
+                            attr: {
+                                title: $t('Transfer Cart')
+                            },
+                            click: redirectpunchout()
+                        "
+                translate="'Transfer Cart'"
+        />
+    </div>
+</div>

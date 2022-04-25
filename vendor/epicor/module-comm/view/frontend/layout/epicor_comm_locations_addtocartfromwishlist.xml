@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <update handle="quickorderpad_form_results"/>
+        <referenceBlock name="quickorderpad_wrapper">
+            <action method="setTitle">
+                <argument translate="true" name="title" xsi:type="string">Add to cart from Wishlist</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

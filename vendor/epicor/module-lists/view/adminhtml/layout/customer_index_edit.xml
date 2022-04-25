@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="customer_edit_tabs">
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">customer_edit_tab_lists</argument>
+                <argument name="block" xsi:type="string">epicor_lists/adminhtml_customer_edit_tab_lists</argument>
+                <argument name="after" xsi:type="string">tags</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="customer_form">
+            <block class="Epicor\Lists\Block\Adminhtml\Customer\Edit\Tab\Lists" name="customer.lists" after="locations_grid" />
+        </referenceBlock>
+    </body>
+</page>

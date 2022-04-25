@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+        <title>Returns</title>
+        <script src="Epicor_Comm::epicor/comm/js/quickadd.js"/>
+         <script src="Epicor_Common::epicor/common/js/attachment-validations.js"/>
+        <css src="Epicor_Comm::epicor/comm/css/returns.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Customer\Returns" name="customer.returns">
+                <block class="Epicor\Comm\Block\Customer\Returns\Login" name="customer.returns.login" as="login"/>
+                <block class="Epicor\Comm\Block\Customer\Returns\ReturnBlock" name="customer.returns.return" as="return"/>
+                <block class="Epicor\Comm\Block\Customer\Returns\Products" name="customer.returns.products" as="products">
+                    <block class="Epicor\Comm\Block\Customer\Returns\Lines" name="customer.returns.products.lines" as="lines"/>
+                </block>
+                <block class="Epicor\Comm\Block\Customer\Returns\Attachments" name="customer.returns.attachments" as="attachments"/>
+                <block class="Epicor\Comm\Block\Customer\Returns\Notes" name="customer.returns.notes" as="notes"/>
+                <block class="Epicor\Comm\Block\Customer\Returns\Review" name="customer.returns.review" as="review"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

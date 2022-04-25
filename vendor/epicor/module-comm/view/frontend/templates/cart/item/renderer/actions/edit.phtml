@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit */
+?>
+<?php $_item = $this->getItem();
+$groupParent = method_exists($block, 'isGroupProduct') ? $block->isGroupProduct($_item->getProduct()) : false;
+
+if($groupParent){
+    $groupedProductUrlPath = $groupParent->getProductUrl();
+}
+
+?>
+<?php if ($block->isProductVisibleInSiteVisibility()): ?>
+    <a class="action action-edit"
+       href="<?php /* @escapeNotVerified */ echo $block->getConfigureUrl() ?>"
+       title="<?php echo $block->escapeHtml(__('Edit item parameters')); ?>">
+        <span>
+            <?php /* @escapeNotVerified */ echo __('Edit') ?>
+        </span>
+   </a>
+<?php elseif ($groupParent): ?>
+    <a class="action action-edit"
+       href="<?php /* @escapeNotVerified */ echo $block->addUrlParams($groupedProductUrlPath, array( 'itemid' => $_item->getId()
+                ,'packsize' =>$_item->getProduct()->getId()
+                ,'qty' => $_item->getQty()
+                 ,'recon'  => 'y',           
+                )) ?>"
+       title="<?php echo $block->escapeHtml(__('Edit item parameters')); ?>">
+        <span>
+            <?php /* @escapeNotVerified */ echo __('Edit') ?>
+        </span>
+   </a>
+<?php endif; ?>

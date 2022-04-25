@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+  <group id="ecc">
+    <job name="ecc_message_log_cleanup" instance="Epicor\Comm\Model\Cron" method="cleanLog">
+      <schedule>* 23 * * *</schedule>
+    </job>
+    <job name="ecc_message_queue_cleanup" instance="Epicor\Comm\Model\Cron" method="cleanMessageQueue">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_offline_gor" instance="Epicor\Comm\Model\Cron" method="offlineOrders">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_scheduled_msq" instance="Epicor\Comm\Model\Cron" method="scheduleMsq">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_scheduled_sod" instance="Epicor\Comm\Model\Cron" method="scheduleSod">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_product_image_sync" instance="Epicor\Comm\Model\Cron\Product" method="scheduleImage">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_category_image_sync" instance="Epicor\Comm\Model\Cron" method="scheduleCategoryImage">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_auto_syn" instance="Epicor\Comm\Model\Cron" method="autoSync">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_purge_data" instance="Epicor\Comm\Model\Cron" method="purgeData">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_synlog_cleanup" instance="Epicor\Comm\Model\Cron" method="cleanupSynLog">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_send_fsub" instance="Epicor\Comm\Model\Cron" method="submitFilesToErp">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_returns_cleanup" instance="Epicor\Comm\Model\Cron" method="cleanOldReturns">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_returns_submit" instance="Epicor\Comm\Model\Cron" method="submitReturnsToErp">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_related_documents_sync" instance="Epicor\Comm\Model\Cron\Product" method="scheduleRelatedDocument">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+    <job name="ecc_offline_caap" instance="Epicor\Comm\Model\Cron" method="offlineArpaymentOrders">
+      <schedule>*/5 * * * *</schedule>
+    </job> 
+    <job name="ecc_delete_ar_payment_orders" instance="Epicor\Comm\Model\Cron" method="offlineDeleteArOrders">
+      <schedule>*/5 * * * *</schedule>
+    </job>
+  </group>
+</config>

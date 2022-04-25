@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\Compare\ListCompare */
+?>
+<?php // Lazy Load product price and stock rendering for compare product page ?>
+<?php $_item = $block->getProduct();
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+?>
+<?php /* @escapeNotVerified */ echo $block->getProductPrice($_item, '-compare-list-top') ?>
+<div class="product-item-actions">
+    <div class="actions-primary">
+        <?php if($showAddToCart): ?>
+            <?php if ($_item->isSaleable()): ?>
+                <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $this->helper('Magento\Catalog\Helper\Product\Compare')->getAddToCartUrl($_item); ?>" method="post">
+                    <?php echo $block->getBlockHtml('formkey')?>
+                    <button type="submit" class="action tocart primary">
+                        <span><?php /* @escapeNotVerified */ echo __('Add to Cart'); ?></span>
+                    </button>
+                </form>
+            <?php else: ?>
+                <?php if ($_item->getIsSalable()): ?>
+                    <div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+                <?php else: ?>
+                    <div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+        <div class="secondary-addto-links actions-secondary" data-role="add-to-links">
+            <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_item); ?>' class="action towishlist" data-action="add-to-wishlist">
+                <span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
+            </a>
+        </div>
+    <?php endif; ?>
+</div>

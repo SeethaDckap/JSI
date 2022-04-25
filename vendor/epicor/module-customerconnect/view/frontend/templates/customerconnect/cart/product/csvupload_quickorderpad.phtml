@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * WARNING: IF YOU MAKE ECC SPECIFIC CHANGES TO THIS FILE, THEY MUST ALSO BE ADDED TO THE RWD FILE TOO
+ * rwd/default/template/customerconnect/cart/product/csvupload_quickorderpad.phtml
+ */
+/**
+ * Edit cart/csvupdate template
+ *
+ * @see Epicor_Comm_Block_Cart_Product_Csvupdate
+ */
+?>
+<form id="product_csv_import_form" action="<?php echo $this->getUrl('customerconnect/rfqs/importProductCsv') ?>" 
+      method="post" enctype="multipart/form-data">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo __('Add to Quote by CSV'); ?></h2>
+        <p>
+            <label for="input-file"><?php echo __('CSV File:'); ?></label>
+            <input id="input-file" type="file" name="import_product_csv_file" class="input-file required-entry" accept=".csv"/>
+        </p>
+        <p><a href="<?php echo $this->getUrl('epicor_comm/data/generateCartCsv'); ?>"><?php echo __('Download Example CSV File') ?></a></p>
+        <p>
+            <button type="sumbit" title="<?php echo __('Upload CSV') ?>" class="pro-line-search action primary" ><span><?php echo __('Upload CSV') ?></span></button>
+        </p>
+    </div>
+</form>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<?php if($_order->getIsApprovalPending() == 1): ?>
+    <div class="message-warning warning message">
+        <div>
+            <?php echo __("Order is pending for approval."); ?>
+        </div>
+    </div>
+<?php endif; ?>

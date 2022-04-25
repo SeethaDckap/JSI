@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_Dealerconnect>
+               <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_Dealerconnect>
+        </ecc_version_info>
+        <license_types>
+            <Epicor_Comm>
+                <Consumer/>
+            </Epicor_Comm>
+        </license_types>
+        <xml_dealerconnect_dashboard>
+            <path>dealerconnect/dashboard/index</path>
+        </xml_dealerconnect_dashboard>
+        <xml_message_types>
+            <request>
+                <dcls>DCLS - Dealer Claim Search</dcls>
+                <dcld>DCLD - Dealer Claim Details</dcld>
+                <dclu>DCLU - Dealer Claim Update</dclu>
+            </request>
+            <upload></upload>
+        </xml_message_types>
+        <erps>
+            <e10>
+                <epicor_comm_field_mapping>
+                    <pac_mapping>
+                        <active>1</active>
+                    </pac_mapping>
+                </epicor_comm_field_mapping>
+                <dealerconnect_enabled_messages>
+                    <DEIS_request>
+                        <active>1</active>
+                    </DEIS_request>
+                    <DEID_request>
+                        <active>1</active>
+                    </DEID_request>  
+                    <DEID_request>
+                        <active>1</active>
+                    </DEID_request>
+                    <DEBM_request>
+                        <active>1</active>
+                    </DEBM_request>
+                    <DMAU_request>
+                        <active>1</active>
+                    </DMAU_request>                                    
+                </dealerconnect_enabled_messages> 
+                <dealerconnect>
+                    <erp_searching>1</erp_searching>
+                </dealerconnect>                                   
+            </e10>
+         </erps>   
+        <xml_message_types>
+            <request>
+               <deis>DEIS - Inventory search</deis>
+               <deid>DEID - Inventory Detail</deid>
+               <deiu>DEIU - Inventory Update</deiu>
+               <debm>DEBM - Bill Of Materials</debm>
+               <dmau>DMAU - Bill Of Materials Update</dmau>
+            </request>
+        </xml_message_types>
+        <dealerconnect>
+            <erp_searching>1</erp_searching>
+        </dealerconnect>            
+    </global>
+</config>

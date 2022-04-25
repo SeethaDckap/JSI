@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>Changes To Orders</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/orders/changes/formopen.phtml" class="Magento\Framework\View\Element\Template" name="orders.formopen"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Changes" name="account.orders"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/orders/changes/formclose.phtml" class="Magento\Framework\View\Element\Template" name="orders.formclose"/>
+        </referenceContainer>
+    </body>
+</page>

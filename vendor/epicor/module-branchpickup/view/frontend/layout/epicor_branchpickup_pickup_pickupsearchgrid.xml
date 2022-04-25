@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <reference name="root">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_BranchPickup::page/1column.phtml</argument>
+            </action>
+        </reference>
+        <block output="1" class="Magento\Framework\View\Element\Text\ListText" name="root">
+            <block class="Epicor\BranchPickup\Block\Pickupsearch\Select" name="pickupsearch_selectgrid"/>
+        </block>
+    </body>
+</page>

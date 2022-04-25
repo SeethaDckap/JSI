@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cloras" translate="label" sortOrder="10">
+            <label>Cloras</label>
+        </tab>
+        <section id="clorasbase" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Cloras Base</label>
+            <tab>cloras</tab>
+            <resource>Cloras_Base::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+		        <field id="baseurl" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Domain URL</label>
+                    <comment></comment>
+                </field>
+		        <field id="token" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Token</label>
+                    <comment></comment>
+                </field>
+            </group>
+            <group id="dynamic_pricing" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Dynamic Pricing Configuration</label>               
+                <field id="api_path" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API PATH</label>
+                    <comment></comment>
+                </field>                
+            </group>
+	    <group id="dynamic_inventory" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Dynamic Inventory Configuration</label>               
+                <field id="api_path" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API PATH</label>
+                    <comment></comment>
+                </field>                
+            </group>
+          
+
+           
+        </section>
+    </system>
+</config>

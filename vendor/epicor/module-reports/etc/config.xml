@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <epicor_reports_options>
+      <speed>
+        <enabled>1</enabled>
+        <time_range>0,250,500,750,1000,1500,2000</time_range>
+      </speed>
+      <performance>
+        <enabled>1</enabled>
+      </performance>
+      <minmaxavg>
+        <enabled>1</enabled>
+      </minmaxavg>
+    </epicor_reports_options>    
+    <chart_types>
+        <speed>
+            <title>Speed</title>
+        </speed>
+        <performance>
+            <title>Performance</title>
+        </performance>
+        <minmaxavg>
+            <title>Minimum, Maximum &amp; Average</title>
+            <resolution_units>
+                <minutes>
+                    <factor>60</factor>
+                    <label>Minute(s)</label>
+                </minutes>
+                <hours>
+                    <factor>3600</factor>
+                    <label>Hour(s)</label>
+                </hours>
+                <days>
+                    <default>1</default>
+                    <factor>86400</factor>
+                    <label>Day(s)</label>
+                </days>
+            </resolution_units>
+        </minmaxavg>
+    </chart_types>
+    <chart_message_status>
+        <both>Both</both>
+        <combined>Combined</combined>
+        <successful>Successful</successful>
+        <unsuccessful>Unsuccessful</unsuccessful>
+    </chart_message_status>
+    
+  </default>
+</config>

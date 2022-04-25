@@ -1,0 +1,95 @@
+<?php $categoryIds = explode(',', $block->getData('categoryIds')); ?>
+<div class="category-listing">
+    <?php if(!empty($categoryIds)): ?>
+        <?php foreach ($categoryIds as $categoryId): ?>
+            <?php $category = $block->getCategoryById($categoryId); ?>
+            <?php if($category): ?>
+                <div class="listing-category-container">
+                    <div class="listing-category-title">
+                        <div class="listing-category-logo">
+                            <img src="<?php echo $block->getViewFileUrl('images/custom-listing/category-logo.png'); ?>" />
+                        </div>
+                        <div class="listing-category-name">
+                            <span><?= $category->getName() ?></span>
+                        </div>
+                    </div>
+                    <div class="listing-category-content">
+                        <div class="listing-category-image">
+                            <figure >
+                                <img src="<?= $category->getImageUrl() ?>">
+                            </figure>
+                        </div>
+                        <?php $products = $category->getProductCollection()->addAttributeToSelect('*') ?>
+                        <?php if(!empty($products)): ?>
+                            <div class="product-items-wrapper">
+                                <div class="listing-product-items">
+                                    <?php foreach ($products as $product): ?>
+                                        <?php $imageUrl = $this->helper('Magento\Catalog\Helper\Image')->init($product, 'product_page_image_small')->setImageFile($product->getImage())->getUrl(); ?>
+                                        <div class="listing-product-item">
+                                            <div class="listing-product-item_style">
+                                                <div class="listing-product-image">
+                                                    <a href="<?= $block->getUrl('detail-page?product_id=' . $product->getId()) ?>"><img src="<?= $imageUrl ?>"></a>
+                                                </div>
+                                                <div class="listing-product-name">
+                                                    <a href="<?= $block->getUrl('detail-page?product_id=' . $product->getId()) ?>"><?= $product->getName() ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    </div>
+                </div>
+            <?php endif ?>
+        <?php endforeach ?>
+    <?php else: ?>
+        <div class="note"><?= __('No Category assigned.') ?>
+    <?php endif ?>
+</div>
+<script type="text/javascript">
+	require(['jquery','slick'], function($){
+		$(document).ready(function() {
+			$('body').addClass('custom-listing-page-view custom-product-page-view')
+        });
+        $('.listing-product-items').each(function(key,item){
+            var sliderIdName = 'slider' + key;
+            this.id = sliderIdName;
+            var sliderId = '#' + sliderIdName;
+            $(sliderId).slick({
+                // centerMode: true,
+                // centerPadding: '50px',
+                mobileFirst: true,
+                dots: false,
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: false,
+                prevArrow: '<i class="fas fa-chevron-left arrow-left">',
+                nextArrow: '<i class="fas fa-chevron-right arrow-right">',
+                responsive : [
+                    {
+                        breakpoint: 1001,
+                        settings: {
+                            slidesToShow: 4
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 500,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    }
+                ]
+                
+                
+            })
+        })
+	});
+</script>

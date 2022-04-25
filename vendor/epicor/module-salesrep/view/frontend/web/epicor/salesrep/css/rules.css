@@ -1,0 +1,202 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-Jan-2016, 14:42:30
+    Author     : gareth.james
+*/
+fieldset, .fieldset {
+    background: #fbfaf6 none repeat scroll 0 0;
+    border: 1px solid #bbafa0;
+    margin: 0 0 15px 0;
+    padding: 22px 25px 12px 33px;
+}
+
+.rule-tree ul {
+    border-left: 1px dotted #888;
+    padding-left: 16px !important;
+}
+.rule-tree .x-tree ul {
+    border-left: medium none !important;
+    padding-left: 0 !important;
+}
+.rule-param .label {
+    color: black;
+    font-weight: bold;
+}
+.rule-param .label:hover {
+    color: blue;
+    font-weight: bold;
+}
+.rule-param .label-disabled {
+    color: black;
+    cursor: default;
+    text-decoration: none;
+}
+.rule-param .label-disabled:hover {
+    color: black;
+}
+.rule-param .element {
+    display: none;
+}
+.rule-param input, .rule-param select {
+    min-width: 170px;
+    width: auto !important;
+}
+.rule-param select.multiselect {
+    vertical-align: top;
+}
+.rule-param-edit .label {
+    display: none;
+}
+.rule-param-edit .element {
+    display: inline;
+}
+.rule-param-add {
+    color: green;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-param-add:hover {
+    color: blue;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-param-apply {
+    color: green;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-param-apply:hover {
+    color: blue;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-param-remove {
+    color: red;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-param-remove:hover {
+    color: blue;
+    font-weight: normal;
+    text-decoration: none;
+}
+.rule-chooser {
+    border: 1px solid #ccc;
+    display: none;
+    margin: 5px;
+    padding: 5px;
+}
+.rule-param-wait {
+   /* background-image: url("../images/rule-ajax-loader.gif"); */
+   background-image: url("../images/ajax-loader-small.gif");
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+dl.accordion dt, .entry-edit .entry-edit-head {
+    background: #6f8992 none repeat scroll 0 0;
+    padding: 2px 10px;
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.entry-edit .entry-edit-head h4 {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}
+
+.form-list {
+    border: 0 none !important;
+    width: auto;
+}
+.form-list td.label, .form-list td.value, .form-list td.value2, .form-list td.note, .form-list td.scope-label, .form-list td.use-default {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 center !important;
+    border: 0 none !important;
+    padding-bottom: 5px !important;
+    padding-left: 5px !important;
+    padding-top: 5px !important;
+}
+.form-list td.hidden {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 center !important;
+    border: 0 none !important;
+    padding: 0 !important;
+}
+.form-list td.label {
+    width: 200px;
+}
+.form-list td.use-default label {
+    display: inline-block;
+    padding: 0 3px;
+    vertical-align: middle;
+}
+.form-list td.label label {
+    display: block;
+    padding-right: 15px;
+    padding-top: 1px;
+    width: 185px;
+}
+.form-list td.value input.input-text, .form-list td.value textarea {
+    width: 274px;
+}
+.form-list td.value textarea {
+    height: 15em;
+}
+.form-list td.value select {
+    width: 280px;
+}
+.form-list td.value select.select-date {
+    width: 87px;
+}
+.form-list td.note {
+    background: rgba(0, 0, 0, 0) url("images/note_cell_bg.gif") no-repeat scroll 6px 10px !important;
+    padding-left: 18px;
+}
+.form-list td.scope-label {
+    color: #6f8992;
+    font-size: 0.9em;
+    padding-left: 5px;
+}
+.form-list p.note {
+    background: rgba(0, 0, 0, 0) url("images/note_bg.gif") no-repeat scroll 1px 6px;
+    font-size: 11px;
+    margin: 0;
+    padding: 0 0 0 13px;
+}
+.form-list td.value p.note {
+    width: 268px;
+}
+
+.system-fieldset-sub-head h4 {
+    font-size:12px;
+}
+
+.required {
+    color: #df280a;
+    font-weight: normal;
+    font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+    font-size: 12px;
+}
+
+label.required:after,
+span.required:after {
+  content: '' !important;
+}

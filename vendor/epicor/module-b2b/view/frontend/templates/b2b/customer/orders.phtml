@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title">
+    <h1><?php echo __('B2B Orders') ?></h1>
+</div>
+<?php if($this->getOrders(Mage::helper('epicor_comm/Messaging')->getErpAccountNumber())): ?>
+    <ul class="orders-list">
+        <?php foreach ($this->_orders as $_order): ?>
+            <li><?php echo $_order['value']['dateOrdered'] . ' - <strong>orderNumber:</strong> ' . $_order['value']['number'] . ' - <strong>customerReference:</strong> ' . $_order['value']['customerReference'] . ' - <strong>value:</strong> ' . $_order['value']['value']; ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p><?php echo __('No orders exist.') ?></p>
+<?php endif; ?>
+    <?php if($this->getOrders(Mage::helper('epicor_comm/Messaging')->getErpAccountNumber())): ?>
+		<div class="pager">
+			<div class="pages">
+				<strong>Page:</strong>
+				</ol>
+					<?php for($p=1;$p <= $this->_totalPages;$p++): ?>
+						<?php if($p == $this->_page): ?>
+							<li class="current"><?php echo $p; ?></li>
+						<?php else: ?>
+							<li><a href="<?php echo $this->getUrl('b2b/customer', array('p' => $p)); ?>" title="goto page <?php echo $p ?>"><?php echo $p ?></a></li>
+						<?php endif; ?>
+					<?php endfor; ?>
+				</ol>
+			</div>
+		</div>
+	<?php endif; ?>
+<div class="buttons-set">
+	<p class="back-link"><a href="<?php echo $this->getUrl('b2b/customer'); ?>"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+</div>

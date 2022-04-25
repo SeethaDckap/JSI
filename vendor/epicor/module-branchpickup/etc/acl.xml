@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">   
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                             <resource id="Epicor_Common::configure" title="Epicor Configure"> 
+                                 <resource id="Epicor_Comm::upload_messages" title="Epicor Upload Messages">
+                                    <resource id="Epicor_BranchPickup::upload_messages" title="Epicor Branch Pickup Upload Messages"/>
+                                 </resource>  
+                                <resource id="Epicor_Comm::locations_config" title="Epicor Locations">     
+                                  <resource id="Epicor_BranchPickup::locations" title="Epicor Branch Pickup Locations"/>
+                               </resource>   
+                             </resource>   
+                            <resource id="Magento_Shipping::carriers" title="Shipping Methods Section" translate="title">
+                                <resource id="Epicor_BranchPickup::shipping_method" title="Epicor Branch Pickup Shipping Method"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+        
+            </resource>
+        </resources>
+    </acl>
+</config>

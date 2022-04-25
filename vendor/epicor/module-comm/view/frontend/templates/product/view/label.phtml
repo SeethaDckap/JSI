@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $block \Epicor\Comm\Block\Catalog\Product\View\EccProductLabel */
+?>
+<?php //Discontinued  ?>
+<?php if($block->isEccDiscontinued()): ?>
+<div class="ecc-custom-message">
+    <div class="message message-warning warning">
+        <div><?php echo $block->getDiscontinuedMessage(); ?></div>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php //Non-Stock  ?>
+<?php if($block->isNonStock()): ?>
+    <div class="ecc-custom-message">
+        <div class="message-success success message">
+            <div><?php echo $block->getNonStockMessage(); ?></div>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Comm::epicor_comm/catalog/product/ewaerror.phtml" class="Magento\Framework\View\Element\Template" name="ewaerror"/>
+        </referenceContainer>
+    </body>
+</page>

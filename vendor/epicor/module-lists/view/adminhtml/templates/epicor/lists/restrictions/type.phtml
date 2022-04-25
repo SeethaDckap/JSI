@@ -1,0 +1,106 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><style type="text/css">
+
+    ul.tab {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Float the list items side by side */
+    ul.tab li {float: left;}
+
+    /* Style the links inside the list items */
+    ul.tab li a {
+        display: inline-block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of links on hover */
+    ul.tab li a:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    ul.tab li a:focus, .active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    /* Style the tabmsg content */
+    .tabnote {
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        font-weight: bold;
+    }
+</style>
+<?php
+//M1 > M2 Translation Begin (Rule p2-5.1)
+/*if (Mage::getSingleton('admin/session')->getRestrictionTypeValue()) {
+    echo '<input type="hidden" value="' . Mage::getSingleton('admin/session')->getRestrictionTypeValue() . '"  id="default_restriction_type" />';
+}*/
+echo '<input type="hidden" value="' . $block->getBackendSession()->getRestrictionTypeValue() . '"  id="default_restriction_type" />';
+//M1 > M2 Translation End
+
+echo '<input type="hidden" value="' . $this->getRequest()->getParam('id') . '" name="list_id" id="list_id" /> <input type="hidden" value="' . $this->getUrl("epicor_lists/epicorlists_lists/restrictionsessionset/", array()) . '" name="ajax_url" id="ajax_url" /> <input type="hidden" value="' . $this->getUrl("epicor_lists/epicorlists_lists/addupdate/", array()) . '" name="form_url" id="form_url" /> <input type="hidden" value="' . $this->getUrl("epicor_lists/epicorlists_lists/addressdelete") . '" name="delete_url" id="delete_url" /> <input type="hidden" value="' . $this->getUrl("epicor_lists/epicorlists_lists/addgrid") . '" name="addgrid_url" id="addgrid_url" />';
+?>
+<div><label><b>Note: Address restrictions should be defined at the most specific level possible. Avoid using broad level restrictions unless specifically required.</b></label></div>
+<ul class="tab">
+    <li><a href="javascript:void(0)" id="addressheading" class="tablinks" onclick="openRestriction(event, 'tabaddress');
+            loadRestrictionsGrid('A')">Address</a></li>
+    <li><a href="javascript:void(0)" id="countryheading" class="tablinks" onclick="openRestriction(event, 'tabcountry');
+            loadRestrictionsGrid('C')">Country</a></li>
+    <li><a href="javascript:void(0)" id="countyheading" class="tablinks" onclick="openRestriction(event, 'tabcounty');
+            loadRestrictionsGrid('S')">County</a></li>
+    <li><a href="javascript:void(0)" id="zipcodeheading" class="tablinks" onclick="openRestriction(event, 'tabzipcode');
+            loadRestrictionsGrid('Z')">Zipcode</a></li>
+</ul>
+<div id="tabnote" class="tabnote">
+
+</div>
+<div id="tabaddress" class="tabcontent">
+
+</div>
+
+<div id="tabcountry" class="tabcontent">
+</div>
+
+<div id="tabcounty" class="tabcontent">
+
+</div>
+
+<div id="tabzipcode" class="tabcontent">
+
+</div>
+<script type="text/javascript">
+    require([
+        'prototype'
+    ], function () {
+        if ($('default_restriction_type').value == 'A')
+            $('addressheading').click();
+        if ($('default_restriction_type').value == 'C')
+            $('countryheading').click();
+        if ($('default_restriction_type').value == 'S')
+            $('countyheading').click();
+        if ($('default_restriction_type').value == 'Z')
+            $('zipcodeheading').click();
+    });
+</script>

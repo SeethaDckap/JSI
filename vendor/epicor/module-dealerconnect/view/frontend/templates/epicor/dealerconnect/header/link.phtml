@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+ /* @var $block Epicor\Dealerconnect\Block\Header\Togglelink */
+?>
+<li class="ecc-header-link" data-bind="scope: 'delearShopperLink'">
+    <!-- ko if: delearShopperLink() && delearShopperLink().is_enable -->
+    <a id="<?php /* @escapeNotVerified */ echo $block->getId(); ?>" data-bind="attr: {dealer: currentMode}">
+        <img data-bind="attr: {src: (currentMode == 'dealer') ? delearImagePath : shopperImagePath }" >
+    </a>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Epicor_Dealerconnect/epicor/dealerconnect/js/quotes/dealer-price-toggle":{}
+            }
+        }
+    </script>
+    <script>window.cusImgUrl = <?php echo json_encode($block->getImagePath("dealer")) ?></script>
+    <script>window.dealerImgUrl = <?php echo json_encode($block->getImagePath("shopper")) ?></script>
+    <!-- /ko -->
+</li>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "delearShopperLink": {
+                        "component": "<?php /* @escapeNotVerified */ echo $block->getComponent(); ?>",
+                         "config": {
+                                "id": "<?php /* @escapeNotVerified */ echo $block->getId(); ?>",
+                                "currentMode": "<?php /* @escapeNotVerified */ echo $block->getCurrentMode(); ?>",
+                                "delearImagePath": "<?php /* @escapeNotVerified */ echo $block->getImagePath("dealer"); ?>",
+                                "shopperImagePath": "<?php /* @escapeNotVerified */ echo $block->getImagePath("shopper"); ?>"
+                         }
+                    }
+                }
+            }
+        }
+    }
+</script>

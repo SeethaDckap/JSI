@@ -1,0 +1,73 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+--><!--@subject New Registration Request {{var adminname}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"htmlescape var=$firstname":"Customer First Name",
+"htmlescape var=$lastname":"Customer Last Name",
+"htmlescape var=$customer_email":"Customer Email",
+"htmlescape var=$password":"Customer Password",
+"htmlescape var=$company":"Company Name",
+"htmlescape var=$telephone":"Customer Telephone",
+"htmlescape var=$street0":"Customer Line 1",
+"htmlescape var=$street1":"Customer Line 2",
+"htmlescape var=$street2":"Customer Line 3",
+"htmlescape var=$city":"Customer City",
+"htmlescape var=$region":"Customer Region",
+"htmlescape var=$postcode":"Customer Postcode",
+"htmlescape var=$country_id":"Customer Country"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+        <tr>
+            <td align="center" valign="top" style="padding:20px 0 20px 0">
+                <!-- [ header starts here] -->
+                <table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                    <!-- [ middle starts here] -->
+                    <tr>
+                        <td valign="top">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;"">Dear {{htmlescape var=$adminname}},</h1>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 16px 0;">A New user has requested an account on {{var store.getFrontendName()}}. </p>
+                            <p style="display:block; border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0; padding:13px 18px; background:#f9f9f9;">
+                                The details are:<br/>
+                                <strong>Company</strong>:{{htmlescape var=$company}}<br/>
+                                <strong>First name</strong>:{{var firstname}}<br/>
+                                <strong>Last name</strong>:{{var lastname}}<br/>
+                                <strong>E-mail</strong>: {{var customer_email}}<br/>
+                                <strong>Password</strong>: {{htmlescape var=$password}}<br/><br/>
+                            </p>
+                            <p style="display:block; border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0; padding:13px 18px;">
+                                <br />Address :<br />
+                                <strong>Street 1</strong>:{{htmlescape var=$street1}}<br />
+                                <strong>Street 2</strong>:{{htmlescape var=$street2}}<br />
+                                <strong>Street 3</strong>:{{htmlescape var=$street3}}<br />
+                                <strong>City</strong>:{{htmlescape var=$city}}<br />
+                                <strong>Region</strong>:{{htmlescape var=$region}}<br />
+                                <strong>{{trans 'Postcode'}}</strong>:{{htmlescape var=$postcode}}<br />
+                                <strong>Country</strong>:{{htmlescape var=$country_id}}<br />
+                                <strong>Telephone</strong>:{{htmlescape var=$telephone}}<br />
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">Thank you again, <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

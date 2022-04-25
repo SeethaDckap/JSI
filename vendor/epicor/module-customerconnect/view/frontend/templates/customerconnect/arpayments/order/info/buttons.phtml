@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<div class="actions">
+    <?php  $_order = $block->getOrder() ?>
+    <a class="action print"
+       href="<?php /* @escapeNotVerified */ echo $block->getPrintUrl($_order) ?>"
+       onclick="this.target='_blank';">
+        <span><?php /* @escapeNotVerified */ echo __('Print this Payment') ?></span>
+    </a>
+</div>

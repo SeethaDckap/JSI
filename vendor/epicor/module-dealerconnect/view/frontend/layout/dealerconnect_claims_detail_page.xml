@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>DealerConnect Claim Details</title>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/core.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/address.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/salesreps.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/contacts.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/lines.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/attachments.js"/>
+        <script src="Epicor_Dealerconnect::epicor/dealerconnect/js/claims.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq-list.js" />
+        <script src="Epicor_Common::epicor/common/js/attachment-validations.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Js\Translation" name="js.translations"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\FindClaimInventoryForm" name="findclaim"
+                   template="Epicor_Dealerconnect::claims/details/findclaiminventory.phtml"/>
+            <block template="Epicor_Dealerconnect::claims/details/formopen.phtml" class="Epicor\Dealerconnect\Block\Claims\Details\Info" name="claim.formopen"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\ConfiguredInfo" name="claims.info"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Claimaddress" name="claims.billing"/>'
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Deliveryaddress" name="claims.delivery"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Info" template="Epicor_Dealerconnect::claims/details/webComment.phtml" name="claims.webComment"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Attachments" name="claims.attachments"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Viewattachments" name="claims.view.attachments"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Info" template="Epicor_Dealerconnect::claims/details/erpReturns.phtml" name="claims.erpReturns"/>
+            <block class="Epicor\Dealerconnect\Block\Claims\Details\Quotes" name="claims.quotes"/>
+            <block template="Epicor_Dealerconnect::claims/details/quotes.phtml" class="Magento\Framework\View\Element\Template" name="claims_quotes" cacheable="false"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml"
+                   class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="claim.link.back">
+                <action method="setRefererUrl">
+                    <argument name="refererUrl" xsi:type="string">/dealerconnect/claims/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="listUrl" xsi:type="string">/dealerconnect/claims/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="listType" xsi:type="string">Claims</argument>
+                </action>
+            </block>
+            <block template="Epicor_Dealerconnect::claims/details/formclose.phtml" class="Epicor\Dealerconnect\Block\Claims\Details\Info" name="claim.formclose" />
+            <block template="Epicor_Dealerconnect::claims/loader.phtml" class="Magento\Framework\View\Element\Template" name="rfq.loader"/>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/overlayopen.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.overlayopen">
+                <action method="setExtraClass">
+                    <argument name="value" xsi:type="string">rfq</argument>
+                </action>
+            </block>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/overlayclose.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.overlayclose"/>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block template="Epicor_Dealerconnect::claims/details/showclaimresult.phtml" class="Magento\Framework\View\Element\Template" 
+                   name="claim.search.result"/>
+        </referenceContainer>
+    </body>
+</page>

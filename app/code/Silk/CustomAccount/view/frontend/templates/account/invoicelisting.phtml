@@ -1,0 +1,51 @@
+<?php $invoices = $block->getInvoices(); ?>
+
+
+
+<div class="invoice section">
+    <div class="section-title"><?= __('Invoices') ?></div>
+    <div class="items">
+        <?php foreach ($invoices as $index => $invoice): ?>
+            <div class="quote-item child-item">
+                <div class="item-title"><?= 'Invoice #' . $invoice['invoice_number'] ?></div>
+                <div class="item-description"></div>
+                <div class="item-detail">
+                    <div class="item-information">
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Order #: ') ?></span>
+                                <span><?= $invoice['order_number'] ?></span>
+                            </div>
+                        </div>
+
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('PO: ') ?></span>
+                                <span><?= $invoice['po'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Reference: ') ?></span>
+                                <span><?= $invoice['reference'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="info">
+                                <span><?= __('Invoice Amount: ') ?></span>
+                                <span><?= $invoice['subtotal'] ?></span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <div class="actions-toolbar">
+                                <div class="action-button primary">
+                                     <a class="action" href="<?= '/customaccount/invoice/view?id=' . ($index+1) ?>">View Invoice</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><script>
+    var baseLogUrl = '<?php echo $this->getAdminLogUrl();?>';
+    function getMessageUrl(id){
+        return baseLogUrl+'id/'+id;
+    }
+    
+    function goToMessageUrl(id)
+    {
+        var url = getMessageUrl(id);
+        window.open(url);
+    }
+</script> 

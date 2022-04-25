@@ -1,0 +1,73 @@
+<?php $quotes = $block->getQuotes(); ?>
+<div class="quote section">
+    <div class="section-title"><?= __('Quotes') ?></div>
+    <div class="actions-toolbar">
+        <?php if($this->getIsListing()): ?>
+            <div class="action-button primary">
+                <a class="action" href="/customaccount/quote/index"><?= __('Go to Quotes') ?></a>
+            </div>
+        <?php endif ?>
+        <div class="action-button primary">
+            <a class="action" href="/customaccount/quote/create"><?= __('New Quote') ?></a>
+        </div>
+    </div>
+    <div class="items">
+        <?php if($quotes): ?>
+            <?php foreach ($quotes as $quote): ?>
+                <?php $quoteData = json_decode($quote->getData('data'), true); ?>
+                <div class="child-item">
+                    <div class="item-title"><?= $quote['title'] ?></div>
+                    <div class="item-detail">
+                        <div class="item-image">
+                            <a href="/customaccount/quote/create?id=<?= $quote->getId() ?>"><img src="<?= $quoteData['selectedDoors'] ? $quoteData['selectedDoors'][0]['image'] : '' ?>"></a>
+                        </div>
+                        <div class="item-information">
+                            <div class="item-info">
+                                <div class="info">
+                                    <span><?= __('PO Name: ') ?></span>
+                                    <span><?= $quoteData['name'] ?></span>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info">
+                                    <span><?= __('Designer: ') ?></span>
+                                    <span><?= $quoteData['designer'] ?></span>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info">
+                                    <span><?= __('Primary Door Style: ') ?></span>
+                                    <span><?= $quoteData['selectedDoors'] ? $quoteData['selectedDoors'][0]['title'] : '' ?></span>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info">
+                                    <span><?= __('Reference: ') ?></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info">
+                                    <span><?= __('Created At: ') ?></span>
+                                    <span><?= $quote->getCreatedAt() ? date("Y-m-d", strtotime($quote->getCreatedAt())) : '' ?></span>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="actions-toolbar">
+                                    <div class="action-button primary">
+                                         <a class="action" href="/customaccount/quote/create?id=<?= $quote->getId() ?>"><?= __('Edit Quote') ?></a>
+                                    </div>
+                                </div>
+                                <div class="actions-toolbar">
+                                    <div class="action-button primary">
+                                         <a class="action" href="/customaccount/quote/deletepost?id=<?= $quote->getId() ?>"><?= __('Delete Quote') ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        <?php endif ?>
+    </div>
+</div>

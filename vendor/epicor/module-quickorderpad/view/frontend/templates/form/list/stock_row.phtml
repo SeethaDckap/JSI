@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$_product = $this->registry('current_product');
+$loopProduct = $this->registry('current_loop_product') ? : $_product;
+/* @var $loopProduct /Epicor/Comm/Model/Product */
+
+$locationData = $this->registry('current_location');
+
+$showStockLevelDisplay = $this->showStockLevelDisplay();
+
+//locations stuff
+$locHelper = $this->getHelper();
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled() && !$this->getForceHideLocations();
+$productLocation = $this->registry('current_location');
+$allSourceLocations = ($this->getConfig('epicor_comm_locations/global/stockvisibility') == 'all_source_locations') ? true : false;
+?>
+<?php if ($showStockLevelDisplay) : ?>
+    <?php if ((!$showLocations || ($showLocations && $productLocation != ''))) : ?>
+        <td class="stock">
+            <?php if (!$loopProduct->getIsEccNonStock()): ?>
+                <?php switch ($loopProduct->getStockType()):
+                    case 'bool': ?>
+                        <?php if (($showLocations && $loopProduct->isSalable()) || (!$showLocations && $loopProduct->isAvailable())): ?>
+                            <p class="availability in-stock"><span><?php echo __('In stock') ?></span></p>
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo __('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                        <?php break; ?>
+
+                    <?php case 'range': ?>
+                        <?php $_img = $loopProduct->getStockRange(); ?>
+                        <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>"
+                             title="<?php echo $_img['title'] ?>"/>
+                        <?php break; ?>
+
+                    <?php case 'level': ?>
+                        <p class="availability in-stock"><span><?php echo $loopProduct->getStockLevel() ?></span></p>
+                        <?php break; ?>
+
+                    <?php default: ?>
+                        <p class="availability "><span><?php echo __(' - '); ?></span></p>
+                        <?php break; ?>
+                    <?php endswitch; ?>
+            <?php endif; ?>
+        </td>
+    <?php else: ?>
+        <td class="stock">
+            <p class="availability not-available"><span><?php echo __('') ?></span></p>
+        </td>
+    <?php endif; ?>
+<?php endif; ?>

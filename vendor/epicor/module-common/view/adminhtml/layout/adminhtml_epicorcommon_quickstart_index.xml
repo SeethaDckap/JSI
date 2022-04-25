@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Common::epicor/common/css/quickstart.css"/>
+    </head>
+    <body>
+        <referenceContainer name="js">
+            <block template="Epicor_Common::epicor_common/quickstart/js.phtml" class="Magento\Framework\View\Element\Template" name="quickstart_js"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Epicor\Common\Block\Adminhtml\Quickstart" name="epicor_common_quickstart"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Common\Block\Adminhtml\Quickstart\Edit\Tabs" name="epicor_common_quickstart_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

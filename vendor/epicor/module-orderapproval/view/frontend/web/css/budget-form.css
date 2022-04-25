@@ -1,0 +1,84 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+#add_budget_form ._required > .admin__field-label > span:after{
+    content:'';
+}
+
+#add_budget_form .admin__field-control .admin__control-text{
+    width: 80%;
+}
+#add_budget_form .admin__field.field.field-duration{
+    margin-bottom:0;
+}
+#add_budget_form .admin__field.field.field-duration_note{
+    margin: 0;
+    padding-left:22%;
+    font-weight: bold;
+    font-size:1.2rem;
+}
+#add_budget_form .admin__field.field.field-duration_note .admin__field-control{
+    width:100%;
+}
+#add_budget_form .admin__field.field.field-add_budget_action .admin__field-control{
+    margin-left:27%;
+}
+#add_budget_form .admin__fieldset > .admin__field > .admin__field-control{
+    margin-left:10px;
+}
+form#add_budget_form{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #c6c6c6;
+}
+#add_budget_form input.datepicker{
+    margin-right: 5px;
+}
+#budget-remaining-count{
+    display: none;
+}
+#add_budget_form .admin__field.field.field-duration  .admin__field-label{
+    margin-bottom: 0;
+}
+fieldset#budget_config_form{
+    clear: both;
+}
+
+.budget-disabled.admin__field-label{
+    cursor:auto;
+}
+
+.budget-message.info{
+    margin: 0 0 10px;
+    display: block;
+    font-size: 1.3rem;
+    background: #fdf0d5;
+    color: #6f4400;
+    padding: 12px 20px 12px 45px;
+    position: relative;
+}
+
+.budget-message.info > *:first-child:before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 24px;
+    line-height: 24px;
+    color: #c07600;
+    content: '\e602';
+    font-family: 'luma-icons', serif;
+    margin: -12px 0 0;
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    left: 0;
+    top: 22px;
+    width: 45px;
+    position: absolute;
+    text-align: center;
+}
+.epicor_orderapproval-manage-edit .ui-tooltip-content, .epicor_orderapproval-manage-edit .ui-tooltip {
+    background-color: rgba(251, 255, 205, 0.8);
+
+}
+

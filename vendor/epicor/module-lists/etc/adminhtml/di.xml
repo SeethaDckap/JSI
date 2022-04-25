@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<type name="Epicor\Lists\Block\Adminhtml\Listing\Edit\Tab\Products">
+    <arguments>
+        <argument name="columnSort" xsi:type="object">Epicor\QuickOrderPad\Model\ColumnSort</argument>
+        <argument name="listProductPosition" xsi:type="object">Epicor\Lists\Model\ResourceModel\ListProductPosition</argument>
+    </arguments>
+</type>
+</config>

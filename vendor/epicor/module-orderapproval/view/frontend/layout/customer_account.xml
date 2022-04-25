@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Epicor\OrderApproval\Block\Html\Link\Approvals" name="my-approvals" >
+                <arguments>
+                    <argument name="path" xsi:type="string">epicor_orderapproval/manage/approvals</argument>
+                    <argument name="label" xsi:type="string">My Order Approvals</argument>
+                    <argument name="sortOrder" xsi:type="number">219</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_approvals</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\OrderApproval\Block\Html\Link\Current" name="manage-groups" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">epicor_orderapproval/manage</argument>
+                    <argument name="label" xsi:type="string">Manage Approval Groups</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_group</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+    </body>
+</page>

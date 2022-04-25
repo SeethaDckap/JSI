@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="product_list">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/list.phtml</argument>
+            </action>
+            <block class="Epicor\Comm\Block\Catalog\Product\ListProduct" name="epicor_ecc_product_list"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Skudisplay" template="Epicor_Comm::product/skudisplay.phtml" name="epicor_comm.skudisplay" as="epicor_ecc_sku_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator" as="epicor_ecc_product_configurator"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\BranchPickup\Block\Selectedbranch" template="Epicor_Comm::product/list/relatedBranch.phtml" name="epicor_comm.related_branch" as="epicor_ecc_product_list_related_branch" />
+        </referenceBlock>
+    </body>
+</page>

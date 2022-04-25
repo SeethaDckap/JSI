@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="ecc_order_approval_approver_email_template" label="Order Approval Pending" file="order_approval_pending.html" type="html" module="Epicor_OrderApproval" area="frontend"/>
+    <template id="ecc_order_approval_requestor_approved_template" label="Order Approved" file="order_approved.html" type="html" module="Epicor_OrderApproval" area="frontend"/>
+    <template id="ecc_order_approval_requestor_rejected_template" label="Order Rejected" file="order_disapproved.html" type="html" module="Epicor_OrderApproval" area="frontend"/>
+    <template id="ecc_order_approval_requestor_pending_template" label="Order Pending Requestor" file="order_approval_pending_requestor.html" type="html" module="Epicor_OrderApproval" area="frontend"/>
+</config>

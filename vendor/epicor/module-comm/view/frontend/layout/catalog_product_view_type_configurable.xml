@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    </head>
+    <body>
+        <referenceBlock name="product.info.options.wrapper">
+            <block template="Epicor_Comm::epicor_comm/catalog/product/view/type/configurable/stockwrapper.phtml" class="Magento\Framework\View\Element\Template" name="product.info.stock.wrapper">
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.container1">
+            <action method="insert">
+                <argument name="block" xsi:type="string">product.info.stock.wrapper</argument>
+                <argument name="sibling_name" xsi:type="string">product.info.options.wrapper</argument>
+                <argument name="after" xsi:type="string">1</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+               <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/catalog/product/configurable/configurable.phtml</argument>
+            </action>
+        </referenceBlock>      
+        <referenceBlock name="product.info.configurable" template="Epicor_Comm::epicor_comm/catalog/product/view/type/default.phtml"/>
+        <referenceContainer name="before_body_end">
+            <block template="Epicor_Customerconnect::customerconnect/loader.phtml" class="Magento\Framework\View\Element\Template" name="customer.account.loader"/>
+        </referenceContainer>
+    </body>
+</page>

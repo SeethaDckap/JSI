@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- <move element="top.search" destination="my-account_container" before="-" />
+        <referenceBlock name="minicart" remove="true" />
+        <referenceContainer name="header-wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="accont-links" template="Magento_Theme::account-links.phtml" after="logo"/>
+            <block class="Magento\Framework\View\Element\Template" name="my-account_container" template="Magento_Theme::my-account_container.phtml" after="-"/>
+        </referenceContainer> -->
+    </body>
+</page>
+
+

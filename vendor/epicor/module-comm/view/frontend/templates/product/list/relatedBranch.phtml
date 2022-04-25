@@ -1,0 +1,246 @@
+<?php
+$branchpickupHelper = $this->helper('Epicor\BranchPickup\Helper\Data');
+/* @var $branchpickupHelper \Epicor\BranchPickup\Helper\Data */
+
+$_product = $block->getProduct();
+/* @var $_product Epicor\Comm\Model\Product */
+
+$_locations = $_product->getLocations();
+$helper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $helper \Epicor\Comm\Helper\Locations */
+
+$selectedBranchCode = $branchpickupHelper->getSelectedBranch();
+$allowed = $helper->getCustomerAllowedLocations();
+$singleLocation = (count(array_intersect_key($_locations, $allowed)) <= 1);
+?>
+<?php if($selectedBranchCode && !$singleLocation): ?>
+    <?php $selectedBranch = $block->getSelectedBranch($selectedBranchCode); ?>
+    <?php
+    $currentStoreId = $_product->getStoreId();
+    $relatedLocations = $block->getRelatedLocationsForProduct($selectedBranch);
+    $groupings = $block->getGroupings($selectedBranchCode);
+    $_groupLocations = array_column($groupings, 'locations');
+    $aggregateStockLevels = $block->getRegistry()->registry('aggregate_stock_levels_'.$_product->getSku());
+
+    $helperBranchPickup = $this->helper('Epicor\BranchPickup\Helper\Branchpickup');
+    $url = $block->getUrl('branchpickup/pickup/changepickuplocation', $helperBranchPickup->issecure());
+    $cartPopupurl = $block->getUrl('branchpickup/pickup/cartpopup', $helperBranchPickup->issecure());
+    $selectbranch = $block->getUrl('branchpickup/pickup/selectbranchajax', $helperBranchPickup->issecure());
+    $commHelper = $this->helper('Epicor\Comm\Helper\Data');
+    $decimalPlaces = $commHelper->getDecimalPlaces($_product);
+    ?>
+    <?php if (($_product->getTypeId() != 'grouped' && $_product->getTypeId() != 'configurable') && (!empty($relatedLocations) || !empty($_groupLocations)) && $selectedBranch->getLocationVisible()): ?>
+        <p class="locations_add_to_cart">
+            <a href="javascript:void(0)" class="locations-link-<?php echo $_product->getId(); ?>" id="locations_link_<?php echo $_product->getId(); ?>"><?php echo __('Inventory') ?></a>
+            <a href="javascript:void(0)" class="locations-link locations-hide-<?php echo $_product->getId(); ?>" id="locations_hide_<?php echo $_product->getId(); ?>" style="display:none;"><?php echo __('Hide Inventory') ?></a>
+        </p>
+        <div id='branchpickup-iframe-popup-modal' style="display:none;"></div>
+        <div class="product_grid_locations">
+            <div class="product_locations_wrapper selected_branch_wrapper" id="locations_list_<?php echo $_product->getId(); ?>_block" style="display:none">
+            <div class="branch_list">
+                <p class="title"><strong><?php echo __('Your Selected Branch') ?></strong></p>
+                <div class="related-location-element">
+                    <div class="location-element location-stock">
+                        <?php if ($_product->isSaleable() && !$_product->getIsEccNonStock()) : ?>
+                        <?php switch ($_product->getStockType()): case 'bool': ?>
+                                    <?php if ($_product->isAvailable()): ?>
+                                        <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                                    <?php else: ?>
+                                        <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                    <?php endif; ?>
+                                <?php break; ?> 
+                                <?php case 'range': ?>
+                                    <?php $_img = $_product->getStockRange(); ?>
+                                    <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />        
+                                <?php break; ?> 
+                                <?php case 'level': ?>                                    
+                                    <?php if ($selectedBranch->getShowInventory()): ?>
+                                    <?php $stock = !is_null($aggregateStockLevels) ? $commHelper->truncateZero($aggregateStockLevels[$selectedBranchCode], $decimalPlaces) : $commHelper->truncateZero(0, $decimalPlaces); ?>
+                                    <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $stock; ?></span></p>
+                                    <?php else: ?>
+                                    <p>&nbsp;</p>
+                                    <?php endif; ?>
+                                <?php break; ?>         
+                                    <?php endswitch; ?> 
+                            <?php elseif(!$_product->getIsEccNonStock()): ?>
+                                <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                            <?php endif; ?>
+                    </div>
+                    <div class="location-element location-name">
+                        <p><strong><?php echo $selectedBranch->getName(); ?></strong></p>
+                        <p><?php echo $block->getBranchAddress($selectedBranch); ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php if (!empty($relatedLocations) && ($block->getRegistry()->registry('rellocation_visibility_count_'.$_product->getId()) > 0)): ?>
+                <!-- Related Locations Block --->
+                <div class="branch_list">
+                    <p class="title">
+                        <?php $_relLocations = array_keys($relatedLocations); ?>
+                        <?php $stock = !is_null($aggregateStockLevels) ? $helper->aggregateLocationStockLevels($aggregateStockLevels, $_relLocations) : $commHelper->truncateZero(0, $decimalPlaces); ?>
+                        <?php $stockClass = ($stock != 0) ? 'in-stock' : 'out-of-stock'; ?>
+                        <?php if($stock != 0 && ($block->getRegistry()->registry('rellocation_showinventory_count_'.$_product->getId()) > 0)): ?><span class="aggregate-stock <?php echo $stockClass; ?>"><strong><?php echo $commHelper->truncateZero($stock, $decimalPlaces); ?></strong></span><?php endif; ?>
+                        <strong><?php echo __('Related Locations') ?></strong>
+                    </p>
+                    <div id="related_location_<?php echo $_product->getId(); ?>">
+                    <?php foreach ($relatedLocations as $location): ?>
+                        <?php if(!$location->getLocationVisible()): ?>
+                            <?php continue; ?>
+                        <?php endif; ?>
+                        <div class="related-location-element">
+                            <a class="selectBranchlink" id="link" data-custom="<?php echo $location->getLocationCode(); ?>" data-customid="<?php echo $location->getLocationId(); ?>"  href="javascript:void(0)">
+                                <?php $_product->setToLocationPrices($location); ?>
+                                <div class="location-element location-stock">
+                                    <?php if ($_product->isSaleable() && !$_product->getIsEccNonStock()) : ?>
+                                    <?php
+                                        switch ($_product->getStockType()):
+                                            case 'bool':
+                                    ?>
+                                            <?php if ($_product->isAvailable()): ?>
+                                            <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                                            <?php else: ?>
+                                            <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                            <?php break; ?> 
+                                    <?php case 'range': ?>
+                                        <?php $_img = $_product->getStockRange(); ?>
+                                        <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />        
+                                    <?php break; ?> 
+                                    <?php case 'level': ?>
+                                            <?php if($location->getShowInventory()): ?>
+                                            <?php $stock = !is_null($aggregateStockLevels) ? $commHelper->truncateZero($aggregateStockLevels[$location->getLocationCode()], $decimalPlaces) : $commHelper->truncateZero(0, $decimalPlaces); ?>
+                                            <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $stock; ?></span></p>
+                                            <?php else: ?>
+                                            <p>&nbsp;</p>
+                                            <?php endif; ?>
+                                        <?php break; ?>         
+                                        <?php endswitch; ?> 
+                                    <?php elseif(!$_product->getIsEccNonStock()): ?>
+                                        <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="location-element location-name">
+                                    <p><strong><?php echo $location->getName(); ?></strong></p>
+                                    <p><?php echo $block->getBranchAddress($location); ?></p>
+                                </div>
+                                <div class="location-element location-select">
+                                    <span><?php echo __('Select'); ?></span>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if (!empty($_groupLocations)): ?>
+                <!-- Location Grouping Block --->
+                <?php foreach ($groupings as $groupName => $group): ?>
+                    <?php if (isset($group['locations']) && !empty($group['locations']) && ($group['location_visibility_count'] > 0)): ?>
+                        <?php $locations = $group['locations']; ?>
+                        <?php $display = (isset($group['group_expandable']) && ($group['group_expandable'] == 1)) ? "display:none;": ""; ?>
+                        <?php $event = (isset($group['group_expandable']) && ($group['group_expandable'] == 1)) ? "class='accordion title' style='cursor:pointer;' onclick=toggleBlock('#location_group_".$group['group_id']."_".$_product->getId()."')": ""; ?>
+                        <div class="branch_list">
+                            <p <?php echo $event; ?>>
+                                <?php $groupStockLocations = array_keys($locations); ?>
+                                <?php if (isset($group['show_aggregate_stock']) && ($group['show_aggregate_stock'] == 1)): ?>
+                                    <?php $stock = !is_null($aggregateStockLevels) ? $helper->aggregateLocationStockLevels($aggregateStockLevels, $groupStockLocations) : $commHelper->truncateZero(0, $decimalPlaces); ?>
+                                    <?php $stockClass = ($stock != 0) ? 'in-stock' : 'out-of-stock'; ?>
+                                    <?php if($stock != 0 && ($group['location_showinventory_count'] > 0)): ?><span class="aggregate-stock <?php echo $stockClass; ?>"><strong><?php echo $commHelper->truncateZero($stock, $decimalPlaces); ?></strong></span><?php endif; ?>
+                                <?php endif; ?>
+                                <strong><?php echo __($groupName) ?></strong>
+                            </p>
+                            <div style="<?php echo $display; ?>" id="location_group_<?php echo $group['group_id']; ?>_<?php echo $_product->getId(); ?>">
+                                <?php foreach ($locations as $location): ?>
+                                <?php if(!$location->getLocationVisible()): ?>
+                                    <?php continue; ?>
+                                <?php endif; ?>
+                                <div class="related-location-element">
+                                    <?php if($selectedBranchCode != $location->getLocationCode()): ?><a class="selectBranchlink" id="link" data-custom="<?php echo $location->getLocationCode(); ?>" data-customid="<?php echo $location->getLocationId(); ?>" href="javascript:void(0)"><?php endif; ?>
+                                        <?php $_product->setToLocationPrices($location); ?>
+                                        <div class="location-element location-stock">
+                                            <?php if ($_product->isSaleable() && !$_product->getIsEccNonStock()) : ?>
+                                            <?php
+                                                 switch ($_product->getStockType()):
+                                                    case 'bool':
+                                            ?>
+                                                    <?php if ($_product->isAvailable()): ?>
+                                                    <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                                                    <?php else: ?>
+                                                    <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                                    <?php endif; ?>
+                                                    <?php break; ?> 
+                                            <?php case 'range': ?>
+                                                <?php $_img = $_product->getStockRange(); ?>
+                                                <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />        
+                                            <?php break; ?> 
+                                            <?php case 'level': ?>
+                                                <?php if($location->getShowInventory()): ?>
+                                                    <?php $stock = !is_null($aggregateStockLevels) ? $commHelper->truncateZero($aggregateStockLevels[$location->getLocationCode()],$decimalPlaces) : $commHelper->truncateZero(0, $decimalPlaces); ?>
+                                                    <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $stock; ?></span></p>
+                                                <?php else: ?>
+                                                     <p>&nbsp;</p>
+                                                <?php endif; ?>
+                                                <?php break; ?>         
+                                            <?php endswitch; ?> 
+                                            <?php elseif(!$_product->getIsEccNonStock()): ?>
+                                                <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="location-element location-name">
+                                            <p><strong><?php echo $location->getName(); ?></strong></p>
+                                            <p><?php echo $block->getBranchAddress($location); ?></p>
+                                        </div>
+                                        <?php if($selectedBranchCode != $location->getLocationCode()): ?>
+                                        <div class="location-element location-select">
+                                            <span><?php echo __('Select'); ?></span>
+                                        </div>
+                                    </a>
+                                        <?php endif; ?>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+		<?php endif; ?>
+            </div>
+        </div>
+        <?php $this->resetProduct(); ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            function toggleBlock(block) {
+                if (jQuery(block).prev().hasClass("active")) {
+                    jQuery(block).prev().removeClass("active");
+                    jQuery(block).prev().addClass("accordion");
+                } else {
+                    jQuery(block).prev().removeClass("accordion");
+                    jQuery(block).prev().addClass("active");
+                }
+                jQuery(block).toggle();
+            }
+            require([
+                "jquery",
+                'mage/translate',
+                'Magento_Ui/js/modal/modal'
+            ], function ($, $tr, modal) {
+                $('.locations-link-<?php echo $_product->getId(); ?>').click( function (e) {
+                    $(this).hide();
+                    $('.locations-hide-<?php echo $_product->getId(); ?>').show();
+                    showLocations('locations_list_<?php echo $_product->getId(); ?>_block');
+                });
+                $('.locations-hide-<?php echo $_product->getId(); ?>').click( function (e) {
+                    $(this).hide();
+                    $('.locations-link-<?php echo $_product->getId(); ?>').show();
+                    hideLocations('locations_list_<?php echo $_product->getId(); ?>_block');
+                });
+                function showLocations(id) {
+                    $('#'+id).show();
+                }
+                function hideLocations(id) {
+                    $('#'+id).hide();
+                }
+            });
+            //]]>
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Epicor_Common::epicor" title="Epicor" translate="title" module="Epicor_Common" sortOrder="71" resource="Epicor_Common::epicor"/>
+        
+        <add id="Epicor_Common::quickstart" title="Quick Start" translate="title" parent="Epicor_Common::epicor"
+             module="Epicor_Common" sortOrder="5" resource="Epicor_Common::quickstart"
+             action="adminhtml/epicorcommon_quickstart"/>
+        
+        <add id="Epicor_Common::document_install_notes" resource="Epicor_Common::documentation" title="Documentation"
+             translate="title" parent="Epicor_Common::epicor" sortOrder="10" module="Epicor_Common"
+             action="adminhtml/epicorcommon_documentation"/>
+        
+        <add id="Epicor_Common::manage" resource="Epicor_Common::manage" title="Manage" translate="title"
+             parent="Epicor_Common::epicor" module="Epicor_Common" sortOrder="100"/>
+        
+        <add id="Epicor_Common::advanced" resource="Epicor_Common::advanced" title="Epicor Advanced" translate="title"
+             parent="Magento_Backend::system" module="Epicor_Common" sortOrder="200"/>
+                
+        <add id="Epicor_Common::mapping" title="Mapping" translate="title" parent="Epicor_Common::manage"
+             module="Epicor_Comm" sortOrder="60" resource="Epicor_Common::mapping"
+             action="adminhtml/epicorcommon_mapping_currency"/>
+        
+        <add id="Epicor_Common::configure" title="Configuration" translate="title" parent="Epicor_Common::epicor"
+             module="Epicor_Comm" sortOrder="10" resource="Epicor_Common::configure"
+             action="adminhtml/system_config/edit/section/Epicor_Comm"/>
+        
+        <add id="Epicor_Common::import_export_comm" title="Import/Export Comm Settings" translate="title"
+             parent="Epicor_Common::advanced" module="Epicor_Common" sortOrder="100"
+             resource="Epicor_Common::import_export_comm" action="adminhtml/epicorcommon_importexport"/>
+
+        <add id="Epicor_Common::advanced_cleardata" title="Clear Data" translate="title"
+             resource="Epicor_Common::advanced_cleardata" parent="Epicor_Common::advanced" module="Epicor_Common"
+             sortOrder="10" action="adminhtml/epicorcommon_advanced_cleardata"/>
+        <add id="Epicor_Common::advanced_syslog" title="System Logs" translate="title"
+             resource="Epicor_Common::advanced_syslog" parent="Epicor_Common::advanced" module="Epicor_Common"
+             sortOrder="20" action="adminhtml/epicorcommon_advanced_syslog"/>
+        <add id="Epicor_Common::advanced_errors" title="System Error Reports" translate="title"
+             resource="Epicor_Common::advanced_errors" parent="Epicor_Common::advanced" module="Epicor_Common"
+             sortOrder="30" action="adminhtml/epicorcommon_advanced_errors"/>
+        <add id="Epicor_Common::advanced_postdata" title="Post Data" translate="title"
+             resource="Epicor_Common::advanced_postdata" parent="Epicor_Common::advanced" module="Epicor_Common"
+             sortOrder="40" action="adminhtml/epicorcommon_advanced_postdata"/>
+    </menu>
+</config>

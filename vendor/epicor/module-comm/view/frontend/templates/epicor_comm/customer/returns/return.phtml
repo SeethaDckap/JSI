@@ -1,0 +1,194 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Return */
+
+$createEnabled = $this->checkConfigFlag('allow_create');
+
+$findClass = $createEnabled ? 'col-2' : 'col-1';
+$colClass = ($createEnabled) ? 'col2-set' : '';
+
+if (!$this->returnExists()) :
+    ?>
+    <script type="text/javascript">
+    //<![CDATA[
+      require([
+        'jquery',
+        'Epicor_Comm/epicor/comm/js/return/createfindreturn',
+        'prototype'
+    ], function ($, CreateFindReturn) {
+        'use strict';
+        if($('#create-return-form').length) {
+            var create = new CreateFindReturn('create-return-form',window.returns);
+            $("#create-submit").click(function (e) {
+                create.save();
+            });
+        }
+
+    });
+
+    //]]>
+    </script>
+
+            
+            
+    <div class="<?php echo $colClass; ?>">
+        <?php if ($createEnabled) : ?>
+            <div class="col-1">
+                <h3><?php echo __('Create New Return'); ?></h3>
+                <form id="create-return-form" action="<?php echo $this->getUrl('epicor_comm/returns/createReturn') ?>" method="post">
+                    <?php echo $this->getBlockHtml('formkey')?>
+                    <fieldset>
+                        <input type="hidden" name="guest_email" value="<?php echo $this->getGuestEmail(); ?>" />
+                        <input type="hidden" name="guest_name" value="<?php echo $this->getGuestName(); ?>" />
+                        <?php $this->getChild('formkey'); ?>
+                        <ul class="form-list">
+                            <li>
+                                <label for="customer-ref" class="required"><?php echo __('Customer Ref'); ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text required-entry" id="customer-ref" name="customer_ref" value="" />
+                                </div>
+                            </li>
+                            <li>
+                                <label for="case-no"><?php echo __('Case Number'); ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text" id="case-no" name="case_number" value="" />
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div id="return-create-buttons-container" class="">
+                        <button class="button" title="<?php echo __('Create'); ?>" type="button" id="create-submit"><span><span><?php echo __('Create'); ?></span></span></button>
+                    </div>
+                </form>
+            </div>
+        <?php endif; ?>     
+        <?php $options = $this->getFindByOptions(); ?>
+        <?php if (!empty($options)) : ?>
+
+            <div class="<?php echo $findClass; ?>">
+                <h3><?php echo __('Find Return'); ?></h3>
+                <form id="find-return-form" onsubmit="find.save();return false;" action="<?php echo $this->getUrl('epicor_comm/returns/findReturn') ?>" method="post">
+                    <fieldset>
+                        <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+                        <?php $this->getChild('formkey'); ?>
+                        <ul class="form-list">
+                            <li>
+                                <label for="find_type" class="required"><?php echo __('Find By'); ?></label>
+                                <div class="input-box">
+                                    <select name="find_type" id="find_type">
+                                        <?php foreach ($options as $option) : ?>
+                                            <option value="<?php echo $option['value']; ?>"><?php echo $option['label']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <label for="find_value" class="required"><?php echo __('Search Value'); ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text required-entry" id="find_value" name="find_value" />
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div id="return-find-buttons-container" class="">
+                        <button class="button" title="<?php echo __('Find'); ?>" type="button" id="find-submit" ><span><span><?php echo __('Find'); ?></span></span></button>
+                    </div>
+                </form>
+            </div>
+        
+        
+          <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/createfindreturn',
+                'prototype'
+            ], function ($, CreateFindReturn) {
+                'use strict';
+                var find = new CreateFindReturn('find-return-form',window.returns);
+                 $("#find-submit").click(function (e) {
+                     find.save();
+                });                 
+            });
+
+            //]]>
+            </script>
+    
+        <?php endif; ?>
+        <div id="return-buttons-container" class="buttons-set">
+            <p class="required">* Required Fields</p>
+            <span style="display:none;" id="return-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </div>
+<?php else : ?>
+    <?php echo $this->getReturnBarHtml(); ?>
+    <div class="<?php echo $colClass; ?>">
+        
+        <div class="col-1">
+            <h3><?php echo __('Customer Reference'); ?></h3>
+            <form id="update-return-form" action="<?php echo $this->getUrl('epicor_comm/returns/updateReference') ?>" method="post">
+                <fieldset>
+                    <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+                    <?php $this->getChild('formkey'); ?>
+                    <ul class="form-list">
+                        <li>
+                            <label for="customer-ref" class="required"><?php echo __('Customer Ref'); ?></label>
+                            <div class="input-box">
+                                <input type="text" class="input-text required-entry" id="customer-ref" name="customer_ref" value="<?php echo $this->getReturn()->getCustomerReference(); ?>" />
+                            </div>
+                        </li>
+                        <?php if ($this->getReturn()->getErpReturnsNumber()) : ?>
+                            <?php if ($this->getReturn()->getRmaCaseNumber()) : ?>
+                                <li>
+                                    <label for="case-no"><?php echo __('Case Number'); ?></label>
+                                    <div class="input-box">
+                                        <?php echo $this->getReturn()->getRmaCaseNumber(); ?>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <li>
+                                <label for="case-no"><?php echo __('Case Number'); ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text" id="case-no" name="case_number" value="<?php echo $this->getReturn()->getRmaCaseNumber(); ?>" />
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </fieldset>
+                <div id="return-update-buttons-container" class="">
+                    <button class="button" title="<?php echo __('Create'); ?>" type="button"  id="update-submit"><span><span><?php echo __('Continue'); ?></span></span></button>
+                </div>
+            </form>
+        </div> 
+        
+        <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/updatereturn',
+                'prototype'
+            ], function ($, UpdateReturn) {
+                'use strict';
+                  var returnUpdate = new UpdateReturn('update-return-form',window.returns);
+                $("#update-submit").click(function (e) {
+                      returnUpdate.save();
+                });              
+            });
+
+            //]]>
+        </script>
+    
+        <div id="return-buttons-container" class="buttons-set">
+            <p class="required">* Required Fields</p>
+            <span style="display:none;" id="return-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </div>
+<?php endif; ?>

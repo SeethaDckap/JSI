@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+$fileExist = $this->checkProductCheckLogFileExistOrNot();
+?>
+<div class="groupdeleteordownload">
+<?php 
+if ($fileExist):
+    echo __('Processing is already in progress. Please use Epicor > Advanced > System Logs to view ‘productcheck.log’.');
+else:
+    echo __('This procedure will delete all group products that have duplicates.<br><br>');
+    echo __('*****Before running this process you should have performed ‘Groupdeletedownloadcsv’ to identify which products will be deleted. <br><br>');
+    echo __('Once you have clicked proceed, you can close this page.<br><br>');
+    echo __('Depending upon the number of products in your database, this process may take some time.<br><br>');
+    echo __('You can check processing progress using System > Epicor Advanced > System Logs and viewing ‘productcheck.log’.<br><br>');
+    echo __('When processing is complete,  productcheck.log will no longer be available and there will be a date stamped file called WSO-6196-DeletedProduct-yymmddhhmmss.csv which you can view.<br><br>');
+    ?>
+    <div id="hideclassdeletebutton">
+        <?php
+        echo __('Click proceed to continue');
+        ?>
+
+        <input type="button" id="download" class="btn" value="<?php echo __('Proceed'); ?>" />
+    </div>
+    <div id="hideclassdeletebuttontext">
+        <?php
+        echo __('Processing');
+        ?>
+    </div>
+    <span id="deletetext"></span>
+
+    <?php $ajaxurl = $this->getUrl('comm/test/groupdeleteproduct');
+    ?>
+
+
+    <script>
+
+        require(['jquery', 'jquery/ui'], function ($) {
+
+            jQuery('#download').click(function () {
+                jQuery.ajax({
+                    url: "<?php echo $ajaxurl; ?>",
+                    data: $('#form_id').serialize(),
+                    type: 'GET',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        jQuery('#hideclassdeletebutton').hide();
+                        jQuery('#hideclassdeletebuttontext').show();
+                    },
+                    success: function (data, status, xhr) {
+                        //console.log(data);
+                        // data contains your controller response
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        // console.log('Error happens. Try again.');
+                        // console.log(errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
+    </div>
+<style>
+    .page-header, .nav-sections, .copyright{display:none;}    
+    #hideclassdeletebuttontext{display: none;font-size: 30px;font-weight: bold;font-family: initial;}
+    .groupdeleteordownload{margin: 36px;}
+</style>

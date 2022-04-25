@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Magento\Customer\Controller\Account\LoginPost">
+      <plugin name="redirect" type="Silk\CustomAccount\Plugin\LoginPostPlugin" />
+    </type>
+    <preference for="Epicor\Customerconnect\Block\Customer\Invoices\Listing\Grid" type="Silk\CustomAccount\Block\Customer\Invoices\Listing\Grid" />
+    <preference for="Magento\Quote\Model\Quote\Item\Repository" type="Silk\CustomAccount\Model\Quote\Item\Repository" />
+    <preference for="Magento\Quote\Model\ShippingMethodManagement" type="Silk\CustomAccount\Model\ShippingMethodManagement" />
+    <preference for="Magento\Customer\Controller\Account\Login" type="Silk\CustomAccount\Model\Override\Login" />
+    <preference for="Magento\Quote\Model\Quote" type="Silk\CustomAccount\Model\Override\Quote" />
+</config>

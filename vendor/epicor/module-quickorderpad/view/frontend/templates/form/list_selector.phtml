@@ -1,0 +1,85 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * WARNING: IF YOU MAKE ECC SPECIFIC CHANGES TO THIS FILE, THEY MUST ALSO BE ADDED TO THE RWD FILE TOO
+ * rwd/default/template/epicor/lists/quickorderpad/list/selector.phtml
+ */
+/* @var $this \Epicor\Lists\Block\Quickorderpad\Listing\Selector */
+
+$lists = $this->getLists('selector');
+if ($this->listsEnabled() && count($lists) > 0):
+    
+    ?>
+    <form method="post" id="select-list-form" action="<?php echo $this->getActionUrl(); ?>">
+        <div class="fieldset">
+            <h2 class="legend"><?php echo __('List Selector'); ?></h2>
+            <p>
+                <label for="list_id"><?php echo __('Select List'); ?></label><br />
+                <select name="list_id" id="list_id" class="required-entry validate-select" title="<?php echo __('List'); ?>"><br />
+                    <option><?php echo __('No List Selected'); ?></option>
+                    <?php foreach ($lists as $list): ?>
+                        <option <?php if ($this->isSessionList($list)): ?>selected="selected" <?php endif; ?>value="<?php echo $list->getId(); ?>"><?php echo $list->getTitle(); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" id="search_lists" title="<?php echo __('Search') ?>" class="action primary" ><span><?php echo __('Search') ?></span></button>
+            </p>
+            <p>
+                <button type="sumbit" title="<?php echo __('Select List') ?>" class="action primary" ><span><?php echo __('Select List') ?></span></button>
+            </p>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+
+        function resizeIframe(obj) {
+            var maxH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            obj.height(parseInt(maxH - 270) + 'px');
+        }
+
+        function hideLoader() {
+            require([
+                'jquery'
+            ], function ($) {
+                $('body').loader('hide'); 
+            });
+        }
+
+        function updateFieldListValue(value) {
+            var rowId = value.trim();
+            require([
+                'jquery',
+                'Magento_Ui/js/modal/modal'  // the alias for "mage/accordion"
+            ], function ($, modal) {
+                $('select#list_id').val(rowId);
+                $('#search_iframe').modal('closeModal');
+            });
+            event.stop();
+            return false;
+        }
+
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, modal) {
+            var options = {
+                type: 'popup',
+                clickableOverlay: true,
+                innerScroll: true,
+                title: $.mage.__('List Search'),
+                buttons: []
+            };
+            $('#search_lists').click(function(){
+                if ($('#search_iframe').length == 0) {
+                    $('body').loader('show'); 
+                    $(document.body).append('<iframe id="search_iframe" src="<?php echo $this->getUrl('epicor_lists/lists/selector'); ?>" onload="hideLoader()" frameborder="0" style="display:none"></iframe>');
+                }
+                resizeIframe($('#search_iframe'));
+                $('#search_iframe').modal(options).modal('openModal');
+            })
+        });
+        
+    </script>
+<?php endif; ?>

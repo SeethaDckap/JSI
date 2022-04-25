@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::system">
+                    <resource id="Epicor_Common::advanced" title="Epicor Advanced"> 
+                        <resource id="Epicor_Common::advanced_cleardata" title="Clear Data"/> 
+                        <resource id="Epicor_Common::advanced_syslog" title="System Logs"/>
+                        <resource id="Epicor_Common::advanced_errors" title="Error Reports"/>
+                        <resource id="Epicor_Common::advanced_postdata" title="Post Data"/>
+                        <resource id="Epicor_Common::import_export_comm" title="Import/Export Comm Settings"/>
+                    </resource>
+                </resource>                
+                <resource id="Epicor_Common::epicor" title="Epicor" sortOrder="10">                    
+                        <resource id="Epicor_Common::quickstart" title="Quick Start" sortOrder="10"/>
+                        <resource id="Epicor_Common::documentation" title="Documentation" sortOrder="20"/>                        
+                        <resource id="Epicor_Common::manage">
+                            <resource id="Epicor_Common::mapping" title="Mapping">
+                                <resource id="Epicor_Common::mapping_currency" title="Currency" sortOrder="3"/>
+                                <resource id="Epicor_Common::mapping_cardtype" title="Cardtype" sortOrder="1"/>
+                                <resource id="Epicor_Common::mapping_country" title="Country" sortOrder="2"/>
+                                <resource id="Epicor_Common::mapping_erp_order_status" title="Erp Order Status" sortOrder="4"/>
+                                <resource id="Epicor_Common::mapping_erp_quote_status" title="Erp Quote Status" sortOrder="5"/>
+                                <resource id="Epicor_Common::mapping_invoice_status" title="Invoice Status" sortOrder="6"/>
+                                <resource id="Epicor_Common::mapping_language" title="Language" sortOrder="7"/>
+                                <resource id="Epicor_Common::mapping_order_status" title="Order Status" sortOrder="8"/>
+                                <resource id="Epicor_Common::mapping_payment" title="Payment" sortOrder="9"/>
+                                <resource id="Epicor_Common::mapping_reason_code" title="Reason Code" sortOrder="10"/>
+                                <resource id="Epicor_Common::mapping_remote_links" title="Remote Links" sortOrder="11"/>
+                                <resource id="Epicor_Common::mapping_rma_status" title="RMA Status" sortOrder="12"/>
+                                <resource id="Epicor_Common::mapping_service_call_status" title="Service Call Status" sortOrder="13"/>
+                                <resource id="Epicor_Common::mapping_shipping_method" title="Shipping Method" sortOrder="14"/>
+                                <resource id="Epicor_Common::mapping_erp_attributes" title="Erp Attributes" sortOrder="15"/>
+                                <resource id="Epicor_Common::mapping_customfields" title="Custom Fields" sortOrder="4"/>
+                                <resource id="Epicor_Common::epicorcommon_mapping_pac" title="Pac Mapping" sortOrder="16"/>
+                                <resource id="Epicor_Common::epicorcommon_mapping_warranty" title="Warranty Mapping" sortOrder="16"/>
+                                <resource id="Epicor_Common::mapping_shipping_status" title="Ship Status" sortOrder="16"/>
+                                <resource id="Epicor_Common::mapping_products" title="Products Mapping" sortOrder="16"/>
+                                <resource id="Epicor_Customerconnect::epicorcommon_mapping_miscellaneouscharges" title="Miscellaneous Code Mapping" sortOrder="16"/>
+                                <resource id="Epicor_Common::mapping_claim_status" title="Claim Status" sortOrder="16"/>
+                                <resource id="Epicor_Common::epicorcommon_data_mapping" title="Data Mapping" sortOrder="16"/>
+                            </resource>
+                        </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

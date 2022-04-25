@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1000" translate="label">
+            <group id="cre" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Cre Card Payments</label>
+                <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+                    <label>Title</label>
+                </field>
+                <field id="order_status" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="select">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="live_mode" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mode</label>
+                    <source_model>Epicor\Cre\Model\Config\Source\Livestate</source_model>
+                </field>
+                <field id="namespace" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="text">
+                    <label>NameSpace</label>
+                </field>
+                <field id="public_key" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="text">
+                    <label>Public Key</label>
+                </field>
+                <field id="button_name" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="text">
+                    <label>Button Name</label>
+                </field>
+                <field id="payment_title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="text">
+                    <label>Payment Title</label>
+                </field>
+                <field id="heading_adv" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advanced Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="adv_enabled" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Advanced Settings</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="test_url" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test Url</label>
+                    <comment>https://sce.toogoerp.net/hp/hostedpayments.js</comment>
+                    <depends>
+                        <field id="adv_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="live_url" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Live Url</label>
+                    <comment>https://sce.toogo.in/hp/hostedpayments.js</comment>
+                    <depends>
+                        <field id="adv_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="style_config" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="130" translate="label">
+                    <label>Style Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="body_background" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="140" translate="label" type="text">
+                    <label>Body Background Color</label>
+                </field>
+                <field id="font_background" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="150" translate="label" type="text">
+                    <label>Button Font Background Color</label>
+                </field>
+                <field id="font_color" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="160" translate="label" type="text">
+                    <label>Button Font Color</label>
+                </field>
+                <field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="81" translate="label" type="text">
+                    <label>Sort Order</label>
+                </field>
+                <field id="instructions" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="82" translate="label" type="textarea">
+                    <label>Instructions</label>
+                </field>
+                <field id="cctypes" translate="label" type="multiselect" sortOrder="83" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Card Types</label>
+                    <source_model>Epicor\Cre\Model\Config\Source\CcType</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

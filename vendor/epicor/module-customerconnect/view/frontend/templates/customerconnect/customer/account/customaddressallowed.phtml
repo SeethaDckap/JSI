@@ -1,0 +1,101 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Template for block Epicor_Customerconnect_Block_Customer_Account_Summary
+ */
+//if ($this->isErpCustomer()) :
+//M1 > M2 Translation Begin (Rule p2-1)
+//$options = Mage::getModel('epicor_comm/config_source_yesnonulloption')->toOptionArray();
+$options =$block->getOption()->toOptionArray();
+//M1 > M2 Translation End
+
+$shippingAddressAllowed = $this->getCommonHelper()->getAddressAllowed(null, 'erpaccount', 'shipping');
+$billingAddressAllowed = $this->getCommonHelper()->getAddressAllowed(null, 'erpaccount', 'billing');
+
+?>
+<div class="col-full box-info box-account block">
+    <div class="block-title">
+        <strong><?php echo __('Contact Address Creation') ?></strong>
+        <button id="custom_address_allowed_button" class="scalable" type="submit"><?php echo __('Update');?></button>
+    </div>
+    <div class="block-content">
+        <form action="<?php echo $this->getUrl('*/*/saveCustomAddressAllowed') ?>" method="post" id="role_edit_form">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <fieldset id="erp_custom_address_allowed">
+                <label for="erp_shipping_address_allowed"><?php echo __('Can Contacts Create Shipping Addresses?') ?></label>
+                <select name="shipping_address_allowed" id="shipping_address_allowed" class="select">
+                    <?php foreach ($options as $key => $value): ?>
+                        <?php if ($value['value'] != ''): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($shippingAddressAllowed == $value['value']) : ?>selected='selected'<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+                <label for="erp_billing_address_allowed"><?php echo __('Can Contacts Create Billing Addresses?') ?></label>
+                <select name="billing_address_allowed" id="billing_address_allowed" class="select">
+                    <?php foreach ($options as $key => $value): ?>
+                        <?php if ($value['value'] != ''): ?>
+                            <option value="<?php echo $value['value'] ?>" <?php if ($billingAddressAllowed == $value['value']) : ?>selected='selected'<?php endif; ?>><?php echo $value['label'] ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </fieldset>
+        </form>
+        <div id="custom_address_allowed_messages">
+            <div id="custom_message_allowed_failure_response"><?php echo __('Unable to update, please try later') ?></div>
+        </div>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function (jQuery) {
+        $('custom_message_allowed_failure_response').hide();
+        $("custom_address_allowed_button").observe('click', function () {
+            var shippingAddressAllowed = $("shipping_address_allowed").value;
+            var billingAddressAllowed = $("billing_address_allowed").value;
+            var url = location.protocol + '//' + location.hostname + '/customerconnect/account/saveCustomAddressAllowed'
+            url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+            $('loading-mask').show();
+            this.ajaxRequest = new Ajax.Request(url, {
+                method: 'post',
+                parameters: {
+                  shippingAddressAllowed: shippingAddressAllowed,
+                  billingAddressAllowed: billingAddressAllowed
+                },
+                onComplete: function (request) {
+                    this.ajaxRequest = false;
+                }.bind(this),
+                onSuccess: function (data) {
+                    var json = data.responseText.evalJSON();
+                    if (json.type == 'success') {
+                        if (json.redirect) {
+                            window.location.replace(json.redirect);
+                        }
+                    } else {
+                        $('loading-mask').hide();
+                        if (json.message) {
+                            showMessage(json.message, json.type);
+                        }
+                    }
+                }.bind(this),
+                onFailure: function (request) {
+                    $('loading-mask').hide();
+                    $('custom_message_allowed_failure_response').show();
+                    delay(custom_message_allowed_failure_response, 5);
+                }.bind(this),
+                onException: function (request, e) {
+                    alert(e);
+                }.bind(this)
+            });
+        });
+
+        function delay(message, time) {
+            Element.hide.delay(time, message);
+        }
+    });
+
+</script>

@@ -1,0 +1,28 @@
+<?php /** Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved */ ?>
+<?php /** @var $block \Epicor\OrderApproval\Block\Dashboard\Budgets\ShopperBudgetAllocations */ ?>
+<?php if ($block->isGridActive()): ?>
+    <div class="budget-details block" id="<?=$block->getTypeId()?>">
+        <div class="block-title">
+            <strong>Budget Details</strong>
+        </div>
+        <div class="summary-table summary-grid">
+            <table class="data-grid">
+                <caption>Approvals summary table</caption>
+                <thead>
+                <?= $block->getHeaderHtml() ?>
+                </thead>
+                <tbody>
+                <?= $block->getBodyHtml() ?>
+                <?php if (count($block->getShopperAllocations()) < 1): ?>
+                    <tr class="data-grid-tr-no-data even">
+                        <td data-th="We couldn't find any records." class="empty-text" colspan="6">We couldn't find any
+                            records.
+                        </td>
+                    </tr>
+                <?php endif ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+<?php endif ?>

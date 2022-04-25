@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_Lists>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_Lists>
+        </ecc_version_info>
+        <ecc_account_selector_types>
+            <guest>
+                <label>Guest</label>
+                <priority>0</priority>
+            </guest>
+        </ecc_account_selector_types>
+        <adminhtml>
+            <erps>
+                <xvp>xVP</xvp>
+                <bistrack>Bistrack</bistrack>
+                <e10>e10</e10>
+                <p21>p21</p21>
+                <tropos>Tropos</tropos>
+                <eclipse>Eclipse</eclipse>
+                <qds>QDS</qds>
+                <xeres>Xeres</xeres>
+                <opal>Opal</opal>
+                <kopen>KOpen</kopen>
+                <concerto>Concerto</concerto>
+                <control>Control</control>
+            </erps>
+        </adminhtml>
+        <list_filters>
+            <filters>
+                <filterByWebsite>
+                    <model>epicor_lists/list_filter_website</model>
+                </filterByWebsite>
+                <filterByStoreGroup>
+                    <model>epicor_lists/list_filter_store</model>
+                </filterByStoreGroup>
+                <filterByErpAccountType>
+                    <model>epicor_lists/list_filter_erpaccount</model>
+                </filterByErpAccountType>
+                <filterByErpAccount>
+                    <model>epicor_lists/list_filter_erpaccounttype</model>
+                </filterByErpAccount>
+                <filterByCustomer>
+                    <model>epicor_lists/list_filter_customer</model>
+                </filterByCustomer>
+                <filterByRestriction>
+                    <model>epicor_lists/list_filter_restriction</model>
+                </filterByRestriction>
+                <filterByMandatory>
+                    <model>epicor_lists/list_filter_mandatory</model>
+                </filterByMandatory>
+            </filters>
+        </list_filters>
+        <xml_message_types>
+            <sync>
+                <lists>
+                    <label>Lists</label>
+                    <sort_order>50</sort_order>
+                    <messages>
+                        <cupg>CUPG</cupg>
+                        <cccn>CCCN</cccn>
+                        <curp>CURP</curp>
+                    </messages>
+                </lists>
+            </sync>
+            <request>
+                <cccd>CCCD - Customer Contracts</cccd>             
+                <cccs>CCCS - Customer Contracts Search</cccs>
+            </request>            
+            <upload>
+                <cupg>
+                    <label>CUPG - Lists</label>
+                    <order>2100</order>
+                    <base>epicor_lists</base>
+                    <registry_type>Lists</registry_type>
+                    <registry_type_desc>CUPG - Lists</registry_type_desc>
+                </cupg>
+                <cccn>
+                    <label>CCCN - Contracts</label>
+                    <order>2200</order>
+                    <base>epicor_lists</base>
+                    <registry_type>Contracts</registry_type>
+                    <registry_type_desc>CCCN - Contracts</registry_type_desc>
+                </cccn> 
+                <curp>
+                    <label>CURP - Restricted Purchase</label>
+                    <order>2300</order>
+                    <base>epicor_lists</base>
+                    <registry_type>RestrictedPurchase</registry_type>
+                    <registry_type_desc>CURP - Restricted Purchase</registry_type_desc>
+                </curp>
+            </upload>
+        </xml_message_types>
+    </global>
+</config>

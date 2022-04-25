@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- B2bRegister -->
+	<virtualType name="MSP\ReCaptcha\Model\Provider\Failure\RedirectUrl\B2bRegister"
+				 type="MSP\ReCaptcha\Model\Provider\Failure\RedirectUrl\SimpleUrlProvider">
+		<arguments>
+			<argument name="urlPath" xsi:type="string">*/*/register</argument>
+			<argument name="urlParams" xsi:type="array">
+				<item name="_secure" xsi:type="boolean">true</item>
+			</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="MSP\ReCaptcha\Model\Provider\Failure\B2bRegisterObserver"
+				 type="MSP\ReCaptcha\Model\Provider\Failure\ObserverRedirectFailure">
+		<arguments>
+			<argument name="redirectUrlProvider"
+					  xsi:type="object">MSP\ReCaptcha\Model\Provider\Failure\RedirectUrl\B2bRegister</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="MSP\ReCaptcha\Model\Provider\IsCheckRequired\Frontend\B2bRegister"
+				 type="MSP\ReCaptcha\Model\IsCheckRequired">
+		<arguments>
+			<argument name="enableConfigFlag"
+					  xsi:type="string">msp_securitysuite_recaptcha/frontend/enabled_b2b_create</argument>
+			<argument name="area" xsi:type="string">frontend</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="MSP\ReCaptcha\Observer\Frontend\B2bRegisterObserver"
+				 type="MSP\ReCaptcha\Observer\ReCaptchaObserver">
+		<arguments>
+			<argument name="isCheckRequired"
+					  xsi:type="object">MSP\ReCaptcha\Model\Provider\IsCheckRequired\Frontend\B2bRegister</argument>
+			<argument name="failureProvider"
+					  xsi:type="object">MSP\ReCaptcha\Model\Provider\Failure\B2bRegisterObserver</argument>
+		</arguments>
+	</virtualType>
+</config>

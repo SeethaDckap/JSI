@@ -1,0 +1,166 @@
+<?php
+$nodes = $this->getArrayData();
+?>
+
+<div class="container">
+    <button type="button"  class="action-default scalable action-secondary"  id="expandAll"><?php echo __('Expand All') ?></button>
+    <button type="button"  class="action-default scalable"  id="collapseAll"><?php echo __('Collapse All') ?></button>
+    <div id="treeview_container" class="epr-treeview well h-scroll-large">
+        <!-- <div id="treeview_container" class="epr-treeview"> -->
+        <ul id="treeview" class="epr-base">
+            <li> <i class="fa fa-plus"></i>
+                <?php $htmlid =  str_replace('::','_',$nodes[0]['id']) ?>
+                <label> <input name="resource[]" value="<?php echo $nodes[0]['id'] ?>"
+                               id="<?php echo $htmlid ?>" data-id="dt-<?php echo $htmlid ?>"
+                               class="chkbox" type="checkbox"> <?php echo __('ALL') ?></label>
+
+                <button type="button" class="selectal parentselectal action-default scalable action-secondary" vlaue="selectal"><?php echo __('Full Access'); ?></button>
+                <button type="button" class="readonly action-default scalable action-primary" vlaue="readonly"><?php echo __('Read Only'); ?></button>
+                <button type="button" class="deselectal action-default scalable" vlaue="deselectal"><?php echo __('No Access'); ?></button>
+                <ul>
+                    <?php echo $this->buildChildren($nodes[0]['children']); ?>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <!--<button class="btn btn-danger" id="checkNode">Check Node 0-2-2</button>-->
+</div>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $("#treeview").epr();
+
+        $("#collapseAll").click(function () {
+            $("#treeview").epr("collapseAll");
+        });
+        $("#expandAll").click(function () {
+            $("#treeview").epr("expandAll");
+        });
+        $(".acceesspoints").click(function () {
+            accesspointsReadSelection($(this));
+        });
+        $(".readonly").click(function () {
+            readOnlyAccess($(this));
+        });
+        $(".selectal").click(function () {
+            selectAllFullAccess($(this));
+        });
+        $(".deselectal").click(function () {
+            removeAllAccess($(this));
+        });
+
+
+        <?php  if(!$this->getAccessRoleId()){ ?>
+        $(".parentselectal").trigger("click");
+        <?php } ?>
+
+        $("#treeview").epr("expandAll");
+
+        // $("#save_and_continue,#save").on('click', function (e) {
+            // $('#treeview').find(".chkbox").each(function () {
+                // indeterminateToChecked($(this));
+            // });
+            // $('#treeview').find(".read").each(function () {
+                // indeterminateToChecked($(this));
+            // });
+            // $('.read').attr('disabled', false);
+        // });
+
+        $('#treeview').find(".menu-checkbox").each(function () {
+            if ($(this).prop("checked")) {
+                $(this).prop("checked", false);
+                $(this).trigger("click");
+            }
+        });
+        accessSelection();
+        // function indeterminateToChecked(target){
+            // if ($(target).prop("indeterminate")) {
+                // $(target).prop("checked", true);
+            // }
+        // };
+        function accesspointsReadSelection(target){
+            var aceessitem = $(target).closest("tr").find(".acceesspoints");
+            var accesslen = aceessitem.length;
+            var tmp = true;
+            for (var i = 0; i < accesslen; i++) {
+                if (aceessitem[i].checked == true) {
+                    $(target).closest("tr").find(".read").prop("checked", true);
+                    $(target).closest("tr").find('.read').attr("disabled", true);
+                    //$(this).closest("tr").find('.read').addClass("disable");
+                    // $(this).closest("tr").find('.read').attr("onclick","return true");
+                    tmp = false;
+                }
+            }
+            if (tmp) {
+                $(target).closest("tr").find('.read').attr("disabled", false);
+                //$(this).closest("tr").find('.read').removeClass("disable");
+                // $(this).closest("tr").find('.read').attr("onclick","return false");
+            }
+        };
+
+        function accessSelection() {
+
+            $('#treeview').find(".acceesspoints").each(function () {
+                var aceessitem = $(this).closest("tr").find(".acceesspoints");
+                var accesslen = aceessitem.length;
+                var tmp = true;
+                for (var i = 0; i < accesslen; i++) {
+                    if (aceessitem[i].checked == true) {
+                        $(this).closest("tr").find('.read').attr("disabled", true);
+                        //$(this).closest("tr").find('.read').addClass("disable");
+                        // $(this).closest("tr").find('.read').attr("onclick","return true");
+                        tmp = false;
+                    }
+                }
+                if (tmp) {
+                    $(this).closest("tr").find('.read').attr("disabled", false);
+                    //$(this).closest("tr").find('.read').removeClass("disable");
+                    // $(this).closest("tr").find('.read').attr("onclick","return false");
+                }
+            });
+        };
+        function readOnlyAccess(target){
+            $(target).parent().find('.acceesspoints').prop("checked", false);
+            if ($(target).parent().find(".chkbox:first").prop("checked") != true) {
+                $(target).parent().find(".chkbox:first").trigger("click");
+            }
+            //$(this).parent().find(".chkbox:first").trigger("click");
+            $(target).parent().find(".chkbox").prop("checked", true);
+            $(target).parent().find('.read').attr("disabled", false);
+            $(target).parent().find('.read').prop("checked", true);
+        };
+        function removeAllAccess(target){
+
+            var chkstatus = $(target).parent().find(".chkbox:first").prop("checked");
+            if (chkstatus == true || chkstatus == false) {
+                $(target).parent().find(".chkbox:first").prop("checked", true);
+                $(target).parent().find(".chkbox:first").trigger("click");
+            }
+            $(target).parent().find('.acceesspoints').prop("checked", false);
+            $(target).parent().find('.read').prop("checked", false);
+            $(target).parent().find('.read').attr("disabled", false);
+            $(target).parent().find('.chkbox').prop("checked", false);
+            $(target).parent().find('.chkbox').prop("indeterminate", false);
+            $(target).parent().find('.chkbox').css("background-color", "#ffffff");
+            //$(this).parent().find('.read').removeClass("disable");
+            // $(this).parent().find('.read').attr("onclick","return false");
+            //$(this).parent().find(".chkbox:first").trigger("click");
+        };
+        function selectAllFullAccess(target){
+            if ($(target).parent().find(".chkbox:first").prop("checked") != true) {
+                $(target).parent().find(".chkbox:first").trigger("click")
+            }
+            $(target).parent().find('.acceesspoints').prop("checked", true);
+            $(target).parent().find('.read').prop("checked", true);
+            $(target).parent().find('.chkbox').prop("checked", true);
+            $(target).parent().find('.read').attr("disabled",true);
+            //accessselection();
+        };
+
+    });
+
+</script>

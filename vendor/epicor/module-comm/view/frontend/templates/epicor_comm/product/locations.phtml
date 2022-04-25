@@ -1,0 +1,112 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+use Epicor\Comm\Api\ViewModel\Form\AddToCartButtonInterface;
+use Epicor\Comm\Api\ViewModel\Form\FormKeyInterface;
+use Epicor\Comm\Api\ViewModel\Product\LocationsInterface;
+
+/** @var $productLocations LocationsInterface */
+$productLocations = $block->getData('productLocations');
+/** @var $formKey FormKeyInterface */
+$formKey = $block->getData('formKey');
+/** @var $addToCartBtn AddToCartButtonInterface */
+$addToCartBtn = $block->getData('addToCartBtn');
+
+$_product = $productLocations->getProduct($block->getProductId());
+$productCategory = $block->getRequest()->getparam("productCategory");
+$mode = $block->getListMode();
+$addToCartBtn->generatePostParams($_product);
+foreach ($_product->getCustomerLocations() as $location): ?>
+    <?php $_product->setToLocationPrices($location);?>
+    <form id = 'ecc-tocart-form' data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $addToCartBtn->getAction(); ?>" method="post">
+        <div class="location-element pad-middle location-name">
+            <p>
+            <?php echo $location->getName(); ?>
+            <?php if ($_product->isSaleable() && !$_product->getIsEccNonStock()) : ?>
+                <?php switch ($_product->getStockType()) : case 'bool': ?>
+                    <?php if ($_product->isAvailable()): ?>
+                    <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                    <?php else: ?>
+                    <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                <?php break; ?>
+                <?php case 'range': ?>
+                <?php $_img = $_product->getStockRange(); ?>
+                    <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />
+                <?php break; ?>
+                <?php case 'level': ?>
+                    <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $_product->getStockLevel() ?></span></p>
+                <?php break; ?>
+                <?php endswitch; ?>
+            <?php elseif(!$_product->getIsEccNonStock()): ?>
+                    <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+            <?php endif; ?>
+            </p>
+            <?php if ($mode == 'list'): ?>
+                <?php if ($_product->getPrice() == 0 &&  $_product->getEccConfigurator()): ?>
+                    <div class="price-box"><span class="price"><?php echo __('Price on configuration'); ?></span></div>
+                <?php else: ?>
+                    <?php if ($_product->isSaleable()) : ?>
+                        <?php echo $productLocations->getPriceHtml($location, $_product, true) ?>
+                    <?php else: ?>
+                        <div class="price-box"></div>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($_product->isSaleable()) : ?>
+                    <?php if ($_product->getEccConfigurator()): ?>
+                        <div class="configurable_addtocart">
+                            <?php $buttonTitle = __('Configure Product'); ?>
+                            <div class="add-to-cart">
+                                <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="ewaProduct.submit({sku: '<?php echo $_product->getSku(); ?>',currentStoreId:'<?php echo $_product->getStoreId(); ?>', productId: '<?php echo $_product->getId(); ?>', location: '<?php echo $location->getLocationCode() ?>',type: '<?php echo $_product->getEccProductType(); ?>',productCategory: '<?php echo $productCategory; ?>'}, false);"><span><span><?php echo $buttonTitle ?></span></span></button>
+                                <?php echo $this->getChildHtml('', true, true) ?>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <button type="sumbit" title="<?php echo __('Add to Cart') ?>" class="button action tocart primary" ><span><?php echo __('Add to Cart') ?></span></button>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p class="availability out-of-stock"><span><?php echo __('Product currently unavailable') ?></span></p>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+        <div class="location-element">
+
+        </div>
+        <?php if ($mode == 'grid'): ?>
+            <div class="location-element pad-middle">
+                <?php if ($_product->isSaleable()): ?>
+                    <?php if ($_product->getEccConfigurator()): ?>
+                        <div class="configurable_addtocart">
+                            <?php $buttonTitle = __('Configure Product'); ?>
+                            <div class="add-to-cart">
+                                <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="ewaProduct.submit({sku: '<?php echo $_product->getSku(); ?>',currentStoreId:'<?php echo $currentStoreId; ?>', productId: '<?php echo $_product->getId(); ?>', location: '<?php echo $location->getLocationCode() ?>',type: '<?php echo $_product->getEccProductType(); ?>'}, false);"><span><span><?php echo $buttonTitle ?></span></span></button>
+                                <?php echo $this->getChildHtml('', true, true) ?>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <button type="submit"
+                                title="<?php echo __('Add to Cart'); ?>"
+                                class="action tocart primary">
+                            <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                        </button>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p class="availability out-of-stock"><span><?php echo __('Product currently unavailable') ?></span></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <input type="hidden" name="form_key" value="<?php echo $formKey->getFormKey(); ?>">
+        <input type="hidden" name="return_url" value="<?php echo $block->getReturnUrl(); ?>">
+        <input type="hidden" value="<?php echo $location->getLocationCode(); ?>" name="location_code"/>
+        <input id="qty_<?php echo $_product->getId(); ?>" type="hidden" name="qty" maxlength="12" value="1" />
+        <?php if ($_product->getTypeId() == 'bundle'): ?>
+            <?php $selectionCollection = $_product->getTypeInstance(true)->getSelectionsCollection($_product->getTypeInstance(true)->getOptionsIds($_product), $_product); ?>
+            <?php foreach ($selectionCollection as $option) : ?>
+                <input type="hidden" name="bundle_option[<?php echo $option->getOptionId(); ?>]" value="<?php echo $option->getSelectionId(); ?>" />
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+    </form>
+<?php endforeach; ?>

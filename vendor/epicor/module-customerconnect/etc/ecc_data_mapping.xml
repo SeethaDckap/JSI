@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_Common:etc/data_mapping.xsd">
+    <message name="CAAP" label="CAAP - Customer AP Account Payment"/>
+    <message name="CAPS" label="CAPS - Customer AR Payments Search"/>
+    <message name="CCCS" label="CCCS - Customer Contracts Search"/>
+    <message name="CPHS" label="CPHS - Customer Recent Purchase History Search"/>
+    <message name="CRQC" label="CRQC - Customer Quote Confirm/Reject"/>
+    <message name="CRQD" label="CRQD - Customer Quote Detail Enquiry"/>
+    <message name="CRQS" label="CRQS - Customer Quote Search"/>
+    <message name="CRQU" label="CRQU - Customer Quote Update"/>
+    <message name="CUAD" label="CUAD - Customer Account Detail Enquiry"/>
+    <message name="CUAU" label="CUAU - Customer Account Update"/>
+    <message name="CUCS" label="CUCS Customer Service Calls Search"/>
+    <message name="CUID" label="CUID Customer Order Invoice Enquiry"/>
+    <message name="CUIS" label="CUIS Customer Invoice Search"/>
+    <message name="CUOD" label="CUOD - Order Detail Enquiry"/>
+    <message name="CUPS" label="CUPS - Payments Search"/>
+    <message name="CURS" label="CURS - Returns Search"/>
+    <message name="CUSD" label="CUSD - Order Shipment Enquiry"/>
+    <message name="CUSS" label="CUSS - Shipment Search"/>
+    <message name="PREQ" label="PREQ - Customer Document Request"/>
+    <message name="CUCO" label="CUCO - Upload Customer Connect Users"/>
+</config>

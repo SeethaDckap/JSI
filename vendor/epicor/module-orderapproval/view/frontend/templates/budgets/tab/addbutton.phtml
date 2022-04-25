@@ -1,0 +1,17 @@
+<?php /**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/** @var $this \Epicor\OrderApproval\Block\Adminhtml\Budgets\ErpAccounts\Edit\Tab\BudgetButton */
+?>
+<?php if (!$this->isBudgetActive()): ?>
+<div class="budget-message info">
+    <div>Note: Budget details can be entered once the new group is created</div>
+</div>
+
+<?php endif ?>
+<button type="button"
+    <?= $this->getDisableBudget() ?>
+        id="add-budget-button"
+        class="action-default scalable primary action">
+    <?= __('Add Budget') ?>
+</button>

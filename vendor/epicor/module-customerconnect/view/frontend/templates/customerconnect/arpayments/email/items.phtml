@@ -1,0 +1,90 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order): ?>
+<?php
+$paymentOnAccount = $_order->getEccArpaymentsIspayment();
+$_items = $_order->getItemsCollection();
+$count = $_items->count();
+$hideItems = false;
+if(($count == 0) &&($paymentOnAccount)) {
+$hideItems = true;
+}
+
+$accounts = ($paymentOnAccount)?"True":"False";
+$allocatedAmount = $_order->getEccArpaymentsAllocatedAmount();
+$amountLeft = $_order->getEccArpaymentsAmountleft();
+$hidePaymentAccountInfo= false;
+if(empty($allocatedAmount)) {
+    $hidePaymentAccountInfo = true;
+}
+if(!$hideItems):
+?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table class="email-items">
+        <thead>
+            <tr>
+                <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                    <?= /* @escapeNotVerified */  __('Invoice No'); ?>
+                </th>
+               <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                    <?= /* @escapeNotVerified */  __('Invoice Amount'); ?>
+                </th>
+                <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                    <?= /* @escapeNotVerified */  __('Invoice Balance'); ?>
+                </th>
+                <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                    <?= /* @escapeNotVerified */  __('Term Amount'); ?>
+                </th>
+                <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                    <?= /* @escapeNotVerified */  __('Payment Amount'); ?>
+                </th>
+            </tr>
+        </thead>
+        <?php foreach ($_items as $_item): ?>
+            <?php
+                if ($_item->getParentItem()) {
+                    continue;
+                }
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+        <tfoot class="order-totals">
+            <?= $block->getChildHtml('ar_order_totals') ?>
+        </tfoot>
+    </table>
+   <?php endif; ?>
+    <?php if(!$hidePaymentAccountInfo):?>
+        <table class="data-table linearize-table" cellspacing="3" cellpadding="3"  width="650" style="border:1px solid #EAEAEA;" >    
+            <tfoot>
+            <tr class="first">
+            <td style="" class="a-right" colspan="5">Payment On Account:</td>
+                <td style="" class="a-right last">
+                    <span class="price"><?php echo $accounts;?></span>    </td>
+            </tr>
+            <tr>
+                <td style="" class="a-right" colspan="5">Amount Left:</td>
+                <td style="" class="a-right last">
+                    <span class="price" style="text-align:right"><?php  echo $this->getOrder()->formatPrice($amountLeft);?></span>    </td>
+            </tr>
+                <tr class="last">
+                <td style="" class="a-right" colspan="5">
+                    <strong>Total Amount Applied:</strong>
+                </td>
+                <td style="" class="a-right last" colspan="5">
+                    <strong><span class="price" style="text-align:right"><?php echo (!empty($allocatedAmount)) ?$this->getOrder()->formatPrice($allocatedAmount) : $this->getOrder()->formatPrice(0.00);?></span></strong>
+                </td>
+            </tr>
+            </tfoot> 
+        </table>
+    <?php endif; ?>
+<?php endif; ?>

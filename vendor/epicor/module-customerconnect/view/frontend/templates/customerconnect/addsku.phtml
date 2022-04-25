@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+?>
+<div class="container">
+    <form action="/customerconnect/massactions/massSkuAdd" id="customerconnect_skus_add-form" method="post">
+        <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+        <div class="add-save-sku-page-dlsv">
+            <button type="button" class="delete-row action-default scalable action-secondary">
+            <span><?php /* @escapeNotVerified */ echo __('Delete') ?></span>
+        </button>
+        <button class="save-continue button" type="submit" id="add-skus">
+            <span><?php /* @escapeNotVerified */ echo __('Save and Continue') ?></span>
+        </button>
+        </div>
+        <div class="table-wrapper admin__data-grid-wrap admin__data-grid-wrap-static">
+        <table id="addSkuTable" class="table add-sku data-grid table">
+            <caption><?php echo __('Add Sku') ?></caption>
+            <thead>
+            <tr>
+                <th class="col-select col-massaction" scope="col"><?php echo __('') ?></th>
+                <th class="data-grid-th _sortable _descend  col-product_sku" scope="col"><?php echo __('Product Sku') ?></th>
+                <th class="data-grid-th _sortable not-sort  col-customer_sku" scope="col"><?php echo __('My Sku') ?></th>
+                <th class="data-grid-th _sortable not-sort  col-description" scope="col"><?php echo __('Description') ?></th>
+
+            </tr>
+            </thead>
+            <tbody class="add-sku-table">
+            <tr>
+                <td class="col-sm-3 class="col-select col-massaction data-grid-checkbox-cell"">
+                    <input type='checkbox' name='record'>
+                </td>
+                <td class="col-sm-3 col-product_sku">
+                    <input type="text" name="productsku[0]" id="psku_0" class="psku form-control" />
+                </td>
+                <td class="col-sm-4 col-customer_sku">
+                    <input type="text" name="mysku[0]" id="csku_0" class="csku_sku form-control"/>
+                </td>
+                <td class="col-sm-3 col-description">
+                    <input type="text" name="description[0]" id="desc_0" class="description form-control"/>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" style="text-align: left;">
+                    <input type="button" class="btn btn-lg btn-block action-default scalable action-secondary" id="addrow" value="<?php echo __('Add another row') ?>" />
+                    <p><?php echo __('Note: pressing tab in the description field above will also add another row') ?></p>
+
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            </tfoot>
+        </table>
+        </div>
+    </form>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="<?php echo $block->getUrl('customerconnect/skus') ?>"><small>« </small><?php echo __('Back'); ?> </a>
+        </p>
+    </div>
+</div>
+<script type="text/x-magento-init">
+{
+    "#customerconnect_skus_add-form": {
+        "add-sku": {}
+    }
+}
+</script>

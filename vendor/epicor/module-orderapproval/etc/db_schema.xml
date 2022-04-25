@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ecc_approval_group" resource="default" engine="innodb" comment="Order Approval Group">
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Approval Group Id"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Group Name"/>
+        <column xsi:type="boolean" name="is_active" comment="Is Active Group" />
+        <column xsi:type="boolean" name="is_multi_level" comment="Multilevel Group Approval" />
+        <column xsi:type="text" name="rules" nullable="true" comment="Rule and condition (price)"/>
+        <column xsi:type="varchar" name="source" nullable="false" length="30" default="web" comment="Source (Customer / Web / ERP)"/>
+        <column xsi:type="int" name="priority" nullable="false" padding="11" unsigned="true" identity="false"
+                default="0" comment="Group Priority"/>
+        <column xsi:type="varchar" name="created_by" nullable="true" length="30"  comment="Created By"/>
+        <column xsi:type="boolean" name="is_budget_active" comment="Is Budget Active" default="0" />
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="group_id"/>
+        </constraint>
+    </table>
+    <table name="ecc_approval_group_erp_account" resource="default" engine="innodb" comment="Order Approval Group ERP Account">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Incremental ID"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Group ID"/>
+        <column xsi:type="int" name="erp_account_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="ERP Account ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="ECC_APPROVAL_GROUP_ERP_ACCOUNT_ERP_ACCOUNT_ID" indexType="btree">
+            <column name="erp_account_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_GRP_ERP_ACC_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_group_erp_account" column="group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="ECC_APPROVAL_GROUP_ERP_ACCOUNT_GROUP_ID_ERP_ACCOUNT_ID">
+            <column name="group_id"/>
+            <column name="erp_account_id"/>
+        </constraint>
+    </table>
+    <table name="ecc_approval_group_customer" resource="default" engine="innodb" comment="Order Approval Group Customer">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Incremental ID"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Group ID"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer ID"/>
+        <column xsi:type="boolean" name="by_group" default="0" comment="Customer Selected By Group" />
+        <column xsi:type="boolean" name="by_customer" default="0" comment="Group Selected By Customer" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_GRP_CUS_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_group_customer" column="group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ECC_APR_GRP_CUS_CUS_ID_CUS_ENT_ENT_ID"
+                    table="ecc_approval_group_customer" column="customer_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="ECC_APR_GRP_CUS_GRP_ID_CUS_ID_BY_GRP_BY_CUS">
+            <column name="group_id"/>
+            <column name="customer_id"/>
+            <column name="by_group"/>
+            <column name="by_customer"/>
+        </constraint>
+        <index referenceId="ECC_APPROVAL_GROUP_CUSTOMER_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+    <table name="ecc_approval_group_link" resource="default" engine="innodb" comment="Order Approval Group Hierarchy">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Incremental ID"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Group ID"/>
+        <column xsi:type="int" name="parent_group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Parent Order Approval Group ID"/>
+        <column xsi:type="boolean" name="by_group" default="0" comment="Parent Group Selected By Customer" />
+        <column xsi:type="boolean" name="by_customer" default="0" comment="Customer Selected By Parent Group" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_GRP_LNK_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_group_link" column="group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_GRP_LNK_PAR_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_group_link" column="parent_group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="ECC_APPROVAL_GROUP_LINK_GROUP_ID_PARENT_GROUP_ID">
+            <column name="group_id"/>
+            <column name="parent_group_id"/>
+        </constraint>
+        <index referenceId="ECC_APR_GRP_LNK_GRP_ID_PAR_GRP_ID" indexType="btree">
+            <column name="group_id"/>
+        </index>
+    </table>
+    <table name="ecc_approval_order_history" resource="default" engine="innodb" comment="Order Approval history">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Incremental ID"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order ID"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Group ID"/>
+        <column xsi:type="int" name="child_group_id" default="0" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Child Group ID"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer ID" />
+        <column xsi:type="varchar" name="status" nullable="false" length="30"
+                comment="status (Self Approved / Skipped / Pending / Approved / Rejected)"/>
+        <column xsi:type="text" name="rules" nullable="true" comment="Rule and condition (price)"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_ORD_HIS_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_order_history" column="group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ECC_APR_ORD_HIS_CUS_ID_CUS_ENT_ENT_ID"
+                    table="ecc_approval_order_history" column="customer_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ECC_APR_ORD_HIS_ORD_ID_SAL_ORD_ENT_ID"
+                    table="ecc_approval_order_history" column="order_id"
+                    referenceTable="sales_order" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="ECC_APR_ORD_HIS_GRP_ID_PAR_GRP_ID" indexType="btree">
+            <column name="group_id"/>
+        </index>
+    </table>
+    <table name="sales_order" resource="sales" comment="Sales Order">
+        <column xsi:type="boolean" name="is_approval_pending" default="0" comment="Is Approval Pending , 0-Approved,1-Pending,2-Rejected" />
+    </table>
+    <table name="quote" resource="checkout" comment="Sales Flat Quote">
+        <column xsi:type="boolean" name="is_approval_pending" default="0" comment="Is Approval Pending , 0-Approved,1-Pending,2-Rejected" />
+    </table>
+    <table name="ecc_erp_account_budget" resource="default" engine="innodb" comment="Order Approval Group Hierarchy">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Budget ID"/>
+        <column xsi:type="int" name="erp_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="ERP account id"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="30" default="Daily"
+                comment="Budget Type (Yearly / Quarterly / Monthly / Daily)"/>
+        <column xsi:type="date" name="start_date" comment="Budget Start Date"/>
+        <column xsi:type="varchar" name="duration" nullable="false" length="30" default="1"
+                comment="Budget Duration"/>
+        <column xsi:type="decimal" name="amount" scale="6" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Budget Amount"/>
+        <column xsi:type="boolean" name="is_erp_include" default="0" comment="Is Budget Include Erp"/>
+        <column xsi:type="boolean" name="is_allow_checkout" comment="Is Allow checkout" default="0"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="ecc_approval_group_budget" resource="default" engine="innodb" comment="Order Approval Group Hierarchy">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Budget ID"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Approval Group ID"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="30" default="Daily"
+                comment="Budget Type (Yearly / Quarterly / Monthly / Daily)"/>
+        <column xsi:type="date" name="start_date" comment="Budget Start Date"/>
+        <column xsi:type="varchar" name="duration" nullable="false" length="30" default="1"
+                comment="Budget Duration"/>
+        <column xsi:type="decimal" name="amount" scale="6" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Budget Amount"/>
+        <column xsi:type="boolean" name="is_erp_include" default="0" comment="Is Budget Include Erp"/>
+        <column xsi:type="boolean" name="is_allow_checkout" comment="Is Allow checkout" default="0"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ECC_APP_GRP_BDG_GRP_ID_ECC_APR_GRP_GRP_ID"
+                    table="ecc_approval_group_budget" column="group_id"
+                    referenceTable="ecc_approval_group" referenceColumn="group_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

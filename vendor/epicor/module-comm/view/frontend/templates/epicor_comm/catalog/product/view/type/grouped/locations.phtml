@@ -1,0 +1,166 @@
+<?php
+/**
+* Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+*/
+?><?php
+/**
+* Locations template
+*
+*/
+/* @var $block \Epicor\Comm\Block\Catalog\Product\View\Type\Grouped\Locations */
+/* @var $this \Epicor\Comm\Block\Catalog\Product\View\Type\Grouped\Locations */
+
+$_product = $block->getProduct();
+/* @var $_product \Epicor\Comm\Model\Product */
+$editItem = $this->getRequest()->getParam('itemId');
+$editQty = $this->getRequest()->getParam('qty');
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+
+$locations = $this->allChildrenLocationCodes($_product);
+$hasLocations = count($locations) > 0;
+
+$showPrices = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+$showQty = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+$showPrices = $this->getHidePrices() || ($helper->getEccHidePrice() && $helper->getEccHidePrice() !=2) ? false : $showPrices;
+
+$uomBeforeLoc = $this->getPrimarySort() == 'uom' ? true : false;
+
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $helper \Epicor\Comm\Helper\Locations */
+
+echo $this->getChildHtml('product_type_data_extra');
+$allSourceLocations = ($helper->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == 'all_source_locations') ? true : false;
+$singleLocation = (count($locations) == 1) ? true : false;
+$col1Header = $uomBeforeLoc ? __('Product Name') : __('Location');
+$col2Header = (!$singleLocation && $uomBeforeLoc) ? __('Location') : __('Product Name');
+$listProductHelper = $this->helper('Epicor\Lists\Helper\Frontend\Product');
+/* @var $helper \Epicor\Lists\Helper\Frontend\Product */
+$listFrontendHelper = $this->helper('Epicor\Lists\Helper\Frontend');
+/* @var $helper \Epicor\Lists\Helper\Frontend */
+$isListEnabled = $listFrontendHelper->listsEnabled();
+$activeProducts = $listProductHelper->getActiveListsProductIds(true);
+$allSourceLocations = ($helper->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == 'all_source_locations') ? true : false;
+if ($hasLocations ) :
+    ?>
+    <table class="data-table grouped-items-table" id="super-product-table">
+          <?php if(!$singleLocation): ?>
+                <col />
+           <?php endif; ?>      
+        <col />
+        <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+            <col />
+        <?php endif; ?>
+        <?php if ($showQty && $_product->isSaleable()): ?>
+            <col width="1" />
+        <?php endif; ?>
+        <thead>
+            <tr>
+                <?php if(!$singleLocation): ?>
+                    <th><?php echo $col1Header; ?></th>
+                <?php endif; ?>
+                    <th><?php echo $col2Header ?></th>
+                <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+                    <th class="a-right"><?php echo __('Price') ?></th>
+                <?php endif; ?>
+                <?php if ($showQty && $_product->isSaleable()): ?>
+                    <th class="a-center"><?php echo __('Qty') ?></th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $primary = $this->getPrimaryItems($_product); ?>
+            <?php foreach ($primary as $prime): ?>
+                <?php $secondary = $this->getSecondaryItems($_product, $prime); ?>
+                <?php $primaryDisplayed = false; ?>
+                <?php $primaryRowSpan = count($secondary); ?>
+                <?php foreach ($secondary as $second): ?>
+                    <?php if($isListEnabled && $activeProducts[0] && !in_array($second->getProductId(), $activeProducts)) : 
+                            continue;
+                    endif; ?>
+                    <?php $location = $uomBeforeLoc ? $second : $prime; /* @var $location \Epicor\Comm\Model\Location\Product */ ?>
+                    <?php $childProduct = $uomBeforeLoc ? $prime : $second; /* @var $childProduct \Epicor\Comm\Helper\Locations */ ?>
+                    <?php $childProduct->setToLocationPrices($location->getLocationCode()); ?>
+                    <?php if (!$block->canShowChildUom($childProduct)) :
+                            continue;
+                    endif; ?>
+                    <?php if (!$this->isValidSecondaryProductType($second)):
+                        continue;
+                    endif; ?>
+                    <?php unset($second); ?>
+                    <?php
+                    $uom = ($childProduct->getEccPackSize() != '' && $_product->getEccStkType() == 'grouped') ? $childProduct->getEccPackSize() : $childProduct->getName();
+                    $col1Content = $uomBeforeLoc ? $uom : $location->getName();
+                    $col2Content = (!$singleLocation && $uomBeforeLoc) ? $location->getName() : $uom;
+                    ?>
+                    <tr>   
+                        <?php if(!$singleLocation): ?>
+                            <?php if (!$primaryDisplayed) : ?>
+                                <td><?php echo __($this->escapeHtml($col1Content)); ?></td>
+                                <?php $primaryDisplayed = true; ?>
+				<?php else: ?><td></td>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <td>
+                            <?php echo __($this->escapeHtml($col2Content)); ?>
+                            <?php if ($childProduct->isSalable()  && !$childProduct->getIsEccNonStock()) : ?>
+                                <?php
+                                switch ($childProduct->getStockType()):
+                                    case 'bool':
+                                        ?>
+                                        <?php if ($childProduct->isAvailable()): ?>
+                                            <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+                                        <?php else: ?>
+                                            <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+                                        <?php endif; ?>
+                                        <?php break; ?> 
+                                    <?php case 'range': ?>
+                                        <?php $_img = $childProduct->getStockRange(); ?>
+                                        <img src="<?php echo $_img['src'] ?>" alt="<?php echo $_img['alt'] ?>" title="<?php echo $_img['title'] ?>" />        
+                                        <?php break; ?> 
+                                    <?php case 'level': ?>
+                                        <p class="availability in-stock"><?php echo __('Stock:') ?> <span><?php echo $childProduct->getStockLevel() ?></span></p>
+                                        <?php break; ?>         
+                                <?php endswitch; ?>
+                            <?php endif; ?>
+                        </td>
+                        <?php if ($showPrices && $this->getCanShowProductPrice($_product)): ?>
+                            <td class="a-right">
+                                <?php if ($this->getCanShowProductPrice($childProduct)): ?>
+                                    <?php  echo $this->getPriceHtml($location, $childProduct, true); ?>
+                                    <?php  echo $this->getTierPriceHtml($location, $childProduct); ?>
+                                <?php endif; ?>
+                            </td>
+                        <?php endif; ?>
+                        <?php if ($showQty && $_product->isSaleable()): ?>
+                            <td class="a-center">
+                                <?php if ($childProduct->isSaleable()) : ?>
+                                    <?php 
+                                    $validation = $block->getQuantityValidators($childProduct);
+                                    $dataValidation = "";
+                                    ?>
+                                    <?php if(!empty($validation)) {
+                                        $dataValidation = 'data-validate="' . $block->escapeHtml(json_encode($validation)) . '"';
+                                    }
+                                    ?>
+                                    <input <?php echo $dataValidation; ?> type="text" name="super_group_locations[<?php echo $location->getLocationCode() ?>][<?php echo $childProduct->getId() ?>]" maxlength="12" value="<?php echo $editQty ?>" title="<?php echo __('Qty') ?>" class="input-text qty" />
+                                    <?php if ($childProduct->getTypeId() == 'bundle'): ?>
+                                        <?php $selectionCollection = $childProduct->getTypeInstance(true)->getSelectionsCollection($childProduct->getTypeInstance(true)->getOptionsIds($childProduct), $childProduct); ?>
+                                        <?php foreach ($selectionCollection as $option) : ?>
+                                            <input type="hidden" name="bundle_option[<?php echo $option->option_id; ?>]" value="<?php echo $option->selection_id; ?>" />
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <p class="availability out-of-stock"><span><?php echo __('Out of stock') ?></span></p>
+                                </td>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+                <?php unset($prime); ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+  <!--  <script type="text/javascript">decorateTable('super-product-table')</script> -->
+<?php endif; ?>

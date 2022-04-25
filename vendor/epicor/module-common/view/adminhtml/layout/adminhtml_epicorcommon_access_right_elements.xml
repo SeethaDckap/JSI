@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block output="1" class="Magento\Framework\View\Element\Text\ListText" name="root">
+            <block class="Epicor\Common\Block\Adminhtml\Access\Right\Edit\Tab\Elements" name="elements.grid"/>
+            <block class="Mage\Adminhtml\Block\Widget\Grid\Serializer" name="elementsgrid_serializer">
+                <referenceBlock name="elementsgrid_serializer">
+                    <action method="initSerializerBlock">
+                        <argument name="grid_block_name" xsi:type="string">elements.grid</argument>
+                        <argument name="data_callback" xsi:type="string">getSelected</argument>
+                        <argument name="hidden_input_name" xsi:type="string">links[elements]</argument>
+                        <argument name="reload_param_name" xsi:type="string">elements</argument>
+                    </action>
+                    <action method="addColumnInputName">
+                        <argument name="input_name" xsi:type="string">row_id</argument>
+                    </action>
+                </referenceBlock>
+            </block>
+        </block>
+    </body>
+</page>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <update handle="customer_account"/>
+        <referenceContainer name="my.account.wrapper">
+            <block template="Epicor_Comm::epicor_comm/customer/returns/list.phtml" class="Epicor\Comm\Block\Customer\Returns\Listing" name="returns_list"/>
+        </referenceContainer>
+    </body>
+</page>

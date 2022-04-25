@@ -1,0 +1,77 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : checkout.css
+    Created on : 22-Mar-2013, 13:44:11
+    Author     : Paul.Ketelle
+    Description:
+        Style sheet for Verifone 3D-Secure popup window
+*/
+
+#ewaWrapper iframe {
+    width:800px;
+    height:471px;
+    display:block;
+    border:none;
+}
+
+.ewaSubmitButtom {
+    width:160%;
+}
+.cart-table dl.item-options, .minicart-items-wrapper dl.item-options{
+        margin-left: 20px;
+    margin-top: 10px;
+}
+
+dd[id^="checkout_item_options_"], dd[id^="cart_item_options_"] {
+        clear: both;
+}
+
+.product-options-bottom .price-box .price-container > span {
+    display: initial;
+    font-weight: 400 !important;
+}
+
+.product-options-bottom .price-box .price-container .price {
+    font-size: 1.4rem !important;
+    line-height: initial !important;
+    font-weight: initial !important;
+}
+
+.product-options-bottom .price-box .old-price {
+    font-size: 1.4rem !important;
+}
+
+.product-options-bottom .price-box .price-container {
+    font-size: 1.4rem !important;
+}
+
+/**
+ * checkout order success page title
+ * Default magento have issue with version of 2.1.~
+ * Solution support for both 2.1.~ and 2.2.~
+ */
+@media all and (min-width:768px){
+    .checkout-onepage-success .print{
+        display:block;
+        float:right;
+        margin:23px 0 0
+    }
+}
+
+@media all and (max-width:768px){
+    .checkout-onepage-success .print{
+        display:none;       
+    }
+}
+
+.checkout-onepage-success .page-title-wrapper {
+    overflow: unset;
+    position: unset;
+    width: unset;
+    height: unset;
+    padding: unset;
+    margin: unset;
+}

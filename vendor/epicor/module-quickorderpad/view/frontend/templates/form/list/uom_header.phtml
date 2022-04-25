@@ -1,0 +1,11 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$showUom = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart');
+$showInColumn = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart_column');
+?>
+<?php if ($showUom && $showInColumn) : ?>
+    <th><?php echo __('Unit of Measure') ?></th>
+<?php endif; ?>

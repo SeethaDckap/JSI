@@ -1,0 +1,20 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Created on : 05-Mar-2014, 14:46:22
+    Author     : gareth.james
+*/
+
+
+#edit_form #syn_stores option,
+#edit_form #store option {
+    padding-left:15px;
+}
+#edit_form #syn_stores optgroup,
+#edit_form #store optgroup {
+    padding-left:30px;
+}
+.admin__field.field.field-productimportcsv.no-label{margin-left: 256px;}
+.admin__fieldset > .admin__field.field.field-typeindex.no-label > .admin__field-control.control{width:100%}

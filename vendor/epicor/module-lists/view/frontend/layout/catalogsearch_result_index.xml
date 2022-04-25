@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+        <referenceBlock name="catalogsearch.product.addto">
+            <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                   name="catalogsearch.product.addto.lists" as="addtolists"
+                   template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                   before="wishlist">
+            </block>
+        </referenceBlock>
+        </referenceContainer>
+        <referenceBlock name="category.product.addto.ajax">
+            <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                   name="catalogsearch.product.addto.lists.ajax" as="addtolistsajax"
+                   template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                   before="wishlist">
+            </block>
+        </referenceBlock>
+    </body>
+</page>

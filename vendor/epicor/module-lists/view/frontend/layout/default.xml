@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Epicor\Lists\Block\Contract\Link" name="contract-selection-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Contract Selection</argument>
+                    <argument name="path" xsi:type="string">lists/contract/select</argument>
+                    <argument translate="true" name="title" xsi:type="string">Contract Selection</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Lists\Block\Addresses\Link" name="choose-addresses-link" template="Epicor_Lists::epicor/lists/header/link.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Choose Address</argument>
+                    <argument name="path" xsi:type="string">lists/lists/deliveryaddress</argument>
+                    <argument translate="true" name="title" xsi:type="string">Choose Address</argument>
+                    <argument name="component" xsi:type="string">Epicor_Lists/epicor/lists/js/view/choose-address-link</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" template="Epicor_Lists::epicor/lists/cartcheck.phtml" name="list-cart-check"/>
+        </referenceContainer>
+        <referenceContainer name="minicart.addons">
+                <block class="Epicor\Lists\Block\Cart\Savecartaslist" name="save_cart_as_list" template="Epicor_Lists::epicor/lists/cart/savecartaslist.phtml" ifconfig="epicor_lists/savecartaslist/enabled" />
+        </referenceContainer>
+        <referenceContainer name="header-wrapper">
+            <block class="Epicor\Lists\Block\Customer" name="customer.lists" as="customerLists" />
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block class="Epicor\Lists\Block\Customer\Sidebar" name="customer.lists.sidebar" as="listssidebar" template="Epicor_Lists::customer/sidebar.phtml" after="sale.reorder.sidebar"/>
+        </referenceContainer>
+    </body>
+</page>

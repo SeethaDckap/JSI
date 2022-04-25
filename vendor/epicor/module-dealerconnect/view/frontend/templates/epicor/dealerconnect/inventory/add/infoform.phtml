@@ -1,0 +1,107 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php 
+$getConfigFlag = $block->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/active'); 
+$warranty = $block->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/warranty');
+$warrantyOptions = $block->getListOfWarrantyCodes();
+$warrantyCustomer = $this->checkWarrantyEnabledOrNot();
+$noWarrantyInfo = false;
+if(count($warrantyOptions) == 0) {
+    $noWarrantyInfo = true;
+    $warrantyCustomer = false;
+}
+?>
+<?php if($getConfigFlag): ?>`
+<div class = "box-info box-account col-full block">
+    <div class="block-title">
+        <strong><?php echo __('Inventory Information'); ?></strong>
+    </div>
+    <fieldset class="fieldset">
+        <div class="fields col-xs-5">
+            <div class="field _required">
+                <label for="identification_number" class="label"><span><?= __('Identification Number ') ?></span></label>
+                <div class="control">
+                    <input type="text" name="identification_number" value="" title="Identification Number" id="identification_number" class="input-text" />
+                </div>
+            </div>
+        </div>
+        <div class="fields col-xs-2">
+            <div class="field">
+                <label for="identification_number" class="label"><span></span></label>
+                <div class="control">
+                    <p class="mid-cell"><?= __('OR') ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="fields col-xs-5">
+            <div class="field _required">
+                <label for="serial_number" class="label"><span><?= __('Serial Number') ?></span></label>
+                <div class="control">
+                    <input type="text" name="serial_number" value="" title="Serial Number" id="serial_number" class="input-text" />
+                </div>
+            </div>
+        </div>
+        <div class="fields col-xs-5 clear">
+            <div class="field _required">
+                <label for="product_code" class="label"><span><?= __('Product Code') ?></span></label>
+                <div class="control">
+                    <input type="text" name="product_code" value="" title="Product Code" id="product_code" class="input-text required-entry" />
+                </div>
+            </div>
+        </div>
+        <div class="fields col-xs-5 clear">
+            <div class="field">
+                <label for="description" class="label"><span><?= __('Description') ?></span></label>
+                <div class="control">
+                    <input type="text" name="description" value="" title="Description" id="description" class="input-text" />
+                </div>
+            </div>
+        </div>
+        <?php if ($warranty): ?>
+        <div class="box-info box-account col-1 block">
+            <h2 class="legend" style="border:0px !important"><input  onclick="updateDeidInformation.deidWarranty()" type="checkbox" name="warrantyClaim" id="warrantyClaim"><?= __('Warranty Information'); ?></h2>
+            <fieldset class="fieldset" id="warranty_information" style="display:none">
+                <div class="fields">
+                    <div class="field">
+                        <label for="warranty_code" class="label"><span><?= __('Warranty Code') ?></span></label>
+                        <div class="control">
+                            <select name="warranty[code]" id="warranty_code" <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?>>
+                                <?php if($noWarrantyInfo): ?>
+                                <option value="" ></option>
+                                <?php endif;?>  
+                                <?php foreach ($warrantyOptions as $key => $value): ?>
+                                <?php if ($warrantyCustomer): ?>
+                                <option value="<?= $value->getCode() ?>"><?= ($value->getDescription()) ?: $value->getCode() ; ?></option> 
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>                              
+                        </div>
+                    </div>
+                    <div class="field _required">
+                        <label for="warrantystartdate" class="label"><?= __('Warranty Start Date') ?></label>
+                        <div class="control">
+                            <input <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" class="input-text required-entry" id="warrantystartdate" name="warranty[start]" aria-required="true" value="" >
+                        </div>
+                    </div>
+                    <div class="field _required">
+                        <label for="warrantyexpiration" class="label"><?= __('Warranty Expiration Date') ?></label>
+                        <div class="control">
+                            <input <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" class="input-text required-entry" id="warrantyexpiration" name="warranty[expiry]" aria-required="true" value="" >
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="warrantycomment" class="label"><?= __('Warranty Comment') ?></label>
+                        <div class="control">
+                            <textarea <?php if(!$warrantyCustomer): ?> disabled="disabled" <?php endif; ?> type="text" name="warranty[comment]" id="warrantycomment" title="<?= __('Warranty Comment') ?>"  class="input-text"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <?php endif; ?>
+    </fieldset>
+</div>
+<?php endif;?>

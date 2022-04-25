@@ -1,0 +1,108 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$_log = $this->getLog();
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <fieldset id="order_erp_status_form">
+        <legend>Message Info</legend>
+        <table class="form-list  admin__table-secondary"  aria-describedby="Message Info">
+            <tr>
+                <th id="type" class="label"><label><?php echo __('Type') ?></label></th>
+                <td class="value"><strong><?php echo $_log->getType() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Connection Name') ?></label></td>
+                <td class="value"><strong><?php echo $this->getConnectionName($_log->getConnectionId()) ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Source URL') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getSourceUrl() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Target URL') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getTargetUrl() ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+<div class="entry-edit box-right" style="width:49%">
+    <div class="entry-edit-head admin__page-section-title title"></div>
+    <fieldset id="timings">
+        <legend>Message Timings</legend>
+        <table class="form-list admin__table-secondary"  aria-describedby="Timings">
+            <tr>
+                <th id="time" class="label"><label><?php echo __('Start Time') ?></label></th>
+                <td class="value"><strong><?php echo $this->getDate($_log->getStartDatestamp()); ?><strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('End Time') ?></label></td>
+                <td class="value"><strong><?php echo $this->getDate($_log->getEndDatestamp()) ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Duration') ?></label></td>
+                <td class="value">
+                    <strong><?php echo $_log->getDuration() ?>
+                        ms</strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <div class="entry-edit-head admin__page-section-title title"></div>
+    <fieldset id="message_status">
+        <legend>Message Status</legend>
+        <table class="form-list  admin__table-secondary" aria-describedby="Message Status table">
+            <tr>
+                <th id="message" class="label"><label><?php echo __('Status') ?></label></th>
+                <td class="value"><strong><?php echo $_log->getMessageStatus(); ?><strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Code') ?></label></td>
+                <td class="value"><strong><?php echo $_log->getMessageCode(); ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+<style>
+    .xmlmsg {
+        width: 50%;
+        display: inline-block;
+        /*
+                margin-left:5px;
+                margin-right:5px;
+        */
+        overflow: auto;
+        float: left;
+    }
+
+    .xmlmsg pre {
+        width: 200px;
+        overflow: visible;
+        font-size: 12px;
+    }
+</style>
+<div class="entry-edit" style="clear:left;">
+    <div class="entry-edit-head admin__page-section-title title">
+    </div>
+    <fieldset id="order_erp_status_form">
+        <legend>Message XML</legend>
+        <div class="xmlmsg">
+            <h4><?php echo __('Xml Request') ?></h4>
+            <pre><?php echo htmlentities(html_entity_decode($_log->getCxmlRequest())); ?></pre>
+        </div>
+        <div class="xmlmsg">
+            <h4><?php echo __('Xml Response') ?></h4>
+            <pre><?php echo htmlentities(html_entity_decode($_log->getCxmlResponse())); ?></pre>
+        </div>
+    </fieldset>
+</div>

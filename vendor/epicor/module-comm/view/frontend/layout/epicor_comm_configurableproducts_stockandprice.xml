@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block template="Epicor_Comm::epicor_comm/catalog/product/view/type/configurable/stockcontainer.phtml" class="Magento\Framework\View\Element\Template" name="product.info.stockandprice" as="product_info_stockandprice">
+            <block template="Epicor_Comm::epicor_comm/catalog/product/view/type/defaultconfigurable.phtml" class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.configurable.data" as="product_type_data"/>
+            <!--<block template="Epicor_Comm::catalog/product/view/tierprices.phtml" class="Epicor\Common\Block\Catalog\Product\Price" name="product.info.configurable.tierprices" as="configurable_tierprices"/>-->
+            <block template="Epicor_Comm::epicor_comm/catalog/product/view/type/configurable/locations.phtml" class="Epicor\Comm\Block\Catalog\Product\View\Type\Configurable\Locations" name="epicor_comm.locations" as="configurable_locations">
+                <block class="Epicor\BranchPickup\Block\Selectedbranch" template="Epicor_Comm::product/list/relatedBranch.phtml" name="epicor_comm.related_branch" as="epicor_ecc_product_list_related_branch" />
+            </block>
+        </block>
+    </body>
+</page>

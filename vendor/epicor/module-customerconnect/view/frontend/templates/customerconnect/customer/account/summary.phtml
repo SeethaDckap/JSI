@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/**
+ * Template for block Epicor_Customerconnect_Block_Customer_Account_Summary
+ */
+?>
+<span data-bind="scope: 'accountSummary'">
+ <!-- ko if: accountSummary().erpName || accountSummary().erpShortCode 
+ || accountSummary().erpCreditLimit || accountSummary().erpBalance-->    
+    <div class="block block-account-summary">
+        <div class="block-title">
+            <strong><span><?php echo __('Account Summary') ?></span></strong>
+        </div>        
+        <div class="block-content">
+            <div class="empty">
+                <!-- ko if: accountSummary().erpName -->
+                <p>
+                    <strong data-bind="text: accountSummary().erpName"></strong>
+                </p>
+                <!-- /ko -->
+                <!-- ko if: accountSummary().erpShortCode -->
+                <p>
+                    <strong><?php echo __('Short Code:') ?></strong><br />
+                    <span data-bind="text: accountSummary().erpShortCode"></span>
+                </p>
+                <!-- /ko -->
+                <!-- ko if: accountSummary().erpCreditLimit -->
+                <p>
+                    <strong><?php echo __('Credit Limit:') ?></strong><br />
+                    <span data-bind="text: accountSummary().erpCreditLimit"></span>
+                </p>
+                <!-- /ko -->
+                <!-- ko if: accountSummary().erpBalance -->
+                <p>
+                    <strong><?php echo __('Current Balance:') ?></strong><br />
+                    <span data-bind="text: accountSummary().erpBalance"></span>
+                </p>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+ <!-- /ko -->
+</span>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "accountSummary": {
+                        "component": "Epicor_Comm/epicor/comm/js/view/account-summary"
+                    }
+                }
+            }
+        }
+    }
+</script>

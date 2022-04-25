@@ -1,0 +1,87 @@
+<script>
+        var pacattributes = "";
+        var datatypejson = "";    
+        var hiddenpac =""; 
+        var index =""; 
+        require(["jquery","Epicor_Dealerconnect/epicor/dealerconnect/js/pac","domReady"], function(jQuery,pac,domReady){
+            jQuery(document).ready(function () {
+                 require(["Epicor_Dealerconnect/epicor/dealerconnect/js/drag"], function(drag) {
+                        if (jQuery( "#grid_deis" ).length ) {
+                            jQuery("#grid_deis #addRow_deis").tableDnD();
+                            jQuery("#grid_deis #addRow_deis tr:even").addClass("altdeis");
+                        }
+                        if (jQuery( "#grid_deid" ).length ) {
+                            jQuery("#grid_deid #addRow_deid").tableDnD();
+                            jQuery("#grid_deid #addRow_deid tr:even").addClass("altdeis");
+                        }   
+                        if (jQuery( "#grid_deidinformation" ).length ) {
+                            jQuery("#grid_deidinformation #addRow_deidinformation").tableDnD();
+                            jQuery("#grid_deidinformation #addRow_deidinformation tr:even").addClass("altdeis");
+                        }  
+                        if (jQuery( "#grid_deidgrid" ).length ) {
+                            jQuery("#grid_deidgrid #addRow_deidgrid").tableDnD();
+                            jQuery("#grid_deidgrid #addRow_deidgrid tr:even").addClass("altdeis");
+                        }
+                        if (jQuery( "#grid_orig_debm" ).length ) {
+                            jQuery("#grid_orig_debm #addRow_orig_debm").tableDnD();
+                            jQuery("#grid_orig_debm #addRow_orig_debm tr:even").addClass("altdebm");
+                        }
+                        if (jQuery( "#grid_add_debm" ).length ) {
+                            jQuery("#grid_add_debm #addRow_add_debm").tableDnD();
+                            jQuery("#grid_add_debm #addRow_add_debm tr:even").addClass("altdebm");
+                        }
+                        if (jQuery( "#grid_debminformation" ).length ) {
+                            jQuery("#grid_debminformation #addRow_debminformation").tableDnD();
+                            jQuery("#grid_debminformation #addRow_debminformation tr:even").addClass("altdeis");
+                        }  
+                        if (jQuery( "#grid_dmauinformation" ).length ) {
+                            jQuery("#grid_dmauinformation #addRow_dmauinformation").tableDnD();
+                            jQuery("#grid_dmauinformation #addRow_dmauinformation tr:even").addClass("altdmau");
+                        } 
+                 });
+            });  
+            jQuery("#addToEndBtn_deid").on("click",function() {
+                   jQuery("#grid_deid #addRow_deid").tableDnDUpdate();
+                   jQuery("#grid_deid #addRow_deid tr:even").addClass("altdeis");
+            });            
+            jQuery("#addToEndBtn_deis").on("click",function() {
+                   jQuery("#grid_deis #addRow_deis").tableDnDUpdate();
+                   jQuery("#grid_deis #addRow_deis tr:even").addClass("altdeis");
+            });
+            jQuery("#addToEndBtn_orig_debm").on("click",function() {
+                   jQuery("#grid_orig_debm #addRow_orig_debm").tableDnDUpdate();
+                   jQuery("#grid_orig_debm #addRow_orig_debm tr:even").addClass("altdebm");
+            });            
+            jQuery("#addToEndBtn_add_debm").on("click",function() {
+                   jQuery("#grid_add_debm #addRow_add_debm").tableDnDUpdate();
+                   jQuery("#grid_add_debm #addRow_add_debm tr:even").addClass("altdebm");
+            });
+            jQuery("#addToEndBtn_deidinformation").on("click",function() {
+                   jQuery("#grid_deidinformation #addRow_deidinformation").tableDnDUpdate();
+                   jQuery("#grid_deidinformation #addRow_deidinformation tr:even").addClass("altdeis");
+            });
+            jQuery("#addToEndBtn_debminformation").on("click",function() {
+                   jQuery("#grid_debminformation #addRow_debminformation").tableDnDUpdate();
+                   jQuery("#grid_debminformation #addRow_debminformation tr:even").addClass("altdebm");
+            }); 
+            jQuery("#addToEndBtn_dmauinformation").on("click",function() {
+                   jQuery("#grid_dmauinformation #addRow_dmauinformation").tableDnDUpdate();
+                   jQuery("#grid_dmauinformation #addRow_dmauinformation tr:even").addClass("altdmau");
+            }); 
+            jQuery("#addToEndBtn_deidgrid").on("click",function() {
+                   jQuery("#grid_deidgrid #addRow_deidgrid").tableDnDUpdate();
+                   jQuery("#grid_deidgrid #addRow_deidgrid tr:even").addClass("altdeis");
+            });
+            jQuery("#epicor_access_control_access_role_settings option.access-roles").mousedown(function(e) {
+                e.preventDefault();
+                jQuery(this).toggleClass("selected");
+                jQuery(this).prop("selected", !jQuery(this).prop("selected"));
+                return false;
+            });
+            if (jQuery( "#grid_deis" ).length ) {
+               pac.loadPacAttributes();
+               pac.loadDeidPacAttributes();
+            }
+            
+        });                    
+</script>

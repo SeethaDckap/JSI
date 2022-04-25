@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/**
+ * ECC Configurator Product Add
+ *
+ * @var $block \Epicor\Comm\Block\Catalog\Product\Configurator
+ */
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+$_product = $block->getCurrentProduct();
+
+if((($block->showPageConditions() && $block->canShow() && $showAddToCart) || ((!$block->showPageConditions()))) && $_product->isSaleable()):
+?>
+    <div class="configurable_addtocart">  
+        <?php $buttonTitle = __('Configure Product'); ?>
+        <div class="add-to-cart">
+            <button type="button" title="<?php echo $buttonTitle ?>"  class="button configurator-add btn-cart action tocart primary" onclick="<?php echo $block->getOnClickValue(); ?>">
+                <span><span><?php echo $buttonTitle ?></span></span>
+            </button>
+            <?php echo $this->getChildHtml('', true, true) ?>
+        </div>
+    </div>
+<?php else:?>
+    <p class="availability out-of-stock"><span><?php echo __('Product currently unavailable') ?></span></p>
+<?php
+endif;
+?>

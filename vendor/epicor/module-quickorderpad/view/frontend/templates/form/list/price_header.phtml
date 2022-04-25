@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+$showPrice = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+?>
+<?php if ($showPrice) : ?>
+    <th><?php echo __('Price') ?></th>
+<?php endif; ?>

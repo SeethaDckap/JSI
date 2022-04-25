@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="epicor_quotes_email_alerts_admin_update_email_template" label="Epicor Quote Update" file="quotes/quote_admin_update.html" type="html" area="frontend" module="Epicor_Quotes"/>
+  <template id="epicor_quotes_email_alerts_customer_update_email_template" label="Epicor Quote Update" file="quotes/quote_customer_update.html" type="html" area="frontend" module="Epicor_Quotes"/>
+  <template id="epicor_quotes_email_alerts_reminder_email_template" label="Epicor Quote Reminder" file="quotes/quote_reminder.html" type="html" area="frontend" module="Epicor_Quotes"/>
+  <template id="epicor_quotes_email_alerts_customer_note_email_template" label="Epicor Quote Customer Note" file="quotes/quote_customer_note.html" type="html" area="frontend" module="Epicor_Quotes"/>
+  <template id="epicor_quotes_email_alerts_admin_note_email_template" label="Epicor Quote Admin Note" file="quotes/quote_admin_note.html" type="html" area="frontend" module="Epicor_Quotes"/>
+</config>

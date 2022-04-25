@@ -1,0 +1,48 @@
+<?php $currentRequest = $block->getRecord();?>
+<h2>#<?php echo(__($currentRequest->getId()))?></h2>
+
+<table>
+<?php 
+    $data = $currentRequest->getData();
+    foreach($data as $key => $val):
+?>
+    <?php
+        if($key == 'l_name'){
+            $key = 'Last Name';
+        }
+        if($key == 'f_name') {
+            $key = 'First Name';
+        }
+        $label = str_replace('_',' ',$key);
+    ?>
+    <tr>
+        <td class="label" data-label="<?= $key?>"><?php echo($label)?></td>
+        <td class="value" data-value="<?= $val?>"><?php echo($val)?></td>
+    </tr>
+<?php endforeach;?>
+
+</table>
+
+
+<style>
+.dealer-request-detail{
+    max-width: 1000px;
+    margin: auto;
+    padding: 5px 20px;
+    width: 100%;
+}
+table{
+    margin:auto;
+    width: 100%;
+}
+td{
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 4px;
+    padding: 20px;
+}
+td.label{
+    text-transform: capitalize;
+}
+</style>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<udexample_settings>
+			<display_conformance_checkout>
+				<display_conformance/>
+			</display_conformance_checkout>
+			<display_payload_crqu>
+				<display_payload_crqu/>
+			</display_payload_crqu>
+		</udexample_settings>
+	</default>
+</config>

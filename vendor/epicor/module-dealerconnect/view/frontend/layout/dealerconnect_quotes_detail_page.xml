@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Dealer Connect Quote Details</title>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/core.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/address.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/contacts.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/lines.js"/>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq/details/attachments.js"/>
+        <script src="Epicor_Dealerconnect::/epicor/dealerconnect/js/quotes/dealerPricing.js"/>
+        <script src="Epicor_Common::epicor/common/js/attachment-validations.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Js\Translation" name="js.translations"/>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/rfqs/details/formopen.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.formopen"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Buttons" name="rfqs.buttons"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Address" name="rfqs.billing"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Delivery" name="rfqs.shipping"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Info" name="rfqs.info"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Options" name="rfqs.options"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Contacts" name="rfqs.contacts"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Linescontainer" name="rfqs.linescontainer">
+                <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Lineadd" name="rfqs.lineadd"/>
+                <block template="Epicor_Dealerconnect::dealerconnect/customer/account/quotes/details/linesearch.phtml"
+                       class="Magento\Framework\View\Element\Template" name="quotes.linesearch"/>
+                <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Lines" name="rfqs.lines">
+                    <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Totals" name="tfoot"/>
+                </block>
+            </block>
+            <block class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Attachments" name="rfqs.attachments"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Details\Comment" name="rfqs.comment"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml"
+                   class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/dealerconnect/quotes/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/dealerconnect/quotes/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Rfqs</argument>
+                </action>
+            </block>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/rfqs/details/formclose.phtml"
+                   class="Epicor\Dealerconnect\Block\Customer\Quotes\Details\Template" name="rfq.formclose"/>
+            <block template="Epicor_Customerconnect::customerconnect/loader.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.loader"/>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/overlayopen.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.overlayopen">
+                <action method="setExtraClass">
+                    <argument name="value" xsi:type="string">rfq</argument>
+                </action>
+            </block>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/overlayclose.phtml"
+                   class="Magento\Framework\View\Element\Template" name="rfq.overlayclose"/>
+
+        </referenceContainer>
+    </body>
+</page>

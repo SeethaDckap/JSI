@@ -1,0 +1,81 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$import = $this->getImport();
+$messages = !is_null($import->getMessages())
+    ? $this->getMessages($import->getMessages()) : null;
+
+?>
+<div class="entry-edit  box-left" style="clear:left; width:49%">
+    <fieldset id="order_erp_status_form">
+        <legend>General Info</legend>
+        <table class="form-list  admin__table-secondary"  aria-describedby="Message Info">
+            <tr>
+                <th id="type" class="label"><label><?php echo __('Log Id') ?></label></th>
+                <td class="value"><strong><?php echo $import->getId() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('File Name') ?></label></td>
+                <td class="value"><strong><?php echo $import->getFileName() ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Status') ?></label></td>
+                <td class="value"><strong><?php echo ucfirst($import->getStatus()); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Created At') ?></label></td>
+                <td class="value"><strong><?php echo $this->getFormatDateTime($import->getCreatedAt()); ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+<?php if($messages === null) : ?>
+    <div class="entry-edit box-right" style="width:49%">
+        <div class="entry-edit-head admin__page-section-title title"></div>
+        <fieldset id="">
+            <legend>Message</legend>
+            <div class="message"><span><?php echo __("Import Pending"); ?></span></div>
+        </fieldset>
+    </div>
+<?php endif; ?>
+
+<?php if(empty($messages) && is_array($messages)) : ?>
+    <div class="entry-edit box-right" style="width:49%">
+        <div class="entry-edit-head admin__page-section-title title"></div>
+        <fieldset id="">
+            <legend>Message</legend>
+            <div class="message message-success success"><span><?php echo __("Import Success"); ?></span></div>
+        </fieldset>
+    </div>
+<?php endif; ?>
+
+<?php if(isset($messages["errors"])) : ?>
+    <div class="entry-edit box-right" style="width:49%">
+        <div class="entry-edit-head admin__page-section-title title"></div>
+        <fieldset id="">
+            <legend>Message Error</legend>
+            <?php foreach($messages["errors"] as $error) : ?>
+                <div class="message message-error error"><span><?php echo $error; ?></span></div>
+            <?php endforeach; ?>
+        </fieldset>
+    </div>
+<?php endif; ?>
+
+<?php if(isset($messages["warnings"])) : ?>
+<div class="entry-edit box-right" style="width:49%">
+    <div class="entry-edit-head admin__page-section-title title"></div>
+    <fieldset id="">
+        <legend>Message Warnings</legend>
+            <?php foreach($messages["warnings"] as $warning) : ?>
+                <div class="message message-warning warning"><span><?php echo $warning; ?></span></div>
+            <?php endforeach; ?>
+    </fieldset>
+</div>
+<?php endif; ?>

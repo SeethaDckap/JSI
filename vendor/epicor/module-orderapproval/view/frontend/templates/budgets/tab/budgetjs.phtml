@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/** @var $this \Epicor\OrderApproval\Block\Group\Budgets\Form */
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Epicor_OrderApproval/js/budgets/end-date":{},
+            "Epicor_OrderApproval/js/budgets/validate-number":{},
+             "Epicor_OrderApproval/js/budgets/budget-events":{
+                "formUrl": "<?= $this->getFormLoadUrl() ?>",
+                "formKey": "<?= $this->getFormKey() ?>",
+                "gridUrl": "<?= $this->getGridUrl() ?>"
+            }
+        }
+    }
+</script>

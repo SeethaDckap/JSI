@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+// @codingStandardsIgnoreFile
+
+?>
+<div class="entry-edit">
+<?php echo $block->getForm()->getHtml() ?>
+</div>
+<?php echo $block->getChildHtml('grid') ?>
+
+
+<script type="text/javascript">
+    require(['Epicor_Comm/js/epicor/comm/editProduct/locations'],function(productLocations){
+        window.productLocations = new productLocations('locations_form', 'locationslistGrid_table', 'locationslistGrid');
+       
+    })
+</script>
+
+
+<script>
+require([
+    'jquery',
+    'prototype',
+    'mage/adminhtml/grid',
+    'domReady!'
+], function(jQuery,prototype){
+ 
+<?php $myBlock = $block->getLayout()->getBlock('locations.grid'); ?>
+<?php if (is_object($myBlock) && $myBlock->getJsObjectName()):  ?>
+    
+     function listsTabsRowInit(grid, row)
+    {
+        window.productLocations.rowInit(grid, row);      
+    }
+    
+        <?php echo $myBlock->getJsObjectName() ?>.initRowCallback = listsTabsRowInit;
+        <?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){listsTabsRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+        
+<?php endif; ?>
+
+
+});
+</script>

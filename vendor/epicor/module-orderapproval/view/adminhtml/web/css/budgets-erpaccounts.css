@@ -1,0 +1,12 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+form#add_budget_form div.field-duration{
+    margin: 0;
+}
+
+form#add_budget_form #budgets-duration-note{
+    font-weight: bold;
+    font-size: 12px;
+}

@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ *
+ * @package    Epicor_Punchout
+ * @subpackage Helper
+ * @author     Epicor Websales Team
+ * @copyright  Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+?>
+<?php
+$messages = $this->getMessages();
+foreach ($messages as $message) :?>
+    <ul>
+        <li><?php echo $message ?></li>
+    </ul>
+<?php endforeach; ?>

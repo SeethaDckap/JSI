@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Review */
+
+$return = $this->getReturn();
+
+if ($return) {
+    if ($this->getSuccess()) :
+        ?>
+        <?php echo $this->getReturnBarHtml(); ?>
+        <div>
+            <p><strong><?php echo __('Thank you for your return request'); ?></strong></p>
+            <?php if($this->getReturnType() == 'b2b') : ?>
+                <p><a href="<?php echo $this->getUrl('customerconnect/returns/') ?>"><?php echo __('Returns list'); ?></a></p>
+            <?php elseif($this->getReturnType() == 'b2c'): ?>
+                <p><a href="<?php echo $this->getUrl('epicor_comm/returns/lists/') ?>"><?php echo __('Returns list'); ?></a></p>
+            <?php endif; ?>
+        </div>
+        <?php
+    else:
+        ?>
+        <?php echo $this->getReturnBarHtml(); ?>
+        <div>
+            <p><strong><?php echo __('Please review the details of your return before confirming'); ?></strong></p>
+            <?php echo $this->getLinesHtml(); ?>
+            <?php echo $this->getAttachmentsHtml(); ?>
+            <p><strong><?php echo __('Notes'); ?>:</strong> <?php echo $this->escapeHtml($return->getNoteText()); ?></p>
+            <form id="review-return-form" action="<?php echo $this->getUrl('epicor_comm/returns/saveReview') ?>" method="post">
+                <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+                <div id="review-buttons-container" class="">
+                    <button class="button" title="<?php echo __('Continue'); ?>" type="button"  id="review-submit"><span><span><?php echo __('Confirm'); ?></span></span></button>
+                    <span style="display:none;" id="review-please-wait" class="please-wait">
+                        <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+                    </span>
+                </div>
+            </form>
+        </div>
+        
+                <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/review',
+                'prototype'
+            ], function ($, Review) {
+                'use strict';
+                  var review = new Review('review-return-form',window.returns);
+                $("#review-submit").click(function (e) {
+                      review.save();
+                });              
+            });
+
+            //]]>
+        </script>
+        
+    <?php
+    endif;
+
+}else{
+    echo 'No Return';
+}
+
+?>

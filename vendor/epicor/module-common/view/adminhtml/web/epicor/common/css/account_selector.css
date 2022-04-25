@@ -1,0 +1,249 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : erpaccount
+    Created on : 17-May-2013, 12:38:33
+    Author     : Paul.Ketelle
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#window-overlay {
+    position:fixed;
+    background:rgba(0, 0, 0, 0.35);
+    height:100%;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:990;
+}
+
+#selectErpAccountWrapperWindow{
+    position:fixed;
+    width:750px;
+    height:90%;
+    left:50%;
+    top:50%;
+    margin:-250px 0 0 -325px;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #999;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+#selectErpAccountWrapperWindow > div {
+    padding:5px;
+}
+
+#selectErpAccountWrapperWindow > div.content-header {
+    border:none;
+    background:#6f8992;
+    color:#fff;
+}
+
+#selectErpAccountWrapperWindow > div.content-header h3 {
+    color:#fff;
+    padding:0;
+}
+
+#ecc_account_select_type {
+    margin-bottom:5px;
+}
+
+span.erpaccount_label {
+    display:inline-block;
+    width:165px;
+    background: #fff;
+    border: 1px solid #aaa;
+    display: inline-block;
+    font-size: 14px;
+    padding: 6px 5px;
+    margin-top:-1px;
+}
+
+.massaction span.erpaccount_label {
+    width: auto;
+}
+
+.massaction .outer-span .field-row label {
+    display:none;
+}
+
+@media (max-width:1235px){
+
+    .massaction span.erpaccount_label {
+        width: 120px;
+        height:17px;
+        margin-bottom:-6px;
+        overflow:hidden;
+    }
+
+}
+
+@media (max-width:1090px){
+    .massaction span.erpaccount_label {
+        width: 80px;
+    }
+}
+
+@media (max-width:1040px){
+    .massaction span.erpaccount_label {
+        width: 70px;
+    }
+}
+
+#row_customerconnect_enabled_messages_CUIS_request_grid_config .design_theme_ua_regexp .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CUIS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CUIS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CCCS_request_grid_config .design_theme_ua_regexp .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CCCS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CPHS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CPHS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CPHS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CRQS_request_grid_config .admin__control-table-wrapper, #row_dealerconnect_enabled_messages_DCLS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CRQS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CRQS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CUCS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CUCS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CUCS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CUOS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CUOS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CUOS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CUPS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CUPS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CUPS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CURS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CURS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CURS_request .form-list > tbody >tr >td select{width: 70%;}
+
+#row_customerconnect_enabled_messages_CUSS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#customerconnect_enabled_messages_CUSS_request .form-list > tbody >tr >td input[type='text']{width: 70%;}
+#customerconnect_enabled_messages_CUSS_request .form-list > tbody >tr >td select{width: 70%;}
+
+.admin__field.field.field-mapping_type.with-addon {
+    float: left;
+    width: 860px;
+    padding-top: 7px;
+}
+
+.add-mapping {
+    margin-top: -40px;
+}
+#totalproduct-list{float:right;}
+div#list_grid > div.admin__data-grid-wrap.admin__data-grid-wrap-static{float:right;}
+table#list_grid_table td.analyselist_action{width:110px;}
+
+.adminhtml-epicorcomm-locations-edit .page-wrapper .page-content .page-columns .main-col .admin__scope-old .form-inline #edit_form #form_tabs_form_details_content .form-inline .label.admin__field-label{width:22%}
+.adminhtml-epicorcommon-mapping-erpattributes-addbycsv .page-wrapper .page-content .page-columns .admin__old .main-col .form-inline #edit_form .admin__fieldset > .admin__field.field.field-typeindex > .admin__field-control {width:100%}
+.admin__scope-old .form-inline #form_tabs_salesrep_tabs_details_content .form-inline fieldset.fieldset .field.required > .label{width:30%}
+.admin__scope-old .form-inline #form_tabs_salesrep_tabs_details_content .form-inline fieldset.fieldset .field-catalog_access .label{width:30%}
+.admin__scope-old .form-inline #certificate_tabs_details_content .fieldset > .field > .label{width:30%}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset {}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index] {}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index] label.admin__field-label{width:25%}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index] label.admin__field-label > span{text-align:left}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index|=disable_auto_group_change] label.admin__field-label{width:auto;}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index|=group_id] .admin__field-control select{margin-left:30px;}
+.customer-index-edit .page-wrapper .page-content .page-columns .main-col .admin__old div .entry-edit.form-inline .fieldset-wrapper .admin__fieldset-wrapper-content .admin__fieldset [data-index|=disable_auto_group_change] .admin__field-control .admin__field .admin__field-label{margin-left:30px;}
+
+.field-ecc_erp_images_last_processed label.label span{text-align: left;padding-left: 12px;}
+.catalog-product-set-edit .page-wrapper .page-content .page-columns .admin__scope-old .form-inline .label.admin__field-label{width:30%}
+
+#row_epicor_comm_enabled_messages_CRRS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+
+#row_supplierconnect_enabled_messages_SPCS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SPLS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SPOS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SPOS_request_newpogrid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SUIS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SUPS_request_grid_config .admin__control-table-wrapper{width: 400px;}
+#row_supplierconnect_enabled_messages_SURS_request_grid_config .admin__control-table-wrapper{width:400px;}
+
+#form_tabs_heirarchy_content .grid_display .entry-edit fieldset.erp_infomation .label{width:100%}
+#form_tabs_heirarchy_content .grid_display .entry-edit .entry-edit-head h4.icon-head{font-size:1em;}
+[data-ui-id="erp-customer-tabs-tab-content-form-details"] .customer-information #erp_default_location option:empty {display: block;}
+#log_grid_table option:empty{display:block;}
+.payment-on-account {
+    float: right;
+    width: calc( (100%) * 0.5 - 30px );
+  }
+  #order_erp_status_form .note {
+    color: #303030;
+    font-size: 12px;
+    margin: 5px 0;
+  }
+  #epicor_access_control_access_role_settings option[autoassign="1"] {
+    pointer-events: none;
+    cursor: default;
+    background-color: #c8c8c8;
+    background-image: url('../images/bgcolor.jpg');
+    color: #8f8e90;
+    -webkit-text-fill-color: #8f8e90;
+    -moz-text-fill-color: #8f8e90;
+    -ms-text-fill-color: #8f8e90;
+    text-fill-color: #8f8e90;
+}
+
+fieldset#connection_identity, fieldset#connection_key, fieldset#connection_shopper {
+    padding: 0 0 1.5rem 0 !important
+}
+fieldset#connection_key {
+    padding: 0 0 2.5rem 0 !important
+}
+input#shared_secret {
+    margin-bottom: 1rem;
+}
+span.email_label {
+    display:inline-block;
+    background: #fff;
+    border: 1px solid #aaa;
+    font-size: 14px;
+    padding: 6px 5px;
+    margin-top:-1px;
+}
+.password-strength-meter {
+    background-color: #f4f4f4;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 9px;
+    position: relative;
+    z-index: 1;
+}
+.password-strength-meter:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+.password-none .password-strength-meter:before {
+    background-color: #f4f4f4;
+    width: 100%;
+}
+.password-weak .password-strength-meter:before {
+    background-color: #ffafae;
+    width: 25%;
+}
+.password-medium .password-strength-meter:before {
+    background-color: #ffd6b3;
+    width: 50%;
+}
+.password-strong .password-strength-meter:before {
+    background-color: #c5eeac;
+    width: 75%;
+}
+.password-very-strong .password-strength-meter:before {
+    background-color: #81b562;
+    width: 100%;
+}

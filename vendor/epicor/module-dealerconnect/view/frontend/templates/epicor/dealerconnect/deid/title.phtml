@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Entity details page title
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this Epicor_Customerconnect_Block_Customer_Title */
+$getConfigFlag = $this->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/active');
+if($getConfigFlag):
+?>
+
+<div id="button_bar">    
+        <form action="<?php echo $this->updateAddressUrl(); ?>">
+            <div title="Bill Of Materials" class="deid-bom-icon">
+                <a href="<?php echo $this->getBomUrl();?>"><img class="deid-bom-img" src="<?php echo $this->getViewFileUrl("Epicor_Dealerconnect::epicor/dealerconnect/images/icon-bom.png");?>"></a>
+            </div>
+            <?php if($block->_isAccessAllowed(Epicor\Dealerconnect\Block\Portal\Inventory\Details\Title::FRONTEND_RESOURCE_EDIT)) : ?>
+            <button title="<?php echo __('Update Information'); ?>" type="button" onclick="arrayRow_deid.addresspopup('update')" class="action-default scalable save">
+                <span><?php echo __('Update Information'); ?></span>
+            </button>
+            <?php endif; ?>
+        </form>
+</div>
+<?php endif;?>
+<?php if($this->getTitle()) : ?>
+    <h1><?php echo $this->getTitle(); ?></h1>
+<?php endif; ?>

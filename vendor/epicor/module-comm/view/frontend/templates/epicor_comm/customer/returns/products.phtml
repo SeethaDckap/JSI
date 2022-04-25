@@ -1,0 +1,201 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Products */
+
+$addBySkuEnabled = $this->checkConfigFlag('add_by_sku_enabled');
+$findProductsEnabled = $this->checkConfigFlag('find_lines_by_enabled');
+
+if ($addBySkuEnabled) :
+    $addBySkuEnabled = $this->addMethodAllowed('addsku');
+endif;
+
+$options = array();
+if ($findProductsEnabled) :
+    $findProductsEnabled = $this->addMethodAllowed('findby');
+    $options = $this->getFindLinesByOptions();
+endif;
+
+
+
+$addClass = $findProductsEnabled ? 'col-1' : '';
+$findClass = $addBySkuEnabled ? 'col-2' : 'col-1';
+$colClass = ($addBySkuEnabled && $findProductsEnabled) ? 'col2-set' : '';
+
+$mixedAllowed = ($this->checkConfigFlag('allow_mixed_return')) ? 'yes' : 'no';
+?>
+<?php echo $this->getReturnBarHtml(); ?>
+<?php if ($this->returnActionAllowed('Add')) : ?>
+    <div class="<?php echo $colClass; ?>" id="lines-adder">
+        <input type="hidden" name="mixed-returns-allowed" id="mixed-returns-allowed" value="<?php echo $mixedAllowed; ?>" />
+        <?php if ($addBySkuEnabled): ?>
+            <div class="<?php echo $addClass; ?>" id="add-product-form-holder">
+                <h3><?php echo __('Add Products by SKU'); ?></h3>
+                <form id="add-product-form" action="<?php echo $this->getUrl('epicor_comm/returns/addProduct') ?>" method="post">
+
+                    <fieldset>
+                        <?php $this->getChild('formkey'); ?>
+                        <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+                        <ul class="form-list">
+                            <li>
+                                <label for="sku" class="required"><?php echo __('SKU'); ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text required-entry" id="sku" name="sku" value="" />
+                                    <div class="sku-autocomplete" id="sku_autocomplete"></div>
+                                    <input type="hidden" name="super_group" value="" id="sku_super_group" />
+                                    <input type="hidden" name="uom" value="" id="sku_uom" />
+                                </div>
+                            </li>
+                            <li>
+                                <label for="qty" class="required"><?php echo __('Qty'); ?></label>
+                                <div class="input-box">
+                                    <input type="hidden" id="product_id" name="product_id" value="" />
+                                    <input type="text" class="input-text required-entry validate-number" id="qty" name="qty" value="" />
+                                    <span id="packsize_field" style="display:none">x <span class="packsize"></span></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div id="add-product-buttons-container" class="">
+                        <button class="button" title="<?php echo __('Add Product'); ?>" type="button" id="add-product-submit"><span><span><?php echo __('Add Product'); ?></span></span></button>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+                //<![CDATA[
+                require([
+                    'jquery',
+                    'Epicor_Comm/epicor/comm/js/return/addproduct',
+                    'mage/cookies',
+                    'prototype'
+                ], function ($, AddProduct) {
+                    'use strict';
+                    var pAdd = new AddProduct('add-product-form', window.returns);
+                    $("#add-product-submit").click(function (e) {
+                        pAdd.save();
+                    });
+                });
+                
+                //<![CDATA[
+                var addSearchForm = new Epicor.searchForm('add-product-form', 'sku', 'sku_super_group', '', 'sku_uom', 'packsize_field', 'product_id', '', 'qty');
+                addSearchForm.initAutocomplete('/comm/quickadd/autocomplete/', 'sku_autocomplete');
+                //]]>;
+            </script>
+        <?php endif; ?>
+        <?php if ($findProductsEnabled && !empty($options)): ?>
+            <div class="<?php echo $findClass; ?>" id="find-product-form-holder">
+                <h3><?php echo __('Find Products'); ?></h3>
+                <form id="find-product-form" action="<?php echo $this->getUrl('epicor_comm/returns/findProduct') ?>" method="post">
+                    <fieldset>
+                        <?php $this->getChild('formkey'); ?>
+                        <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+                        <ul class="form-list">
+                            <li>
+                                <?php if (count($options) == 1) : ?>
+                                    <?php $option = array_pop($options); ?>
+                                    <?php $searchValLabel = __('Search By %1', $option['label']); ?>
+                                    <input type="hidden" id="search_type" name="search_type"  value="<?php echo $option['value']; ?>"/>
+                                <?php else: ?>
+                                    <?php $searchValLabel = __('Search Value'); ?>
+                                    <label id="search_type_label" for="search_type" class="required"><?php echo __('Search By'); ?></label>
+                                    <div class="input-box">
+                                        <select name="search_type" id="search_type">
+                                            <option value=""><?php echo __('Select Document Type'); ?></option>
+                                            <?php
+                                            foreach ($options as $option) :
+                                                ?>
+                                                <option value="<?php echo $option['value']; ?>"><?php echo $option['label']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                <?php endif; ?>
+                            </li>
+                            <li>
+                                <label id="search_value_label" for="search_value" class="required">
+                                    <span id="search_value_label_text"><?php echo $searchValLabel; ?></span>
+                                </label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text required-entry" id="search_value" name="search_value" onkeypress="js: if (event.keyCode==13) {pFind.save(); Event.stop(event);}" />
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div id="find-product-buttons-container" class="">
+                        <button class="button" title="<?php echo __('Search'); ?>" type="button" id="find-product-submit"><span><span><?php echo __('Search'); ?></span></span></button>
+                    </div>
+                </form>
+            </div>
+            
+        <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/findproduct',
+                'prototype'
+            ], function ($, FindProduct) {
+                'use strict';
+                  var pFind = new FindProduct('find-product-form',window.returns);
+                $("#find-product-submit").click(function (e) {
+                      pFind.save();
+                });              
+            });
+
+            //]]>
+        </script>
+        
+        <?php endif; ?>
+        <div id="products-buttons-container" class="buttons-set">
+            <p class="required">* Required Fields</p>
+            <span style="display:none;" id="products-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </div>
+
+<?php endif; ?>
+<div>
+    <?php
+    //$saveLines = $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+  
+    //M1 > M2 Translation Begin (Rule p2-5.1)
+    //$url = Mage::getSingleton('core/url')->parseUrl($saveLines);
+    //$url = $block->getUrl()->parseUrl($saveLines);
+    //M1 > M2 Translation End
+    //$path = $saveLines; //$url->getPath();
+    ?>
+    <form id="lines-form" target="lines-form-iframe" action="<?php echo $this->getUrl('comm/returns/saveLines/'); ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+        <?php echo $block->getLinesHtml(); ?>
+        <div id="lines-buttons-container" class="buttons-set">
+            <button class="button" title="<?php echo __('Continue'); ?>" type="submit" id="lines-submit"><span><span><?php echo __('Continue'); ?></span></span></button>
+            <span style="display:none;" id="lines-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+   // colorRows('return_lines_table', ':not(.attachment)');
+//    document.observe('dom:loaded', function (element) {
+    //lines = new SubmitLines('lines-form');
+//    });
+//]]>
+</script>
+
+             <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/submitline',
+                'prototype'
+            ], function ($, SubmitLines) {
+                'use strict';
+                  var lines = new SubmitLines('lines-form',window.returns);
+                     lines.colorRows('return_lines_table', ':not(.attachment)');       
+            });
+
+            //]]>
+        </script>

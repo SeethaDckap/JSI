@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+  <group id="ecc">
+    <job name="ecc_dealer_claims_status" instance="Epicor\Dealerconnect\Model\Cron" method="updateClaimsStatusData">
+      <schedule>0 0 * * *</schedule>
+    </job>
+    <job name="send_dealer_reminder_expiry" instance="Epicor\Dealerconnect\Model\Cron" method="checkExpiryReminder">
+      <schedule>30 1 * * *</schedule>
+    </job>
+  </group>
+</config>

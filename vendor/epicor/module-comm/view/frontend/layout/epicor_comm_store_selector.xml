@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Comm::epicor/comm/css/storeselector.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceContainer name="catalog.topnav" remove="true"/>
+            <referenceContainer name="top.links" remove="true"/>
+            <referenceContainer name="top.search" remove="true"/>
+            <referenceContainer name="footer" remove="true"/>
+            <referenceContainer name="header.links" remove="true"/>
+            <referenceContainer name="copyright" remove="true"/>
+            <!--<referenceContainer name="quick_orderpad-link" remove="true"/>-->
+            <block class="Epicor\Comm\Block\Store\Switcher" template="Epicor_Comm::epicor_comm/store/selector.phtml"  name="store_switcher" as="store.switcher"/>
+        </referenceContainer>
+    </body>
+</page>

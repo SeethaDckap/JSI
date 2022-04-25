@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+if ($this->returnExists()) :
+    ?>
+    <div class="returns-bar" style="border-bottom:1px solid #ccc;clear:both;margin-bottom: 5px;">
+        <p style="float:left;width:33%;margin-bottom: 2px;">
+            <strong><?php echo __('Customer Reference: ') ?></strong>
+            <?php echo $this->escapeHtml($this->getReturn()->getCustomerReference()); ?>
+        </p>
+        <p style="float:left;width:33%;margin-bottom: 2px;text-align:center;">
+            <?php if ($this->getReturn()->getErpReturnsNumber()) : ?>
+                <strong><?php echo __('Returns Number: '); ?></strong>
+                <?php echo $this->getReturn()->getErpReturnsNumber(); ?>
+            <?php endif; ?>
+        </p>
+        <p style="float:left;width:33%;margin-bottom: 2px;text-align:right;">
+            <strong><?php echo __('Status: ') ?></strong>
+            <?php echo $this->getReturn()->getStatusDisplay(); ?>
+        </p>
+        <div style="clear: both;height:1px;">&nbsp;</div>
+    </div>
+    <?php
+endif;
+?>

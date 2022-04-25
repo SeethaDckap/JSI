@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_AccessRight:etc/access_right.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Frontend::all" title="All">
+                <resource id="Epicor_Checkout::checkout" title="Checkout" translate="title"
+                          actioncontoler="true" sortOrder="200">
+                    
+                    <resource id="Epicor_Checkout::checkout_checkout" title="Checkout" translate="title" sortOrder="110"
+                              displaytype="grid">
+                        <resource id="Epicor_Checkout::checkout_checkout_can_checkout" actioncode="can_checkout " title="Can Checkout "
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Checkout::checkout_checkout_cart_list" actioncode="cart_list" title="Save Cart As List"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Checkout::checkout_checkout_cart_quote" actioncode="cart_quote" title="Convert To Quotation"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Checkout::checkout_checkout_multi_address" actioncode="multi_address" title="Checkout with Multiple Addresses"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Epicor_Checkout::checkout_account_summary" title="Account Summary" translate="title" sortOrder="120" />
+                    <resource id="Epicor_Checkout::checkout_quick_order_pad" title="Quick Order Pad" translate="title" sortOrder="130" />
+                    <resource id="Epicor_Checkout::checkout_choose_address" title="Choose Address" translate="title" sortOrder="140" />
+                    <resource id="Epicor_Checkout::checkout_branch_pickup" title="Branch Pickup" translate="title" sortOrder="150" />
+                    <resource id="Epicor_Checkout::catalog_search" title="Search" translate="title" sortOrder="160" />
+                    <resource id="Epicor_Checkout::catalog_advance_search" title="Advance Search" translate="title" sortOrder="170" />
+                    <resource id="Epicor_Checkout::catalog_quick_add" title="Quick Add Product" translate="title" sortOrder="180" />
+                </resource>
+
+                <resource id="Epicor_Customer::my_account" title="My Account" translate="title"
+                          actioncontoler="true" sortOrder="250">
+                    <resource id="Epicor_Customer::my_account_dashboard" title="Account Dashboard"
+                              translate="title" sortOrder="110" displaytype="subinfo">
+                        <resource id="Epicor_Customer::my_account_dashboard_newsletters" title="Newsletters"
+                                  translate="title" sortOrder="110" displaytype="grid">
+                            <resource id="Epicor_Customer::my_account_dashboard_newsletters_edit" actioncode="edit" title="Edit"
+                                      sortOrder="110"/>
+                        </resource>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_approvals_dashboard" title="Order Approvals Dashboard"
+                              sortOrder="115"/>
+                    <resource id="Epicor_Customer::my_account_orders" title="My Orders" translate="title" sortOrder="120"
+                              displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_orders_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_orders_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_orders_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_approvals" title="My Order Approvals" translate="title"
+                              sortOrder="125" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_approvals_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_approvals_export" actioncode="export" title="Export"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_approvals_details" actioncode="details" title="Details"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_approvals_approved_reject" actioncode="approved_reject" title="Approved/Reject"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_downloadable_products" title="My Downloadable Products"
+                              sortOrder="130"/>
+                    <resource id="Epicor_Customer::my_account_wishlist" title="My Wishlist"
+                              sortOrder="140"/>
+                    <resource id="Epicor_Customer::my_account_stored_payment_methods" title="Stored Payment Methods" translate="title"
+                              sortOrder="150" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_stored_payment_methods_edit" actioncode="edit" title="Edit"
+                                  sortOrder="90"/>
+                        <resource id="Epicor_Customer::my_account_stored_payment_methods_delete" actioncode="delete" title="Delete"
+                                  sortOrder="100"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_address_book" title="Address Book"
+                              sortOrder="160" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_address_book_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_address_book_create" actioncode="create" title="Create"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_address_book_edit" actioncode="edit" title="Edit"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_address_book_delete" actioncode="dalete" title="Delete"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_quotes" title="My Quotes" translate="title" sortOrder="170"
+                              displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_quotes_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_quotes_duplicate" actioncode="duplicate" title="Duplicate"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_quotes_update" actioncode="update" title="Update"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_quotes_reject" actioncode="reject" title="Reject"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customer::my_account_quotes_details" actioncode="details" title="Details"
+                                  sortOrder="140"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_information" title="Account Information OR Update Contact Information"
+                              sortOrder="180"/>
+                    <resource id="Epicor_Customer::my_account_ar_payment_received" title="My AR Payments Received"
+                              translate="title" sortOrder="190" displaytype="grid">
+                            <resource id="Epicor_Customer::my_account_ar_payment_received_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Customer::my_account_ar_payment_received_details" actioncode="details" title="Details"
+                                      sortOrder="110"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_lists" title="Manage Lists/My Item Lists" translate="title"
+                              sortOrder="200" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_lists_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_lists_create" actioncode="create" title="Create"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_lists_edit" actioncode="edit" title="Edit"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_lists_delete" actioncode="dalete" title="Delete"
+                                  sortOrder="130"/>
+                    </resource>
+
+                    <resource id="Epicor_Customer::my_account_group" title="Manage Approval Groups" translate="title"
+                              sortOrder="200" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_group_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_group_create" actioncode="create" title="Create"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_group_edit" actioncode="edit" title="Edit"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_group_delete" actioncode="dalete" title="Delete"
+                                  sortOrder="130"/>
+                        <resource id="Epicor_Customer::my_account_group_details" actioncode="details" title="Details"
+                                  sortOrder="140"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_returns" title="My Returns" translate="title"
+                              sortOrder="210"
+                              displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_returns_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_returns_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_returns_create" actioncode="create" title="Create"
+                                  sortOrder="120"/>
+                        <resource id="Epicor_Customer::my_account_returns_edit" actioncode="edit" title="Edit"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_esdm" title="ESDM Saved Cards" translate="title"
+                              sortOrder="220"
+                              displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_esdm_edit" actioncode="edit" title="Edit"
+                                  sortOrder="1100"/>
+                        <resource id="Epicor_Customer::my_account_esdm_delete" actioncode="delete" title="Delete"
+                                  sortOrder="1200"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_products_review" title="My Product Reviews"
+                              sortOrder="230" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_products_review_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_products_review_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                    </resource>
+                    <resource id="Epicor_Customer::my_account_billing_agreements" title="Billing Agreements"
+                              sortOrder="240" displaytype="grid">
+                        <resource id="Epicor_Customer::my_account_billing_agreements_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Customer::my_account_billing_agreements_create" actioncode="create" title="Create"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Customer::my_account_billing_agreements_delete" actioncode="delete" title="Delete"
+                                  sortOrder="120"/>
+                    </resource>
+                </resource>
+
+            </resource>
+        </resources>
+    </acl>
+</config>

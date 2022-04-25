@@ -1,0 +1,17 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $_code = $block->getMethodCode() ?>
+<div>
+	<?php echo $block->getMethod()->getConfigData('message');?>
+    </br>
+        <?php
+        //M1 > M2 Translation Begin (Rule p2-5.11)
+        //if(Mage::getStoreConfigFlag('payment/pay/update_billing_address')){
+        if($block->getStoreConfigFlag('payment/pay/update_billing_address')){
+        //M1 > M2 Translation End
+            ?>
+             <?php echo $block->getMethod()->getConfigData('message_update_billing');?>
+        <?php } ?>
+</div>

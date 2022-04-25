@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <preference for="Magento\Wishlist\Helper\Data" type="Epicor\SalesRep\Helper\Wishlist\Data"/>
+  <!--<preference for="Magento\Sales\Block\Order\History" type="Epicor\SalesRep\Block\Sales\Order\History"/>-->
+  <!-- <preference for="UNKNOWN\catalogrule\rule_condition_product" type="Epicor\SalesRep\Model\Catalogrule\Rule\Condition\Product"/>  -->
+  <!-- <preference for="UNKNOWN\checkout\onepage_salesrep_contact" type="Epicor\SalesRep\Model\Checkout\Type\Onepage\Salesrep\Contact"/>-->
+
+
+    <type name="Epicor\SalesRep\Controller\Adminhtml\Promo\Catalog\NewConditionHtml">
+        <arguments>
+            <argument name="ruleReader" xsi:type="object">Epicor\SalesRep\Helper\RuleReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\SalesRep\Controller\Promo\Catalog\NewConditionHtml">
+        <arguments>
+            <argument name="ruleReader" xsi:type="object">Epicor\SalesRep\Helper\RuleReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\SalesRep\Helper\RuleReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="Magento\CatalogRule\Model\Rule\Condition\Combine" xsi:type="object">Magento\CatalogRule\Model\Rule\Condition\Combine</item>
+                <item name="Magento\CatalogRule\Model\Rule\Condition\Product" xsi:type="object">Magento\CatalogRule\Model\Rule\Condition\Product</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="salesrep_contact-save-in-quote" type="Epicor\SalesRep\Plugin\Checkout\ShippingInformationManagementPlugin" sortOrder="20"/>
+    </type>        
+    <preference for="Epicor\SalesRep\Api\ErpShippingMethodManagementInterface"
+                type="Epicor\SalesRep\Model\ErpShippingMethodManagement" />
+    
+    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
+        <plugin name="salesrep_customer_save" type="Epicor\SalesRep\Plugin\Repository\CustomerRepositoryPlugin" sortOrder="5"/>
+    </type>
+    
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="salesrep_addresscode_save_ininvoice" type="Epicor\SalesRep\Plugin\Checkout\PaymentInformationManagementPlugin" sortOrder="20"/>
+    </type>
+    
+    <type name="Magento\Sales\Model\Order\Address">
+        <plugin name="salerep_email_set" type="Epicor\SalesRep\Plugin\Order\Address" sortOrder="2"/>
+    </type>
+    
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="salerep_email_quote_set" type="Epicor\SalesRep\Plugin\Quote\Address" sortOrder="2"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Email\Sender\OrderSender">
+        <plugin name="salerep_sendemail_custom" type="Epicor\SalesRep\Plugin\Order\OrderSender" sortOrder="2"/>
+    </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Product">
+        <plugin name="salesrepRuleProductIndexerProduct" type="Epicor\SalesRep\Plugin\Indexer\Product"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category">
+        <plugin name="salesrepRuleProductIndexerCategory" type="Epicor\SalesRep\Plugin\Indexer\Category"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Action">
+        <plugin name="salesrepRuleProductIndexerMassAction" type="Epicor\SalesRep\Plugin\Indexer\ProductAction"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteAddressValidator">
+        <plugin name="salerep_address_validation" type="Epicor\SalesRep\Plugin\Checkout\QuoteAddressValidator" sortOrder="2"/>
+    </type> 
+    <type name="Magento\Checkout\Block\Checkout\AttributeMerger">
+        <plugin name="customAttributeMerger" type="\Epicor\SalesRep\Plugin\Checkout\AttributeMergerPlugin"/>
+    </type> 
+    <type name="Magento\Sales\Controller\AbstractController\OrderViewAuthorizationInterface">
+        <plugin name="ecc_order_auth" type="Epicor\SalesRep\Plugin\Order\OrderViewAuthorizationPlugin"/>
+    </type>
+    <preference for="Magento\Sales\Model\ResourceModel\Order\Plugin\Authorization" type="Epicor\SalesRep\Plugin\Order\Authorization"/>
+</config>

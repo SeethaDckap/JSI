@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="footer_links">
+            <action method="addLink">
+                <argument translate="true" name="label" xsi:type="string">Returns</argument>
+                <argument name="url" xsi:type="string">epicor_comm/returns</argument>
+                <argument translate="true" name="title" xsi:type="string">Returns</argument>
+                <argument name="prepare" xsi:type="string">true</argument>
+                <argument name="urlParams" xsi:type="string"/>
+                <argument name="position" xsi:type="string">40</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

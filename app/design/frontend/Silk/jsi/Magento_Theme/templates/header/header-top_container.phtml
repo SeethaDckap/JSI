@@ -1,0 +1,42 @@
+<?php
+$tel = '800-239-0036';
+$dealerLogin = "https://dealers.jsicabinetry.com/storefrontCommerce/";
+?>
+<div class="header-top_container max-width">
+	<div class="d-flex">
+		<div class="left_col">
+			<div class="d-flex align-items_center" style="height: 100%;">
+				<div class="topmenu_item login"><a id="login-link" target="_blank" href="/customer/account/login"><?= __('Dealer Login')?></a></div>
+				<div class="topmenu_item"><a href="/become-a-dealer/"><?= __('Become A Dealer')?></a></div>
+				<div class="topmenu_item"><a href="tel:<?= $tel?>"><?= $tel?></a></div>
+			</div>
+		</div>
+		<div class="right_col">
+			<div class="d-flex align-items_center">
+				<div class="ss_icon"><a target="_blank" href="https://www.facebook.com/jsicabinetry/"><i class="fab fa-facebook-f"></i></a></div>
+				<div class="ss_icon"><a target="_blank" href="https://twitter.com/JSICabinetry"><i class="fab fa-twitter"></i></a></div>
+				<div class="ss_icon"><a target="_blank" href="https://www.linkedin.com/company/js-international-inc."><i class="fab fa-linkedin-in"></i></a></div>
+				<div class="ss_icon"><a target="_blank" href="https://www.instagram.com/jsicabinets/"><i class="fab fa-instagram"></i></a></div>
+				<div class="ss_icon"><a target="_blank" href="https://www.pinterest.com/jsicabinetry"><i class="fab fa-pinterest-p"></i></a></div>
+				<div class="ss_icon"><a target="_blank" href="https://www.houzz.com/pro/jsicabinetry/jsi-cabinetry"><i class="fab fa-houzz"></i></a></div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	require(
+	    ['jquery', 'Magento_Customer/js/customer-data'],
+	    function ($, customerData) {
+	        customerData.reload(['customer'], true)
+                .done(function () {
+                	var customer = customerData.get('customer')();
+                	console.log(customer);
+                    if(customer.firstname){
+                    	$('#login-link').attr('href', '/customaccount/dashboard');
+                    }
+                });
+	    }
+	);
+</script>

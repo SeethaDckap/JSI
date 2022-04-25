@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Object/etc/fieldset.xsd">
+  <scope id="global">
+    <fieldset id="sales_convert_quote">
+      <field name="ecc_required_date">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_basket_erp_quote_number">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_customer_order_ref">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_ship_status_erpcode">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_tax_exempt_reference">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_additional_reference">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_goods_total">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_goods_total_inc">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_carriage_amount">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_carriage_amount_inc">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_grand_total">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_bsv_grand_total_inc">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_erp_account_id">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_delivery_type">
+        <aspect name="to_order"/>
+      </field>
+      <field name="ecc_mobile_number">
+        <aspect name="to_order"/>
+      </field>
+    </fieldset>
+    <fieldset id="customer_address">
+<!--      <field name="ecc_erp_address_code">
+        <aspect name="to_quote_address"/>
+      </field>-->
+      <field name="ecc_mobile_number">
+        <aspect name="to_quote_address"/>
+      </field>
+    </fieldset>
+    <fieldset id="sales_convert_order_address">
+      <field name="ecc_erp_address_code">
+        <aspect name="to_quote_address"/>
+      </field>
+      <field name="ecc_mobile_number">
+        <aspect name="to_customer_address"/>
+      </field>
+    </fieldset>
+    <fieldset id="sales_convert_quote_address">
+      <field name="ecc_erp_address_code">
+        <aspect name="to_order_address"/>
+        <!--<aspect name="to_customer_address"/>-->
+      </field>
+      <field name="ecc_bsv_goods_total">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_bsv_goods_total_inc">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_bsv_carriage_amount">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_bsv_carriage_amount_inc">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_bsv_grand_total">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_bsv_grand_total_inc">
+        <aspect name="to_order_address"/>
+      </field>
+      <field name="ecc_mobile_number">
+        <aspect name="to_order_address"/>
+        <aspect name="to_customer_address"/>
+      </field>
+    </fieldset>
+    <!-- below sales_convert_quote_item does not work in M2 anymore -->
+    <!--replacement of above fielset id -->
+    <fieldset id="quote_convert_item">
+        <field name="ecc_bsv_price">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_bsv_price_inc">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_bsv_line_value">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_bsv_line_value_inc">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_original_price">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_line_comment">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_required_date">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_delivery_deferred">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_location_code">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_location_name">
+        <aspect name="to_order_item"/>
+      </field>
+      <field name="ecc_gqr_line_number">
+        <aspect name="to_order_item"/>
+      </field>
+    </fieldset>
+    
+    <fieldset id="sales_convert_order_item">
+      <field name="ecc_location_code">
+        <aspect name="to_quote_item"/>
+      </field>
+      <field name="ecc_location_name">
+        <aspect name="to_quote_item"/>
+      </field>
+    </fieldset>
+    <fieldset id="sales_copy_order_billing_address">
+      <field name="ecc_erp_address_code">
+        <aspect name="to_quote_address"/>
+      </field>
+    </fieldset>
+    <fieldset id="sales_copy_order_shipping_address">
+      <field name="ecc_erp_address_code">
+        <aspect name="to_quote_address"/>
+      </field>
+    </fieldset>
+  </scope>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Quotes::epicor/quotes/css/style.css"/>
+        <script src="Epicor_Quotes::epicor/quotes/js/form.js"/>
+        <!--
+        <action method="addItem">
+            <argument name="type" xsi:type="string">skin_js</argument>
+            <argument name="name" xsi:type="string">epicor/quotes/js/form.js</argument>
+            <argument name="params" xsi:type="string"/>
+        </action>
+        <action method="addItem">
+            <argument name="type" xsi:type="string">skin_css</argument>
+            <argument name="name" xsi:type="string">epicor/quotes/css/style.css</argument>
+            <argument name="params" xsi:type="string"/>
+        </action> -->
+    </head>
+     <update handle="formkey" />
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit" name="edit_wrapper">
+                <block class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Form" group="quotes" name="quote_form"/>
+            </block>
+           <block template="Epicor_Quotes::quotes/edit/quoteinfo.phtml" class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Quoteinfo" group="quotes" name="quote_info"/>
+            <block template="Epicor_Quotes::quotes/edit/customerinfo.phtml" class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Customerinfo" name="customer_info"/>
+            <block template="Epicor_Quotes::quotes/edit/productlines.phtml" class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Productlines" name="product_lines"/>
+            <block template="Epicor_Quotes::quotes/edit/commenthistory.phtml" class="Epicor\Quotes\Block\Adminhtml\Quotes\Edit\Commenthistory" name="comment_history"/>
+        </referenceContainer>
+    </body>
+</page>

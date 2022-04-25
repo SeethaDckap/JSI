@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <!--Block For Lazy Load price Ajax-->
+        <block class="Magento\Catalog\Block\Product\ProductList\Related" name="related.price.loader.ajax" template="Epicor_Comm::product/list/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="related.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="related.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="related.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.related.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.related.ajax" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.related.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Magento\Catalog\Block\Product\ProductList\Upsell" name="upsell.price.loader.ajax" template="Epicor_Comm::product/list/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="upsell.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="upsell.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="upsell.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.upsell.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.upsell.ajax" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.upsell.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Magento\Checkout\Block\Cart\Crosssell" name="crosssell.price.loader.ajax" template="Epicor_Comm::product/list/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="crosssell.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="crosssell.product.addto.compare.ajax" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="crosssell.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.crosssell.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.crosssell.ajax" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.crosssell.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Epicor\Comm\Block\Catalog\Product\ProductList\Substitute" name="substitute.price.loader.ajax" template="Epicor_Comm::product/list/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="substitute.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="substitute.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="substitute.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.substitute.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.substitute.ajax" as="epicor_ecc_product_list_locations">
+                <arguments>
+                    <argument name="view_type" xsi:type="string">substitute</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.substitute.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Epicor\Comm\Block\Catalog\Product\ProductList\Substitute" name="bestseller_product.price.loader.ajax" template="Epicor_Themes::greenblack/widget/homepage/product-list/lazyload/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="bestseller_product.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="bestseller_product.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="bestseller_product.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.bestseller_product.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.bestseller_product.ajax" as="epicor_ecc_product_list_locations">
+                <arguments>
+                    <argument name="view_type" xsi:type="string">bestseller_product</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.bestseller.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Epicor\Comm\Block\Catalog\Product\ProductList\Substitute" name="newsale_product.price.loader.ajax" template="Epicor_Themes::greenblack/widget/homepage/product-list/lazyload/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="newsale_product.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="newsale_product.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="newsale_product.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.newsale_product.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.newsale_product.ajax" as="epicor_ecc_product_list_locations">
+                <arguments>
+                    <argument name="view_type" xsi:type="string">newsale_product</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.newsale.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Epicor\Comm\Block\Catalog\Product\ProductList\Substitute" name="featured_product.price.loader.ajax" template="Epicor_Themes::greenblack/widget/homepage/product-list/lazyload/items_pricedisplay.phtml" as="priceview_ajax" >
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="featured_product.product.addto.ajax" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="featured_product.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="featured_product.product.addto.wishlist.ajax" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.featured_product.ajax" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.featured_product.ajax" as="epicor_ecc_product_list_locations">
+                <arguments>
+                    <argument name="view_type" xsi:type="string">featured_product</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.featured.ajax" as="epicor_ecc_product_configurator"/>
+        </block>
+        <block class="Magento\Catalog\Block\Product\Compare\ListCompare" name="compare.price.loader.ajax" template="Epicor_Comm::product/Compare/list.phtml"  />
+        <block class="Epicor\Comm\Block\Catalog\Product\ListProduct" name="epicor_ecc_product_list"/>
+    </body>
+</page>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block template="Epicor_QuickOrderPad::form/blank.phtml" class="Magento\LayeredNavigation\Block\Navigation" name="catalogsearch.leftnav" after="currency"/>
+        <block template="Epicor_QuickOrderPad::form/wrapper.phtml" class="Epicor\QuickOrderPad\Block\Form\Wrapper" name="quickorderpad_wrapper">
+            <action method="setHideTitle">
+                <argument name="value" xsi:type="string">1</argument>
+            </action>
+            <block template="Epicor_Dealerconnect::epicor/dealerconnect/dmau/linesearch/result.phtml" class="Epicor\QuickOrderPad\Block\Catalogsearch\Result" name="search.result">
+                <block template="Epicor_QuickOrderPad::form/listing.phtml" class="Epicor\QuickOrderPad\Block\Catalog\Product\Listing" name="search_result_list" as="search_result_list">
+                    <block template="Epicor_Comm::product/configurator.phtml" class="Epicor\Comm\Block\Catalog\Product\Configurator" name="epicor_ecc_product_configurator" as="epicor_ecc_product_configurator"/>
+                    <block template="Epicor_Dealerconnect::epicor/dealerconnect/dmau/linesearch/product_row.phtml" class="Epicor\QuickOrderPad\Block\Catalog\Product\Listing\Child" name="epicor_qop.product_row" as="product_row"/>
+                    <action method="setForceCart">
+                        <argument name="value" xsi:type="string">0</argument>
+                    </action>
+                    <action method="setHideConfigurator">
+                        <argument name="value" xsi:type="string">1</argument>
+                    </action>
+                    <action method="setCartButtonLabelOverride">
+                        <argument name="value" xsi:type="string">Add to Quote</argument>
+                    </action>
+                    <action method="setForceHideLocations">
+                        <argument name="value" xsi:type="string">1</argument>
+                    </action>
+
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+                </block>
+                <action method="setListOrders"/>
+                <action method="setListCollection"/>
+            </block>
+        </block>
+    </container>
+</layout>

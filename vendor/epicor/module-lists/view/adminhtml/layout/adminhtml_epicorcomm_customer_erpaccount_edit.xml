@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+<!--        <reference name="lists">
+            <block class="Epicor\Lists\Block\Adminhtml\Listing\Edit\Tab\Erpaccounts\Edit\Contracts\Form" name="erp_customer_list_contracts"/>
+        </reference>-->
+    </body>
+</page>

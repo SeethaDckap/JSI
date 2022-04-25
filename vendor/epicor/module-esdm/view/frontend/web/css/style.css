@@ -1,0 +1,52 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : style
+    Created on : 09-Sep-2013, 10:51:16
+    Author     : Paul.Ketelle
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#esdm_saved_cards_list input,  #esdm_saved_cards_list span {
+    vertical-align: top;
+}
+
+#esdm_saved_cards_list img {
+    display: block;
+}
+
+.tokencvv {
+    width: 54px !important;
+}
+
+.esdm_saved_cards_list {
+    margin: 43px 0 46px;
+}
+.cvc_field {
+    display: inline-block;
+}
+
+#esdm_save_card_div {
+    padding-bottom: 10px;
+    font-weight: bold;    
+}
+
+.esdmcardlist {
+    padding-left: 30px;
+}
+
+.esdmmessage {
+    margin: 0 0 10px;
+    padding: 12px 20px 12px 25px;
+    display: block;
+    font-size: 1.3rem;
+    background: #fdf0d5;
+    color: #6f4400;
+    padding-left: 12px;
+}
+.expiredcard{
+        color: red;
+}

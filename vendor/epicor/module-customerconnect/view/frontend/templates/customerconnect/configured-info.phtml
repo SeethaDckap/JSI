@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+?><div class="box-info box-account <?php echo ($this->getOnRight()) ? 'col-2' : ($this->getOnLeft() ? 'col-1' : 'col-full'); ?>  block">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list col-count-<?=$this->getColumnCount() ?>">
+        <?php
+        foreach ($this->getInfoData() as $key => $value): ?>
+            <p id="<?=$key; ?>">
+                <?php if (!empty($key)) : ?>
+                    <span class="label"><?=$value['header'] ?>:</span>
+                <?php endif; ?>
+                <?php if (isset($this->getLinkTo()[$key]['active'])) { ?>
+                    <?php echo '<a href="' . $this->getLinkTo()[$key]['link'] . '">'; ?>
+                <?php } ?>
+                <span class="value"><?=$this->getResultValue($value['value']) ?></span>
+                <?php if (isset($this->getLinkTo()[$key]['active'])) { ?>
+                    <?php echo '</a>'; ?>
+                <?php } ?>
+            </p>
+        <?php endforeach; ?>
+    </div>
+
+</div>

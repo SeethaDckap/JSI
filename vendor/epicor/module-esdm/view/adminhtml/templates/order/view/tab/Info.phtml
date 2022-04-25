@@ -1,0 +1,10 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><img src="<?php echo $block->getEsdmLogo(); ?>" title="Esdm" alt="Esdm" align="left" style="margin-left: -65px;"/>
+<div style="clear: both;float:left;">
+<p><strong>Expiry Date :</strong><?php echo $block->getPayment()->getCcExpMonth() . '/' . $block->getPayment()->getCcExpYear(); ?></p>
+<p><strong>CCV Token :</strong><?php echo $block->getPayment()->getEccCcvToken(); ?></p>
+<p><strong>CVV Token :</strong><?php echo $block->getPayment()->getEccCvvToken(); ?></p>
+</div>

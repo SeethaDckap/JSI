@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+if(isset($this->getBackUrl()['value'])){
+    $back = $this->getBackUrl()['value'];
+}else{
+    $back = $this->getBackUrl();    
+}
+?>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="<?php echo $this->escapeUrl($back) ?>"><small>&laquo; </small><?php echo __('Back') ?></a>
+    </p>
+    <?php if($this->getListPageUrl() != $this->getBackUrl() && $this->getListTypeVal()) : ?>
+        <p class="list-link">
+            <a href="<?php echo $this->escapeUrl($this->getListPageUrl()) ?>"><?php echo __('Go to %1 List',__($this->getListTypeVal())) ?><small> &raquo;</small></a>
+        </p>
+    <?php endif; ?>
+</div>

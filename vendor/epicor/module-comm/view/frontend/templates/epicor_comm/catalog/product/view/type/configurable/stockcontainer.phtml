@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+$commonHelper = $this->helper('Epicor\Common\Helper\Data');
+/* @var $helper Epicor_Comm_Helper_Locations */
+
+$_product = $commonHelper->getRegistry()->registry('product');//get current category-
+
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $helper Epicor_Comm_Helper_Locations */
+
+$showLocations = $locHelper->isLocationsEnabled();
+$getCustomerLocations = $_product->getCustomerLocations();
+$singleLocation = (count($getCustomerLocations) == 1) ? true : false;
+if ($singleLocation) {
+     $location = array_pop($getCustomerLocations);
+     $_product->setToLocationPrices($location);
+}
+
+$stockVisibility = $commonHelper->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+?>
+<div class="product-options">
+    <?php if ($showLocations && !in_array($stockVisibility, array('default', 'logged_in_shopper_source', 'all_source_locations')) && count($_product->getCustomerLocations()) != 0): ?>
+            <?php echo $this->getChildHtml('configurable_locations') ?>
+    <?php else: ?>
+            <?php echo $this->getChildHtml('product_type_data') ?>
+            <?php echo $this->getChildHtml('configurable_tierprices') ?>
+    <?php endif; ?>
+</div>

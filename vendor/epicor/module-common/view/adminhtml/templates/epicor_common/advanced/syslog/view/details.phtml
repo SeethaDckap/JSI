@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php /* View log file details */ ?>
+<div id="container" class="main-col">
+<!--    <div class="entry-edit-head">
+        <h4><?php /* @escapeNotVerified */ //echo __('Log File Details') ?></h4>
+    </div>-->
+    <div class="entry-edit-head">
+        <h4><?php /* @escapeNotVerified */ echo __('Log File Details') ?></h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list">
+            <tbody>
+            <tr>
+                <td class="label"><label><?php /* @escapeNotVerified */ echo __('File Name') ?></label></td>
+                <td class="value"><strong><?php echo $this->systemLogFileName(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php /* @escapeNotVerified */ echo __('Last Modified') ?></label></td>
+                <td class="value"><strong><?php echo $this->getLogFileTime(); ?></strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <div class="log_view"><?php $this->getLogFileContents(); ?></div>
+</div>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference
+            for="Epicor\ReleaseNotification\Api\Data\LogInterface"
+            type="Epicor\ReleaseNotification\Model\Data\Log"
+    />
+    <preference
+            for="Epicor\ReleaseNotification\Api\LogRepositoryInterface"
+            type="Epicor\ReleaseNotification\Model\LogRepository"
+    />
+    <preference
+            for="Epicor\ReleaseNotification\Api\NotificationManagementInterface"
+            type="Epicor\ReleaseNotification\Model\NotificationManagement"
+    />
+
+    <type name="Magento\ReleaseNotification\Model\Condition\CanViewNotification">
+        <plugin
+                name="ecc_show_release_notification"
+                type="Epicor\ReleaseNotification\Plugin\ShowEccNotification"
+                sortOrder="10"
+        />
+    </type>
+    <type name="Magento\ReleaseNotification\Controller\Adminhtml\Notification\MarkUserNotified">
+        <plugin
+                name="log_views"
+                type="Epicor\ReleaseNotification\Plugin\LogViews"
+                sortOrder="10"
+        />
+    </type>
+    <type name="Magento\AdminNotification\Ui\Component\DataProvider\DataProvider">
+        <plugin
+                name="move_ecc_system_message_to_top"
+                type="Epicor\ReleaseNotification\Plugin\DisplayEccSystemMessageAtTop"
+                sortOrder="10"
+        />
+    </type>
+
+    <virtualType name="notificationsPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="ecc_notifications" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Epicor\ReleaseNotification\Ui\DataProvider\Modifier\EccNotifications
+                    </item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="magento_notifications" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Epicor\ReleaseNotification\Ui\DataProvider\Modifier\MagentoNotifications
+                    </item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="build_meta" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Epicor\ReleaseNotification\Ui\DataProvider\Modifier\BuildMeta
+                    </item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\ReleaseNotification\Ui\DataProvider\NotificationDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">notificationsPool</argument>
+        </arguments>
+    </type>
+
+</config>

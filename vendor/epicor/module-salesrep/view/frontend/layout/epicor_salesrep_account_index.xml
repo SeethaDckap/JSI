@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Sales Rep Dashboard</title>
+        <link src="Epicor_Comm::epicor/comm/js/masqueradeSearchParent.js" />
+        <link src="Epicor_SalesRep::epicor/salesrep/js/selectsalesrep.js" />
+        <link src="Epicor_SalesRep::epicor/salesrep/js/refreshcart.js" />
+    </head>
+    <update handle="customer_account" />
+    <update handle="sales_rep"/>
+    <body>
+        <referenceContainer name="content">
+            <!--<block class="Magento\Framework\View\Element\Template" name="supplierconnect.dashboard.title" template="Epicor_SalesRep::epicor/salesrep/account/dashboard/title.phtml" />-->
+            <block class="Epicor\SalesRep\Block\Account\Dashboard\Information" name="dashboard.information"/>
+            <block class="Epicor\SalesRep\Block\Account\Dashboard\Stats" name="dashboard.stats" />
+            <block class="Epicor\SalesRep\Block\Account\Dashboard\ErpSelector" name="dashboard.erpselector"/>
+            <block class="Epicor\SalesRep\Block\Manage\Select" name="manage_select" as="manage.select" cacheable="false" />
+
+        </referenceContainer>
+    </body>
+</page>

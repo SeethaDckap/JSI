@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<?php
+    $hasEditAccess = $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed(
+        'Epicor_Customer::my_account_address_book_edit'
+    );
+    $customer      = $this->helper('Epicor\Comm\Helper\Data')->getCustomer();
+    $isGuest       = $customer->isGuest();
+    $canEdit       = $hasEditAccess && $isGuest;
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Address Book')) ?></strong>
+        <a class="action edit" href="<?= $block->escapeUrl($block->getAddressBookUrl()) ?>"><span><?= $block->escapeHtml(__('Manage Addresses')) ?></span></a>
+    </div>
+    <div class="block-content">
+        <div class="box box-billing-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Billing Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?= $block->getPrimaryBillingAddressHtml() ?>
+                </address>
+            </div>
+            <div class="box-actions">
+
+                <?php if ($canEdit) { ?>
+                    <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryBillingAddressEditUrl()) ?>"
+                       data-ui-id="default-billing-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="box box-shipping-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?= $block->getPrimaryShippingAddressHtml() ?>
+                </address>
+            </div>
+            <div class="box-actions">
+
+                <?php if ($canEdit) { ?>
+                    <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryShippingAddressEditUrl()) ?>"
+                       data-ui-id="default-shipping-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>

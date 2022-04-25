@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/** @var $block \Epicor\Comm\Block\Checkout\Onepage\Success */
+?>
+<?php $salesOrderHelper = $this->helper('Epicor\Comm\Helper\Sales\Order'); /* @var $salesOrderHelper \Epicor\Comm\Helper\Sales\Order */ ?>
+<?php
+$commonHelper = $this->helper('Epicor\Common\Helper\Data');
+$saveCartToList = $this->helper('Epicor\Lists\Helper\Frontend\Restricted')->isCartAsListActive();
+?>
+
+<div class="checkout-success">
+<?php if ($block->getOrderId()):?>
+    <?php if ($salesOrderHelper->showWebOrderNumber()):?>
+        <p>
+            <?php echo __('Your %1 order # is: %2.',
+                $salesOrderHelper->showErpOrderNumber() ? 'web' : '',
+                $block->getCanViewOrder() ? sprintf('<a id = "web_order_number" href="%s">%s</a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($this->getOrderId())) : $block->escapeHtml($block->getOrderId())
+            )
+            ?>
+        <?php if($block->getIsApprovalPending() == 1): ?>
+                <?php echo $block->getApprovalMessage(); ?>
+        <?php endif; ?>
+        </p>
+    <?php endif;?>
+    <?php if ($salesOrderHelper->showErpOrderNumber() && $block->getErpOrderNumber()):?>
+        <p>
+            <?php echo __('Your %1 order # is: %2.',
+                $salesOrderHelper->showWebOrderNumber() ? 'erp' : '',
+                $block->getCanViewOrder() ? sprintf('<a id = "erp_order_number" href="%s">%s</a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getErpOrderNumber())) : $block->escapeHtml($block->getErpOrderNumber())
+            ) ?>
+            <?php if($block->getIsApprovalPending() == 1): ?>
+                <?php echo $block->getApprovalMessage(); ?>
+            <?php endif; ?>
+        </p>
+    <?php endif;?>
+        <p><?php echo __('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+        <?php if ($block->getCanViewOrder() && $block->getCanPrintOrder()) :?>
+            <p>
+                <?php echo __('Click <a href="%1" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $block->getPrintUrl()) ?>
+                <?php echo $block->getChildHtml() ?>
+            </p>
+    <?php endif;?>
+<?php endif;?>
+
+<?php if ($block->getAgreementRefId()): ?>
+    <p><?php echo __('Your billing agreement # is: %1.', sprintf('<a href="%s">%s</a>', $block->escapeHtml($block->getAgreementUrl()), $block->escapeHtml($block->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $block->getRecurringProfiles()):?>
+<p><?php echo __('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($block->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $block->escapeHtml($block->getProfileUrl($profile)), $block->escapeHtml($block->getObjectData($profile, 'reference_id'))) : $block->escapeHtml($block->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo __('Payment profile # %1: "%2".', $profileIdHtml, $block->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<div class="actions-toolbar">
+    <div class="primary">
+        <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span></a>
+    </div>
+<!--    <div class="primary">-->
+<!--        <a class="action primary continue" href="--><?php ///* @escapeNotVerified */ echo $block->getUrl() ?><!--"><span>--><?php ///* @escapeNotVerified */ echo __('Save Order as List') ?><!--</span></a>-->
+<!--    </div>-->
+<!--    <div class="primary">-->
+<!--    if save cart as list is available for this page add the block -->
+    <?php if(strpos( $saveCartToList, 'O' ) !== false ): ?>
+        <?php include ($block->getTemplateFile('Epicor_Lists::epicor/lists/cart/savecartaslist.phtml')); ?>
+    <?php endif;?>
+<!--        <?php //echo $block->getChildHtml('save_cart_as_list') ?>
+<!--    </div>-->
+
+</div>
+</div>

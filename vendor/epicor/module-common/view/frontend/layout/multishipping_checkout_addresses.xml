@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <script src="Epicor_Common::epicor/common/js/capture-details.js"/>
+       <css    src="Epicor_Common::epicor/common/css/account-default-style.css"/>
+        <remove src="Epicor_BranchPickup::js/epicor/selectpage/main.js"/>
+   </head>
+</page>

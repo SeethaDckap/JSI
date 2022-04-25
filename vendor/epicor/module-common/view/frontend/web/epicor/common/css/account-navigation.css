@@ -1,0 +1,36 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+
+.main-container .sidebar .block,
+.main-container .sidebar #search_mini_form,
+.main-container .sidebar .form-language,
+.main-container .sidebar .store-switcher {
+    display:none;
+}
+
+.main-container .sidebar .block-account {
+    display: inline-block;
+    width:195px;
+    float:left;
+    margin-right:15px;
+}
+
+.main-container .sidebar {
+    display:block;
+    float:none;
+    width:100%;
+    position:absolute;
+    top:15px;
+}
+
+.main-container .main {
+    position:relative;
+}
+
+.main-container .col-main {
+    width:100%;
+    margin-top:40px;
+}
+

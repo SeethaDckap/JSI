@@ -1,0 +1,125 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : general epicor_comm css
+    Created on : 04/03/14
+    Author     : Sean Flynn
+    
+*/
+
+.sml-text {
+    font-size:11px;
+}
+
+#billing-address-search,
+#shipping-address-search
+{
+    float:right;
+    margin-bottom:5px;
+}
+#selectCheckoutAddressSearchWrapperWindow .box-account
+{
+    
+background-color:white;
+overlow-y :auto;
+overlow-x :auto;
+}
+#selectCheckoutAddressSearchWrapperWindow .box-account {
+    /*overflow:auto;*/
+    margin-bottom:0;
+    padding-bottom:0;
+    padding-top:5;
+}
+/*#customer_account_billingaddress_list_table,*/    
+#customer_account_billingaddress_list{    
+    overflow:auto;
+}
+#selectCheckoutAddressSearchWrapperWindow {
+    overflow:auto;
+    background-color:#ffffff;
+}
+
+.attachment_view {
+    margin: 0 2px 0 5px;
+}
+
+table.data textarea {
+    width: auto;
+}
+
+table.data .attachments-row {
+    padding:10px;
+}
+
+.grid tr.deleting {
+    background: none repeat scroll 0 0 #FFDEE4 !important;
+    color: #666 !important;
+}
+a#createCsvUploadFileLink{
+    text-decoration: none;    
+}	
+
+textarea.line_comment {
+    width:90% !important;
+    height:50px !important;
+}
+
+.store-switcher .store {
+    float:left; 
+    text-align:center;
+} 
+.store-switcher .store_link {
+    text-decoration: none;
+} 
+
+.store-switcher img {
+    display:inline;
+}
+.store-switcher .newline{
+    clear:both;
+}
+
+.configurable_addtocart .add-to-cart a {
+    text-decoration: none;
+    color:inherit;
+}
+
+.qop-summary{float:left; width:200px;}
+
+.salesrep-discount-container input[type=text].price, .salesrep-discount-container input[type=text].discount {
+    height: 30px;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+.salesrep-discount-container input[type=text].price{
+    margin: 0 0.3em;
+    width: 5em;
+}
+.salesrep-discount-container input[type=text].discount{
+    margin: 0 0.3em;
+    width: 4em;
+}
+
+#masquerade_search{float:left; }
+.masquerade_search_options_box{float:left; padding-right:5px;}
+
+#masquerade_end{
+    padding: 37px 50px;
+}
+
+.dealer-container input[type=text].price, .dealer-container input[type=text].discount {
+    height: 30px;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+dealer-container input[type=text].price{
+    margin: 0 0.3em;
+    width: 5em;
+}
+.dealer-container input[type=text].discount{
+    margin: 0 0.3em;
+    width: 4em;
+}
+.groupdeleteordownload{margin: 36px;}

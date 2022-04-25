@@ -1,0 +1,134 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : quickadd
+    Created on : 01-Oct-2013
+    Author     : Gareth.James
+    Description:
+        Quick add block stylesheet
+*/
+
+/* Quick Add  */
+
+#cart-quick-add {
+    position:relative
+}
+
+#qa_sku,
+#qa_qty
+{
+    width: 97%;
+}
+.quickadd-autocomplete-container,
+.lineadd-autocomplete-container {
+    position: relative;
+}
+
+.quickadd-autocomplete,
+.lineadd-autocomplete,
+.sku-autocomplete {
+    position: absolute;
+    z-index: 999;
+    width: 97%;
+}
+.lineadd-autocomplete,
+.sku-autocomplete {
+    width: 200px;
+}
+
+.quickadd-autocomplete ul,
+.sku-autocomplete ul {
+    list-style-type: none;
+    padding-left:0;
+    background-color: #fff;
+    border: 1px solid #5C7989;
+    margin: auto;
+}
+.lineadd-autocomplete ul{
+    margin: auto;    
+}
+.quickadd-autocomplete li,
+.sku-autocomplete li{
+    border-bottom: 1px solid #bbb;
+    cursor: pointer;
+    padding: 2px 8px 1px;
+    margin:0;
+    text-align: left;
+}
+
+.quickadd-autocomplete li .amount,
+.sku-autocomplete li .amount {
+    float: right;
+    font-weight: bold;
+}
+
+.quickadd-autocomplete li.odd,
+.sku-autocomplete li.odd {
+    background-color: #f5f5f5;
+}
+
+.quickadd-autocomplete li.selected,
+.sku-autocomplete li.selected{
+    background-color: #F7E8DD;
+}
+
+.quickadd-autocomplete .qa_more,
+.lineadd-autocomplete .qa_more {
+    width:100%;
+}
+
+.quickadd-form-list .required em {
+    color:#f00;
+    margin-right:2px;
+}
+
+#cart-quick-add p.required {
+    color:#f00;
+}
+
+#cart-quick-add .target {
+    margin: 1%;
+}
+
+#cart-quick-add .target span {
+    font-weight:bold;
+    clear:both;
+    display:block;
+}
+
+#cart-quick-add .target label {
+    margin: 5px 0;
+}
+
+#cart-quick-add .target input{
+    margin: 7px 3px;
+    clear:left;
+}
+
+#cart-quick-add .target label,
+#cart-quick-add .target input{
+    float:left;
+}
+
+.quotes-manage-view a {text-decoration: none;}
+.quotes-manage-view a:hover {text-decoration: none;}
+
+#cart-quick-add .buttons-set {
+    clear:both;
+}
+.b2b-portal-register .page-wrapper .columns .column .account-create div.fieldset ul.form-list .fields .field-name-firstname label.label::before{content:'*'}
+.b2b-portal-register .page-wrapper .columns .column .account-create div.fieldset ul.form-list .fields .field-name-lastname label.label::before{content:'*'}
+.minicart-items .item-qty {
+    width: 20%;
+    padding: 0 1px;
+}
+.validation-advice {
+    margin: 5px 0 0;
+    color: #df280a;
+    font-size: 1.2rem;
+}
+#lineadd-add{
+    margin-top:13px;
+}

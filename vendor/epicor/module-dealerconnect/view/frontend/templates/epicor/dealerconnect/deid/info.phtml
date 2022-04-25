@@ -1,0 +1,80 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="box-info box-account block block-dashboard-info <?php echo $this->getOnRight() ? 'col-2 ' : 'col-full'; ?>">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+        
+        <?php foreach ($this->getInfoData() as $label => $value): 
+            $labelKeys = $value[0];
+            $lableVals = $value[1];
+            ?>
+            <p>
+                <span class="label"><?php echo $labelKeys; ?>: </span>
+                <span class="value"><?php echo $this->OrderNumberLink($label,$lableVals); ?></span>
+            </p>
+        <?php endforeach; ?>
+    </div>
+</div>
+<div id="deidselectgrid">
+<input type="hidden" name="deidbasicjson" id="deidbasicjson" value="<?php echo htmlentities(json_encode($this->getBasicLocationDetails()));?>" >
+<input type="hidden" name="deidlocationjson" id="deidlocationjson" value="<?php echo htmlentities(json_encode($this->getLocAddress()));?>" >
+<input type="hidden" name="deidsoldtojson" id="deidsoldtojson" value="<?php echo htmlentities(json_encode($this->getSoldToAddress()));?>" >
+<input type="hidden" name="deidownerjson" id="deidownerjson" value="<?php echo htmlentities(json_encode($this->getOwnerAddress()));?>" >
+</div>
+<script>
+require([
+    "jquery",
+    "mage/url",
+    'Magento_Ui/js/modal/modal',
+    'Magento_Checkout/js/model/full-screen-loader',
+    "mage/template",
+    "jquery/ui"],
+    function($,url, modal, fullScreenLoader){
+        window.arrayRow_deid = {
+            addresspopup: function(actions) {
+                fullScreenLoader.stopLoader();
+                if ($('#deid-edit-popup-modal').length) {
+                    $('#deid-edit-popup-modal').remove();
+                    $('#show-deid-editpopup').remove();            
+                }         
+                
+                if(actions =="add") {
+                   var titles ="Add Information"; 
+                } else {
+                   var titles ="Update Information";  
+                }
+                $.ajax({
+                    showLoader: true,
+                    data: {
+                        locationAddress: $('#deidlocationjson').val(),
+                        soldtojson: $('#deidsoldtojson').val(),
+                        ownerjson: $('#deidownerjson').val(),
+                        basicjson: $('#deidbasicjson').val(),
+                        mode: actions
+                    },
+                    url: url.build('dealerconnect/inventory/addaddress'),
+                    type: "POST",
+                    //dataType:'json',
+                }).done(function(data) {
+                    var options = {
+                        type: 'popup',
+                        responsive: true,
+                        innerScroll: true,
+                        title: titles
+                    };
+                    $("#deidselectgrid").append("<div id='deid-edit-popup-modal'></div>");
+                    $("#deid-edit-popup-modal").append("<div id='show-deid-editpopup'></div>");
+                    var popup = modal(options, $('#deid-edit-popup-modal'));
+                    $('#deid-edit-popup-modal').modal('openModal');
+                    $('#show-deid-editpopup').append(data);
+                    $('.modal-footer').hide();
+                });            
+            }
+      
+    }        
+  });    
+</script>

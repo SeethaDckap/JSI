@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="box-info box-account <?php echo $this->getOnRight() ? 'col-1 ' : 'col-full'; ?>">
+    <div class="box-head">
+        <h2><?php echo $this->getTitle(); ?></h2>
+    </div>
+    <?php if($this->_infoData) : ?> 
+        <ul class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+            <?php foreach ($this->_infoData as $label => $value): ?>
+                <li >
+                    <span class="label"><?php echo $label; ?></span>
+                    <span class="value"><?php echo $value; ?></span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</div>

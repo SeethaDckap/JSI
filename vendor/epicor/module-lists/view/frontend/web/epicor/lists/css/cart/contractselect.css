@@ -1,0 +1,71 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/**
+ * @category   Epicor
+ * @package    Epicor_Lists
+ * @author     Epicor Websales Team
+ */
+#window-overlay {
+    position:fixed;
+    background:rgba(0, 0, 0, 0.35);
+    height:100%;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:990;
+}
+
+#line-contract-select{
+    position:fixed;
+    width:1050px;
+    height:90%;
+    left:50%;
+    top:20px;
+    margin: 0 0 0 -524px;
+    z-index:1000;
+    background:#fff;
+    border:1px solid #999;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding: 20px;
+    
+}
+
+#line-contract-select h2 {
+    margin-top:0;
+}
+
+#line-contract-select th,
+#line-contract-select tr.data-grid-filters td {
+    padding: 4px 10px;
+}
+
+#productsGrid_table td {
+    font-size: 12px;
+}
+
+#line-contract-select ul.tier-prices {
+    border-top: 1px solid #c1c1c1;
+    list-style: none;
+    padding-left:0;
+    margin-bottom:0;
+}
+
+#line-contract-select > div {
+    padding:5px;
+}
+
+#line-contract-select > div.content-header {
+    border:none;
+    background:#6f8992;
+    color:#fff;
+}
+
+#line-contract-select > div.content-header h3 {
+    color:#fff;
+    padding:0;
+}
+
+#line-select-close-popup {float:right; margin-right:10px;margin-top:-50px;}

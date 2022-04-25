@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Text" name="fixminicarterror">
+                <arguments>
+                    <argument name="text" xsi:type="string"><![CDATA[<script>window.checkout = {};</script>]]></argument>
+                </arguments>
+            </block>
+        </referenceContainer>        
+        <referenceContainer name="content">
+            <referenceContainer name="copyright" remove="true"/>
+            <block template="Epicor_Elements::elements/checkout/setupreturn.phtml" class="Epicor\Elements\Block\Checkout\Setupreturn" name="payerauth"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="epicor_order_approval_hierarchy_save" instance="Epicor\OrderApproval\Observer\SaveOrderApprovalHierarchy"/>
+        <observer name="send_approval_email" instance="Epicor\OrderApproval\Observer\SubmitObserver" />
+    </event>
+    <event name="paypal_express_place_order_success">
+        <observer name="epicor_order_approval_hierarchy_save_paypal" instance="Epicor\OrderApproval\Observer\SaveOrderApprovalHierarchy"/>
+        <observer name="send_approval_email_paypal" instance="Epicor\OrderApproval\Observer\SubmitObserver" />
+    </event>
+    <event name="ecc_branch_pickup_information_save_after">
+        <observer name="branch_pickup_payment_approval_message" instance="Epicor\OrderApproval\Observer\SaveBranchPickupInformation"/>
+    </event>
+    <event name="order_approval_reset_process">
+        <observer name="epicor_order_approval_hierarchy_reset" instance="Epicor\OrderApproval\Observer\SaveOrderApprovalHierarchy"/>
+        <observer name="send_approval_email_reset" instance="Epicor\OrderApproval\Observer\SubmitObserver" />
+    </event>
+</config>

@@ -1,0 +1,79 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $block \Epicor\SalesRep\Block\Account\Dashboard\ErpSelector */
+//M1 > M2 Translation Begin (Rule p2-5.11)
+//if (Mage::getStoreConfigFlag('epicor_salesrep/general/masquerade_search_dashboard')) {
+if ($block->getStoreConfigFlag('epicor_salesrep/general/masquerade_search_dashboard')) {
+    //M1 > M2 Translation End
+    return;
+}
+$erpAccounts = $block->getErpAccounts(true);
+?><div class="box-info box-account col-1">
+    <div class="box-head">
+        <h2><?php echo $block->getTitle(); ?></h2>
+    </div>
+    <form action="<?php echo $block->getActionUrl(); ?>" method="post" id="masquerade-as">
+        <input type="hidden" name="return_url" value="<?php echo $this->getReturnUrl(); ?>" />
+        <ul class="form-list">
+            <li>
+                <label for="masquerade_as" class="required"><em>*</em><?php echo __('Masquerade as'); ?></label>
+                <div class="input-box masquerade_search_options_box">
+                    <select name="masquerade_as" id="masquerade_as" class="required-entry validate-select" title="<?php echo __('Masquerade as'); ?>">
+                        <option><?php echo __('Select an ERP Account'); ?></option>
+                        <?php foreach ($erpAccounts as $erp_account): ?>
+                            <option <?php if ($block->isMasqueradeAccount($erp_account)): ?>selected="selected" <?php endif; ?>value="<?php echo $erp_account->getEntityId(); ?>"><?php echo $erp_account->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div>
+                    <?php if ($block->displaySearchButton()) : ?>
+                        <button id="masquerade_search" type="button" title="<?php echo __('Search') ?>" class="button" ><span><span><?php echo __('Search') ?></span></span></button>
+                    <?php endif; ?>
+                </div>
+            </li>   
+
+        </ul>
+        <div class="actions salesrep_masq_button">
+            <?php if (!$block->isMasquerading()): ?>
+                <button type="submit" title="<?php echo __('Begin Masquerade'); ?>" class="button"><span><span><?php echo __('Begin Masquerade'); ?></span></span></button>
+            <?php else: ?>
+                <button type="submit" title="<?php echo __('Switch Account'); ?>" class="button"><span><span><?php echo __('Switch Account'); ?></span></span></button>
+            <?php endif; ?>
+        </div>
+    </form>
+    <?php if ($block->isMasquerading()): ?>
+        <form action="<?php echo $block->getActionUrl(); ?>" method="post" id="masquerade-as">
+            <input type="hidden" name="return_url" value="<?php echo $block->getReturnUrl(); ?>" />
+            <div class="actions" id ="masquerade_end">
+                <button  type="submit" title="<?php echo __('End Masquerade'); ?>" class="button"><span><span><?php echo __('End Masquerade'); ?></span></span></button>
+            </div>
+        </form>
+    <?php endif; ?>
+</div>
+
+<script type="text/javascript">
+    require(["prototype"],function(){
+        if ($("masquerade_search")) {
+            $("masquerade_search").observe('click', function () {
+                    var overlay_margin = parseFloat(($('window-overlay').getWidth() * .40) / 2);
+                    $('window-overlay').insert('<iframe id="search_iframe" width="60%" top="20%" src="" frameborder="0" style="display:none"></iframe>');
+                    $$('iframe').first().setStyle({left: overlay_margin + 'px'});
+                   // $('search_iframe').style.height = parseInt($('search_iframe').scrollHeight + 50) + 'px';
+                    $('search_iframe').src = '/salesrep/account/masqueradepopup';
+                    $('search_iframe').show();
+                    $('window-overlay').show();
+                }
+            );
+        }
+        function resizeIframe(obj) {
+        alert('ddd');
+            obj.style.height = parseInt(obj.contentWindow.document.body.scrollHeight + 50) + 'px';
+        }
+
+    });
+
+
+</script>

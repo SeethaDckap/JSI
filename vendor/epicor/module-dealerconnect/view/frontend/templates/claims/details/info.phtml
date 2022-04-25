@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ info
+ * 
+ * @category   Epicor
+ * @package    Epicor_Dealerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Dealerconnect\Block\Claims\Details\Info */
+$serialNumber = "";
+$claim = $this->registry('dealer_connect_claim_details');
+$inventoryInfo = $this->registry('dealer_connect_claim_inventory');
+/* @var $rfq \Epicor\Common\Model\Xmlvarien */
+if ($claim->getSerialNumbers()) {
+    $serialNumbers = $claim->getSerialNumbers()->getasarraySerialNumber();
+    $serialNumber = implode(', ', $serialNumbers);
+}
+?>
+<div class = "box-info box-account col-1 block">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list">
+        <p id="location_number">
+            <input type="hidden" id="input_location_num" name = "locationNumber" value="<?php echo $claim->getLocationNumber(); ?>" />
+        </p>
+        <p id="serial_number">
+            <span class="label"><?php echo __('Serial Number'); ?>:</span>
+            <span class="value" id="sp_serial_num"><?php echo $serialNumber; ?></span>
+        </p>
+        <p id="identificaton_number">
+            <span class="label"><?php echo __('Identification Number'); ?>:</span>
+            <span class="value" id="sp_identity_num"><?php echo $claim->getIdentificationNumber(); ?></span>
+        </p>
+        <p id="product_code">
+            <span class="label"><?php echo __('Product Code'); ?>:</span>
+            <span class="value" id="sp_prod_code"><?php echo (!is_null($inventoryInfo)) ?  $inventoryInfo->getProductCode() : ''; ?></span>
+        </p>
+        <input type="hidden" id="case_number" name="case_number" value="<?php echo $claim->getCaseNumber() ?>" />
+    </div>
+</div>

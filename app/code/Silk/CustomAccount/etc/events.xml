@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="bsv_request_converttoxml_before">
+    <observer name="updateBsvAssemble" instance="Silk\CustomAccount\Observer\Bsv\UpdateBsvRequestAssemble"/>
+  </event>
+  <event name="sales_quote_add_item">
+      <observer name="add_customprice" instance="Silk\CustomAccount\Observer\Cart\CustomPrice" />
+  </event>
+</config>

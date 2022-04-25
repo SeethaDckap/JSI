@@ -1,0 +1,168 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Product list template
+ *
+ * @see Epicor_QuickOrderPad_Block_Catalog_Product_List
+ */
+/* @var $this \Epicor\QuickOrderPad\Block\Catalog\Product\Listing */
+?>
+<?php
+
+$_productCollection = $this->getLoadedProductCollection();
+$_helper = $this->getCatalogOutputHelper();
+$_productHelper = $this->getCommProductHelper();
+$showUom = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart');
+$showInColumn = $this->getConfigFlag('Epicor_Comm/units_of_measure/display_in_cart_column');
+// limit customer access to configurator button to correct licence
+//M1 > M2 Translation Begin (Rule p2-1)
+//$customer = Mage::getModel('customer/session')->getCustomer();
+$customer = $this->getCustomerSession()->getCustomer();
+//M1 > M2 Translation End
+/* @var $customer \Epicor\Comm\Model\Customer */
+if ($customer->isCustomer()) {
+    $licenseTypes = array('Customer_Configurator');
+} else {
+    $licenseTypes = array('Consumer_Configurator');
+}
+
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+/* @var $helper \Epicor\Comm\Helper\Data */
+
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+$showPrice = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+$showStockLevelDisplay = $this->showStockLevelDisplay();
+$showProductImage = $this->showProductImageDisplay();
+
+$showMultipleAdd = false;
+
+$this->setLicensed($this->helper('Epicor\Common\Helper\Data')->isLicensedFor($licenseTypes));
+
+//locations stuff
+$locHelper = $this->getCommLocationsHelper();
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = ($this->getConfig('epicor_comm_locations/global/stockvisibility') == 'all_source_locations') ? true : false;
+
+$displayedProductSku = '';
+$displayedProductLocation = '';
+
+
+
+?>
+<?php if (!$_productCollection->count()): ?>
+    <p class="note-msg"><?php echo __('There are no products matching the selection.') ?></p>
+<?php else: ?>
+    <div class="category-products">
+        <?php echo $this->getToolbarHtml() ?>
+        <?php $_iterator = 0; ?>
+        <table class="qop-list data-table" id="qop-list">
+            <thead>
+                <tr>
+                    <?php echo $this->getChildHtml('product_header', false); ?>
+                    <?php echo $this->getChildHtml($this->getPrimarySort() . '_header', false); ?>
+                    <?php echo $this->getChildHtml($this->getSecondarySort() . '_header', false); ?>
+                    <?php echo $this->getChildHtml('stock_header', false); ?>
+                    <?php echo $this->getPriceBlock('price_header', false); ?>
+                    <?php echo $this->getCartBlock('add_header', false); ?>
+                </tr>
+            </thead>
+            <?php
+            foreach ($_productCollection as $product):
+                /* @var $_product \Epicor\Comm\Model\Product */
+                $this->unregister('current_product');
+                $this->register('current_product', $product);
+                $uomProducts = $this->getUOMProducts($product);
+                if (($product->getTypeId() != 'grouped' || count($uomProducts) > 0) && (!$this->registry('search-instock') || $product->isSaleable())) :
+                    
+                    $showMultipleAdd = true;
+                    $extraClasses = ( ++$_iterator == sizeof($_productCollection) ) ? ' last' : '';
+                    $primary_rowspan = $this->getPrimaryRowspan($product);
+                    $this->unregister('current_rowspan');
+                    $this->register('current_rowspan', $primary_rowspan);
+                    ?>
+                    <tr class="item <?php echo $extraClasses; ?>">
+                        <?php echo $this->getChildHtml('product_row', false); ?>
+                        <?php
+                        $primaryRow = 1;
+                        $primaryProducts = $this->getPrimaryItems($product);
+                        foreach ($primaryProducts as $primaryProduct) :
+                            $this->setProductData($product, $primaryProduct);
+                            $secondary_rowspan = $this->getSecondaryRowspan($product, $primaryProduct);
+                            $this->unregister('current_rowspan');
+                            $this->register('current_rowspan', $secondary_rowspan);
+                            ?>
+                            <?php echo $this->getChildHtml($this->getPrimarySort() . '_row', false); ?>
+                            <?php
+                            $this->unregister('current_rowspan');
+                            $this->register('current_rowspan', 1);
+                            $secondaryRow = 1;
+                            $secondaryProducts = $this->getSecondaryItems($product, $primaryProduct);
+                            $lastSku = '';
+                            foreach ($secondaryProducts as $secondaryProduct) :
+                                if($this->getPrimarySort() == 'location' || $lastSku != $primaryProduct->getSku()):                          //only set when using locations and all_source_locations set 
+                                   $this->setProductData($primaryProduct, $secondaryProduct);
+                                    ?>
+                                    <?php echo $this->getChildHtml($this->getSecondarySort() . '_row', false); ?>
+                                    <?php echo $this->getChildHtml('stock_row', false); ?>
+                                    <?php echo $this->getPriceBlock('price_row', false); ?>
+                                    <?php echo $this->getCartBlock('add_row', false); ?>
+                            <?php endif; ?>
+                            <?php if($showLocations && $allSourceLocations): ?>
+                            <?php     $lastSku = $primaryProduct->getSku(); ?>
+                            <?php endif; ?>
+                            </tr>
+                            <?php if ($secondaryRow != count($secondaryProducts)) : ?>
+                                <tr class="item" rel="s-<?php echo $secondaryRow; ?>">
+                                <?php endif; ?>
+                                <?php $secondaryRow++; ?>
+                            <?php endforeach; ?>
+                        </tr>
+                        <?php if ($primaryRow != count($primaryProducts)) : ?>
+                            <tr class="item" rel="p-<?php echo $primaryRow; ?>">
+                            <?php endif; ?>
+                            <?php $primaryRow++; ?>
+                        <?php endforeach; ?>
+
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+
+        <?php echo $this->getToolbarHtml(); ?>
+        <?php $showMultipleAdd = $this->showMultipleAdd($showMultipleAdd); ?>
+        <?php if (($showMultipleAdd && $showAddToCart) || $this->getForceCart()) : ?>
+            <?php $label = $this->getCartButtonLabelOverride() ? __($this->getCartButtonLabelOverride()) : __('Add Multiple to Cart'); ?>
+            <form method="post" action=<?php echo $block->getUrl('comm/cart/add', ['form_key' => $this->getFormKey()]);?> class="addalltobasketform" id="addalltobasketform">
+                <input type="hidden" value="<?php
+                //M1 > M2 Translation Begin (Rule p2-5.1)
+                //echo Mage::getSingleton('core/session')->getFormKey();
+                echo $block->getFormKey();
+                //M1 > M2 Translation End
+                ?>" name="form_key">
+                <input type="hidden" name="configurelist" value="1" />
+                <button type="submit" title="<?php echo $label ?>" class="btn-qop action primary tocart" id="add_all_to_basket"><span><?php echo $label ?></span></button>
+            </form>
+        <?php endif; ?>
+        <?php if ($this->getRequest()->getParam('csv')) : ?>
+            <div class="add-to-cart" id="clear_configure_basket">
+                <a href="<?php echo $this->getUrl('quickorderpad/form/configclear'); ?>">
+                    <button type="button" title="<?php echo __('Clear List'); ?>" class="btn-cart action primary tocart" onclick="">
+                        <span><span>
+                                <?php echo __('Clear List') ?>
+                            </span></span>
+                    </button>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+        "Epicor_QuickOrderPad/js/view/default-order":{}
+        }
+    }
+</script>

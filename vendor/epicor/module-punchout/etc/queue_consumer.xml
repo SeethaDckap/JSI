@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="ecc.punchout.ordercreate" queue="ecc.punchout.ordercreate" connection="db" maxMessages="100" consumerInstance="Magento\Framework\MessageQueue\Consumer" handler="Epicor\Punchout\Model\Queue\Order\Consumer\ProcessOrder::process" />
+</config>

@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_SalesRep_Block_Checkout_Onepage_Salesrep_Contact */
+?>
+<div id="checkout-salesrep_contact-load">
+    <form id="co-salesrep_contact-form" action="">
+        <fieldset>
+            <dl class="sp-contacts">
+                <dt>
+                <label for="salesrep_contact"><?php echo __('Contact : '); ?></label>
+                <?php if ($this->isRequired()) : ?>
+                    <span class="required">*</span>
+                <?php endif; ?>
+                <select name="salesrep_contact" id="salesrep_contact" <?php if ($this->isRequired()) : ?>class="required-entry"<?php endif; ?>>
+                    <?php if ($this->isRequired()) : ?>
+                        <option value=""><?php echo __('Please Choose a Recipient for this Order'); ?></option>
+                    <?php else: ?>
+                        <option value=""><?php echo __('N/A'); ?></option>
+                    <?php endif; ?>
+                    <?php foreach ($this->getContacts() as $id => $contact): ?>
+                        <?php $selected = $this->getCurrentContact() == $id ? ' selected="selected"' : ''; ?>
+                        <option value="<?php echo $contact->getBasedata(); ?>"<?php echo $selected; ?>><?php echo $contact->getName(); ?> (<?php echo $contact->getEmail(); ?>)</option>
+                    <?php endforeach; ?>
+                </select>
+                </dt>
+            </dl>
+        </fieldset>
+        <script type="text/javascript">
+            //<![CDATA[
+            var contactFormMethod = new SalesrepContactMethod('co-salesrep_contact-form', '<?php echo $this->getUrl('epicor_salesrep/onepage/saveContact') ?>');
+            var contactForm = new VarienForm('co-salesrep_contact-form');
+            //]]>
+        </script>
+        <div class="buttons-set" id="salesrep_contact-buttons-container">
+            <button type="button" class="button" onclick="contactFormMethod.save()"><span><span><?php echo __('Continue') ?></span></span></button>
+            <span id="salesrep_contact-please-wait" class="please-wait" style="display:none;">
+                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo __('Loading next step...') ?>" title="<?php echo __('Loading next step...') ?>" class="v-middle" /> <?php echo __('Loading next step...') ?>
+            </span>
+        </div>
+    </form>
+</div>

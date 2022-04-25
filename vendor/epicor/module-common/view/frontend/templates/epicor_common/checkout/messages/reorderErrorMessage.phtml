@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?= $block->escapeHtml(__(
+    '%1 Click <a href="%2">here</a> to choose from different location.',
+    $block->getData('message'),
+    $block->getData('product_url')
+), ['a']);

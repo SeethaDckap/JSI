@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Epicor\Dealerconnect\Block\Header\Togglelink"  name="toggle_price-link" before="top.links" template="Epicor_Dealerconnect::epicor/dealerconnect/header/link.phtml">
+                <arguments>
+                    <argument translate="true" name="id" xsi:type="string">dealer-price-toggle</argument>
+                    <argument name="component" xsi:type="string">Epicor_Dealerconnect/epicor/dealerconnect/js/view/delear-shopper-link</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="dealer_extra" template="Epicor_Dealerconnect::epicor/dealerconnect/quoteextra.phtml"/>
+        </referenceContainer>
+        <move element="toggle_price-link" destination="header.links" before="header"/>
+    </body>
+</page>
+    

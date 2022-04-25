@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="page-title">
+    <h1><?php echo __('Checkout') ?></h1>
+</div>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('onepage/shipping_dates.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('epicor/comm/js/line-comments.js') ?>"></script>
+
+<ol class="opc" id="checkoutSteps">
+<?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+    <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+        <div class="step-title">
+            <span class="number"><?php echo $i ?></span>
+            <h2><?php echo $_stepInfo['label'] ?></h2>
+            <a href="#"><?php echo __('Edit') ?></a>
+        </div>
+        <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+            <?php echo $this->getChildHtml($_stepId) ?>
+        </div>
+    </li>
+<?php endforeach ?>
+</ol>
+<script type="text/javascript">
+//<![CDATA[
+    var accordion = new Accordion('checkoutSteps', '.step-title', true);
+    <?php if($this->getActiveStep()): ?>
+    accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+    <?php endif ?>
+    var checkout = new ShippingDates(accordion,{
+        progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+        review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+        saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+        failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+    );
+//]]>
+</script>
+<?php 
+$helper = Mage::helper('epicor_lists/frontend_restricted');
+/* @var $helper Epicor_Lists_Helper_Frontend_Restricted */
+$ajaxDeliveryAddressUrl = $this->getUrl('epicor_lists/listModel/changeshippingaddress', $helper->issecure());
+$checkoutUrl = $this->getUrl('epicor_lists/listModel/changebillingaddressajax', $helper->issecure());
+$checkoutUrlShipping = $this->getUrl('epicor_lists/listModel/changeshippingaddressajax', $helper->issecure());
+$cartPopupurl = $this->getUrl('epicor_lists/listModel/cartpopup', $helper->issecure());
+$selectAddress = $this->getUrl('epicor_lists/listModel/selectaddressajax', $helper->issecure());
+?>
+<input type="hidden" name="ajaxdeliveryaddressurl" id="ajaxdeliveryaddressurl" value="<?php echo $ajaxDeliveryAddressUrl; ?>">
+<input type="hidden" name="deliverycartpopupurl" id="deliverycartpopupurl" value="<?php echo $cartPopupurl; ?>">
+<input type="hidden" name="selectaddress" id="selectaddress" value="<?php echo $selectAddress; ?>">
+<input type="hidden" name="changebillingaddressajax" id="changebillingaddressajax" value="<?php echo $checkoutUrl; ?>">
+<input type="hidden" name="changeshippingaddressajax" id="changeshippingaddressajax" value="<?php echo $checkoutUrlShipping; ?>">

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="sales.order.print.shipment">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Common::epicor_common/sales/order/shipment/print.phtml</argument>
+            </action>
+            <block class="Magento\Framework\View\Element\RendererList" name="sales.order.print.shipment.renderers.override" as="renderer.list.custom" />
+            <arguments>
+                <argument name="renderer_list_name" xsi:type="string">sales.order.print.shipment.renderers.override</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

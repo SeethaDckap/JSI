@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+namespace Epicor\Customerconnect\Api\Data;
+
+/**
+ * Interface PaymentInterface
+ * @api
+ * @since 100.0.2
+ */
+interface PaymentInterface extends \Magento\Framework\Api\ExtensibleDataInterface
+{
+    /**#@+
+     * Constants defined for keys of array, makes typos less likely
+     */
+    const KEY_PO_NUMBER = 'po_number';
+
+    const KEY_METHOD = 'method';
+
+    const KEY_ADDITIONAL_DATA = 'additional_data';
+
+    /**#@-*/
+
+    /**
+     * Get purchase order number
+     *
+     * @return string|null
+     */
+    public function getPoNumber();
+
+    /**
+     * Set purchase order number
+     *
+     * @param string $poNumber
+     * @return $this
+     */
+    public function setPoNumber($poNumber);
+
+    /**
+     * Get payment method code
+     *
+     * @return string
+     */
+    public function getMethod();
+
+    /**
+     * Set payment method code
+     *
+     * @param string $method
+     * @return $this
+     */
+    public function setMethod($method);
+
+    /**
+     * Get payment additional details
+     *
+     * @return string[]|null
+     */
+    public function getAdditionalData();
+
+    /**
+     * Set payment additional details
+     *
+     * @param string $additionalData
+     * @return $this
+     */
+    public function setAdditionalData($additionalData);
+
+ }

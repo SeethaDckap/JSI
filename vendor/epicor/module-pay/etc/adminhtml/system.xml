@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="payment">
+      <group id="pay" translate="label" sortOrder="670" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Epicor Payment Module</label>
+        <field id="active" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <comment>This payment method is used for Credit account. This will not show for the default erpaccount</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="order_status" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>New Order Status</label>
+          <source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+        </field>
+        <field id="title" translate="label" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+        </field>
+        <field id="message" translate="label" sortOrder="40" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Displayed Message</label>
+        </field>
+        <field id="update_billing_address" translate="label" sortOrder="45" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Force Default Billing Address</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="message_update_billing" translate="label" sortOrder="47" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Force Default Billing Address Message</label>
+          <depends>
+            <field id="update_billing_address">1</field>
+          </depends>
+        </field>
+        <field id="creditavailablecheck" translate="label" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Do Credit Available Check?</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="disp_credit_check_msg" translate="label" sortOrder="52" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Display Credit Check Message?</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="creditavailablecheck">1</field>
+          </depends>
+        </field>
+        <field id="credit_check_msg" translate="label" sortOrder="53" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Displayed Message</label>
+          <depends>
+            <field id="creditavailablecheck">1</field>
+            <field id="disp_credit_check_msg">1</field>
+          </depends>
+        </field>
+        <field id="softcreditlimit" translate="label" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Can Place Orders While in Negative Credit?</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="decrementpurchases" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Can Place Orders Which Place in Negative Credit?</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="sort_order" translate="label" sortOrder="80" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Sort Order</label>
+        </field>
+        <field id="epm_po" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Purchase Order Number</label>
+          <source_model>Epicor\Pay\Model\Config\Source\PonOptions</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

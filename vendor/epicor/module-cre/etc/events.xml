@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="sales_model_service_quote_submit_before">
+		<observer instance="Epicor\Cre\Observer\Sales\ConvertQuotePayment" name="epicor_cre_observer"/>
+	</event>
+</config>

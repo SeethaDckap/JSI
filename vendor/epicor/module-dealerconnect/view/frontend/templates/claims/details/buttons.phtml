@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ page buttons
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Buttons */
+$action = $this->registry('rfq_new') ? $this->getUrl('*/*/add/') : $this->getUrl('*/*/update');
+?>
+<div class="a-right claim_rfq_buttons" id="button_bar">
+    <?php if ($this->showDuplicate()) : ?>
+        <button id="claim_rfq_duplicate" class="scalable go" type="button" title="<?php echo __('Duplicate') ?>" onclick="dealerClaim.duplicateQuote('<?php echo $this->getDuplicateUrl(); ?>')">
+            <span>
+                <span>
+                    <span><?php echo __('Duplicate') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="duplicate_url" id="duplicate_url" value="<?php echo $this->getDuplicateUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->showConfirm()) : ?>
+        <button id="claim_rfq_confirm" class="scalable save" type="button" title="<?php echo __('Confirm') ?>" onclick="dealerClaim.confirmQuote()">
+            <span>
+                <span>
+                    <span><?php echo __('Confirm') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="confirm_url" id="confirm_url" value="<?php echo $this->getConfirmUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->showReject()) : ?>
+        <button id="claim_rfq_reject" class="scalable delete" type="button" title="<?php echo __('Reject') ?>" onclick="dealerClaim.rejectQuote()">
+            <span>
+                <span>
+                    <span><?php echo __('Reject') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="reject_url" id="reject_url" value="<?php echo $this->getRejectUrl(); ?>" />
+    <?php endif; ?>
+</div>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+$_order = $_item->getOrder();
+$info = $_item->getData('additional_data');
+$info = json_decode($info,true);
+$invoiceAmount =isset($info['invoiceAmount'])?$_order->formatPrice($info['invoiceAmount']):$_order->formatPrice(0);
+$invoiceBalance =isset($info['invoiceBalance'])?$_order->formatPrice($info['invoiceBalance']):$_order->formatPrice(0);
+$settlementTermAmount =isset($info['settlementTermAmount'])?$_order->formatPrice($info['settlementTermAmount']):$_order->formatPrice(0);
+?>
+
+<tr>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+        <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+        <p class="sku"><?= $block->escapeHtml($block->getSku($_item)) ?></p>
+     
+    </td>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php echo $invoiceAmount ?>      
+    </td>    
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php echo $invoiceBalance ?>      
+    </td> 
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php echo $settlementTermAmount ?>      
+    </td>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php echo $_order->formatPrice($_item->getRowTotal()) ?>      
+    </td>
+</tr>
+

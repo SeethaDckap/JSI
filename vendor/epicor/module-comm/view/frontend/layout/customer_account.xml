@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        
+        <referenceBlock name="customer_account_navigation">
+            <block  class="Epicor\Comm\Block\Framework\View\Element\Html\Link\MyReturns"
+                    ifconfig="epicor_comm_enabled_messages/CRRS_request/active"
+                    name="my-returns" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">epicor_comm/returns/lists</argument>
+                    <argument name="label" xsi:type="string">My Returns</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_returns</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <move element="my-returns" destination="customer_account_navigation" after="customer-account-navigation-newsletter-subscriptions-link" />
+        <referenceBlock name="customer_account_navigation">
+            <block  class="Magento\Framework\View\Element\Html\Link\Current"
+                    ifconfig="checkout/basket_csv_upload/enabled_my_account"
+                    name="Product2CartByCsv" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">epicor_comm/cart/csvupload/</argument>
+                    <argument name="label" xsi:type="string">Add Product To Cart By CSV</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Checkout::checkout_quick_order_pad</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

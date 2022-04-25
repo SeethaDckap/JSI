@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">transactionlogs_view.transactionlogs_form_data_source</item>
+            <item name="deps" xsi:type="string">transactionlogs_view.transactionlogs_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Test Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">transactionlogs_view</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+
+        <buttons>
+           <button name="back" class="Epicor\Punchout\Block\Adminhtml\Transactionlogs\View\BackButton"/>
+            <button name="delete" class="Epicor\Punchout\Block\Adminhtml\Transactionlogs\View\DeleteButton"/>
+        </buttons>
+        <namespace>transactionlogs_view</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>transactionlogs_view.transactionlogs_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="transactionlogs_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="cms/block/save"/>
+        </settings>
+        <dataProvider class="Epicor\Punchout\Model\Transactionlogs\DataProvider\DataProvider"
+                      name="transactionlogs_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="transactionlogs_details">
+        <settings>
+            <label>Message Details</label>
+        </settings>
+        <htmlContent name="html_content">
+            <block name="block_name_here" class="Epicor\Punchout\Block\Adminhtml\Transactionlogs\View\GenericInfo" template="Epicor_Punchout::transactionlogs/info.phtml"/>
+        </htmlContent>
+    </fieldset>
+</form>

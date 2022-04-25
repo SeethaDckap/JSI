@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)): ?>
+<div data-bind="scope:'updateOptions'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<?php endif ?>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "updateOptions": {
+                            "component": "Epicor_Comm/epicor/comm/js/updateConfigOptions",
+                            "spconfig" : <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>
+                        }
+                    }
+                }
+            }
+        }
+</script>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="epicor_comm_email_alerts_admin_site_offline_template" label="Epicor Comm Site Offline Notification" file="epicor_comm/site_offline.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_guests_customer_status_email_template" label="Epicor Returns Guests Status Update Notification" file="epicor_comm/returns_status_update_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_guests_admin_status_email_template" label="Epicor Returns Guests Admin Status Update Notification" file="epicor_comm/returns_status_update_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_guests_customer_error_email_template" label="Epicor Returns Guests Error Notification" file="epicor_comm/returns_error_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_guests_admin_error_email_template" label="Epicor Returns Guests Admin Error Notification" file="epicor_comm/returns_error_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2c_customer_status_email_template" label="Epicor Returns B2C Status Update Notification" file="epicor_comm/returns_status_update_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2c_admin_status_email_template" label="Epicor Returns B2C Admin Status Update Notification" file="epicor_comm/returns_status_update_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2c_customer_error_email_template" label="Epicor Returns B2C Error Notification" file="epicor_comm/returns_error_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2c_admin_error_email_template" label="Epicor Returns B2C Admin Error Notification" file="epicor_comm/returns_error_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2b_customer_status_email_template" label="Epicor Returns B2B Status Update Notification" file="epicor_comm/returns_status_update_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2b_admin_status_email_template" label="Epicor Returns B2B Admin Status Update Notification" file="epicor_comm/returns_status_update_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2b_customer_error_email_template" label="Epicor Returns B2B Error Notification" file="epicor_comm/returns_error_customer.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_returns_b2b_admin_error_email_template" label="Epicor Returns B2B Admin Error Notification" file="epicor_comm/returns_error_admin.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_sales_email_order_template" label="New Order" file="epicor_comm/sales/order_new.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_sales_email_order_guest_template" label="New Order for Guest" file="epicor_comm/sales/order_new_guest.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_sales_email_order_comment_template" label="Order Update" file="epicor_comm/sales/order_update.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_sales_email_order_comment_guest_template" label="Order Update for Guest" file="epicor_comm/sales/order_update_guest.html" type="html" area="frontend" module="Epicor_Comm"/>
+  <template id="epicor_comm_customer_password_remind_email_template" label="Reset Password" file="epicor_comm/password_new.html" type="html" module="Epicor_Comm" area="frontend"/>
+  <template id="epicor_comm_message_error_email_template" label="Send Email When Message Fails" file="epicor_comm/message_error.html" type="html" module="Epicor_Comm" area="frontend"/>
+  <template id="epicor_comm_sales_email_shipment_template" label="Sales Shipment Email" file="epicor_comm/shipment_new.html" type="html" module="Epicor_Comm" area="frontend"/>
+  <template id="epicor_comm_sales_email_shipment_guest_template" label="Sales Shipment Email for Guest" file="epicor_comm/shipment_new_guest.html" type="html" module="Epicor_Comm" area="frontend"/>
+  <template id="epicor_comm_sales_email_invoice_template" label="Sales New Invoice Email" file="epicor_comm/invoice_new.html" type="html" module="Epicor_Comm" area="frontend"/>
+</config>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="box-info box-account <?php echo ($this->getBoxClass()) ? $this->getBoxClass() : 'col-full'; ?>">
+    <div class="content-header">
+        <table cellspacing="0">
+            <tr>
+                <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+                <?php if($this->getButtonsHtml()):?>
+                    <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+                <?php endif;?>
+            </tr>
+        </table>
+    </div>
+    <div class="boxed-content">
+        <?php echo $this->getGridHtml() ?>
+    </div>
+</div>

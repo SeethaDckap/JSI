@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Epicor\Supplierconnect\Model\ModelReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="customer/customer" xsi:type="object">Magento\Customer\Model\Customer</item>
+                <item name="epicor_comm/customer_erpaccount" xsi:type="object">Epicor\Comm\Model\Customer\Erpaccount</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Model\ArrayMessages">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="spos" xsi:type="string">SPOS</item>
+                <item name="surs" xsi:type="string">SURS</item>
+                <item name="spls" xsi:type="string">SPLS</item>
+                <item name="suis" xsi:type="string">SUIS</item>
+                <item name="sups" xsi:type="string">SUPS</item>
+                <item name="spcs" xsi:type="string">SPCS</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Supplierconnect\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Supplierconnect\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">supplierConnectLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\Supplierconnect\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

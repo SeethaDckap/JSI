@@ -1,0 +1,734 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+?>
+<?php
+$telephoneRequired = $block->getConfig('checkout/options/telephone_required');
+$mobileNumberRequired = $block->getConfigFlag('customer/address/display_mobile_phone');
+
+$registeredAddress = $block->showRegisteredAddress();
+$registeredAddressTelephoneFax = $block->showRegisteredAddressTelephoneFax();
+
+$invoiceAddress = $block->showInvoiceAddress();
+$invoiceAddressTelephoneFax = $block->showInvoiceAddressTelephoneFax();
+
+$deliveryAddress = $block->showDeliveryAddress();
+$deliveryAddressTelephoneFax = $block->showDeliveryAddressTelephoneFax();
+?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<form class="form create account form-create-account" action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+    <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+    <fieldset class="fieldset create info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Personal Information')) ?></span></legend><br>
+        <input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>">
+        <input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>">
+        <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="field choice newsletter">
+                <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span></label>
+            </div>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+        <?php endif ?>
+
+        <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+        <?php if ($_dob->isEnabled()): ?>
+            <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
+        <?php endif ?>
+
+        <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+        <?php if ($_taxvat->isEnabled()): ?>
+            <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+
+        <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+        <?php if ($_gender->isEnabled()): ?>
+            <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+        <?php endif ?>
+    </fieldset>
+    <?php if (!$block->getSendAccountToErp()): ?>
+        <?php if ($block->getShowAddressFields()): ?>
+            <div class="fieldset">
+                <input type="hidden" name="create_address" value="1" />
+                <h2 class="legend"><?php echo __('Address Information') ?></h2>
+                <?php $company = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Company::class) ?>
+                <?php if ($company->isEnabled()): ?>
+                    <?= $company->setCompany($block->getFormData()->getCompany())->toHtml() ?>
+                <?php endif ?>
+
+                <?php if ($telephoneRequired) { ?>
+                    <div class="field required">
+                        <label for="telephone" class="label"><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php echo __('Telephone') ?>" class="input-text required-entry" />
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <div class="field">
+                        <label for="telephone" class="label"><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php echo __('Telephone') ?>" class="input-text" />
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <?php if ($block->displayMobilePhone()) : ?>
+
+                    <?php if ($mobileNumberRequired) { ?>
+                        <div class="field required">
+                            <label for="mobile_number" class="label required"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="mobile_number" id="mobile_number" value="<?php echo $block->escapeHtml($block->getFormData()->getMobileNumber()) ?>" title="<?php echo __('Mobile') ?>" class="input-text required-entry" />
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="field">
+                            <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="mobile_number" id="mobile_number" value="<?php echo $block->escapeHtml($block->getFormData()->getMobileNumber()) ?>" title="<?php echo __('Mobile') ?>" class="input-text" />
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php endif ?>
+                <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+                <div class="field required">
+                    <label for="street_1" class="label"><?php echo __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreet(1)) ?>" title="<?php echo __('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                    </div>
+                    <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                        </br><div class="input-box">
+                            <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreet($_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text" />
+                        </div>
+                    <?php endfor; ?>
+                </div>
+                <div class="field required">
+                    <label for="city" class="label"><?php echo __('City') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="city" value="<?php echo $block->escapeHtml($block->getFormData()->getCity()) ?>" title="<?php echo __('City') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="city" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="region_id" class="label"><?php echo __('State/Province') ?></label>
+                    <div class="input-box">
+                        <select id="region_id" name="region_id" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                            <option value=""><?php echo __('Please select region, state or province') ?></option>
+                        </select>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            $('region_id').setAttribute('defaultValue', "<?php echo $block->getFormData()->getRegionId() ?>");
+                            //]]>
+                        </script>
+                        <input type="text" id="region" name="region" value="<?php echo $block->escapeHtml($this->getRegion()) ?>" title="<?php echo __('State/Province') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="zip" class="label"><?php echo __('Zip/Postal Code') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="postcode" value="<?php echo $block->escapeHtml($block->getFormData()->getPostcode()) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="zip" class="input-text required-entry validate-zip-international <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="country" class="label"><?php echo __('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo $block->getCountryHtmlSelect() ?>
+                    </div>
+                </div>
+                <input type="hidden" name="default_billing" value="1" />
+                <input type="hidden" name="default_shipping" value="1" />
+            </div>
+        <?php endif; ?>
+    <?php else:
+        if ($registeredAddress):
+            ?>
+            <div class="fieldset">
+                <?php $address = $block->getFormData()->getRegistered(); ?>
+                <h2 class="legend"><?php echo __('Registered Address') ?></h2>
+                <div class="field required">
+                    <label for="registered_name" class="label"><?php echo __('Name') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="registered[name]" id="registered_name" value="<?php echo $block->escapeHtml(@$address['name']) ?>" title="<?php echo __('Name') ?>" class="input-text required-entry" />
+                    </div>
+                </div>
+                <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+                <div class="field required">
+                    <label for="registered_address_1" class="label"><?php echo __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="registered[address1]" value="<?php echo $block->escapeHtml(@$address['address1']) ?>" title="<?php echo __('Street Address') ?>" id="registered_address_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                    </div>
+                    <?php for ($_j = 2, $_m = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_j <= $_m; $_j++): ?>
+                        <?php $addressX = 'address' . $_j; ?>
+                        </br><div class="input-box">
+                            <!--<input type="text" name="street[]" value="<?php //echo $block->escapeHtml($block->getFormData()->getStreet($_i))  ?>" title="<?php //echo __('Street Address %s', $_i)  ?>" id="street_<?php //echo $_i  ?>" class="input-text <?php //echo $_streetValidationClass  ?>" />-->
+                            <input type="text" name="registered[<?php echo $addressX ?>]" value="<?php echo $block->escapeHtml(@$address[$addressX]) ?>" title="<?php echo __("Street Address {$_j}") ?>" id="registered_address_<?php echo $_j ?>" class="input-text" />
+                        </div>
+                    <?php endfor; ?>
+                </div>
+                <div class="field required">
+                    <label for="registered_city" class="label"><?php echo __('City') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="registered[city]" value="<?php echo $block->escapeHtml(@$address['city']) ?>" title="<?php echo __('City') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="registered_city" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="registered_county_id" class="label"><?php echo __('State/Province') ?></label>
+                    <div class="input-box">
+                        <select id="registered_county_id" name="registered[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                            <option value=""><?php echo __('Please select county, state or province') ?></option>
+                        </select>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            //$('registered_county_id').setAttribute('defaultValue', "<?php echo @$address['county_id'] ?>");
+                            //]]>
+                        </script>
+                        <input type="text" id="registered_county" name="registered[county]" value="<?php echo $block->escapeHtml(@$address['county']) ?>" title="<?php echo __('State/Province') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('county') ?>" style="display:none;" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="registered_zip" class="label"><?php echo __('Zip/Postal Code') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="registered[postcode]" value="<?php echo $block->escapeHtml(@$address['postcode']) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="registered_zip" class="input-text required-entry validate-zip-international <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="registered_country" class="label"><?php echo __('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo $block->getCountryHtmlSelect(null, 'registered[country]', 'registered_country') ?>
+                    </div>
+                </div>
+                <?php if ($registeredAddressTelephoneFax) : ?>
+                    <?php if ($telephoneRequired) { ?>
+                        <div class="field required">
+                            <label for="telephone" class="label"><?php echo __('Telephone') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="registered[phone]" id="registered_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text  required-entry" />
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <>div class="field">
+                        <label for="telephone" ><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="registered[phone]" id="registered_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text" />
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if ($this->displayMobilePhone()) : ?>
+                    <?php if ($mobileNumberRequired) { ?>
+                        <div class="field required">
+                            <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="registered[mobile_number]" id="registered_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text  required-entry" />
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="field">
+                            <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="registered[mobile_number]" id="registered_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text" />
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php endif ?>
+                <div class="field">
+                    <label for="registered_fax_number" class="label"><?php echo __('Fax Number') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="registered[fax_number]" id="registered_fax_number" value="<?php echo $block->escapeHtml(@$address['fax_number']) ?>" title="<?php echo __('Fax') ?>" class="input-text" />
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php
+    endif;
+    if ($invoiceAddress):
+        ?>
+        <div class="fieldset">
+            <?php $address = $block->getFormData()->getInvoice(); ?>
+            <h2 class="legend"><?php echo __('Invoice Address') ?></h2>
+            <?php
+            if ($registeredAddress):
+                ?>
+                <p>
+                    <input type="checkbox" name="same_as" value="1" id="registered_invoice" class="same_as" />
+                    <label for="registered_invoice" class="required"><?php echo __('Same as Registered Address') ?></label>
+                </p>
+                <?php
+            endif;
+            ?>
+            <div class="field required">
+                <label for="invoice_name" class="label"><?php echo __('Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="invoice[name]" id="invoice_name" value="<?php echo $block->escapeHtml(@$address['name']) ?>" title="<?php echo __('Name') ?>" class="input-text required-entry" />
+                </div>
+            </div>
+        <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+            <div class="field required">
+                <label for="invoice_address_1" class="label"><?php echo __('Street Address') ?></label>
+                <div class="input-box">
+                    <input type="text" name="invoice[address1]" value="<?php echo $block->escapeHtml(@$address['address1']) ?>" title="<?php echo __('Street Address') ?>" id="invoice_address_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                </div>
+                <?php for ($_k = 2, $_p = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_k <= $_p; $_k++): ?>
+            <?php $addressY = 'address' . $_k; ?>
+                    </br><div class="input-box">
+                        <input type="text" name="invoice[<?php echo $addressY ?>]" value="<?php echo $block->escapeHtml(@$address[$addressY]) ?>" title="<?php echo __("Street Address {$_k}") ?>" id="invoice_address_<?php echo $_k ?>" class="input-text" />
+                    </div>
+        <?php endfor; ?>
+            </div>
+            <div class="field required">
+                <label for="invoice_city" class="label"><?php echo __('City') ?></label>
+                <div class="input-box">
+                    <input type="text" name="invoice[city]" value="<?php echo $block->escapeHtml(@$address['city']) ?>" title="<?php echo __('City') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="invoice_city" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="invoice_county_id" class="label"><?php echo __('State/Province') ?></label>
+                <div class="input-box">
+                    <select id="invoice_county_id" name="invoice[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                        <option value=""><?php echo __('Please select county, state or province') ?></option>
+                    </select>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        //$('invoice_county_id').setAttribute('defaultValue', "<?php echo @$address['county_id'] ?>");
+                        //]]>
+                    </script>
+                    <input type="text" id="invoice_county" name="invoice[county]" value="<?php echo $block->escapeHtml(@$address['county']) ?>" title="<?php echo __('State/Province') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('county') ?>" style="display:none;" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="invoice_zip" class="label"><?php echo __('Zip/Postal Code') ?></label>
+                <div class="input-box">
+                    <input type="text" name="invoice[postcode]" value="<?php echo $block->escapeHtml(@$address['postcode']) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="invoice_zip" class="input-text required-entry validate-zip-international <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="invoice_country" class="label"><?php echo __('Country') ?></label>
+                <div class="input-box">
+        <?php echo $block->getCountryHtmlSelect(null, 'invoice[country]', 'invoice_country') ?>
+                </div>
+            </div>
+            <?php if ($invoiceAddressTelephoneFax) : ?>
+            <?php if ($telephoneRequired) { ?>
+                    <div class="field required">
+                        <label for="telephone" class="label"><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="invoice[phone]" id="invoice_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text  required-entry" />
+                        </div>
+                    </div>
+            <?php } else { ?>
+                    <div class="field ">
+                        <label for="telephone" ><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="invoice[phone]" id="invoice_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text" />
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if ($block->displayMobilePhone()) : ?>
+                <?php if ($mobileNumberRequired) { ?>
+                        <div class="field required">
+                            <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="invoice[mobile_number]" id="invoice_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text  required-entry" />
+                            </div>
+                        </div>
+                <?php } else { ?>
+                        <div class="field">
+                            <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="invoice[mobile_number]" id="invoice_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text" />
+                            </div>
+                        </div>
+                    <?php } ?>
+            <?php endif ?>
+                <div class="field">
+                    <label for="invoice_fax_number" class="label"><?php echo __('Fax Number') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="invoice[fax_number]" id="invoice_fax_number" value="<?php echo $block->escapeHtml(@$address['fax_number']) ?>" title="<?php echo __('Fax') ?>" class="input-text" />
+                    </div>
+                </div>
+        <?php endif; ?>
+        </div>
+        <?php
+    endif;
+    if ($deliveryAddress):
+        ?>
+        <div class="fieldset">
+        <?php $address = $block->getFormData()->getDelivery(); ?>
+
+            <h2 class="legend"><?php echo __('Delivery Address') ?></h2>
+            <?php
+            if ($registeredAddress):
+                ?>
+                <p>
+                    <input type="checkbox" name="same_as" value="1" id="registered_delivery" class="same_as" />
+                    <label for="registered_delivery" class="required"><?php echo __('Same as Registered Address') ?></label>
+                </p>
+                <?php
+            endif;
+            if ($invoiceAddress):
+                ?>
+                <p>
+                    <input type="checkbox" name="same_as" value="1" id="invoice_delivery" class="same_as" />
+                    <label for="invoice_delivery" class="required"><?php echo __('Same as Invoice Address') ?></label>
+                </p>
+                <?php
+            endif;
+            ?>
+            <div class="field required">
+                <label for="delivery_name" class="label"><?php echo __('Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="delivery[name]" id="delivery_name" value="<?php echo $block->escapeHtml(@$address['name']) ?>" title="<?php echo __('Name') ?>" class="input-text required-entry" />
+                </div>
+            </div>
+        <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+            <div class="field required">
+                <label for="delivery_address_1" class="label"><em>*</em><?php echo __('Street Address') ?></label>
+                <div class="input-box">
+                    <input type="text" name="delivery[address1]" value="<?php echo $block->escapeHtml(@$address['address1']) ?>" title="<?php echo __('Street Address') ?>" id="delivery_address_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                </div>
+                <?php for ($_l = 2, $_r = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_l <= $_r; $_l++): ?>
+            <?php $addressZ = 'address' . $_l; ?>
+                    </br><div class="input-box">
+                        <input type="text" name="delivery[<?php echo $addressZ ?>]" value="<?php echo $block->escapeHtml(@$address[$addressZ]) ?>" title="<?php echo __("Street Address {$_l}") ?>" id="delivery_address_<?php echo $_l ?>" class="input-text" />
+                    </div>
+        <?php endfor; ?>
+            </div>
+            <div class="field required">
+                <label for="delivery_city" class="label"><?php echo __('City') ?></label>
+                <div class="input-box">
+                    <input type="text" name="delivery[city]" value="<?php echo $block->escapeHtml(@$address['city']) ?>" title="<?php echo __('City') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="delivery_city" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="delivery_county_id" class="label"><?php echo __('State/Province') ?></label>
+                <div class="input-box">
+                    <select id="delivery_county_id" name="delivery[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                        <option value=""><?php echo __('Please select county, state or province') ?></option>
+                    </select>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        //$('delivery_county_id').setAttribute('defaultValue', "<?php echo @$address['county_id'] ?>");
+                        //]]>
+                    </script>
+                    <input type="text" id="delivery_county" name="delivery[county]" value="<?php echo $block->escapeHtml(@$address['county']) ?>" title="<?php echo __('State/Province') ?>" class="input-text <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('county') ?>" style="display:none;" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="delivery_zip" class="label"><?php echo __('Zip/Postal Code') ?></label>
+                <div class="input-box">
+                    <input type="text" name="delivery[postcode]" value="<?php echo $block->escapeHtml(@$address['postcode']) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="delivery_zip" class="input-text required-entry validate-zip-international <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="delivery_country" class="label"><?php echo __('Country') ?></label>
+                <div class="input-box">
+        <?php echo $block->getCountryHtmlSelect(null, 'delivery[country]', 'delivery_country') ?>
+                </div>
+            </div>
+            <?php if ($deliveryAddressTelephoneFax) : ?>
+            <?php if ($telephoneRequired) { ?>
+                    <div class="field required">
+                        <label for="telephone" class="label"><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="delivery[phone]" id="delivery_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text  required-entry" />
+                        </div>
+                    </div>
+            <?php } else { ?>
+                    <div class="field">
+                        <label for="telephone" ><?php echo __('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="delivery[phone]" id="delivery_phone" value="<?php echo $block->escapeHtml(@$address['phone']) ?>" title="<?php echo __('Telephone') ?>" class="input-text" />
+                        </div>
+                    </div>
+            <?php } ?>
+            <?php if ($this->displayMobilePhone()) : ?>
+                <?php if ($mobileNumberRequired) { ?>
+                    <div class="field required">
+                        <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="delivery[mobile_number]" id="delivery_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text  required-entry" />
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <div class="field">
+                        <label for="mobile_number" class="label"><?php echo __('Mobile') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="delivery[mobile_number]" id="delivery_mobile_number" value="<?php echo $block->escapeHtml(@$address['mobile_number']) ?>" title="<?php echo __('Mobile') ?>" class="input-text" />
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php endif ?>
+            <div class="field">
+                <label for="delivery_fax_number" class="label"><?php echo __('Fax Number') ?></label>
+                <div class="input-box">
+                    <input type="text" name="delivery[fax_number]" id="delivery_fax_number" value="<?php echo $block->escapeHtml(@$address['fax_number']) ?>" title="<?php echo __('Fax') ?>" class="input-text" />
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if ($this->displayInstructions()) : ?>
+            <div class="input-box field">
+                <label for="delivery_instructions" class="label"><?php echo __('Instructions') ?></label>
+                <div class="input-box">
+                    <textarea type="text" name="delivery[instructions]" id="delivery_instructions" title="<?php echo __('Instructions') ?>" class="input-text" ><?php echo $block->escapeHtml(@$address['instructions']) ?></textarea>
+                </div>
+            </div>
+        <?php endif; ?>
+        </div>
+        <?php
+    endif;
+endif;
+?></br>
+<fieldset class="fieldset create account" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+    <legend class="legend"><span><?= $block->escapeHtml(__('Sign-in Information')) ?></span></legend><br>
+    <div class="field required">
+        <label for="email_address" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+        <div class="control">
+            <input type="email" name="email" autocomplete="email" id="email" value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-mage-init='{"mage/trim-input":{}}' class="input-text" data-validate="{required:true, 'validate-email':true}">
+        </div>
+    </div>
+    <div class="field password required">
+        <label for="password" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+        <div class="control">
+            <input type="password" name="password" id="password"
+                   title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                   class="input-text"
+                   data-password-min-length="<?=
+                   $block->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                   data-password-min-character-sets="<?=
+                   $block->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                   data-validate="{required:true, 'validate-customer-password':true}"
+                   autocomplete="off">
+            <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                <div id="password-strength-meter" class="password-strength-meter">
+                        <?= $block->escapeHtml(__('Password Strength')) ?>:
+                    <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+<?= $block->escapeHtml(__('No Password')) ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="field confirmation required">
+        <label for="password-confirmation" class="label"><span><?= $block->escapeHtml(__('Confirm Password')) ?></span></label>
+        <div class="control">
+            <input type="password" name="password_confirmation" title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+        </div>
+    </div>
+<?= $block->getChildHtml('form_additional_info') ?>
+</fieldset>
+<div class="actions-toolbar">
+    <div class="primary">
+        <button type="submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Create an Account')) ?>"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></button>
+    </div>
+    <div class="secondary">
+        <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+    </div>
+</div></br>
+</form>
+<script>
+    require([
+            'jquery',
+            'mage/mage'
+            ], function($){
+
+    var dataForm = $('#form-validate');
+    var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+    dataForm.mage('validation', {
+<?php if ($_dob->isEnabled()): ?>
+        errorPlacement: function(error, element) {
+        if (element.prop('id').search('full') !== - 1) {
+        var dobElement = $(element).parents('.customer-dob'),
+                errorClass = error.prop('class');
+        error.insertAfter(element.parent());
+        dobElement.find('.validate-custom').addClass(errorClass)
+                .after('<div class="' + errorClass + '"></div>');
+        }
+        else {
+        error.insertAfter(element);
+        }
+        },
+                ignore: ':hidden:not(' + ignore + ')'
+<?php else: ?>
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+<?php endif ?>
+    }).find('input:text').attr('autocomplete', 'off');
+    });</script>
+<?php if (!$block->getSendAccountToErp()): ?>
+    <?php if ($block->getShowAddressFields()): ?>
+        <script type="text/x-magento-init">
+            {
+            "#country": {
+            "regionUpdater": {
+            "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+            "regionListId": "#region_id",
+            "regionInputId": "#region",
+            "postcodeId": "#zip",
+            "form": "#form-validate",
+            "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+            "defaultRegion": "<?= (int) $block->getFormData()->getRegionId() ?>",
+            "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+            }
+            }
+            }
+        </script>
+    <?php endif; ?>
+<?php else: ?>
+    <script type="text/javascript">
+        require([
+                "jquery",
+                "mage/adminhtml/form",
+                "mage/validation"
+        ], function($) {
+        //<![CDATA[
+    <?php if ($registeredAddress): ?> new RegionUpdater('registered_country', 'registered_county', 'registered_county_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>, undefined, 'registered_zip');<?php endif; ?>
+    <?php if ($invoiceAddress): ?> new RegionUpdater('invoice_country', 'invoice_county', 'invoice_county_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>, undefined, 'invoice_zip');<?php endif; ?>
+    <?php if ($deliveryAddress): ?> new RegionUpdater('delivery_country', 'delivery_county', 'delivery_county_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>, undefined, 'delivery_zip');<?php endif; ?>
+        var street_lines = <?php echo $this->helper('Magento\Customer\Helper\Address')->getStreetLines() ?>;
+        function blankAddress(type) {
+        $('#' + type + '_name').val('');
+        $('#' + type + '_address_1').val('');
+        j = 0;
+        for (j = 2; j <= street_lines; j++) {
+        if ((typeof ($('#' + type + '_address_' + j) != 'undefined') && $('#' + type + '_address_' + j) != null)) {
+        $('#' + type + '_address_' + j).val('');
+        }
+        }
+
+        $('#' + type + '_city').val('');
+        $('#' + type + '_county_id').show();
+        $('#' + type + '_county_id').val('');
+        $('#' + type + '_county').hide();
+        $('#' + type + '_county').val('');
+        $('#' + type + '_zip').val('');
+        $('#' + type + '_country').val('');
+        $('#' + type + '_phone').val('');
+        $('#' + type + '_mobile_number').val('');
+        $('#' + type + '_fax_number').val('');
+        }
+
+        function sameAddressAs(from, to) {
+        $('#' + to + '_name').val($('#' + from + '_name').val());
+        $('#' + to + '_address_1').val($('#' + from + '_address_1').val());
+        i = 0;
+        for (i = 2; i <= street_lines; i++) {
+        if ((typeof ($('#' + to + '_address_' + i) != 'undefined') && $('#' + to + '_address_' + i) != null)) {
+        $('#' + to + '_address_' + i).val($('#' + from + '_address_' + i).val());
+        }
+        }
+        $('#' + to + '_city').val($('#' + from + '_city').val());
+        if ($('#' + from + '_county_id').is(":visible")) {
+        $('#' + to + '_county_id').show();
+        } else {
+        $('#' + to + '_county_id').hide();
+        }
+        $('#' + to + '_county_id').val($('#' + from + '_county_id').val());
+        if ($('#' + from + '_county').is(":visible")) {
+        $('#' + to + '_county').show();
+        } else {
+        $('#' + to + '_county').hide();
+        }
+
+        $('#' + to + '_county').val($('#' + from + '_county').val());
+        $('#' + to + '_zip').val($('#' + from + '_zip').val());
+        $('#' + to + '_country').val($('#' + from + '_country').val());
+        if ((typeof ($('#' + to + '_phone') != 'undefined') && $('#' + to + '_phone') != null)) {
+        $('#' + to + '_phone').val($('#' + from + '_phone').val());
+        }
+        if ((typeof ($('#' + to + '_mobile_number') != 'undefined') && $('#' + to + '_mobile_number') != null)) {
+        $('#' + to + '_mobile_number').val($('#' + from + '_mobile_number').val());
+        }
+        if ((typeof ($('#' + to + '_fax_number') != 'undefined') && $('#' + to + '_fax_number') != null)) {
+        $('#' + to + '_fax_number').val($('#' + from + '_fax_number').val());
+        }
+        if ($('#' + to + '_county').val() == "") {
+        $('#' + to + '_county').removeClass('required-entry');
+        //$('label[for="' + to + '_county_id"] em').first().update('');
+        }
+        }
+
+        $(document).ready(function(){
+        $('#form-validate').find('.same_as').click(function () {
+        split = $(this).attr('id').split('_');
+        var from = split[0];
+        var to = split[1];
+        if ($(this).is(':checked')) {
+        sameAddressAs(from, to);
+        } else {
+        blankAddress(to);
+        }
+        });
+        $('#registered_country').change(function () {
+        $('label[for="registered_county_id"] em').show();
+        $('label[for="registered_county_id"]').show();
+        });
+        $('#invoice_country').change(function () {
+        if ($('#invoice_county').val() == "") {
+        $('#invoice_county').removeClass('required-entry');
+        } else {
+        $('#invoice_county').addClass('required-entry');
+        }
+        $('label[for="invoice_county_id"] em').first().text('*');
+        $('label[for="invoice_county_id"] em').show();
+        $('label[for="invoice_county_id"]').show();
+        });
+        $('#delivery_country').change(function () {
+        if ($('#delivery_county').val() == "") {
+        $('#delivery_county').removeClass('required-entry');
+        } else {
+        $('#delivery_county').addClass('required-entry');
+        }
+        $('label[for="delivery_county_id"] em').first().text('*');
+        $('label[for="delivery_county_id"] em').show();
+        $('label[for="delivery_county_id"]').show();
+        })
+
+        });
+        //]]>
+        });</script>
+<?php endif; ?>
+<script type="text/javascript">
+    require([
+            "jquery",
+            "Epicor_Comm/js/epicor/comm/checklength"
+    ], function($, checkLengthLimits) {
+    //<![CDATA[
+<?php if ($block->getConfigFlag('customer/address/limits_enabled')): ?>
+        var limitcheck = new checkLengthLimits(<?= $this->getConfig('customer/address/limit_name_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_address_line_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_telephone_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_instructions_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_postcode_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_lastname_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_company_length') ?: 10234 ?>
+            ,<?= $this->getConfig('customer/address/limit_email_length') ?: 10234 ?>
+        );
+<?php endif; ?>
+
+        $('form').submit(function () {
+            if (!($('div.mage-error').length) || (!$('div.mage-error').is(':visible'))) {
+                $(this).find(':submit').attr('disabled', 'disabled');
+            }
+            return true;
+        });
+        $("form").bind("invalid-form.validate", function () {
+            $(this).find(':submit').prop('disabled', false);
+        });
+    //]]>
+    });
+</script>
+
+<script type="text/x-magento-init">
+    {
+    ".field.password": {
+    "passwordStrengthIndicator": {
+    "formSelector": "form.form-create-account"
+    }
+    }
+    }
+</script>

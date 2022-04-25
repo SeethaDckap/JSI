@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<div id="ecc-autosuggest" class="ecc-autosuggest elsearchmain eldetailedsearch" data-bind="visible: showAutoSuggestBox()">
+    <div data-bind="visible: prodsResultCount(), css: prodsResultCount() ? 'srcprodsecactive' : ''" class="elsrchcolpro">
+        <div class="elsearchsec elsearchpro">
+            <div class="ecc-autosuggest-products" data-bind="visible: result.products.data().length > 0">
+                <div class="eltitlesec">
+                    <span data-bind="text: prodtitle"></span>
+                    <a data-bind="attr: { href: seeallUrl(), title: seeallTitle() }" class="elseeall">
+                        <span data-bind="text: seeallTitle()"></span>
+                    </a>
+                </div>
+                <ul id="products" class="elproducts" role="listbox" data-bind="foreach: result.products.data">
+                    <li class="elproduct">
+                        <div class="product-item-info">
+                            <a data-bind="attr: { href: producturl, title: productCode }" class="elprodlink">
+                            <span class="product-image-container">
+                                <span class="image-wrapper">
+                                    <img class="elprodimg" data-bind="attr: {src: productimage, title: productCode}" />
+                                </span>
+                            </span>
+                            </a>
+                            <div class="product-details">
+                            <span class="product-item-name">
+                                    <a class="elprodname" data-bind="attr: { href: producturl, title: description }">
+                                        <span data-bind="text: description"></span>
+                                    </a>
+                                <div class="elproddesc" data-bind="text: productCode"></div>
+                            </span>
+                                <div data-bind="html: price" class="elprodprice"></div>
+                                <div data-bind="html: rating"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="elsrchcol2">
+        <div data-bind="visible: showHotSearch(), css: showHotSearch() ? 'srcsecactive' : ''" class="recsearch elsearchsec">
+            <div class="eltitlesec" data-bind="text: hsTitle"></div>
+            <div class="content" data-bind="html: hsContent"></div>
+        </div>
+        <div data-bind="visible: showRecentSearch(), css: showRecentSearch() ? 'srcsecactive' : ''" class="recsearch elsearchsec">
+            <div class="eltitlesec" data-bind="text: rsTitle"></div>
+            <div class="content" data-bind="html: rsContent"></div>
+        </div>
+        <div data-bind="visible: dymResultCount(), css: dymResultCount() ? 'srcsecactive' : ''" class="elsearchsec">
+            <div class="didyoumean" data-bind="visible: result.didyoumean.data().length > 0">
+                <div class="eltitlesec" data-bind="text: dymtitle"></div>
+                <ul id="didyoumean" role="listbox" class="elsearchitems eldymitems" data-bind="foreach: result.didyoumean.data">
+                    <li class="elsearchitem">
+                        <a data-bind="attr: { href: searchResultURL, title: queryText }">
+                            <span data-bind="text: queryText"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-bind="visible: catResultCount(), css: catResultCount() ? 'srcsecactive' : ''" class="elsearchsec elcategorysec">
+            <div class="category" data-bind="visible: result.category.data().length > 0">
+                <div class="eltitlesec" data-bind="text: categorytitle"></div>
+                <ul id="category" role="listbox" class="elsearchitems elcatitems" data-bind="foreach: result.category.data">
+                    <li class="elsearchitem">
+                        <span class="cat-crumb" data-bind="text: breadcrumb"></span>
+                        <a data-bind="attr: { href: categoryurl, title: queryText }">
+                            <span data-bind="text: queryText"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-bind="visible: pagesResultCount(), css: pagesResultCount() ? 'srcsecactive' : ''" class="elsearchsec">
+            <div class="cmspages" data-bind="visible: result.cmspages.data().length > 0">
+                <div class="eltitlesec" data-bind="text: cmstitle"></div>
+                <ul id="cmspages" role="listbox" class="elsearchitems elcmsitems"  data-bind="foreach: result.cmspages.data">
+                    <li class="elsearchitem">
+                        <a data-bind="attr: { href: url, title: queryText }">
+                            <span data-bind="text: queryText"></span>
+                        </a>
+                        <div data-bind="text: content" class="elcmscontent"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="no-result" data-bind="visible: aggregatedResultCount()">
+        <!-- ko i18n: 'No results found'--><!-- /ko -->
+    </div>
+
+</div>

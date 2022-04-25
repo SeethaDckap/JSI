@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Magento\Framework\View\Element\Template"  name="block_name" />
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Title" name="invoices.title"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Billing" name="invoices.billing"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Shipping" name="invoices.shipping"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Data" name="invoices.data"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Lines" name="invoices.lines">
+                <block class="Epicor\Customerconnect\Block\Customer\Invoices\Details\Totals" name="tfoot"/>
+            </block>
+            <block class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back" template="Epicor_Customerconnect::customerconnect/arpayments/dispute.phtml" />
+    </container>
+</layout>

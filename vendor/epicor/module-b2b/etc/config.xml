@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <captcha>
+      <frontend>
+        <areas>
+          <b2b_create>
+            <label>Business Registration</label>
+          </b2b_create>
+        </areas>
+      </frontend>
+    </captcha>
+    <customer>
+      <captcha>
+        <always_for>
+          <b2b_create>1</b2b_create>
+        </always_for>
+      </captcha>
+    </customer>
+    <Epicor>
+      <stores>
+        <english>1</english>
+        <german>2</german>
+        <french>3</french>
+      </stores>
+    </Epicor>
+    <epicor_comm_enabled_messages>
+      <som_request>
+        <active>1</active>
+        <allowed_order_statuses/>
+        <allowed_line_statuses/>
+        <allowed_actions>Del</allowed_actions>
+        <sendalllines>0</sendalllines>
+        <sendemailnotification>1</sendemailnotification>
+      </som_request>
+    </epicor_comm_enabled_messages>
+    <epicor_b2b>
+      <registration>
+        <reg_portal>0</reg_portal>
+        <show_reg_portal>1</show_reg_portal>
+        <show_reg_portaltype>1</show_reg_portaltype>
+        <reg_customer>0</reg_customer>
+        <b2c_acct_type>guest_acct</b2c_acct_type>
+        <b2b_reg_email_account>general</b2b_reg_email_account>
+        <b2b_reg_email_template>epicor_b2b_registration_b2b_reg_email_template</b2b_reg_email_template>
+        <reg_show_password>1</reg_show_password>
+        <show_address_fields>0</show_address_fields>
+        <b2c_show_address_fields>0</b2c_show_address_fields>
+        <registered_address>1</registered_address>
+        <registered_address_phone_fax>1</registered_address_phone_fax>
+        <invoice_address>1</invoice_address>
+        <invoice_address_phone_fax>1</invoice_address_phone_fax>
+        <delivery_address>1</delivery_address>
+        <delivery_address_phone_fax>1</delivery_address_phone_fax>
+        <b2c_registered_address>1</b2c_registered_address>
+        <b2c_registered_address_phone_fax>1</b2c_registered_address_phone_fax>
+        <b2c_invoice_address>1</b2c_invoice_address>
+        <b2c_invoice_address_phone_fax>1</b2c_invoice_address_phone_fax>
+        <b2c_delivery_address>1</b2c_delivery_address>
+        <b2c_delivery_address_phone_fax>1</b2c_delivery_address_phone_fax>
+        <success_message>Account Created Successfully</success_message>
+        <customer_success_message>Account Created Successfully</customer_success_message>
+        <email_request_success_message>Your request has been logged</email_request_success_message>
+        <pre_reg_pswd>0</pre_reg_pswd>
+        <b2b_acct_type>guest_acct</b2b_acct_type>
+        <allowed_cus_types>B2B Standard Account|B</allowed_cus_types>
+        <enable_erp_acct_welcome_email>0</enable_erp_acct_welcome_email>
+        <enable_guest_acct_welcome_email>0</enable_guest_acct_welcome_email>
+        <enable_guest_to_b2b_welcome_email>0</enable_guest_to_b2b_welcome_email>
+        <enable_pre_reg_welcome_email>0</enable_pre_reg_welcome_email>
+        <success_redirection>home</success_redirection>
+        <home_reg_heading_wording>Home Customers</home_reg_heading_wording>
+        <home_reg_button_wording>Create an Account</home_reg_button_wording>
+        <home_reg_content_wording>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</home_reg_content_wording>
+        <bus_reg_heading_wording>Business Customers</bus_reg_heading_wording>
+        <bus_reg_button_wording>Create a Business Account</bus_reg_button_wording>
+        <bus_reg_content_wording>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</bus_reg_content_wording>
+        <bus_reg_new_or_existing_customer_option>0</bus_reg_new_or_existing_customer_option>
+      </registration>
+      <customer_account_summary>
+        <show_name>1</show_name>
+        <show_code>1</show_code>
+        <show_credit_limit>1</show_credit_limit>
+        <show_balance>1</show_balance>
+      </customer_account_summary>
+    </epicor_b2b>
+    <epicor_search>
+      <general><cpn_search_enabled>1</cpn_search_enabled><cpn_search_weight>4</cpn_search_weight><cpn_search_weight_partial>4</cpn_search_weight_partial>&gt;
+            </general>
+    </epicor_search>
+  </default>
+</config>

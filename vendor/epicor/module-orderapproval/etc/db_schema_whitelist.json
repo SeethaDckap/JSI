@@ -1,0 +1,136 @@
+{
+    "ecc_approval_group": {
+        "column": {
+            "group_id": true,
+            "name": true,
+            "is_active": true,
+            "is_multi_level": true,
+            "rules": true,
+            "source": true,
+            "priority": true,
+            "created_by": true,
+            "is_budget_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ecc_approval_group_erp_account": {
+        "column": {
+            "id": true,
+            "group_id": true,
+            "erp_account_id": true
+        },
+        "index": {
+            "ECC_APPROVAL_GROUP_ERP_ACCOUNT_ERP_ACCOUNT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4FFD912382EB15E48834765F4A187900": true,
+            "ECC_APPROVAL_GROUP_ERP_ACCOUNT_GROUP_ID_ERP_ACCOUNT_ID": true
+        }
+    },
+    "ecc_approval_group_customer": {
+        "column": {
+            "id": true,
+            "group_id": true,
+            "customer_id": true,
+            "by_group": true,
+            "by_customer": true
+        },
+        "index": {
+            "ECC_APPROVAL_GROUP_CUSTOMER_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_APPROVAL_GROUP_CUSTOMER_GROUP_ID_ECC_APPROVAL_GROUP_GROUP_ID": true,
+            "ECC_APPROVAL_GROUP_CSTR_CSTR_ID_CSTR_ENTT_ENTT_ID": true,
+            "ECC_APPROVAL_GROUP_CSTR_GROUP_ID_CSTR_ID_BY_GROUP_BY_CSTR": true
+        }
+    },
+    "ecc_approval_group_link": {
+        "column": {
+            "id": true,
+            "group_id": true,
+            "parent_group_id": true,
+            "by_group": true,
+            "by_customer": true
+        },
+        "index": {
+            "ECC_APPROVAL_GROUP_LINK_GROUP_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_APPROVAL_GROUP_LINK_GROUP_ID_ECC_APPROVAL_GROUP_GROUP_ID": true,
+            "FK_6017D130685D399E7194CB47C28FF324": true,
+            "ECC_APPROVAL_GROUP_LINK_GROUP_ID_PARENT_GROUP_ID": true
+        }
+    },
+    "ecc_approval_order_history": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "group_id": true,
+            "child_group_id": true,
+            "customer_id": true,
+            "status": true,
+            "rules": true
+        },
+        "index": {
+            "ECC_APPROVAL_ORDER_HISTORY_GROUP_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_APPROVAL_ORDER_HISTORY_GROUP_ID_ECC_APPROVAL_GROUP_GROUP_ID": true,
+            "ECC_APPROVAL_ORDER_HISTORY_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "ECC_APPROVAL_ORDER_HISTORY_ORDER_ID_SALES_ORDER_ENTITY_ID": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "is_approval_pending": true
+        }
+    },
+    "quote": {
+        "column": {
+            "is_approval_pending": true
+        }
+    },
+    "ecc_approval_group_budget": {
+        "column": {
+            "id": true,
+            "group_id": true,
+            "type": true,
+            "start_date": true,
+            "duration": true,
+            "amount": true,
+            "is_erp_include": true,
+            "is_allow_checkout": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_APPROVAL_GROUP_BUDGET_GROUP_ID_ECC_APPROVAL_GROUP_GROUP_ID": true
+        }
+    },
+    "ecc_erp_account_budget": {
+        "column": {
+            "id": true,
+            "erp_id": true,
+            "type": true,
+            "start_date": true,
+            "duration": true,
+            "amount": true,
+            "is_erp_include": true,
+            "is_allow_checkout": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

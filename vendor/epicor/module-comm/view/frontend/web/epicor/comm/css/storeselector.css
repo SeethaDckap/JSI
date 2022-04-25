@@ -1,0 +1,7 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.store-switcher .store {float: left;text-align:center;}
+.store-switcher .store_link {text-decoration:none;}
+.store-switcher img {display:inline;}

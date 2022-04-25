@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>Supplier Connect Part Details</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/parts/title.phtml" class="Epicor\Supplierconnect\Block\Customer\Info" name="parts.details.title"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Parts\Details\Price" name="parts.price"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Parts\Details\Crossreference" name="parts.crossreference"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Parts\Details\Info" name="parts.info"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Parts\Details\Uom" name="parts.uom"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Parts\Details\Breaks" name="parts.breaks"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Supplierconnect\Block\Customer\Account\Dashboard" name="supplier.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/parts/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/parts/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Parts</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

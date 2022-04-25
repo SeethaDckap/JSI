@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="controller_action_postdispatch">
+    <observer name="epicor_common_model_observer_forall_postdisplatch" instance="Epicor\Common\Observer\PostDispatchActions"/>
+  </event>
+  <event name="catalog_product_save_before">
+    <observer name="catalog_navigation_cache" instance="Epicor\Common\Observer\ProductClearCatalogNavigationCache"/>
+    <observer name="stock_level_limit_check" instance="Epicor\Common\Observer\StockLevelLimitCheck"/>
+    <observer name="related_doc_product_save_before" instance="Epicor\Common\Observer\ProductRelatedDocSaveBefore"/>
+  </event>
+  <!--<event name="catalog_product_save_before">-->
+  <!--</event>-->
+  <event name="catalog_category_save_after">
+    <observer name="catalog_navigation_cache" instance="Epicor\Common\Observer\CategoryClearCatalogNavigationCache"/>
+  </event>
+  <event name="page_block_html_topmenu_gethtml_before">
+    <observer name="ecc_auto_hide_check" instance="Epicor\Common\Observer\CategoryAutoHideTopmenu"/>
+  </event>
+</config>

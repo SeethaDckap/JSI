@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <!--
+    This new file Epicor\Common\view\adminhtml\ui_component\customer_address_form.xml with address fieldset created to
+    allow merging the address fieldset.
+    -->
+    <fieldset name="general">
+        <field name="ecc_email" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="firstname" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="default" xsi:type="string">${ $.provider }:data.customer.firstname</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="lastname" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="default" xsi:type="string">${ $.provider }:data.customer.lastname</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="company" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="min_text_length" xsi:type="number">0</item>
+                    </item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="sortOrder" xsi:type="number">44</item>
+                </item>
+            </argument>
+        </field>
+        <field name="street" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Street</item>
+                    <item name="dataType" xsi:type="string">multiline</item>
+                    <item name="formElement" xsi:type="string">multiline</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <container name="street">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="label" xsi:type="string" translate="true">Street Address</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">street</item>
+                    <item name="sortOrder" xsi:type="string">45</item>
+                </item>
+            </argument>
+            <field name="street_0" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="dataScope" xsi:type="string">0</item>
+                        <item name="source" xsi:type="string">address</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="street_1" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">1</item>
+                        <item name="source" xsi:type="string">address</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="street_2" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">2</item>
+                        <item name="source" xsi:type="string">address</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="street_3" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">3</item>
+                        <item name="source" xsi:type="string">address</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                    </item>
+                </argument>
+            </field>
+        </container>
+        <field name="postcode" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/post-code</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="telephone" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="maxlength" xsi:type="number">10</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="fax" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="min_text_length" xsi:type="number">0</item>
+                    </item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_mobile_number" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="ecc_instructions" class="Epicor\Comm\Ui\Component\Form\CustomerFormValidation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="elementTmpl" xsi:type="string">Epicor_Comm/form/element/textarea</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

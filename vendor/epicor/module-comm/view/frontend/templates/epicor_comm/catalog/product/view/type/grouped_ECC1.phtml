@@ -1,0 +1,124 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ * @see Mage_Catalog_Block_Product_View_Type_Grouped
+ */
+
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+$commonHelper = $this->helper('Epicor\Common\Helper\Data');
+    /* @var $helper Epicor_Comm_Helper_Locations */
+
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = ($commonHelper->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == 'all_source_locations') ? true : false;
+if($showLocations && !$allSourceLocations && !$this->getHideLocations()) : ?>
+    <?php echo $this->getChildHtml('grouped_locations') ?>
+<?php else: ?>
+    <?php $this->setPreconfiguredValue(); ?>
+    <?php $_product = $this->getProduct(); ?>
+    <?php $_associatedProducts = $block->getAssociatedProducts(); ?>
+    <?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+    <?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
+        <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+    <?php else: ?>
+        <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+    <?php endif; ?>
+    <?php echo $this->getChildHtml('product_type_data_extra') ?>
+    <?php $packsizeToBeConfigured = $this->getRequest()->getParam('packsize');?>   
+    <?php $initialQtyToBeConfigured = $this->getRequest()->getParam('qty');?>   
+
+    <?php 
+    $helper = $this->helper('Epicor\Comm\Helper\Data');
+    /* @var $helper \Epicor\Comm\Helper\Data */
+
+    $showPrices = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+    $showQty = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+    $showPrices = $this->getHidePrices() ? false : $showPrices;
+    $allSourceLocations = ($commonHelper->getScopeConfig()->getValue('epicor_comm_locations/global/stockvisibility', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == 'all_source_locations') ? true : false;
+    ?>
+    <table class="data-table grouped-items-table" id="super-product-table">
+        <col />
+        <col />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th><?php echo __('Product Name') ?></th>
+                <?php if ($showPrices): ?>
+                <?php if ($this->getCanShowProductPrice($_product)): ?>
+                <th class="a-right"><?php echo __('Price') ?></th>
+                <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($showQty): ?>
+                <?php if ($_product->isSaleable()): ?>
+                <th class="a-center"><?php echo __('Qty') ?></th>
+                <?php endif; ?>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if ($_hasAssociatedProducts): ?>
+        <?php foreach ($_associatedProducts as $_item): ?>
+            <?php if(!$packsizeToBeConfigured ||$packsizeToBeConfigured == $_item->getId()){ ?>
+                <?php //$_finalPriceInclTax = $block->getPrice($_item, $_item->getFinalPrice(), true) ?>
+                <tr>              
+                    <td>
+                        <?php //print_r(get_class_methods($_item)); exit; ?>
+                        <?php if($_item->getEccPackSize() != '' && $_product->getEccStkType() == 'grouped') :  ?>  
+                            <?php echo __($this->escapeHtml($_item->getEccPackSize())) ?>
+
+                            <?php echo '</br>'.__($this->escapeHtml($_item->getName())) ?>
+                            <?php echo '</br> Stock: '.$_item->getStockLevel() ?>
+                        <?php else: ?>
+                            <?php echo __($this->escapeHtml($_item->getName())) ?>
+                        <?php endif ?>   
+                    </td>
+                        
+                    <?php if ($showPrices): ?>
+                    <?php if ($this->getCanShowProductPrice($_product)): ?>
+                    <td class="a-right">
+                        <?php if ($this->getCanShowProductPrice($_item)): ?>
+                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item) ?>
+                          <?php echo $block->getProductPriceHtml(
+                            $_item,
+                            \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                        ) ?>
+                        <?php endif; ?>
+                    </td>
+                    <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if ($showQty): ?>
+                    <?php if ($_product->isSaleable()): ?>
+                    <td class="a-center">
+                    <?php if ($_item->isSaleable()) : ?>
+                        <input type="text" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $initialQtyToBeConfigured ?>" title="<?php echo __('Qty') ?>" class="input-text qty" />
+                        <?php if ($_item->getTypeId() == 'bundle'): ?>
+                            <?php $selectionCollection = $_item->getTypeInstance(true)->getSelectionsCollection( $_item->getTypeInstance(true)->getOptionsIds($_item), $_item); ?>
+                            <?php foreach($selectionCollection as $option) : ?>
+                                <input type="hidden" name="bundle_option[<?php echo $option->option_id; ?>]" value="<?php echo $option->selection_id; ?>" />
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo __('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                    </td>
+                    <?php endif; ?>
+                    <?php endif; ?>
+            <?php } ?>    
+            </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+           <tr>
+               <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo __('No options of this product are available.') ?></td>
+           </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('super-product-table')</script>
+<?php endif; ?>

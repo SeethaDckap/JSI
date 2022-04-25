@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$helper = $this->helper('Epicor\Comm\Helper\Configurator');
+/* @var $helper \Epicor\Comm\Helper\Configurator */
+$rfq = $helper->getRegistry()->registry('customer_connect_rfq_details');
+$title = __('New Quote');
+if ($rfq->getQuoteNumber()) {
+    $title = __('Quote Number: %1', $rfq->getQuoteNumber());
+}
+?>
+<div class="page-title-wrapper">
+    <h2 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper"><?php echo $title; ?></span>    
+    </h2>
+</div>
+<input id="rfq_address_details" type="hidden" value="<?php echo $this->getUrl('customerconnect/rfqs/addressdetails'); ?>" />
+<input id="rfq_ewa_returnurl" type="hidden" value="<?php echo base64_encode('comm/configurator/rfqewacomplete'); ?>" />
+<input id="rfq_configurable_url" type="hidden" value="<?php echo $this->getUrl('customerconnect/rfqs/configureproduct'); ?>" />
+<input id="rfq_ewa_cimurl" type="hidden" value="<?php echo $this->getUrl('epicor_comm/message/cim'); ?>" />
+<input id="rfq_ewa_cdmurl" type="hidden" value="<?php echo $this->getUrl('epicor_comm/message/cdm'); ?>" />
+<input id="rfq_ewa_show_basedesc" type="hidden" value="<?php echo $helper->getEwaDisplay('base_description') ? 'Y' : 'N'; ?>" />
+<input id="rfq_ewa_show_title" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_title') ? 'Y' : 'N'; ?>" />
+<input id="rfq_ewa_show_shortdesc" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_short_description') ? 'Y' : 'N'; ?>" />
+<input id="rfq_ewa_show_desc" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_description') ? 'Y' : 'N'; ?>" />
+<input id="rfq_ewa_show_sku" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_sku') ? 'Y' : 'N'; ?>" />
+<?php if($helper->getRegistry()->registry('rfq_new')) : ?>
+<input type="hidden" id="rfq_new" name="rfq_new" value="1" />
+<?php endif; ?>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="search_result_list">
+            <block class="Epicor\Search\Block\Advanced\ProductList\Toolbar" name="product_list_toolbar" >
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Magento_Catalog::product/list/toolbar.phtml</argument>
+                </action>
+                <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

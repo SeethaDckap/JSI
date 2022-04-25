@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+    </head>
+    <body>
+        <referenceBlock name="checkout.progress">
+            <block template="Epicor_SalesRep::epicor/salesrep/checkout/onepage/progress/salesrep/contact.phtml" class="Epicor\SalesRep\Block\Checkout\Onepage\Progress\Salesrep\Contact" name="pre_billing" as="pre_billing"/>
+        </referenceBlock>
+        <referenceBlock name="checkout.onepage">
+            <block template="Epicor_SalesRep::epicor/salesrep/checkout/onepage/salesrep/contact.phtml" class="Epicor\SalesRep\Block\Checkout\Onepage\Salesrep\Contact" name="checkout.onepage.salesrep.contact" as="salesrep_contact"/>
+        </referenceBlock>
+    </body>
+</page>

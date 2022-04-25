@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="web">
+      <resource>Epicor_HostingManager::web_config</resource>
+      <group id="unsecure" translate="label">
+        <field id="base_url">
+          <comment>Please set this using the Epicor Web Hosting Management pages</comment>
+          <frontend_model>Epicor\HostingManager\Block\Adminhtml\System\Config\Field\Textonly</frontend_model>
+        </field>
+      </group>
+      <group id="secure" translate="label">
+        <field id="base_url">
+          <comment>Please set this using the Epicor Web Hosting Management pages</comment>
+          <frontend_model>Epicor\HostingManager\Block\Adminhtml\System\Config\Field\Textonly</frontend_model>
+        </field>
+      </group>
+      <group id="nginxlogs" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Nginx Log Grid</label>
+          <field id="active" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+              <label>Enable Nginx log(All website) in grid</label>
+              <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          </field>
+      </group>
+    </section>
+  </system>
+</config>

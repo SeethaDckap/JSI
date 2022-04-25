@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+$orderFilters = $this->getOrderFilter();
+$getOrderEnable = $this->getOrderEnable();
+$orderArray = explode(',',$orderFilters);
+if((!empty($orderArray)) &&($getOrderEnable)):?>
+    <div class="box-container-account"?>
+        <div class="box-info  box-account sup-account <?php echo ($this->getOnRight()) ? 'col-2' : ($this->getOnLeft() ? 'col-1' : 'col-full'); ?>">
+            <div class="box-head">
+                <h2><?php echo $this->getTitle(); ?></h2>
+            </div>
+            <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+                <?php foreach ($this->getInfoData() as $label => $value): ?>
+                    <?php   $matches =   preg_replace("/[^a-zA-Z]+/", "", $label);?>
+                    <?php if(in_array($matches,$orderArray)):?>
+                        <p id="<?php echo $label; ?>">
+                            <?php if (!empty($label)) : ?>
+                                <span class="label"><?php echo $label; ?></span>
+                            <?php endif; ?>
+                            <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                                <?php echo '<a href="' . $this->getLinkTo()[$label]['link'] . '">'; ?>
+                            <?php } ?>
+                            <span class="value"><?php echo $value; ?></span>
+                            <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                                <?php echo '</a>'; ?>
+                            <?php } ?>
+                        </p>
+                    <?php endif;?>
+                <?php endforeach; ?>
+            </div>
+            <div class="info-list-extra">
+                <?php foreach ($this->getExtraData() as $label => $value): ?>
+                    <p id="<?php echo $label; ?>">
+                        <?php if (!empty($label)) : ?>
+                            <span class="label"><?php echo $label; ?></span>
+                        <?php endif; ?>
+                        <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                            <?php echo '<a href="' . $this->getLinkTo()[$label]['link'] . '">'; ?>
+                        <?php } ?>
+                        <span class=""><?php echo $value; ?></span>
+                        <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                            <?php echo '</a>'; ?>
+                        <?php } ?>
+                    </p>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

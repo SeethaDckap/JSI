@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="epicor_config" sortOrder="1">
+      <label>Epicor Configuration</label>
+    </tab>
+    <section id="epicor_quotes" sortOrder="29800" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Quotes</label>
+      <tab>epicor_config</tab>
+      <resource>Epicor_Quotes::config</resource>
+      <group id="general" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>General</label>
+        <field id="enabled" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Quotes Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="days_till_expired" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Quotes Expire in X Days</label>
+        </field>
+        <field id="allow_customer_global" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Allow Customers Create ERP Account Wide Quotes?</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="prefix" sortOrder="40" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>ERP Quotes Reference Prefix</label>
+          <comment>Same Value is shared with DCLU/CRQU/GQR message implying DCLU/CRQU/GQR will have this prefix.</comment>
+        </field>
+        <field id="select_quote_status" sortOrder="50" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Quote Status to Confirm/Reject</label>
+          <source_model>Epicor\Customerconnect\Model\Config\Source\SelectQuotestatus</source_model>
+        </field>
+      </group>
+      <group id="notes" translate="label" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Notes</label>
+        <field id="quote_note_type" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Quote Note Type</label>
+          <source_model>Epicor\Quotes\Model\System\Config\Source\Quotenotetypes</source_model>
+        </field>
+        <field id="single_note_type" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Single Note Type</label>
+          <source_model>Epicor\Quotes\Model\System\Config\Source\Singlenotetypes</source_model>
+          <depends>
+            <field id="quote_note_type">single</field>
+          </depends>
+        </field>
+        <field id="line_note_type" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Line Notes Type</label>
+          <source_model>Epicor\Quotes\Model\System\Config\Source\Linenotetypes</source_model>
+        </field>
+      </group>
+      <group id="email_alerts" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Email Alerts</label>
+        <field id="heading_email_reminder" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Reminder Emails</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="send_reminders" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Due to Expire Reminder Emails</label>
+          <source_model>Epicor\Quotes\Model\System\Config\Source\Reminders</source_model>
+        </field>
+        <field id="days_to_send_reminders" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Frequency</label>
+          <comment>
+                                Send reminders 5 &amp; 3 days before expiry enter&lt;br&gt;5,3
+                            </comment>
+          <depends>
+            <field id="send_reminders" separator=",">admin,customer,both</field>
+          </depends>
+        </field>
+        <field id="reminder_email_template" sortOrder="40" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Template</label>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+          <depends>
+            <field id="send_reminders" separator=",">admin,customer,both</field>
+          </depends>
+        </field>
+        <field id="reminder_email_address" sortOrder="50" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Sender</label>
+          <comment>Email address for Reminders</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+          <depends>
+            <field id="send_reminders" separator=",">admin,customer,both</field>
+          </depends>
+        </field>
+        <field id="heading_email_update" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Admin Status Update Emails</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="send_admin_update_emails" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Admin Status Update Emails</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="admin_update_email_template" sortOrder="80" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Template</label>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+          <depends>
+            <field id="send_admin_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="admin_update_email_address" sortOrder="90" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Recipient</label>
+          <comment>Email address for updates</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+          <depends>
+            <field id="send_admin_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="admin_states" translate="label" sortOrder="100" type="multiselect" showInDefault="1" showInWebsite="1">
+          <label>Notify Admin for Quote States</label>
+          <source_model>Epicor\Quotes\Model\Config\Source\States</source_model>
+          <depends>
+            <field id="send_admin_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="customer_heading_email_update" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Customer Status Update Emails</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="send_customer_update_emails" sortOrder="120" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Customer Status Update Emails</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="customer_update_email_template" sortOrder="130" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Template</label>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+          <depends>
+            <field id="send_customer_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="customer_update_email_address" sortOrder="140" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Sender</label>
+          <comment>Email address for updates</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+          <depends>
+            <field id="send_customer_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="customer_states" translate="label" sortOrder="150" type="multiselect" showInDefault="1" showInWebsite="1">
+          <label>Notify Customer for Quote States</label>
+          <source_model>Epicor\Quotes\Model\Config\Source\States</source_model>
+          <depends>
+            <field id="send_customer_update_emails">1</field>
+          </depends>
+        </field>
+        <field id="admin_heading_email_note" translate="label" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Note Added Admin Update</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="send_admin_note_emails" sortOrder="170" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Note Added Emails to Admin</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="admin_note_email_template" sortOrder="180" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Template</label>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+          <depends>
+            <field id="send_admin_note_emails">1</field>
+          </depends>
+        </field>
+        <field id="admin_note_email_address" sortOrder="190" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Recipient</label>
+          <comment>Email address for updates</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+          <depends>
+            <field id="send_admin_note_emails">1</field>
+          </depends>
+        </field>
+        <field id="customer_heading_email_note" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Note Added Customer Update</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+        </field>
+        <field id="send_customer_note_emails" sortOrder="210" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Send Note Added Emails to Customers</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="customer_note_email_template" sortOrder="220" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Template</label>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+          <depends>
+            <field id="send_customer_note_emails">1</field>
+          </depends>
+        </field>
+        <field id="customer_note_email_address" sortOrder="230" type="select" showInDefault="1" showInWebsite="1">
+          <label>Email Sender</label>
+          <comment>Email address for updates</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+          <depends>
+            <field id="send_customer_note_emails">1</field>
+          </depends>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

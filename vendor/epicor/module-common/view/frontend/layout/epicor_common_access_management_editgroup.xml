@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <action method="setTitle">
+            <argument translate="true" name="title" xsi:type="string">Access Group Edit</argument>
+        </action>
+        <action method="addItem">
+            <argument name="type" xsi:type="string">skin_js</argument>
+            <argument name="name" xsi:type="string">epicor/common/js/access-management.js</argument>
+            <argument name="params" xsi:type="string"/>
+        </action>
+    </head>
+    <body>
+        <update handle="customer_account"/>
+        <referenceContainer name="my.account.wrapper">
+            <block template="Epicor_Common::epicor_common/access/management/groups/details/formopen.phtml" class="Magento\Framework\View\Element\Template" name="groups.formopen"/>
+            <block template="Epicor_Common::epicor_common/access/management/groups/details/title.phtml" class="Magento\Framework\View\Element\Template" name="groups.title"/>
+            <block class="Epicor\Common\Block\Access\Management\Groups\Details\Info" name="groupname"/>
+            <block class="Epicor\Common\Block\Access\Management\Groups\Details\Rights" name="groupslist"/>
+            <block class="Epicor\Common\Block\Access\Management\Groups\Details\Contacts" name="contactlist"/>
+            <block template="Epicor_Common::epicor_common/access/management/groups/details/formclose.phtml" class="Magento\Framework\View\Element\Template" name="groups.formclose"/>
+        </referenceContainer>
+    </body>
+</page>

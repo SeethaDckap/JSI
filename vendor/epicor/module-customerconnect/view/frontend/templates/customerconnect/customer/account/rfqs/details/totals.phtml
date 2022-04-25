@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+/**
+ * RFQ totals display
+ *
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Totals */
+$priceStyle = $block->HideTotalsBlock() ? 'hide_prices' : '';
+$helper = $this->helper('Epicor\Comm\Helper\Messaging');
+$cols = $this->getColumns();
+$uniqueId = uniqid();
+?>
+<tfoot class="totals <?php echo $priceStyle; ?>">
+<?php foreach ($this->getRows() as $x => $row): ?>
+<tr class="<?php echo $row['label_class']; ?><?php echo ($x == 0) ? ' first' : ''; ?>"
+    colspan="<?php echo $this->getColumns(); ?>">
+    <?php if ($row['expand']): ?>
+        <td colspan="1" data-th="" class=" a-left expand-row col-expand">
+            <span class="plus-minus" id="misc-total-<?php echo $uniqueId ?>
+            "><?php echo $row['expandDef'] ? '-' : '+' ?></span>
+        </td>
+    <?php endif; ?>
+    <?php $colsSpan = $row['expand'] ? $cols - 1 : $cols; ?>
+    <td <?php echo 'colspan="' . $colsSpan . '"'; ?> class="a-right">
+        <?php echo $row['label']; ?>
+    </td>
+    <td <?php echo 'colspan="' . $cols . '"'; ?> class="<?php echo !(empty($row['value_class'])) ? $row['value_class'] : $row['label_class']; ?>">
+        <span class="price"><?php echo $row['value']; ?></span>
+        <input type="hidden" class="post-price"
+               name="<?php echo !(empty($row['value_class'])) ? $row['value_class'] : $row['label_class']; ?>"
+               value="<?php echo $row['raw-value']; ?>"/>
+    </td>
+</tr>
+<?php if ($row['expand']): ?>
+<?php
+$subRows = $this->getSubRows();
+$subRows = $subRows[$row['label_class']];
+$miscArr = $subRows['value'];
+?>
+<tr id="row-misc-total-<?php echo $uniqueId ?>" style=<?php echo $row['expandDef'] ? '' : 'display:none' ?>>
+    <td colspan=<?php echo $cols * 2?> class="">
+        <table class="expand-table misc-row">
+            <thead>
+            <tr class="headings">
+                <th><?php echo __('Description') ?></th>
+                <th><?php echo __('Percentage') ?></th>
+                <th><?php echo __('Total Misc.') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($miscArr as $misc): ?>
+                <?php $currencyCode = $helper->getCurrencyMapping($misc['currency_code'], \Epicor\Customerconnect\Helper\Data::ERP_TO_MAGENTO);?>
+                <tr>
+                    <td><?php echo $misc['description']?></td>
+                    <td><?php echo ($misc['type'] === 'A' ? '' : $misc['percentage'])?></td>
+                    <td><?php echo $helper->getCurrencyConvertedAmount($misc['line_value'], $currencyCode)?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php endif; ?>
+        <?php endforeach; ?>
+</tfoot>

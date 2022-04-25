@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_Common:etc/data_mapping.xsd">
+    <message name="AST" label="AST - Account Status"/>
+    <message name="CCMS" label="CCMS - Customer Case Management Search"/>
+    <message name="CDM" label="CDM - Configurator Details Message"/>
+    <message name="CIM" label="CIM - Configurator Initiation Message"/>
+    <message name="CNC" label="CNC - Create New Customer"/>
+    <message name="CRRD" label="CRRD - Customer Returns Details"/>
+    <message name="CRRS" label="CRRS - Customer Returns Search"/>
+    <message name="CRRU" label="CRRU - Customer Returns Update"/>
+    <message name="CSNS" label="CSNS - Customer Serial Number Search"/>
+    <message name="DDA" label="DDA - Delivery Date Availability"/>
+    <message name="FREQ" label="FREQ - File Request"/>
+    <message name="FSUB" label="FSUB - File Submit"/>
+    <message name="GOR" label="GOR - Generate Order"/>
+    <message name="GQR" label="GQR - Generate Quote Request"/>
+    <message name="HRT" label="HRT - Heart Beat"/>
+    <message name="MSQ" label="MSQ - Multiple Stock Query"/>
+    <message name="BSV" label="BSV - Basket Valuation"/>
+    <message name="SYN" label="SYN - Synchronization"/>
+    <message name="LICS" label="LICS - Licensing Request"/>
+
+    <message name="ALT" label="ALT - Product Alternatives Upload"/>
+    <message name="CAD" label="CAD - Customer Address Upload"/>
+    <message name="CPN" label="CPN - Customer Part Number"/>
+    <message name="CREU" label="CREU - Returns Update"/>
+    <message name="CRRC" label="CRRC - RMA Return Reason Codes "/>
+    <message name="CUS" label="CUS - Customer Upload"/>
+    <message name="CXR" label="CXR - Currency Exchange Rates"/>
+    <message name="FREQ" label="FREQ - File Request"/>
+    <message name="FSUB" label="FSUB - File Submit"/>
+    <message name="LOC" label="LOC - Locations"/>
+    <message name="SGP" label="SGP - Link Product to Category upload"/>
+    <message name="SOU" label="SOU - Sales Order Update"/>
+    <message name="STG" label="STG - Product Group Upload"/>
+    <message name="STK" label="STK - Product Upload"/>
+    <message name="STT" label="STT - Extended Product Text Upload"/>
+</config>

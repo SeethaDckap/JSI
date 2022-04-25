@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/* @var $this Epicor_Common_Block_Order_History */
+
+$helper = $this->helper('epicor_comm');
+/* @var $helper Epicor_Comm_Helper_Data */
+
+$salesRepHelper = $this->helper('epicor_salesrep/order');
+/* @var $salesRepHelper Epicor_SalesRep_Helper_Order */
+
+$showPrices = $helper->isFunctionalityDisabledForCustomer('prices') ? false : true;
+
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_orders = $this->getOrders(); ?>
+<div class="page-title">
+    <h1><?php echo __('My Orders') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_orders->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo __('Order #') ?></th>
+            <th><?php echo __('Date') ?></th>
+            <th><?php echo __('ERP Account') ?></th>
+            <th><?php echo __('Ship To') ?></th>
+            <?php if($showPrices) : ?>
+            <th><span class="nobr"><?php echo __('Order Total') ?></span></th>
+            <?php endif; ?>
+            <th><span class="nobr"><?php echo __('Order Status') ?></span></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($_orders as $_order): ?>
+        <tr>
+            <td><?php echo $_order->getRealOrderId() ?></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+            <td><?php echo $salesRepHelper->getOrderErpAccount($_order->getErpAccountId(), 'name'); ?></td>
+            <td><?php echo $_order->getShippingAddress() ? $this->htmlEscape($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+            <?php if($showPrices) : ?>
+            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+            <?php endif; ?>
+            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+            <td class="a-center">
+                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo __('View Order') ?></a>
+                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo __('Track Order') ?></a>&nbsp;*/ ?>
+                    <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
+                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder reorder-button"><?php echo __('Reorder') ?></a>
+                <?php endif ?>
+                </span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo __('You have placed no orders.'); ?></p>
+<?php endif ?>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * WARNING: IF YOU MAKE ECC SPECIFIC CHANGES TO THIS FILE, THEY MUST ALSO BE ADDED TO THE RWD FILE TOO
+ * rwd/default/template/quickorderpad/form/search.phtml
+ */
+?>
+<form method="get" action="<?php echo $this->getSearchUrl(); ?>">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo __('Product Search'); ?></h2>
+        <p>
+            <label for="q"><?php echo __('Keyword / SKU Search'); ?></label><br />
+            <input class="input-text" type="text" id="q" name="q" value="<?php echo $this->getQuery(); ?>" />
+        </p>
+        <?php if ($this->showOnlyInStockTickbox()): ?>
+            <p>
+                <label for="instock"><?php echo __('Show In Stock Products Only'); ?></label>
+                <input type="checkbox" id="instock" name="instock" value="1" <?php echo $this->getInstock() ? 'checked' : ''; ?> />
+            </p>
+        <?php endif; ?>
+        <p>
+            <button type="sumbit" title="<?php echo __('Search') ?>" class="pro-line-search action primary" ><span><?php echo __('Search') ?></span></button>
+        </p>
+    </div>
+</form>
+<?php echo $this->getChildHtml('list.selector'); ?>

@@ -1,0 +1,1019 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+            <section id="dealerconnect_enabled_messages" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                    <label>Dealer Connect</label>
+                    <tab>epicor_config</tab>
+                    <resource>Epicor_Dealerconnect::config_epicor_dealerconnect</resource>
+                    <group id="dealer_settings" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                            <label>General</label>
+                            <field id="login_mode_type" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                                    <label>Login Mode Type</label>
+                                    <comment>Dealer can change the login mode of contact</comment>
+                                    <source_model>Epicor\Dealerconnect\Model\Config\Source\LoginModeType</source_model>
+                            </field>
+                            <field id="is_toggle_allowed"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Is Toggle Allowed</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="show_customer_price"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show Customer Price</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="is_toggle_allowed">1</field>
+                                    </depends>
+                            </field>
+                            <field id="show_margin"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show Margin</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="is_toggle_allowed">1</field>
+                                    </depends>
+                            </field>
+                            <field id="inventory_search_type"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Inventory Search</label>
+                                    <source_model>Epicor\Dealerconnect\Model\Config\Source\InventorySearchType</source_model>
+                            </field>
+                            <field id="inventory_dealer_groups"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Dealer Groups</label>
+                                    <source_model>Epicor\Dealerconnect\Model\Config\Source\DealerGroups</source_model>
+                                    <depends>
+                                            <field id="inventory_search_type">2</field>
+                                    </depends>
+                            </field>
+                            <field id="claim_inventory_search_type"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Claim Inventory Search</label>
+                                    <source_model>Epicor\Dealerconnect\Model\Config\Source\InventorySearchType</source_model>
+                            </field>
+                            <field id="claim_inventory_dealer_groups"  translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Dealer Groups</label>
+                                    <source_model>Epicor\Dealerconnect\Model\Config\Source\DealerGroups</source_model>
+                                    <depends>
+                                            <field id="claim_inventory_search_type">2</field>
+                                    </depends>
+                            </field>
+                    </group>
+                    <group id="DCLS_request" translate="label" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DCLS Dealer Claim Search</label>
+                            <field id="DCLS_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>The DCLS Message is sent from ECC to Epicor ERP to Search for Claims that are Ready to be Viewed by the Dealer</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="options_heading" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Options</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="max_results_value" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Max Results</label>
+                            </field>
+                            <field id="range_min_value" translate="label" sortOrder="60" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Range Minimium</label>
+                            </field>
+                            <field id="grid_config" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Grid Setup</label>
+                                    <comment>Configuration for the grid display</comment>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Dcls\Grid</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>
+                    <group id="DCLD_request" translate="label" sortOrder="15" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DCLD Dealer Claim Detail Enquiry</label>
+                            <field id="DCLD_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>The DCLD Message is Generated During a Dealer Claim Detail Enquiry</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+
+                            <field id="grid_informationconfig" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Frontend Template Setup</label>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Dcld\InformationLayout</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>
+                    </group>
+                    <group id="DCLU_request" translate="label" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DCLU Dealer Claim Update</label>
+                            <field id="DCLU_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="claims_update_heading" translate="label" sortOrder="940" showInDefault="1" showInWebsite="1">
+                                    <label>Claims Update Email</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="send_claims_update_emails" sortOrder="950" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Send Claims Update Emails</label>
+                                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                             </field>
+                             <field id="claim_update_email_sender" sortOrder="960" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Claim Update Email Sender</label>
+                                <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                                <depends>
+                                  <field id="send_claims_update_emails">1</field>
+                                </depends>
+                            </field>
+                            <field id="claim_update_email_recipient" sortOrder="970" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Claim Update Email Recipient</label>
+                                <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                                <depends>
+                                  <field id="send_claims_update_emails">1</field>
+                                </depends>
+                            </field>
+                            <field id="claims_update_email_template" translate="label" sortOrder="980" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Claim Update Email Template</label>
+                                <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                                <depends>
+                                  <field id="send_claims_update_emails">1</field>
+                                </depends>
+                            </field>
+                            <field id="claims_comment_date_heading" translate="label" sortOrder="990" showInDefault="1" showInWebsite="1">
+                                <label><![CDATA[Claims Comment Date & Time Custom Options]]></label>
+                                <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="date_fields_order" translate="label" type="select" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Date Fields Order</label>
+                                <frontend_model>Magento\Catalog\Block\Adminhtml\Form\Renderer\Config\DateFieldsOrder</frontend_model>
+                            </field>
+                            <field id="time_format" translate="label" type="select" sortOrder="1010" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Time Format</label>
+                                <source_model>Magento\Catalog\Model\Config\Source\TimeFormat</source_model>
+                            </field>
+                    </group>
+                    <group id="DEIS_request" sortOrder="21" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DEIS Inventory search</label>
+                            <field id="inventory_update_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>The DEIS Message is Generated during a Inventory search. </label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <config_path>xml_message/timeouts/deis</config_path>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="options_heading" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Options</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="max_results_value" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Max Results</label>
+                            </field>
+                            <field id="range_min_value" translate="label" sortOrder="60" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Range Minimium</label>
+                            </field>
+                            <field id="pac" translate="button_label" sortOrder="69" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>PAC Attribute Configuration</label>
+                                    <validate>validate-pacattribute</validate>
+                                    <frontend_model>Epicor\Dealerconnect\Model\Config\Source\Pac</frontend_model>
+                            </field>
+                            <field  id="grid_config" translate="button_label"  sortOrder="70"  showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Grid Setup</label>
+                                    <comment>Configuration for the grid display</comment>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Deis\Grid</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>
+                    <group id="DEID_request" sortOrder="22" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DEID Inventory Detail</label>
+                            <field id="inventory_update_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>The DEID Message is used to retrieve a specific inventory item. </label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <config_path>xml_message/timeouts/deid</config_path>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="inventory_template_heading" translate="label" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Configure Frontend Template</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>                                
+                            <field  id="grid_config" translate="button_label"  sortOrder="32"  showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Frontend Template Setup</label>
+                                    <comment>Configuration for the grid display</comment>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Deid\AddressLayout</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>  
+                            <field id="pacinfo" translate="button_label" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>PAC Attribute Configuration</label>
+                                    <validate>validate-pacinfoattribute</validate>
+                                    <frontend_model>Epicor\Dealerconnect\Model\Config\Source\Pacinformation</frontend_model>
+                            </field>                                
+                            <field  id="grid_informationconfig" translate="button_label"  sortOrder="34"  showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Frontend Template Setup</label>
+                                    <comment>Configuration for the grid display</comment>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Deid\InformationLayout</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>     
+                            <field  id="grid_transactionconfig" translate="button_label"  sortOrder="35"  showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Frontend Template Setup</label>
+                                    <comment>Configuration for the grid display</comment>
+                                    <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Deid\GridLayout</frontend_model>
+                                    <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                            </field>                                                                                                                                    
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>
+                    <group id="DEIU_request" translate="label" sortOrder="23" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>DEIU Inventory Update</label>
+                            <field id="inventory_update_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>The DEIU Message is used to create, update and remove inventory details</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Timeout</label>
+                                    <comment> Message specific timeout setting. Leave blank for default </comment>
+                                    <config_path>xml_message/timeouts/deiu</config_path>
+                                    <validate>validate-number</validate>
+                            </field>
+                            <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Log all Requests</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warranty" translate="label" sortOrder="31" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enable Warranty</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="enable_warranty_config" translate="label" sortOrder="31" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Set Warranty Allowed ?</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warranty">1</field>
+                                    </depends>                                           
+                            </field>                                
+                            <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                                    <label>Error Handling</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Action</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                            </field>
+                            <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="error_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Error Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="error_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                                    <label>Warning Actions</label>
+                                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                            </field>
+                            <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Magento Admin Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Severity</label>
+                                    <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                                    <depends>
+                                            <field id="warning_magento_notifcation">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send User Notification</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Show ERP Warning Description</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <depends>
+                                            <field id="warning_user_notification">1</field>
+                                    </depends>
+                            </field>
+                            <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Send Admin Email</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>
+                    <group id="DEBM_request" sortOrder="24" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>DEBM Bill Of Materials Search</label>
+                        <field id="inventory_update_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>The DEBM message. </label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Timeout</label>
+                            <comment> Message specific timeout setting. Leave blank for default </comment>
+                            <config_path>xml_message/timeouts/deis</config_path>
+                            <validate>validate-number</validate>
+                        </field>
+                        <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Log all Requests</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="options_heading" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Options</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="max_results_value" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Max Results</label>
+                        </field>
+                        <field id="range_min_value" translate="label" sortOrder="60" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Range Minimium</label>
+                        </field>
+                        <field  id="grid_config_built" translate="button_label"  sortOrder="80"  showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Original Grid Setup</label>
+                            <comment>Configuration for "As Built" grid display</comment>
+                            <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Debm\Orig\Grid</frontend_model>
+                            <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        </field>
+                        <field  id="grid_config_additional" translate="button_label"  sortOrder="100"  showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Replacements Grid Setup</label>
+                            <comment>Configuration for "Additional and Replacements" grid display</comment>
+                            <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Debm\Additional\Grid</frontend_model>
+                            <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        </field>
+                        <field  id="grid_informationconfig" translate="button_label"  sortOrder="110"  showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Frontend Template Setup</label>
+                            <comment>Configuration for the grid display</comment>
+                            <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Debm\InformationLayout</frontend_model>
+                            <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        </field> 
+                        <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                            <label>Error Handling</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Action</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                        </field>
+                        <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Magento Admin Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Severity</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                            <depends>
+                                <field id="error_magento_notifcation">1</field>
+                            </depends>
+                        </field>
+                        <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send User Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Show ERP Error Description</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="error_user_notification">1</field>
+                            </depends>
+                        </field>
+                        <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Admin Email</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                            <label>Warning Actions</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Magento Admin Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Severity</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                            <depends>
+                                <field id="warning_magento_notifcation">1</field>
+                            </depends>
+                        </field>
+                        <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send User Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Show ERP Warning Description</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="warning_user_notification">1</field>
+                            </depends>
+                        </field>
+                        <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Admin Email</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                    </group>
+                    <group id="DMAU_request" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>DMAU Bill Of Materials Update</label>
+                        <field id="inventory_update_heading" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>The DMAU message. </label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="active" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="timeout" translate="label" sortOrder="25" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Timeout</label>
+                            <comment> Message specific timeout setting. Leave blank for default </comment>
+                            <config_path>xml_message/timeouts/deis</config_path>
+                            <validate>validate-number</validate>
+                        </field>
+                        <field id="log_all_requests" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Log all Requests</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="replace_orig_heading" translate="label" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Replace Parts</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="replace_orig_allowed" translate="label" sortOrder="32" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow replacement of original parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="replace_orig_custom" translate="label" sortOrder="33" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow replacement with custom parts of original parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="replace_orig_allowed">1</field>
+                            </depends>
+                        </field>
+                        <field id="replace_allowed" translate="label" sortOrder="34" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow replacement of modified parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="replace_custom" translate="label" sortOrder="35" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow replacement with custom parts of modified parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="replace_allowed">1</field>
+                            </depends>
+                        </field>
+                        <field id="addition_heading" translate="label" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Add parts</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="addition_allowed" translate="label" sortOrder="37" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow addition of parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="addition_custom" translate="label" sortOrder="38" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Allow addition of custom parts</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="addition_allowed">1</field>
+                            </depends>
+                        </field>
+                        <field id="options_heading" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Options</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="max_results_value" translate="label" sortOrder="60" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Max Results</label>
+                        </field>
+                        <field id="range_min_value" translate="label" sortOrder="70" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Range Minimium</label>
+                        </field>
+                        <field  id="grid_informationconfig" translate="button_label"  sortOrder="110"  showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Frontend Template Setup</label>
+                            <comment>Configuration for the grid display</comment>
+                            <frontend_model>Epicor\Dealerconnect\Block\Adminhtml\Config\Form\Field\Dmau\InformationLayout</frontend_model>
+                            <backend_model>Epicor\Comm\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        </field> 
+                        <field id="error_heading" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1">
+                            <label>Error Handling</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="error_action" sortOrder="810" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Action</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Erroractions</source_model>
+                        </field>
+                        <field id="error_magento_notifcation" translate="label" sortOrder="820" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Magento Admin Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="error_severity" sortOrder="825" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Severity</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                            <depends>
+                                <field id="error_magento_notifcation">1</field>
+                            </depends>
+                        </field>
+                        <field id="error_user_notification" translate="label" sortOrder="830" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send User Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="error_user_notification_erp" translate="label" sortOrder="835" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Show ERP Error Description</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="error_user_notification">1</field>
+                            </depends>
+                        </field>
+                        <field id="error_email_notifcation" translate="label" sortOrder="840" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Admin Email</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_heading" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1">
+                            <label>Warning Actions</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="warning_magento_notifcation" translate="label" sortOrder="910" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Magento Admin Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_severity" sortOrder="915" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Severity</label>
+                            <source_model>Epicor\Comm\Model\Config\Source\Adminnotificationmodelinbox</source_model>
+                            <depends>
+                                <field id="warning_magento_notifcation">1</field>
+                            </depends>
+                        </field>
+                        <field id="warning_user_notification" translate="label" sortOrder="920" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send User Notification</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="warning_user_notification_erp" translate="label" sortOrder="925" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Show ERP Warning Description</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="warning_user_notification">1</field>
+                            </depends>
+                        </field>
+                        <field id="warning_email_notifcation" translate="label" sortOrder="930" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Send Admin Email</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                    </group>
+            </section>
+            <section id="epicor_comm_field_mapping" translate="label">
+                    <resource>Epicor_Comm::system_config</resource>
+                    <group id="pac_mapping"  sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Part Attribute Class Mapping</label>
+                            <field id="active" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>
+                    <group id="warranty_mapping"  sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Warranty code Mapping</label>
+                            <field id="active" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Enabled</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                    </group>                            
+            </section>
+            <section id="trans_email" translate="label">
+                <group id="ident_warranty" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Warranty Support Email</label>
+                    <field id="email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Email</label>
+                        <validate>validate-email</validate>
+                        <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
+                    </field>
+                    <field id="name" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Name</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Email\Sender</backend_model>
+                        <validate>validate-emailSender</validate>
+                    </field>
+                </group>
+            </section>
+            <section id="epicor_comm_message_logging" translate="label">
+                <resource>Epicor_Dealerconnect::config_epicor_dealerconnect</resource>
+                <group id="dealerconnect" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dealer Connect</label>
+                    <field id="DCLD" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DCLD - Dealer Claim Detail Enquiry</label>
+                       <config_path>dealerconnect_enabled_messages/DCLD_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DCLS" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DCLS - Dealer Claim Search</label>
+                       <config_path>dealerconnect_enabled_messages/DCLS_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DCLU" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DCLU - Dealer Claim Update</label>
+                       <config_path>dealerconnect_enabled_messages/DCLU_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DEIS" translate="label" sortOrder="40" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DEIS - Inventory search</label>
+                       <config_path>dealerconnect_enabled_messages/DEIS_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DEID" translate="label" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DEID - Inventory Detail</label>
+                       <config_path>dealerconnect_enabled_messages/DEID_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DEIU" translate="label" sortOrder="60" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DEIU - Inventory Update</label>
+                       <config_path>dealerconnect_enabled_messages/DEIU_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                     <field id="DEBM" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                       <label>DEBM - Bill of materials</label>
+                       <config_path>dealerconnect_enabled_messages/DEBM_request/log_all_requests</config_path>
+                       <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                     </field>
+                </group>
+            </section>
+    </system>
+</config>

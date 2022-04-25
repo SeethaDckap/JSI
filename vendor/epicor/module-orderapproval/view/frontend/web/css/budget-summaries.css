@@ -1,0 +1,10 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+div.budget-details {
+    clear:both;
+}
+
+div.budget-details#shopper-budgets-details{
+    margin-top:15px;
+}

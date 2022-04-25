@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="address_book">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/customer/address/book.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Customer\Address\Grid" name="address_grid" template="Epicor_Comm::epicor_comm/customer/address/grid.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

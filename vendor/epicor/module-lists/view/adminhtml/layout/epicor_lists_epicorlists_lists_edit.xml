@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Lists::css/lists-admin.css"/>
+        <link src="Epicor_Lists::epicor/lists/js/edit.js"/>
+        <link src="Epicor_Comm::epicor/comm/js/childrenGrid.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/erpaccounts.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/restrictions.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/contractfields.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/brands.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/addresses.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/products.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/product_conditions.js"/> 
+        <link src="Epicor_Lists::epicor/lists/js/customers.js"/>
+        <!-- <link src="Epicor_Common::epicor/common/js/simulate.js"/>-->
+<!--         <js class="Epicor_Common::epicor/common/common.js"/>-->
+<!--        <action method="setCanLoadExtJs">
+            <argument name="flag" xsi:type="string">1</argument>
+        </action>
+        <action method="setCanLoadRulesJs">
+            <argument name="flag" xsi:type="string">1</argument>
+        </action>-->
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Lists\Block\Adminhtml\Listing\Edit" name="list"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Lists\Block\Adminhtml\Listing\Edit\Tabs" name="list_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

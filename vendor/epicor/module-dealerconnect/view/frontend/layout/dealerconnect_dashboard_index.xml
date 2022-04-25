@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Dealer Connect Dashboard</title>
+        <css src="Epicor_Dealerconnect::epicor/dealerconnect/css/dashbord.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Dealerconnect::dealerconnect/customer/dashboard/title.phtml" class="Magento\Framework\View\Element\Template" name="dealerconnect.dashboard.title"/>
+            <block template="Epicor_Dealerconnect::dealerconnect/customer/dashboard/manage.phtml" class="Epicor\Dealerconnect\Block\Customer\Dashboard\Manage" name="dealerconnect.dashboard.title"/>
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">dealer_dashboard_claims</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Dealerconnect</item>
+                        <item name="controller" xsi:type="string">Claims</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">dealer_dashboard_quotes</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Dealerconnect</item>
+                        <item name="controller" xsi:type="string">Quotes</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">dealer_dashboard_orders</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Dealerconnect</item>
+                        <item name="controller" xsi:type="string">Orders</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">dealer_dashboard_invoices</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Dealerconnect</item>
+                        <item name="controller" xsi:type="string">Invoices</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">dealer_dashboard_shipments</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Dealerconnect</item>
+                        <item name="controller" xsi:type="string">Shipments</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+            </block>
+            <block class="Epicor\Dealerconnect\Block\Customer\Account\Info" name="dealer_customer_account_dashboard_info" as="info" template="Epicor_Dealerconnect::dealerconnect/customer/dashboard/info.phtml" />
+            <container name="summary_dealer_container" htmlTag="section" htmlId="dealer-summary-container" htmlClass="dealer-summary-container">
+                <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Claimsection" name="dealer_dashboard_claimsection"/>
+            </container>
+            <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Claims" name="dealer_dashboard_claims"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Quotes" name="dealer_dashboard_quotes"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Orders" name="dealer_dashboard_orders"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Invoices" name="dealer_dashboard_invoices"/>
+            <block class="Epicor\Dealerconnect\Block\Customer\Dashboard\Shipments" name="dealer_dashboard_shipments"/>
+        </referenceContainer>
+    </body>
+</page>

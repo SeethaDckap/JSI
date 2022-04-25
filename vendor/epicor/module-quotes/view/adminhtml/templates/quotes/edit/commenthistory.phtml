@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+
+/* @var $this Epicor_Quotes_Block_Adminhtml_Quotes_Edit_Commenthistory */
+if($this->getQuoteNoteType() !== 'disabled') :
+?>
+<div id="quote-notes">
+    <?php if ($this->getQuote()->isActive()) : ?>
+        <div class="entry-edit box-left">
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-account">
+                    <?php echo __('Admin Comment'); ?>
+                </h4>
+            </div>
+            <div class="fieldset quote-notes a-right">
+                <textarea id="note" style="width:100%;height:100px;" ></textarea>
+                <?php if($this->getQuoteNoteType() !== 'single') : ?>
+                <select name="note_state" id="note_state">
+                    <option value="<?php echo Epicor\Quotes\Model\Quote\Note::STATE_FOR_LATER; ?>">Save for Later</option>
+                    <option value="<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PUBLISH_NOW; ?>">Publish Now</option>
+                    <option value="<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PRIVATE; ?>">Private Comment</option>
+                </select>
+                <?php else: ?>
+                    <input type="hidden" id="note_state" name="note_state" value="<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PUBLISH_NOW; ?>"/>
+                <?php endif; ?>
+                <button class="button" onclick="quoteform.submitNewComment('<?php echo $this->getNewNoteUrl(); ?>')"><span>Submit Comment</span></button>
+            </div>
+        </div>
+        <div class="clear">&nbsp;</div>
+    <?php endif; ?>
+    <div class="entry-edit box-left">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account">
+                <?php echo __('Comment History'); ?>
+            </h4>
+        </div>
+        <div class="fieldset" id="quote-notes">
+            <dl>
+                <?php
+                $class = 'odd';
+                
+                $notes = $this->getQuote()->getNotes();
+                
+                if (!empty($notes) && $this->getQuoteNoteType() == 'single' && $this->getSingleNoteType() == 'formatted' && is_array($notes)) :
+                    $notes = $this->getQuote()->splitFormattedNote(array_pop($notes));
+                endif;
+                
+                foreach ($notes as $note) :
+                    /* @var $note Epicor_Quotes_Model_Quote_Note */
+                    if($this->getQuoteNoteType() !== 'single' || $this->getSingleNoteType() == 'formatted') : 
+                        ?>
+                        <dt class="<?php echo $class; ?>">
+                            <span class="user"><?php echo $this->getNoteUser($note)->getName(); ?></span>
+                            <?php if ($this->getQuoteNoteType() !== 'single') : ?>
+                                <?php if ($note->getIsPrivate()) : ?>
+                                    <span class="private"><?php echo $note->getIsPrivate() ? ' - Private Message' : ''; ?></span>
+                                    <a href="#" onclick="quoteform.changeCommentState('<?php echo $this->getCommentStateUrl($note); ?>', '<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PUBLISH_NOW; ?>'); return false;"><?php echo __('Make Public'); ?></a>
+                                <?php endif; ?>
+
+                                <?php if (!$note->getIsVisible() && !$note->getIsPrivate()): ?>
+                                    <span class="visible"><?php echo __(' - Not Visible to Customer Yet'); ?></span>
+                                    <a href="#" class="publish" onclick="quoteform.publishComment('<?php echo $this->getPublishNoteUrl($note); ?>'); return false;"><?php echo __('Publish'); ?></a>
+                                    <span class="separator">|</span>
+                                    <a href="#" onclick="quoteform.changeCommentState('<?php echo $this->getCommentStateUrl($note); ?>', '<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PRIVATE; ?>'); return false;"><?php echo __('Make Private'); ?></a>
+                                <?php elseif (!$note->getIsPrivate()) : ?>
+                                    <a href="#" onclick="quoteform.changeCommentState('<?php echo $this->getCommentStateUrl($note); ?>', '<?php echo Epicor\Quotes\Model\Quote\Note::STATE_PRIVATE; ?>'); return false;"><?php echo __('Make Private'); ?></a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <span class="date"><?php echo $this->helper('Epicor\Quotes\Helper\Data')->readableTimeDiff($note->getCreatedAt()); ?></span>
+                        </dt>
+                    <?php endif; ?>
+                    <dd class="<?php echo $class; ?>">
+                        <?php echo nl2br($note->getNote()); ?>
+                    </dd>
+                    <?php
+                    $class = ($class == 'odd') ? 'even' : 'odd';
+                endforeach;
+                ?>
+            </dl>
+        </div>
+    </div>
+    <style>
+        #quote-notes .odd {
+            background: #fff;
+        }
+        #quote-notes .even {
+            background: #f6f6f6;
+        }
+        #quote-notes dt {
+            padding:5px 5px 0;
+        }
+        #quote-notes dt .date {
+            display:inline-block;
+            float:right;
+        }
+        #quote-notes dt .private {
+            color:#800;
+            font-weight:bold;
+        }
+        #quote-notes dt .visible {
+            color:#080;
+            font-weight:bold;
+        }
+        #quote-notes dd {
+            display:block;
+            border-bottom:1px solid #9BABB9;
+            padding:5px;
+        }
+    </style>
+</div>
+<?php endif;

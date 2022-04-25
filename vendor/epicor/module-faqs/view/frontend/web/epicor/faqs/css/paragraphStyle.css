@@ -1,0 +1,41 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.faqs_index_view {
+    display: block;
+    padding: 10px;
+    font-weight: normal;
+    outline: groove;
+    border: 1px solid;
+    margin: 10px;
+}
+.accordion_toggle {
+    display: block;
+    padding: 0 10px 0 10px;
+    line-height: 30px;
+    font-weight: normal;
+    text-decoration: none;
+    outline: none;
+    border-bottom: 1px solid;
+    color: default;
+    clear: right;
+    margin: 0 0 0 0;
+}
+.accordion_content {
+    font-size: 1.2em;
+    color: default;
+    padding-left: 20px 0 0 0;
+    height: fit-content;
+    display: block;
+    overflow: hidden;
+    
+    font-weight: normal;
+    text-decoration: none;
+    outline: none;
+    margin: 0 0 10px 0;
+    padding: 10px 10px 0px 20px;
+}
+.faqs_list_item{
+    border-bottom: 1px solid;
+}

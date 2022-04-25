@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Customer Connect Order Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Title" name="orders.title"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Billing" name="orders.billing"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Shipping" name="orders.shipping"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Info" name="orders.info"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Attachments" name="orders.attachments" />
+            <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Parts" name="orders.parts" >
+                <block class="Epicor\Customerconnect\Block\Customer\Orders\Details\Totals" name="tfoot" />
+            </block>
+            <block class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back" template="Epicor_Common::epicor_common/customer/account/link/back.phtml">
+                <action method="setRefererUrl">
+                    <argument name="refererUrl" xsi:type="string">/customerconnect/orders/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="listUrl" xsi:type="string">/customerconnect/orders/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="listType" xsi:type="string">Orders</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="entry-edit box-right">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account">
+            <?php echo __('Customer Information'); ?>
+        </h4>
+    </div>
+    <div class="fieldset">
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label><?php echo __('Name'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getCustomer()->getName(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Email'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getCustomer()->getEmail(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Erp Account'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getCustomerGroup()->getName(); ?></strong></td>
+            </tr>
+            <?php if($this->getCustomerGroup()->getErpCode()) :?>
+            <tr>
+                <td class="label"><label><?php echo __('Company'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getCustomerGroup()->getCompany(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Short code'); ?></label></td>
+                <td class="value"><strong><?php echo $this->getCustomerGroup()->getShortCode(); ?></strong></td>
+            </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+</div>

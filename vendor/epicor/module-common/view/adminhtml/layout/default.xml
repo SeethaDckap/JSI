@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Common::epicor/common/css/account_selector.css"/>
+        <link src="requirejs/require.js"/>
+        <script src="Epicor_Common::epicor/common/js/array_table_handler.js"/>
+        <script src="Epicor_Common::epicor/common/js/account_selector.js"/>
+    </head>
+</page>

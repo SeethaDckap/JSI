@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * @see Mage_Checkout_Block_Cart_Totals
+ */
+?>
+<?php if ($this->getTotals()): ?>
+<?php 
+// check if tax is to be displayed and update the $this->_totals array . A negative check means tax is to be removed
+$totals_with_tax = 0;
+$totals = $this->getTotals();
+if(array_key_exists('tax', $totals)):
+    if(Mage::helper('epicor_comm')->removeTaxLine($totals['tax']->getValue())):
+            $totals_with_tax = $this->getTotals(); 
+            $totals_without_tax = $this->getTotals();
+            unset($totals_without_tax['tax']); 
+            $this->setTotals($totals_without_tax); 
+    endif;
+endif;
+$contractHelper = Mage::helper('epicor_lists/frontend_contract');
+/* @var $contractHelper Epicor_Lists_Helper_Frontend_Contract */
+    $listEnabled = $contractHelper->contractsEnabled();
+    ?>
+    <tfoot>
+    <?php 
+        $colBase = 5;
+        if ($this->getShowLocations() && $this->getShowLocationsColumn()) : 
+            $colBase++;
+        endif;
+        if($listEnabled) :
+           $colBase++;
+        endif;         
+        $_colspan = $this->helper('tax')->displayCartBothPrices() ? $colBase : $colBase - 2;
+        $showUom = $this->getScopeConfig()->isSetFlag('Epicor_Comm/units_of_measure/display_in_checkout', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $showInColumn = $this->getScopeConfig()->isSetFlag('Epicor_Comm/units_of_measure/display_in_checkout_column', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        if($showUom && $showInColumn) $_colspan++;
+    ?>
+    <?php echo $this->renderTotals(null, $_colspan); ?>
+    <?php echo $this->renderTotals('footer', $_colspan); ?>
+    <?php if ($this->needDisplayBaseGrandtotal()):?>
+    <tr>
+        <td class="a-right" colspan="<?php echo $_colspan; ?>">
+            <small><?php echo $this->helper('sales')->__('You will be charged for') ?></small>
+        </td>
+        <td class="a-right">
+            <small><?php echo $this->displayBaseGrandtotal() ?></small>
+        </td>
+    </tr>
+    <?php endif?>
+</tfoot>
+<?php $totals_with_tax ? $this->setTotals($totals_with_tax) : null; // set back to as previously ?> 
+<?php endif; ?>

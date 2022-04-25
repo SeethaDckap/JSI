@@ -1,0 +1,90 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+--><div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label"><span data-bind="text: getTitle()"></span></label>
+    </div>
+    <div class="payment-method-content">
+        <div>
+            <strong id="checkout-reload-message"></strong>
+        </div>
+        <br />
+
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-note">
+            <strong><span data-bind="text: getInstruction()"></span></strong>
+        </div>
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!-- ko if: getCardList().length > 0 -->
+        <p class="esdmmessage"> <input type="radio"  data-bind="attr: {name: 'selectEsdmCard', value: 'newcard'},click:toggleEsdmAddCard,checked:defaultEsdmSelect()" id="newcard" />
+            <label data-bind="attr: {'for': 'newcard'}" class="label"><strong><span data-bind="text: 'Add / Use a new card'"></span></strong></label>
+        </p>
+        <!--/ko-->
+        <form class="form" id="esdm_form_data" action="#" method="post" data-bind="mageInit: {
+            'transparent':{
+                'context': context(),
+                'gateway': getCode(),
+            }, 'validation':[]}">
+            <!-- ko template: 'Magento_Payment/payment/cc-form' --><!-- /ko -->
+            <li id="esdm_save_card_div">
+                <label for="esdm_save_card"><strong>Would you like your Card details saved for future use ?</strong></label>
+                <input type="checkbox" id="esdm_save_card" name="payment[save_card]" title="Save Card Details" />
+            </li>
+        </form>
+
+        <!-- ko if: getCardList().length > 0 -->
+        <div class="esdm_saved_cards_list" >
+        <p class="esdmmessage"> <input type="radio"  data-bind="attr: {name: 'selectEsdmCard' , value: 'savedcard'},click:toggleEsdmSavedCard" id="savedcard" />
+            <label data-bind="attr: {'for':'savedcard'}" class="label" ><strong><span data-bind="text:'Use a saved card'"></span></strong></label>
+        </p>
+            <ul class="form-list items" id="esdm_saved_cards_list" data-bind="visible: shouldShowEsdmSavedCards">
+                <!-- ko foreach:  {data: getCardList(), as: 'variation'} -->
+                <li  data-role="row" class="fields esdmcardlist" data-bind="attr: { 'data-row-number': $index() }">
+                    <input class="radio selectedsavedcard" type="radio" data-bind="attr:{name: 'payment[esdm_token_id]' ,value: variation.value},click:$parent.toggleEsdmCvc.bind($data,'esdm_cvc_div_' + variation.value)" />
+                    <img data-bind="attr:{src: variation.cardImage}" >
+                    <span data-bind="text: variation.lastFour"></span>
+                    <div class="cvc_field" data-bind="visible: false, attr:{id: 'esdm_cvc_div_' + variation.value}">
+                        <label  class="required">, CV2<em>*</em></label>
+                        <input type="text" data-bind="attr:{id: 'esdm_cvc_field_' + variation.value , 'data-custom': variation.optionValues}"   class="input-text cvv required-entry validate-digits cvv tokencvv validate-card-cvv" name="payment[esdm_cvc]" max="4" maxlength="4" />
+                    </div>
+                </li>
+               <!--/ko-->
+            </ul>
+        </div>
+        <!-- /ko -->
+
+
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: postEsdmData,
+                        attr: {title: $t('Place Order')},
+                        css: {disabled: !isPlaceOrderActionAllowed()},
+                        enable: (getCode() == isChecked())
+                        "
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

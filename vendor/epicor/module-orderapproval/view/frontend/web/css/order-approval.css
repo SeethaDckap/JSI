@@ -1,0 +1,71 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+#listgrid .col-select input {
+    position: relative;
+}
+
+#listgrid .col-action {
+    width: 75px;
+}
+
+#listgrid .col-action a, #listgrid .col-action span {
+    display: inline-block;
+}
+
+form#approval_group_form span.approval-limit-span {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+}
+
+form#approval_group_form div.approval-limit-container {
+    display: inline-block;
+    width: 200px;
+}
+
+form#approval_group_form select#conditions__1--1__operator{
+    display: none;
+}
+
+form#approval_group_form input{
+    font-size: 14px !important;
+}
+
+form#approval_group_form  #rule_approval_conditions_fieldset ul{
+    list-style: none;
+}
+
+form#approval_group_form #rule_approval_conditions_fieldset li{
+    border-left: solid 1px;
+    padding-left: 42px;
+    padding-top: 5px;
+}
+form#approval_group_form #group_customers th input{
+    position: relative;
+}
+div#order-approval-approve-reject{
+    text-align: left;
+}
+div#order-approval-approve-reject button{
+    display: inline-block;
+}
+table#approval-grid_table .data-grid-checkbox-cell-inner:before{
+    height: 0px;
+}
+div#order-approve-reject-actions{
+    margin-bottom: 10px;
+}
+
+div#order-approve-reject-actions .submitter-details{
+    float: left;
+    padding-top:10px;
+}
+
+div#order-approve-reject-actions .approve-reject-actions{
+    float: right
+}
+
+div#order-approve-reject-actions .clear{
+    clear: both;
+}

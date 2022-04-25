@@ -1,0 +1,25 @@
+{
+    "ecc_weak_passwords_dictionary": {
+        "column": {
+            "id": true,
+            "passwords": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ecc_customer_passwords": {
+        "column": {
+            "password_id": true,
+            "customer_id": true,
+            "password_hash": true
+        },
+        "index": {
+            "ECC_CUSTOMER_PASSWORDS_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_CUSTOMER_PASSWORDS_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}

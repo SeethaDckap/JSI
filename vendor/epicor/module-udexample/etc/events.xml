@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="gor_request_converttoxml_before">
+		<observer instance="Epicor\UDExample\Observer\Gor\RequestConvert2xmlBefore" name="epicor_udexample_observer_gor_requestconvert2xmlbefore_gor_request_convert2xml_before"/>
+	</event>
+	<event name="payment_method_assign_data">
+		<observer instance="Epicor\UDExample\Observer\Gor\TestAssigData" name="epicor_udexample_observer_gor_requestconvert2xmlbefore_assign_data"/>
+	</event>        
+	<event name="crqu_request_converttoxml_before">
+		<observer instance="Epicor\UDExample\Observer\Crqu\RequestConvert2xmlBefore" name="epicor_udexample_observer_crqu_requestconvert2xmlbefore_crqu_request_convert2xml_before"/>
+	</event>
+</config>

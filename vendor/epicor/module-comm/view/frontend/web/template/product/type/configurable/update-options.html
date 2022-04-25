@@ -1,0 +1,24 @@
+<div afterRender="renderStockData()"
+     class="product-options-wrapper"
+     id="product-options-wrapper"
+     data-hasrequired="* Required Fields">
+    <div class="fieldset" tabindex="0">
+    <!-- ko foreach: getOptionsData() -->
+        <div class="field configurable required">
+            <label class="label">
+                <span data-bind="text: label"></span>
+            </label>
+            <div class="control">
+                <select disabled name="super_attribute"
+                        data-selector="super_attribute"
+                        data-validate="{required:true}"
+                        id="attribute"
+                        class="super-attribute-select"
+                        aria-required="true">
+                    <option value="8" data-bind="text: value"></option>
+                </select>
+            </div>
+        </div>
+    <!-- /ko -->
+    </div>
+</div>

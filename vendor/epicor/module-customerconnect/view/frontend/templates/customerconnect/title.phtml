@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Entity details page title
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Title */
+$commHelper = $this->helper('\Epicor\Comm\Helper\Data');
+?>
+<div id="button_bar">
+    <?= $this->getPrintAction()   ?>
+    <?php if ($this->canReorder() && (!$commHelper->getEccHidePrice() || $commHelper->getEccHidePrice() == 3)) : ?>
+        <form action="<?php echo $this->getReorderUrl(); ?>">
+            <button title="<?php echo __('Reorder'); ?>" type="submit" class="link-reorder action-default scalable save">
+                <span><?php echo __('Reorder'); ?></span>
+            </button>
+        </form>
+    <?php endif; ?>
+    <?php if ($this->canReturn()) : ?>
+        <form action="<?php echo $this->getReturnUrl(); ?>">
+            <button title="<?php echo __('Return'); ?>" type="submit" class="action-default scalable save">
+                <span><?php echo __('Return'); ?></span>
+            </button>
+        </form>
+    <?php endif; ?>
+    <?php if ($this->canEdit()) : ?>
+        <form action="<?php echo $this->getEditUrl(); ?>">
+            <button title="<?php echo __('Edit'); ?>" type="submit" class="action-default scalable save">
+                <span><?php echo __('Edit'); ?></span>
+            </button>
+        </form>
+    <?php endif; ?>
+</div>
+<div id="messages" class="messages custom-msg"></div>
+<?php if($this->getTitle()) : ?>
+    <h1><?php echo $this->getTitle(); ?></h1>
+<?php endif; ?>

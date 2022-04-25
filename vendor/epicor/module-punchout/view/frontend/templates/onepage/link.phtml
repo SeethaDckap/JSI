@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ *
+ * @package    Epicor_Punchout
+ * @subpackage Helper
+ * @author     Epicor Websales Team
+ * @copyright  Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/** @var $block \Epicor\Punchout\Block\Onepage\Link */
+?>
+<?php if ($block->isPossibleTransferCart()) :?>
+    <button type="button"
+            data-role="proceed-to-checkout"
+            title="<?= $block->escapeHtmlAttr(__('Transfer Cart')) ?>"
+            data-mage-init='{
+                "Magento_Checkout/js/proceed-to-checkout":{
+                    "checkoutUrl":"<?= $block->escapeJs($block->escapeUrl($block->getCheckoutUrl())) ?>"
+                }
+            }'
+            class="action primary checkout" >
+        <span><?= $block->escapeHtml(__('Transfer Cart')) ?></span>
+    </button>
+<?php endif?>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Silk_CustomForms::parent" 
+            title="Custom Forms" 
+            module="Silk_CustomForms" 
+            sortOrder="100" 
+            resource="Magento_Backend::content"
+        />
+        
+        <add id="Silk_CustomForms::contactsupport"
+            title="Contact Support"
+            module="Silk_CustomForms"
+            sortOrder="1"
+            parent="Silk_CustomForms::parent"
+            action="customforms/contactsupport/index"
+            resource="Silk_CustomForms::contactsupport"
+        />
+        <add id="Silk_CustomForms::dealerrequest"
+            title="Dealer Request"
+            module="Silk_CustomForms"
+            sortOrder="2"
+            parent="Silk_CustomForms::parent"
+            action="customforms/dealerrequest/index"
+            resource="Silk_CustomForms::dealerrequest"
+        />
+    </menu>
+</config>

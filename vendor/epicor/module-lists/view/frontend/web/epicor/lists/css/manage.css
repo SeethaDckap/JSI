@@ -1,0 +1,191 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.product-collateral ul.toggle-tabs  {
+    padding: 0;
+    list-style-type: none;
+}
+  
+@media only screen and (min-width: 771px) {
+  .product-collateral .toggle-tabs {
+    display: block;
+    width: 100%;
+    position: relative;
+    border: 1px solid #cccccc;
+    background-color: #f4f4f4;
+  }
+  
+  .product-collateral .toggle-tabs li {
+    float: left;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    margin-bottom: 0;
+  }
+  .product-collateral .toggle-tabs li > span {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    display: inline-block;
+    padding: 0 30px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    position: relative;
+    bottom: -1px;
+  }
+  .product-collateral .toggle-tabs li.current {
+    border-right: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+  }
+  .product-collateral .toggle-tabs li.current > span {
+    background-color: #FFFFFF;
+    z-index: 5;
+  }
+  .product-collateral .toggle-tabs li.current span,
+  .product-collateral .toggle-tabs li:hover span {
+    color: #3399cc;
+  }
+  .product-collateral .toggle-tabs li:first-child {
+    border-left: none;
+  }
+  .product-collateral .toggle-tabs:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .product-collateral > dl {
+    width: 100%;
+  }
+  .product-collateral > dl > dt {
+    display: none;
+  }
+  .product-collateral > dl > dd {
+    width: 100%;
+    display: none;
+    padding: 15px;
+    border: 1px solid #cccccc;
+    border-top: 0;
+  }
+  .product-collateral > dl > dd.current {
+    display: block;
+  }
+}
+
+
+
+@media only screen and (max-width: 770px) {
+  .product-collateral .toggle-tabs {
+    display: none;
+  }
+  .product-collateral > dl > dt {
+    margin: 0;
+    margin-bottom: 10px;
+    color: #636363;
+    font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.4;
+    text-rendering: optimizeSpeed;
+    text-transform: uppercase;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    font-weight: normal;
+    margin-bottom: 0px;
+    padding: 7px 10px 7px 24px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    position: relative;
+    background-color: #f4f4f4;
+    display: block;
+  }
+  .product-collateral > dl > dt:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: block;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-top: 4px solid #3399cc;
+    border-bottom: none;
+    left: 10px;
+    top: 50%;
+    margin-top: -3px;
+  }
+  .product-collateral > dl > dt:hover {
+    background-color: #ececec;
+  }
+  .product-collateral > dl > dd {
+    padding: 10px;
+    margin: 0;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: #cccccc;
+  }
+  .product-collateral > dl > dd:last-child {
+    border-width: 0 1px 1px 1px;
+  }
+  .product-collateral > dl > dt {
+    cursor: pointer;
+    border-bottom-width: 0;
+  }
+  .product-collateral > dl > dt:hover {
+    color: #3399cc;
+  }
+  .product-collateral > dl > dt:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: block;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid #3399cc;
+    border-right: none;
+  }
+  .product-collateral > dl > dt.last {
+    border-bottom-width: 1px;
+  }
+  .product-collateral > dl > dd {
+    display: none;
+  }
+  .product-collateral.accordion-open > dl > dt.current {
+    border-bottom-width: 1px;
+  }
+  .product-collateral.accordion-open > dl > dt.current:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: block;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-top: 4px solid #3399cc;
+    border-bottom: none;
+    left: 6px;
+    top: 50%;
+    margin-top: -3px;
+  }
+  .product-collateral.accordion-open > dl > dd.current {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .product-collateral {
+    width: 100%;
+    float: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

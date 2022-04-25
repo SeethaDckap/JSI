@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+  <module name="Epicor_B2b" setup_version="1.1.0">
+    <sequence>
+      <module name="Mage_Log"/>
+      <module name="Epicor_Comm"/>
+      <module name="Epicor_Common"/>
+      <module name="Epicor_Search"/>
+    </sequence>
+  </module>
+</config>

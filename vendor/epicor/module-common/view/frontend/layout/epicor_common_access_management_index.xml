@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <action method="setTitle">
+            <argument translate="true" name="title" xsi:type="string">Access Groups</argument>
+        </action>
+    </head>
+    <body>
+        <update handle="customer_account"/>
+        <referenceContainer name="my.account.wrapper">
+            <block class="Epicor\Common\Block\Access\Management\Groups\Listing" name="groupslist"/>
+        </referenceContainer>
+    </body>
+</page>

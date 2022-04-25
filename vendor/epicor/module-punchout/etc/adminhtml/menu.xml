@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Epicor_Punchout::manage" title="Punchout" translate="title" parent="Epicor_Common::epicor"
+             module="Epicor_Punchout" sortOrder="60" resource="Epicor_Punchout::manage"/>
+        <add id="Epicor_Punchout::manage_connections" resource="Epicor_Punchout::manage_connections"
+             module="Epicor_Punchout"
+             title="Manage Connections" sortOrder="10" action="epicor_punchout/connections"
+             parent="Epicor_Punchout::manage"/>
+        <add id="Epicor_Punchout::transaction_logs" resource="Epicor_Punchout::transaction_logs"
+             module="Epicor_Punchout"
+             title="Transaction Logs" sortOrder="10" action="epicor_punchout/transactionlogs"
+             parent="Epicor_Punchout::manage"/>
+    </menu>
+</config>

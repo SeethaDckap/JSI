@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <epicor_quotes>
+      <general>
+        <enabled>1</enabled>
+        <days_till_expired>7</days_till_expired>
+        <single_quote_note>0</single_quote_note>
+        <prefix/>
+        <select_quote_status>awaiting_acceptance</select_quote_status>
+      </general>
+      <notes>
+        <quote_note_type>multiple</quote_note_type>
+        <line_note_type>single</line_note_type>
+      </notes>
+      <email_alerts>
+        <send_reminders>both</send_reminders>
+        <days_to_send_reminders>5,2,1</days_to_send_reminders>
+        <reminder_email_template>epicor_quotes_email_alerts_reminder_email_template</reminder_email_template>
+        <reminder_email_address>general</reminder_email_address>
+        <send_admin_update_emails>1</send_admin_update_emails>
+        <admin_update_email_template>epicor_quotes_email_alerts_admin_update_email_template</admin_update_email_template>
+        <admin_update_email_address>general</admin_update_email_address>
+        <admin_states>pending,expired,rejected_customer,accepted,ordered</admin_states>
+        <send_customer_update_emails>1</send_customer_update_emails>
+        <customer_update_email_template>epicor_quotes_email_alerts_customer_update_email_template</customer_update_email_template>
+        <customer_update_email_address>general</customer_update_email_address>
+        <customer_states>pending,awaiting_acceptance,expired,rejected_admin</customer_states>
+        <send_customer_note_emails>1</send_customer_note_emails>
+        <customer_note_email_template>epicor_quotes_email_alerts_customer_note_email_template</customer_note_email_template>
+        <customer_note_email_address>general</customer_note_email_address>
+        <send_admin_note_emails>1</send_admin_note_emails>
+        <admin_note_email_template>epicor_quotes_email_alerts_admin_note_email_template</admin_note_email_template>
+        <admin_note_email_address>general</admin_note_email_address>
+      </email_alerts>
+    </epicor_quotes>
+  </default>
+</config>

@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/* @var $this Mage_Sales_Block_Order_Items */
+
+$helper = $this->helper('epicor_comm');
+/* @var $helper Epicor_Comm_Helper_Data */
+
+// Start B2B hide prices
+$eccHidePrices = $helper->getEccHidePrice();
+$showPrices = true;
+if ($eccHidePrices || $helper->isFunctionalityDisabledForCustomer('prices')){
+    $showPrices = false;
+}
+// End B2B hide prices
+
+$contractHelper = Mage::helper('epicor_lists/frontend_contract');
+/* @var $contractHelper Epicor_Lists_Helper_Frontend_Contract */
+$listEnabled = $contractHelper->contractsEnabled();
+
+$colspan = 3;
+?>
+<?php  $_order = $this->getOrder() ?>
+<table class="data-table" id="my-orders-table" summary="<?php echo __('Items Ordered') ?>">
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <?php if ($this->getShowLocations() && $this->getShowLocationsColumn()) : ?>
+        <col width="1" />
+    <?php endif; ?>
+    <?php if ($listEnabled) : ?>
+        <col width="1" />
+    <?php endif; ?>
+    <?php if($showPrices) : ?>
+        <col width="1" />
+    <?php endif; ?>
+    <col width="1" />
+    <?php if($showPrices) : ?>
+        <col width="1" />
+    <?php endif; ?>
+    <thead>
+        <tr>
+            <th><?php echo __('Product Name') ?></th>
+            <th><?php echo __('SKU') ?></th>
+            <th><?php echo __('UOM') ?></th>
+            <?php if ($this->getShowLocations() && $this->getShowLocationsColumn()) : ?>
+                <?php $colspan++; ?>
+                <th><?php echo __('Location') ?></th>
+            <?php endif; ?>
+            <?php if ($listEnabled) : ?>
+                <?php $colspan++; ?>
+                <th><?php echo __('Contract') ?></th>
+            <?php endif; ?>                 
+            <?php if($showPrices) : ?>
+                <?php $colspan++; ?>
+                <th class="a-right"><?php echo __('Price') ?></th>
+            <?php endif; ?>
+            <th class="a-center"><?php echo __('Qty') ?></th>
+            <?php if($showPrices) : ?>
+                <?php $colspan++; ?>
+                <th class="a-right"><?php echo __('Subtotal') ?></th>
+            <?php endif; ?>
+        </tr>
+    </thead>
+    <tfoot>
+        <?php if($showPrices) : ?>
+            <?php $this->getChild('order_totals')->setLabelProperties('colspan="' . $colspan . '" align="right"'); ?>
+            <?php echo $this->getChildHtml('order_totals') ?>
+        <?php endif; ?>
+    </tfoot>
+        <?php $_items = $_order->getItemsCollection(); ?>
+        <?php $_index = 0; ?>
+            <?php $_count = $_items->count(); ?>
+        <?php foreach ($_items as $_item): ?>
+        <?php if ($_item->getParentItem()) continue; ?>
+        <tbody>
+            <?php echo $this->getItemHtml($_item) ?>
+            <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
+            <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
+                <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
+                <td class="gift-message-row" colspan="7">
+                    <a href="#" title="<?php echo __('Close') ?>" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');" class="btn-close"><?php echo __('Close') ?></a>
+                    <dl class="gift-message">
+                        <dt><strong><?php echo __('From:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></dt>
+                        <dt><strong><?php echo __('To:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></dt>
+                        <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></dd>
+                    </dl>
+                </td>
+            </tr>
+            <?php endif ?>
+         </tbody>
+        <?php endforeach; ?>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>

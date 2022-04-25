@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Common\Block\Adminhtml\Importexport" name="epicor_common_importexport_comm">
+                <block template="Epicor_Common::epicor_common/comm_settings_backup/mappingTables.phtml" class="Epicor\Common\Block\Adminhtml\Mappingtables" name="epicor_common_importexport_mappingTables"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

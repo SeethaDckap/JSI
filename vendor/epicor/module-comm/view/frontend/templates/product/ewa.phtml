@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $block \Epicor\Comm\Block\Catalog\Product\Ewa */
+
+if ($block->hasEWAData()) :
+    $kineticConfig =$block->getKineticOrConfigurator();
+    ?>
+    <p><?php echo __('Please wait while you are redirected to the configurator.'); ?></p>
+    <form id="ewaform" action="<?php echo ($kineticConfig) ? $block->getEwcFormUrl() : $block->getFormUrl(); ?>" method="post" >
+        <input type="hidden" value="<?php echo $block->getConfigName(); ?>" name="ConfigName" />
+        <input type="hidden" value="<?php echo $block->getRelatedToTable(); ?>" name="RelatedToTable" />
+        <input type="hidden" value="<?php echo $block->getRelatedToRowId(); ?>" name="RelatedToRowID" />
+        <input type="hidden" value="<?php echo $block->getPartNum(); ?>" name="PartNum" />
+        <input type="hidden" value="<?php echo $block->getPartRev(); ?>" name="PartRev" />
+        <input type="hidden" value="<?php echo ($kineticConfig) ? $block->getEwcStyleSheet() : $block->getStyleSheet(); ?>" name="CSS" />
+        <input type="hidden" value="<?php echo $block->getLanguage(); ?>" name="Lang" />
+        <input type="hidden" value="<?php echo $block->getReturnUrl(); ?>" name="ReturnURL" />
+        <input type="hidden" value="<?php echo ($kineticConfig) ? $block->getEWCUser() :$block->getECCUser() ; ?>" name="ECCUser" />
+        <input type="hidden" value="<?php echo ($kineticConfig) ? $block->getEWCPwd() : $block->getECCPwd(); ?>" name="ECCPwd" />
+        <input type="hidden" value="<?php echo $block->getECCCompanyId(); ?>" name="ECCCompanyID" />
+<?php if($kineticConfig):?>
+        <input type="hidden" value="<?php echo $block->getEwcAppUrl(); ?>" name="AppServerURL" />
+<?php endif;?>        
+    </form>
+    <script type="text/javascript" >
+        <!--
+        document.getElementById('ewaform').submit();
+    -->
+    </script>
+
+<?php else: ?>
+    <?php if($block->checkLicensed()) :?>
+        <h2><?php echo __('An error occured while retrieving product data for the configurator.'); ?></h2>
+        <p><?php echo __('This window will close in 10 seconds'); ?></p>
+    <?php else: ?>
+       <h2><?php echo __('License key not valid for this feature.'); ?></h2>
+    <?php endif;?>
+    <style>
+        #ewaWrapper {
+            width:100px;
+            height:100px;
+            margin-top:-25px;
+            margin-left:-25px;
+            padding:5px;
+            position:fixed;
+            left:50%;
+            top:50%;
+            z-index:1000;
+            background:#fff;
+            border:1px solid #666;
+            overflow:hidden;
+        }
+
+
+        #ewaWrapper a {
+            float:right;
+            display:inline;
+        }
+        #ewaWrapper .loading {
+            margin-top:34px;
+            text-align:center;
+        }
+        #ewaWrapper .loading img,
+        #ewaWrapper .loading p {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #ewaWrapper iframe {
+            width:800px;
+            height:471px;
+            display:block;
+            border:none;
+            margin-top:20px;
+            margin-left:-100000px;
+        }
+
+     </style>
+    <script type="text/javascript">
+        <!--
+                        var message = {
+            width: 575,
+            height: 175
+        };
+        window.parent.postMessage(JSON.stringify(message), '*');
+
+        setTimeout(function () {
+            $(parent).ewaProduct.closepopup("ewaWrapper")
+        }, 10000);
+    -->
+        </script>
+    <?php endif; ?>
+
+

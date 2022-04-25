@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><script type="text/javascript">
+    //<![CDATA[
+    function check() {
+        new Ajax.Request('<?php echo $this->getAjaxCheckUrl() ?>', {
+            method:     'get',
+            onSuccess: function(transport){
+                switch(transport.responseText) {
+                    case 'true':
+                        alert('Connection Successful');
+                        break;
+                        
+                    case 'disabled':
+                        alert('Connection Test Message Disabled\nPlease Enable the Test Message and try again');
+                        break;
+                        
+                    default:
+                        alert("Connection Failed\n"+transport.responseText);
+                        break;
+                }
+            }
+        });
+    }
+    //]]>
+</script>
+ 
+<?php echo $this->getButtonHtml() ?>

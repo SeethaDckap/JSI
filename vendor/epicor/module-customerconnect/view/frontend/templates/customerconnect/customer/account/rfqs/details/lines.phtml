@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+/**
+ * RFQ lines display container
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Linescontainer */
+?>
+<?php 
+$currentUrl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+$isDealerPage = strpos($currentUrl, 'dealerconnect/quotes');
+?>
+<div class="box-info box-account col-full">
+    <div class="content-header">
+        <table cellspacing="0">
+            <tr>
+                <td><h3 class="icon-head head-customer-rfqs-details-lines"><?php echo __('Lines') ?></h3></td>
+                <td class="form-buttons"></td>
+            </tr>
+        </table>
+    </div>
+    <?php echo $this->getChildHtml('rfqs.lineadd') ?>
+    <?php if ($isDealerPage) {
+        echo $this->getChildHtml('quotes.linesearch');
+    } else {
+        echo $this->getChildHtml('rfqs.linesearch');
+    } ?>
+    <div>
+        <?php echo $this->getChildHtml('rfqs.lines') ?>
+    </div>
+</div>

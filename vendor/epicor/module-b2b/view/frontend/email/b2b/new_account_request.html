@@ -1,0 +1,73 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+--><!--@subject New Registration Request {{var adminname}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"  var=$firstname":"Customer First Name",
+"  var=$lastname":"Customer Last Name",
+"  var=$customer_email":"Customer Email",
+"  var=$password":"Customer Password",
+"  var=$company":"Company Name",
+"  var=$telephone":"Customer Telephone",
+"  var=$street0":"Customer Line 1",
+"  var=$street1":"Customer Line 2",
+"  var=$street2":"Customer Line 3",
+"  var=$city":"Customer City",
+"  var=$region":"Customer Region",
+"  var=$postcode":"Customer Postcode",
+"  var=$country_id":"Customer Country"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+        <tr>
+            <td align="center" valign="top" style="padding:20px 0 20px 0">
+                <!-- [ header starts here] -->
+                <table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+                    <tr>
+                        <td valign="top">
+                            <a href='{{store url=""}}'><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                    <!-- [ middle starts here] -->
+                    <tr>
+                        <td valign="top">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">{{trans 'Dear'}} {{var adminname}},</h1>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 16px 0;">{{trans 'A new user has requested an account on'}} {{var store.getFrontendName()}}. </p>
+                            <p style="display:block; border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0; padding:13px 18px; background:#f9f9f9;">
+                                The details are:<br/>
+                                <strong>{{trans 'Company'}}</strong>:{{var company}}<br/>
+                                <strong>{{trans 'First name'}}</strong>:{{var firstname}}<br/>
+                                <strong>{{trans 'Last name'}}</strong>:{{var lastname}}<br/>
+                                <strong>{{trans 'E-mail'}}</strong>: {{var customer_email}}<br/>
+                                <strong>{{trans 'Password'}}</strong>: {{var password}}<br/><br/>
+                            </p>
+                            <p style="display:block; border:1px solid #E0E0E0; font-size:12px; line-height:16px; margin:0; padding:13px 18px;">
+                                <br />{{trans 'Address'}} :<br />
+                                <strong>{{trans 'Street 1'}}</strong>:{{var street1}}<br />
+                                <strong>{{trans 'Street 2'}}</strong>:{{var street2}}<br />
+                                <strong>{{trans 'Street 3'}}</strong>:{{var street3}}<br />
+                                <strong>{{trans 'City'}}</strong>:{{var city}}<br />
+                                <strong>{{trans 'Region'}}</strong>:{{var state_code}}<br />
+                                <strong>{{trans 'Postcode'}}</strong>:{{var postcode}}<br />
+                                <strong>{{trans 'Country'}}</strong>:{{var country_id}}<br />
+                                <strong>{{trans 'Telephone'}}</strong>:{{var telephone}}<br />
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">{{trans 'Thank you again,'}} <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

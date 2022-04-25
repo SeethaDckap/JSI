@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * WARNING: IF YOU MAKE ECC SPECIFIC CHANGES TO THIS FILE, THEY MUST ALSO BE ADDED TO THE RWD FILE TOO
+ * rwd/default/template/epicor/lists/quickorderpad/list/selector.phtml
+ */
+
+/* @var $this Epicor_Lists_Block_Quickorderpad_List_Selector */
+
+$listHelper = Mage::helper('epicor_lists/frontend');
+/* @var $listHelper Epicor_Lists_Helper_Frontend */
+$lists = $this->getLists();
+
+if ($listHelper->listsEnabled() && count($lists) > 0):
+    ?>
+    <form method="post" id="select-list-form" action="<?php echo $this->getActionUrl(); ?>">
+        <div class="fieldset">
+            <h2 class="legend"><?php echo __('List Selector'); ?></h2>
+            <ul class="form-list">
+                <li>
+                    <label for="list_id"><?php echo __('Select List'); ?></label>
+                    <div class="input-box">
+                        <select name="list_id" id="list_id" class="required-entry validate-select" title="<?php echo __('List'); ?>">
+                            <option><?php echo __('No List Selected'); ?></option>
+                            <?php foreach ($lists as $list): ?>
+                                <option <?php if ($this->isSessionList($list)): ?>selected="selected" <?php endif; ?>value="<?php echo $list->getId(); ?>"><?php echo $list->getTitle(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <input id="search_lists" type="button" value="<?php echo __('Search') ?>" />
+                    </div>
+                </li>
+                <li>
+                    <input type="submit" value="<?php echo __('Select List'); ?>" />
+                </li>
+            </ul>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        //< ![CDATA[
+        var selectListForm = new VarienForm('select-list-form');
+        //]]> 
+        if ($("search_lists")) {
+            $("search_lists").observe('click', function() {   
+                    var overlay_margin = parseFloat(($('window-overlay').getWidth()*.40)/2);
+                    $('window-overlay').insert('<iframe id="search_iframe" width="60%" top="20%" src="" frameborder="0" onload="resizeIframe(this)" style="display:none"></iframe>');                                
+                    $$('iframe').first().setStyle({left: overlay_margin + 'px', position: 'absolute'});
+                        $('search_iframe').src = '/lists/list/selector';
+                        $('search_iframe').show();
+                        $('window-overlay').show();
+                    }
+            );
+        }
+
+        function resizeIframe(obj) {
+            var maxH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            var iframeH = parseInt(obj.contentWindow.document.body.scrollHeight + 50);
+
+            if(iframeH > maxH) {
+                obj.style.height = parseInt(maxH) + 'px';
+            } else {
+                obj.style.height = parseInt(obj.contentWindow.document.body.scrollHeight + 50) + 'px';
+            }
+        }
+
+      function updateFieldListValue(value) {
+        var rowId = value.trim();
+        $$('select#list_id option').each(function(o) {
+             if (o.value == rowId) {
+                  o.selected = true;
+             }
+          });
+        $('window-overlay').hide();
+        $('search_iframe').remove();
+        
+        event.stop();
+        return false;
+    }
+
+    </script>
+<?php endif; ?>

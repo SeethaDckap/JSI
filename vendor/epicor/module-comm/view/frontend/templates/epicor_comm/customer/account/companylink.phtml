@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<li data-bind="scope: 'companylink'">
+    <!-- ko if: companylink().showlink -->
+    <a <?= $block->getLinkAttributes(); ?>> <?= $block->escapeHtml($block->getLabel()); ?></a>
+    <!-- /ko -->
+</li>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "companylink": {
+                        "component": "Epicor_Comm/epicor/comm/js/view/companylink"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

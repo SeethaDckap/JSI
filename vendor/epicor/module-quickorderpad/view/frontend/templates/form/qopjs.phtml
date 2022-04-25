@@ -1,0 +1,62 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+?>
+
+
+<script>
+    require(
+        [
+            'jquery',
+            'domReady!'
+        ],
+        function(
+            $
+        ) {
+                $('#add_all_to_basket').on('click', function (event) {
+                    event.preventDefault();
+                    var products = 0;
+                    var error = 0;
+
+                    $('.addall_qty').each(function (index) {
+                        var valid = $(this).parent().validation() && $(this).parent().validation('isValid');
+                        if (!valid) {
+                            error++;
+                        } else if ($(this).val() > 0) {
+                            productForm = $(this).parent();
+                            var product = $(this).attr('qty').replace('qty_', '');
+                            products++;
+                            $(this).parent().children("input").each(function (index) {
+                                input = $(this).clone();
+                                name = input.attr('name');
+
+                                if (name.indexOf('[') != -1) {
+                                    name = 'products[' + product + '][multiple][' + products + '][' + name.replace('[', '][')
+                                } else {
+                                    name = 'products[' + product + '][multiple][' + products + '][' + name + ']';
+                                }
+
+                                input.attr('name', name);
+                                input.attr('type', 'hidden');
+                                if (input.hasClass("addall_qty")) {
+                                    input.removeClass("addall_qty");
+                                }
+                                if ($('#addalltobasketform').find('input[name="'+name+'"]').length > 0 && $('#addalltobasketform').find('input[name="'+name+'"]').val() != input.val()) {
+                                    var newValue = input.val();
+                                    $('#addalltobasketform').find('input[name="'+name+'"]').val(newValue);
+                                } else if ($('#addalltobasketform').find('input[name="'+name+'"]').length == 0){
+                                    $('#addalltobasketform').append(input);
+                                }
+                            });
+                        }
+                    });
+                    if (products == 0 || error > 0) {
+                      return false;
+                    }
+                    $('#addalltobasketform').submit();
+                });
+            }
+    );
+</script>

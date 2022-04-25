@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="ecc_category_fulltext" class="Epicor\Elasticsearch\Model\Category\Indexer\Fulltext" group="indexer">
+        <subscriptions>
+            <table name="catalog_category_entity" entity_column="entity_id" />
+            <table name="catalog_category_entity_datetime" entity_column="entity_id" />
+            <table name="catalog_category_entity_decimal" entity_column="entity_id" />
+            <table name="catalog_category_entity_int" entity_column="entity_id" />
+            <table name="catalog_category_entity_text" entity_column="entity_id" />
+            <table name="catalog_category_entity_varchar" entity_column="entity_id" />
+        </subscriptions>
+    </view>
+    <view id="ecc_cms_page_fulltext" class="Epicor\Elasticsearch\Model\Cmspage\Indexer\Fulltext" group="indexer">
+        <subscriptions>
+            <table name="cms_page" entity_column="page_id" />
+            <table name="cms_page_store" entity_column="page_id" />
+        </subscriptions>
+    </view>
+</config>

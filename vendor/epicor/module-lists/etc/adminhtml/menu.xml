@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+    <add id="Epicor_Lists::manage" resource="Epicor_Lists::lists" module="Epicor_Lists" title="Lists" sortOrder="30" action="epicor_lists/epicorlists_lists" parent="Epicor_Common::manage"/>
+    <add id="Epicor_Lists::analyse" resource="Epicor_Lists::analyse" module="Epicor_Lists" title="Lists - Analyse" sortOrder="40" action="epicor_lists/epicorlists_analyse" parent="Epicor_Common::manage"/>
+  </menu>
+</config>

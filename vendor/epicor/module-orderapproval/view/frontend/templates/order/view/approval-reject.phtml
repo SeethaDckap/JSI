@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */ ?>
+<?php /** @var $this Epicor\OrderApproval\Block\Order\View\ApprovalActions */ ?>
+<?php $history = 'history_data[' . $this->getOrderId() . ']' ?>
+<?php $grandTotal = 'order_grand_total[' . $this->getOrderId() . ']' ?>
+<?php if ($this->isApprovalSectionVisible()): ?>
+    <div id="order-approve-reject-actions" >
+        <div class="submitter-details"><?= __('Submitted by:') ?> <?= $this->getSubmitter() ?></div>
+        <div class="approve-reject-actions" >
+            <form id="approve-reject-actions" action="<?= $this->getApproveRejectUrl() ?>">
+                <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>"/>
+                <input type="hidden" name="order_id" value="<?= $this->getOrderId() ?>"/>
+                <input type="hidden" name="<?= $history ?>" value="<?= $this->getHistoryId() ?>"/>
+                <input type="hidden" name="<?= $grandTotal ?>" value="<?= $this->getOrderGrandTotal() ?> "/>
+                <input class="approval-status" type="hidden" name="approval_status" value=""/>
+                <button class="action-primary approve-button" <?=$this->getDisabled()?> >
+                    <?= __('Approve Order') ?>
+                </button>
+                <button class="reject-button" <?=$this->getDisabled()?>>
+                    <?= __('Reject Order') ?>
+                </button>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script type="text/x-magento-init">
+{
+	"*": {
+		"Epicor_OrderApproval/js/approvals": {}
+	}
+}
+
+    </script>
+<?php endif ?>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="epicor" xsi:type="string">/epicor/</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Model\Account\Redirect">
+        <plugin name="ecpicor_login_redirect_priority" type="Epicor\Common\Plugin\Customer\Redirect" sortOrder="5"/>
+    </type>
+    <preference for="Magento\Customer\Controller\Account\CreatePost" type="Epicor\Common\Controller\Account\CreatePost" />
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="ecc-custoemr-account-create-post" type="Epicor\Common\Plugin\CreatePost" />
+    </type>
+    <type name="Magento\Catalog\Pricing\Price\TierPrice">
+        <plugin name="tierPriceSavePercentPlugin" type="Epicor\Common\Plugin\TierPricePlugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <plugin name="epicor_filter_products" type="Epicor\Common\Plugin\FilterProducts" />
+    </type>
+    <preference for="Magento\Backend\Block\Widget\Grid\Massaction\Item\Additional\DefaultAdditional" type="Epicor\Common\Block\Widget\Grid\Massaction\Item\Additional\DefaultAdditional"/>
+    <preference for="Magento\Backend\Block\Widget\Form\Renderer\Fieldset" type="Epicor\Common\Block\Widget\Form\Renderer\Fieldset"/>
+    <preference for="Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Element" type="Epicor\Common\Block\Widget\Form\Renderer\Fieldset\Element"/>
+    <preference for="Magento\Backend\Block\Widget\Form\Renderer\Element" type="Epicor\Common\Block\Widget\Form\Renderer\Element"/>
+    <type name="Magento\Framework\App\FrontControllerInterface">
+        <plugin name="front-controller-builtin-cache" disabled="true"/>
+        <plugin name="front-controller-builtin-cache-core-fix" type="Epicor\Common\Plugin\Model\App\FrontController\BuiltinPlugin"/>
+    </type>
+    <preference for="Magento\Framework\App\PageCache\Identifier" type="Epicor\Common\App\PageCache\Identifier"/>
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="reorderErrorMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Epicor_Common::epicor_common/checkout/messages/reorderErrorMessage.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

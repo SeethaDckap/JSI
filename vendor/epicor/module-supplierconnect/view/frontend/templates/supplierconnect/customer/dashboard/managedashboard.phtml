@@ -1,0 +1,267 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$rfqsFilter = $block->getRfqsFilter();
+$rfqsFrom = $block->getRfqsFrom();
+$orderFilter = $block->getOrderFilter();
+$orderFrom= $block->getOrderFrom();
+$invoiceFrom = $block->getInvoiceFrom();
+$paymentFrom = $block->getPaymentFrom();
+
+$rfq_read = $block->_isAccessAllowed(\Epicor\Supplierconnect\Block\Customer\Dashboard\Managesave::FRONTEND_RESOURCE_RFQ_READ);
+$order_read = $block->_isAccessAllowed(\Epicor\Supplierconnect\Block\Customer\Dashboard\Managesave::FRONTEND_RESOURCE_ORDER_READ);
+$invoice_read = $block->_isAccessAllowed(\Epicor\Supplierconnect\Block\Customer\Dashboard\Managesave::FRONTEND_RESOURCE_INVOICE_READ);
+$payment_read = $block->_isAccessAllowed(\Epicor\Supplierconnect\Block\Customer\Dashboard\Managesave::FRONTEND_RESOURCE_PAYMENT_READ);
+
+?>
+<form class="form" data-mage-init='{"validation": {}}'  action="#" id="supplier-form-validate" method="post" name="form-validate" autocomplete="off">
+
+<?php if($rfq_read || $order_read): ?>
+<div class="box-info  box-account sup-account col-1">
+    <div class="box-head">
+        <h2>Manage Summary details</h2>
+    </div>
+</div>
+<div class="field choice">
+    <label class="label" for="enable_summary_supplier"><span>Enable Summary Section</span></label>
+    <input type="checkbox" <?php if($block->getEnableSummarySection()):?> checked="checked" <?php endif;?> name="enable_summary_supplier" id="enable_summary_supplier" data-role="enable_summary_supplier" value="1" title="Enable Summary Section" class="checkbox">
+    <input type="hidden" name="enable_summary_supplier_hidden" id="enable_summary_supplier_hidden" value = "1">
+</div>
+<?php endif; ?>
+<div id="supplier-rfqs-containersummary" class="accordionsupplier" <?php if(!$block->getEnableSummarySection()):?> style="display: none;"<?php endif;?>>
+    <?php if($rfq_read): ?>
+        <div class="field choice">
+            <label class="label" for="enable-rfqs-supplier"><span>Enable Rfq Section</span></label>
+            <input type="checkbox" <?php if($block->getEnableRfqsSupplier()):?> checked="checked" <?php endif;?> name="enable_rfqs_supplier" id="enable-rfqs-supplier" data-role="enable-rfqs-supplier" value="1" title="Enable Rfq Section" class="checkbox">
+            <input type="hidden" name="enable_rfqs_supplier_hidden" id="enable_rfqs_supplier_hidden" value = "1">
+        </div>
+        <div class="field choice" id="enable_rfqs_supplier_fields"  <?php if(!$block->getEnableRfqsSupplier()):?> style="display: none;" <?php endif;?>>
+            <label class="label" for="rfqs_filter"><span>Fields To Display</span></label>
+            <select name="rfqs_filter[]" id="rfqs_filter" multiple="true" size="5" class="required-entry">
+                <option value="Today" <?php if (isset($rfqsFilter['Today'])): ?>selected="selected" <?php endif;?>>Today</option>
+                <option value="ThisWeek" <?php if (isset($rfqsFilter['ThisWeek'])): ?>selected="selected" <?php endif;?>>This Week</option>
+                <option value="Future" <?php if (isset($rfqsFilter['Future'])): ?>selected="selected" <?php endif;?>>Future</option>
+                <option value="Open" <?php if (isset($rfqsFilter['Open'])): ?>selected="selected" <?php endif;?>>Open</option>
+                <option value="Overdue" <?php if (isset($rfqsFilter['Overdue'])): ?>selected="selected" <?php endif;?>>Overdue</option>
+            </select>
+        </div>
+    <?php endif; ?>
+    <?php if($order_read): ?>
+        <div class="field choice">
+            <label class="label" for="enable-order-supplier"><span>Enable Order Section</span></label>
+            <input type="checkbox" <?php if($block->getEnableOrderSupplier()):?> checked="checked" <?php endif;?> name="enable_order_supplier" id="enable-order-supplier" data-role="enable-order-supplier" value="1" title="Enable Rfq Section" class="checkbox">
+            <input type="hidden" name="enable_order_supplier_hidden" id="enable_order_supplier_hidden" value = "1">
+        </div>
+        <div class="field choice" id="enable_order_supplier_fields" <?php if(!$block->getEnableOrderSupplier()):?> style="display: none;" <?php endif;?>>
+            <label class="label" for="order_filter"><span>Fields To Display</span></label>
+            <select name="order_filter[]" id="order_filter" multiple="true" size="5" style="height: 41px;" class="required-entry">
+                <option value="Open"  <?php if (isset($orderFilter['Open'])): ?>selected="selected" <?php endif;?>>Open</option>
+                <option value="POLineReleaseChanges" <?php if (isset($orderFilter['POLineReleaseChanges'])): ?>selected="selected" <?php endif;?>>PO Line / Release Changes</option>
+            </select>
+        </div>
+    <?php endif;?>
+</div>
+<!-- ************* -->
+<?php if($rfq_read): ?>
+<div class="box-info  box-account sup-account col-1">
+    <div class="box-head">
+        <h2>Manage RFQs details</h2>
+    </div>
+</div>
+<div id="supplier-rfqs-container" class="accordionsupplier">
+    <div class="field choice" style="clear: both;">
+        <label class="label" for="enable_rfqs_supplier_grid"><span>Enable Rfq Grid</span></label>
+        <input type="checkbox" <?php if($block->getEnableRfqsSupplierGrid()):?> checked="checked" <?php endif;?> name="enable_rfqs_supplier_grid" id="enable_rfqs_supplier_grid" data-role="enable_rfqs_supplier_grid" value="1" title="Enable Rfq Grid" class="checkbox">
+        <input type="hidden" name="enable_rfqs_supplier_grid_hidden" id="enable_rfqs_supplier_grid_hidden" value = "1">
+    </div>
+        <div id="supplier-rfqs-containers1" class="accordionsupplier" <?php if(!$block->getEnableRfqsSupplierGrid()):?> style="display: none" <?php endif; ?>>
+            <div class="field choice">
+            <label class="label" for="rfqs_from"><span>Show Open RFQs</span></label>
+            <select name="rfqs_from[]" id="rfqs_from" style="height: auto" >
+                <option value="30d" <?php if ($rfqsFrom =="30d"): ?>selected="selected" <?php endif;?>>Last 30 Days</option>
+                <option value="3m" <?php if ($rfqsFrom =="3m"): ?>selected="selected" <?php endif;?>>Last 3 Months</option>
+                <option value="all" <?php if ($rfqsFrom =="all"): ?>selected="selected" <?php endif;?>>All</option>
+            </select>
+            </div>
+            <div class="field choice" style="clear: both;">
+                <label class="label" for="rfqs_supplier_count"><span>No Of Rfqs to show</span></label>
+                <input maxlength="2" class="input-text validate-length maximum-length-2 minimum-length-1 validate-greater-than-zero validate-number validate-digits required-entry" type="text" name="rfqs_supplier_count" id="rfqs_supplier_count" data-role="rfqs_supplier_count" value="<?php echo $block->getRfqsSupplierCount()?>" title="No Of Rfqs to show">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if($order_read): ?>
+<div class="box-info  box-account sup-account col-1">
+    <div class="box-head">
+        <h2>Manage Order details</h2>
+    </div>
+</div>
+<div id="supplier-orders-container" class="accordionsupplier">
+
+    <div id="supplier-orders-containers" class="accordionsupplier">
+        <div class="field choice" style="clear: both;">
+            <label class="label" for="enable_order_supplier_grid"><span>Enable Order Grid</span></label>
+            <input type="checkbox" <?php if($block->getEnableOrderSupplierGrid()):?> checked="checked" <?php endif;?> name="enable_order_supplier_grid" id="enable_order_supplier_grid" data-role="enable_order_supplier_grid" value="1" title="Enable Rfq Grid" class="checkbox">
+            <input type="hidden" name="enable_order_supplier_grid_hidden" id="enable_order_supplier_grid_hidden" value = "1">
+        </div>
+        <div id="supplier-orders-containers1" class="accordionsupplier" <?php if(!$block->getEnableOrderSupplierGrid()):?> style="display: none" <?php endif; ?>>
+            <div class="field choice">
+                <label class="label" for="order_from"><span>Show Open Orders</span></label>
+                <select name="order_from[]" id="order_from" style="height: auto">
+                    <option value="30d" <?php if ($orderFrom =="30d"): ?>selected="selected" <?php endif;?>>Last 30 Days</option>
+                    <option value="3m" <?php if ($orderFrom =="3m"): ?>selected="selected" <?php endif;?>>Last 3 Months</option>
+                    <option value="all" <?php if ($orderFrom =="all"): ?>selected="selected" <?php endif;?>>All</option>
+                </select>
+            </div>
+            <div class="field choice" style="clear: both;">
+                <label class="label" for="order_supplier_count"><span>No Of Orders to show</span></label>
+                <input maxlength="2" class="input-text validate-length maximum-length-2 minimum-length-1 validate-greater-than-zero validate-number validate-digits required-entry" type="text" name="order_supplier_count" id="order_supplier_count" data-role="order_supplier_count" value="<?php echo $block->getOrderSupplierCount()?>" title="No Of order to show">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if($invoice_read): ?>
+<div class="box-info  box-account sup-account col-1">
+    <div class="box-head">
+        <h2>Manage Invoice details</h2>
+    </div>
+</div>
+<div id="supplier-invoices-container" class="accordionsupplier">
+    <div class="field choice" style="clear: both;">
+        <label class="label" for="enable_invoice_supplier_grid"><span>Enable Invoice Grid</span></label>
+        <input type="checkbox" <?php if($block->getEnableInvoiceSupplierGrid()):?> checked="checked" <?php endif;?>  name="enable_invoice_supplier_grid" id="enable_invoice_supplier_grid" data-role="enable_invoice_supplier_grid" value="1" title="Enable Rfq Grid" class="checkbox">
+        <input type="hidden" name="enable_invoice_supplier_grid_hidden" id="enable_invoice_supplier_grid_hidden" value = "1">
+    </div>
+    <div id="supplier-invoices-containers" class="accordionsupplier" <?php if(!$block->getEnableInvoiceSupplierGrid()):?> style="display: none" <?php endif; ?>>
+    <div class="field choice">
+        <label class="label" for="invoice_from"><span>Show Open Invoices</span></label>
+        <select name="invoice_from[]" id="invoice_from" style="height: auto">
+            <option value="30d" <?php if ($invoiceFrom =="30d"): ?>selected="selected" <?php endif;?>>Last 30 Days</option>
+            <option value="3m" <?php if ($invoiceFrom =="3m"): ?>selected="selected" <?php endif;?>>Last 3 Months</option>
+            <option value="all" <?php if ($invoiceFrom =="all"): ?>selected="selected" <?php endif;?>>All</option>
+        </select>
+    </div>
+    <div class="field choice" style="clear: both;">
+        <label class="label" for="invoice_supplier_count"><span>No Of Invoices to show</span></label>
+        <input maxlength="2" class="input-text validate-length maximum-length-2 minimum-length-1 validate-greater-than-zero validate-number validate-digits required-entry" type="text" name="invoice_supplier_count" id="invoice_supplier_count" data-role="invoice_supplier_count" value="<?php echo $block->getInvoiceSupplierCount()?>" title="No Of Invoices to show">
+    </div>
+    </div>
+</div>
+<?php endif; ?>
+    <?php if($payment_read): ?>
+<div class="box-info  box-account sup-account col-1">
+    <div class="box-head">
+        <h2>Manage Payment details</h2>
+    </div>
+</div>
+<div id="supplier-payments-container" class="accordionsupplier">
+    <div class="field choice" style="clear: both;">
+        <label class="label" for="enable_payment_supplier_grid"><span>Enable Payment Grid</span></label>
+        <input type="checkbox" <?php if($block->getEnablePaymentSupplierGrid()):?> checked="checked" <?php endif;?> name="enable_payment_supplier_grid" id="enable_payment_supplier_grid" data-role="enable_payment_supplier_grid" value="1" title="Enable Rfq Grid" class="checkbox">
+        <input type="hidden" name="enable_payment_supplier_grid_hidden" id="enable_payment_supplier_grid_hidden" value = "1">
+    </div>
+    <div id="supplier-payments-containers" class="accordionsupplier" <?php if(!$block->getEnablePaymentSupplierGrid()):?> style="display: none" <?php endif; ?>>
+    <div class="field choice">
+        <label class="label" for="payment_from"><span>Show Open Payment</span></label>
+        <select name="payment_from[]" id="payment_from" style="height: auto">
+            <option value="30d" <?php if ($paymentFrom =="30d"): ?>selected="selected" <?php endif;?>>Last 30 Days</option>
+            <option value="3m" <?php if ($paymentFrom =="3m"): ?>selected="selected" <?php endif;?>>Last 3 Months</option>
+            <option value="all" <?php if ($paymentFrom =="all"): ?>selected="selected" <?php endif;?>>All</option>
+        </select>
+    </div>
+    <div class="field choice" style="clear: both;">
+        <label class="label" for="payment_supplier_count"><span>No Of Payment to show</span></label>
+        <input maxlength="2" class="input-text validate-length maximum-length-2 minimum-length-1 validate-greater-than-zero validate-number validate-digits required-entry" type="text" name="payment_supplier_count" id="payment_supplier_count" data-role="payment_supplier_count" value="<?php echo $block->getPaymentSupplierCount()?>" title="No Of Payment to show">
+    </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="actions-toolbar" style="padding-bottom: 20px">
+    <div class="primary">
+        <button  id="submitManageDashboard"  type="button" class="action submit primary" title="<?php  echo __('Save') ?>"><span><?php echo __('Save') ?></span></button>
+    </div>
+</div>
+</form>
+<script>
+    require([
+        'jquery',
+        'mage/url',
+        'mage/mage'
+    ], function($,url){
+        var dataForm = $('#supplier-form-validate');
+        var checkValidation = dataForm.mage('validation', {});
+        $(document).on('click', '#submitManageDashboard',  function(){
+            if ($('#supplier-form-validate').valid()) {
+                var $form = $("#supplier-form-validate");
+                var dataVals = $form.serializeArray();
+                $.ajax({
+                    showLoader: true,
+                    data: dataVals,
+                    url: url.build('supplierconnect/dashboard/managesave'),
+                    type: "POST",
+                }).done(function(data) {
+                    $(".action-close").click(); // Close pop modal
+                    //window.location=url.build('supplierconnect/account/index');
+                    location.reload(true);
+                });
+            }
+        });
+
+        $('#enable_summary_supplier').change(function() {
+            if(this.checked) {
+                $('#supplier-rfqs-containersummary').show();
+            } else {
+                $('#supplier-rfqs-containersummary').hide();
+            }
+        });
+        $('#enable-rfqs-supplier').change(function() {
+            if(this.checked) {
+                $('#enable_rfqs_supplier_fields').show();
+            } else {
+                $('#enable_rfqs_supplier_fields').hide();
+            }
+        });
+        $('#enable-order-supplier').change(function() {
+            if(this.checked) {
+                $('#enable_order_supplier_fields').show();
+            } else {
+                $('#enable_order_supplier_fields').hide();
+            }
+        });
+        $('#enable_rfqs_supplier_grid').change(function() {
+            if(this.checked) {
+                $('#supplier-rfqs-containers1').show();
+            } else {
+                $('#supplier-rfqs-containers1').hide();
+            }
+        });
+        $('#enable_order_supplier_grid').change(function() {
+            if(this.checked) {
+                $('#supplier-orders-containers1').show();
+            } else {
+                $('#supplier-orders-containers1').hide();
+            }
+        });
+        $('#enable_invoice_supplier_grid').change(function() {
+            if(this.checked) {
+                $('#supplier-invoices-containers').show();
+            } else {
+                $('#supplier-invoices-containers').hide();
+            }
+        });
+        $('#enable_payment_supplier_grid').change(function() {
+            if(this.checked) {
+                $('#supplier-payments-containers').show();
+            } else {
+                $('#supplier-payments-containers').hide();
+            }
+        });
+    });
+</script>

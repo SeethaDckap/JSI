@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_Common:etc/data_mapping.xsd">
+    <message name="DCLD" label="DCLD - Dealer Claim Detail Enquiry"/>
+    <message name="DCLS" label="DCLS - Dealer Claim Search"/>
+    <message name="DCLU" label="DCLU - Dealer Claim Update"/>
+    <message name="DEBM" label="DEBM - Bill Of Materials Search"/>
+    <message name="DEID" label="DEID - Inventory Detail"/>
+    <message name="DEIS" label="DEIS - Inventory search"/>
+    <message name="DEIU" label="DEIU - Inventory Update"/>
+    <message name="DMAU" label="DMAU - Bill Of Materials Update"/>
+    <message name="PAC" label="PAC - Part Attribute Class Mapping"/>
+</config>

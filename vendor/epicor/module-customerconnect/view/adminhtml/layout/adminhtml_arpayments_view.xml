@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+        <body>
+        <referenceContainer name="admin.scope.col.wrap" htmlClass="admin__old" /> <!-- ToDo UI: remove this wrapper with old styles removal. The class name "admin__old" is for tests only, we shouldn't use it in any way -->
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View" name="arpayments_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Tabs" name="arpayments_tabs">
+                <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Tab\Info" name="arpayment_tab_info" template="Epicor_Customerconnect::arpayments/view/tab/info.phtml">
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Messages" name="ar_order_messages"/>
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Info" name="arpayment_info" template="Epicor_Customerconnect::arpayments/view/info.phtml">
+                        <container name="extra_customer_info"/>
+                    </block>
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\Payment" name="ar_order_payment"/>
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Items" name="ar_order_items" template="Epicor_Customerconnect::arpayments/view/items.phtml">
+                        <arguments>
+                            <argument name="columns" xsi:type="array">
+                                <item name="invoiceNo" xsi:type="string" translate="true">Invoice No</item>
+                                <item name="invoiceDate" xsi:type="string" translate="true">Invoice Date</item>
+                                <item name="dueDate" xsi:type="string" translate="true">Due Date</item>
+                                <item name="invoiceAmount" xsi:type="string" translate="true">Invoce Amount</item>
+                                <item name="invoiceBalance" xsi:type="string" translate="true">Invoice Balance</item>
+                                <item name="settlementTermAmount" xsi:type="string" translate="true">Term Amount</item>
+                                <item name="dispute" xsi:type="string" translate="true">Dispute</item>
+                                <item name="paymentAmount" xsi:type="string" translate="true">Payment Amount</item>
+                            </argument>
+                        </arguments>
+                        <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Items\Renderer\DefaultRenderer" as="default" name="default_order_items_renderer" template="Epicor_Customerconnect::arpayments/view/items/renderer/default.phtml">
+                            <arguments>
+                                <argument name="columns" xsi:type="array">
+                                    <item name="invoiceNo" xsi:type="string" translate="false">col-invoice-no</item>
+                                    <item name="invoiceDate" xsi:type="string" translate="false">col-invoice-date</item>
+                                    <item name="dueDate" xsi:type="string" translate="false">col-due-date</item>
+                                    <item name="invoiceAmount" xsi:type="string" translate="false">col-invoice-amount</item>
+                                    <item name="invoiceBalance" xsi:type="string" translate="false">col-invoice-balance</item>
+                                    <item name="settlementTermAmount" xsi:type="string" translate="false">col-settlement-term-amount</item>
+                                    <item name="dispute" xsi:type="string" translate="false">col-dispute</item>
+                                    <item name="paymentAmount" xsi:type="string" translate="false">col-payment-amount</item>
+                                </argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\History" name="ar_order_history" template="Epicor_Customerconnect::arpayments/view/history.phtml"/>
+                    <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\Totals" name="ar_order_totals" template="Epicor_Customerconnect::arpayments/totals.phtml" />
+                </block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">arpayment_info</argument>
+                    <argument name="block" xsi:type="string">arpayment_tab_info</argument>
+                </action>
+                <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Erppaymentinfo" name="arpayment_tab_erppaymentinfo" template="arpayments/view/tab/erppaymentinfo.phtml"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">arpayment_tab_erppaymentinfo</argument>
+                    <argument name="block" xsi:type="string">Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Tab\Erppaymentinfo</argument>
+                </action>
+                <block class="Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Tab\Log" name="arpayment_view_log.grid.container" />
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">arpayment_tab_log</argument>
+                    <argument name="block" xsi:type="string">arpayment_view_log.grid.container</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="arpayment_view_log.grid.container">
+            <uiComponent name="arpayment_view_log_grid"/>
+        </referenceBlock>
+    </body>
+</page>

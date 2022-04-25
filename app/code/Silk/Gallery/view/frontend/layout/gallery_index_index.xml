@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
+	<head>
+        <title>Cabinspiration</title>
+    </head>
+
+    <body>
+        <referenceContainer name="main.content" htmlTag="main" htmlClass="page-main-full-width" />
+
+        <referenceContainer name="content">
+            <block class="Magenest\ImageGallery\Block\Gallery\Gallerypage" name="gallery_index_index" template="Silk_Gallery::gallery_index_index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

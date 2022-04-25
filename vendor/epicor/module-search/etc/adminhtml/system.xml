@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="epicor_config" sortOrder="1">
+      <label>Epicor Configuration</label>
+    </tab>
+    <section id="epicor_search" sortOrder="9000" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Catalog Search</label>
+      <tab>epicor_config</tab>
+      <resource>Epicor_Search::admin_epicor_common_search</resource>
+      <group id="general" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>General</label>
+      </group>
+    </section>
+  </system>
+</config>

@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$importFile = base64_encode($this->registry('importfile'));
+?>
+</br>
+<div id="store-mapping-tables" style="margin:15px auto 0; width:500px">
+    <h3>Store Mapping of Config Values</h3>
+ <form id="storemapping_form" action="<?php echo $this->getUrl('*/*/setstoremapping') ?>" method="post" enctype="multipart/form-data">    
+     <input type="hidden" name="form_key" value="<?php
+      //M1 > M2 Translation Begin (Rule p2-5.1)
+     //echo Mage::getSingleton('core/session')->getFormKey();
+     echo $block->getFormKey();
+     //M1 > M2 Translation End
+     ?>" />
+     <input type="hidden" name="importfile" value="<?php echo $importFile ?>" />
+     <table cellspacing="0">
+        <tr>
+            <th id="import-store-header" style="padding-right:100px">Store to Import</th>&nbsp;
+            <th id="import-store-header">Map to Site Store</th>  
+        </tr>    
+            <?php foreach($this->_storesList as $store){ ?>
+                   <?php // ++$this->_storeNumber; ?> 
+                    <tr>
+                        <td class="imported_stores">
+                            <fieldset>
+                                <div class="importedstore">
+                                    <?php echo $store ?></td> 
+                                </div>
+                            </fieldset>
+                        </td>     
+                        <td>
+                            <fieldset>
+                                <?php echo $block->setData("storenumber", $store)->getChildHtml("epicor_common_importexport_storelist") ?>
+                            </fieldset>
+                        </td>      
+                    </tr>
+            <?php } ?>         
+        </th>       
+    </table>     
+        <div id="storemapping_checkbox" style="margin-top:30px;">
+            <label > NB Stores not mapped will not be imported, but default config values will always be restored </label>
+        </div>    
+        <div id="storemapping_checkbox" style="margin-top:30px;">
+            <input type="checkbox" value="1" id="importall"  name="importall" />
+            <label for="importall"> Import all config data including store specific values (Do so at own risk)</label>
+        </div>    
+        <div id="formsubmitbutton" style="float:right">
+            <?php echo $this->getButtonHtml('submit', "jQuery('#storemapping_form').submit()") ?>
+        </div>
+        
+ </form>    
+</div>
+

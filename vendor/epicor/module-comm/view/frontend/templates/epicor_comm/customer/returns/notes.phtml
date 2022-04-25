@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Notes */
+$lengthLimitInUse = $this->noteTabLengthLimit(); 
+$noteTabRequired = $this->noteTabRequired();
+$maxLength = '';
+if($lengthLimitInUse && $noteTabRequired){
+    $maxLength = 'maxLength='.'"'.$lengthLimitInUse.'"'; 
+}
+?>
+
+<?php echo $this->getReturnBarHtml(); ?>
+<script type="text/javascript">
+//<![CDATA[
+       // notes = new Notes('notes-return-form');
+//]]>
+</script>
+
+        <script type="text/javascript">
+            //<![CDATA[
+              require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/notes',
+                'prototype'
+            ], function ($, Notes) {
+                'use strict';
+                  var notes = new Notes('notes-return-form',window.returns);
+                $("#notes-submit").click(function (e) {
+                      notes.save();
+                });              
+            });
+
+            //]]>
+        </script>
+        
+<div>
+    <form id="notes-return-form" action="<?php echo $this->getUrl('epicor_comm/returns/saveNotes') ?>" method="post">
+        <fieldset>
+            <input type="hidden" name="return_id" value="<?php echo $this->getEncodedReturn(); ?>" />
+            <?php $this->getChild('formkey'); ?>
+            <?php if ($this->returnActionAllowed('Notes')) : ?>
+                <textarea id="note" name="return-note" cols="50" <?php echo $maxLength ?> rows="10"><?php echo $this->getNoteText(); ?></textarea>
+            <?php if($lengthLimitInUse): ?>    
+                <div id="truncated_message_line_notes"><?php echo "max ".$lengthLimitInUse." chars"; ?></div>
+            <?php endif; ?>
+            <?php else: ?>
+                <?php echo $this->getNoteText(); ?>
+            <?php endif; ?>
+        </fieldset>
+        <div id="notes-buttons-container" class="buttons-set">
+            <button class="button" title="<?php echo __('Continue'); ?>" type="button" id="notes-submit"><span><span><?php echo __('Continue'); ?></span></span></button>
+            <span style="display:none;" id="notes-please-wait" class="please-wait">
+                <img src="<?php echo $block->getViewFileUrl('Epicor_Comm::epicor/comm/images/opc-ajax-loader.gif'); ?>" alt="<?php echo __('Please wait...') ?>" title="<?php echo __('Please wait...') ?>" class="v-middle" /> <?php echo __('Please wait...') ?>
+            </span>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<?php
+$rowSku = $block->getData('sku');
+$rowUom = $block->getData('uom');
+$rowUomProductId = $block->getProductId();
+?>
+<div class="block-content">
+    <div class="empty">
+        <div class="formfields" id="la_rows">
+            <div class="bom_row" id="la_row_<?php echo $rowUomProductId; ?>">
+                <input type="hidden" name="sku" value="<?php echo $rowSku ?>" class="la_sku" id="la_sku_<?php echo $rowUomProductId; ?>" />
+                <input type="hidden" name="la_product_id" value="<?php echo $rowUomProductId ?>" class="la_product_id" title="<?php echo __('Product Id') ?>" id="la_product_id_<?php echo $rowUomProductId; ?>" />
+                <input type="hidden" name="name" value="" class="la_name" id="la_name_<?php echo $rowUomProductId; ?>" />
+                <input type="hidden" name="qty" value="1" class="la_quantity" id="la_qty_<?php echo $rowUomProductId; ?>" />
+                <input type="hidden" name="uom" value="<?php echo $rowUom ?>" class="la_uom" id="la_uom_<?php echo $rowUomProductId; ?>" />
+                <input type="checkbox" name="la_row_checked" value="" class="la_row_checked" id="la_row_checked_<?php echo $rowUomProductId; ?>" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * 
+ * @category   Epicor
+ * @package    Epicor_Dealerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this Epicor\Dealerconnect\Block\Portal\Inventory\Add\Inventory */
+$getConfigFlag = $block->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/active');
+?>
+<div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getViewFileUrl('Epicor_Customerconnect::epicor/customerconnect/images/ajax-loader-tr.gif') ?>" alt="<?php echo __('Loading...') ?>"/><br/><?php echo __('Please wait...') ?></p>
+</div>
+<?php if($getConfigFlag): ?>
+<form id="form-validate" name= "inventoryform" action="<?php echo $block->addInventoryUrl(); ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" value="<?php echo $block->getFormKey();?>" id="form_key"/>
+    <input id="inventory_address_details" name="inventory_address_details" type="hidden" value="<?php echo $this->getUrl('dealerconnect/inventory/addressdetails'); ?>" />
+    <div class="a-right claim_buttons" id="button_bar">
+        <button type="submit" title="<?= __('Save') ?>" class="button submitAddress">
+            <span><?= __('Save') ?></span>
+        </button>
+    </div>
+    <?php if($this->getTitle()) : ?>
+        <h1><?php echo $this->getTitle(); ?></h1>
+    <?php endif; ?>
+<?php endif;?>

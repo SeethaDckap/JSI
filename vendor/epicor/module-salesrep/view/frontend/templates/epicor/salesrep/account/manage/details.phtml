@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Sales Rep Details
+ * 
+ * @category   Epicor
+ * @package    Epicor_SalesRep
+ * @author     Epicor Websales Team
+ */
+/* @var $block \Epicor\SalesRep\Block\Account\Manage\Details */
+
+$salesRepAccount = $block->getSalesRepAccount();
+/* @var $salesRepAccount \Epicor\SalesRep\Model\Account */
+$editable = $block->canEdit();
+?>
+<?php if ($editable) : ?>
+    <form id="salesrep_details_manage_form" action="<?php echo $block->getUrl('*/*/save'); ?>" method="post">
+    <?php endif; ?>        
+    <div class="box-info box-account box-account block block-dashboard-info">
+        <div class="block-title">
+            <strong><?php echo $block->getTitle(); ?></strong>
+        </div>
+        <div class="info-list">
+            <p id="salesrep_details_name">
+                <label for="salesrep_name"><span class="label"><?php echo __('Name'); ?>:</span></label>
+                <?php if ($editable) : ?>
+                    <input type="text" id="salesrep_name" name="name" value="<?php echo $salesRepAccount->getName(); ?>"/>
+                <?php else: ?>
+                    <?php echo $salesRepAccount->getName(); ?>
+                <?php endif; ?>
+            </p>
+        </div>
+        <?php if ($editable) : ?>
+        
+        <?php endif; ?>
+    </div>
+    <?php if ($editable) : ?>
+        <button type="submit" class="button" title="<?php echo __('Save Changes') ?>" name="save"><span><span><?php echo __('Save Changes') ?></span></span></button>
+    </form>
+<?php endif; ?>

@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Product\Configure */
+$product = $this->registry('current_product');
+/* @var $product Epicor_Comm_Model_Product */
+?>
+<form id="configure_product_form" action="<?php echo $this->getUrl('*/*/submitconfiguration/'); ?>" method="post" enctype="multipart/form-data">
+    <h2><?php echo __('Configure Product %1', $product->getSku()); ?></h2>
+    <p><?php echo $product->getShortDescription(); ?></p>   
+    <?php
+
+    echo $this->getProductOptionsHtml();
+    ?>
+    <input type="hidden" name="productid" value="<?php echo $product->getId(); ?>"/>
+    <input type="hidden" name="currency_code" value="<?php echo $this->getRequest()->getParam('currency_code'); ?>"/>
+    <input type="hidden" name="qty" value="<?php echo $this->getRequest()->getParam('qty'); ?>"/>
+    <div class="configurable_addtocart">  
+        <?php $buttonTitle = __('Submit'); ?>
+        <?php $cButtonTitle = __('Cancel'); ?>
+        <br />
+        <div class="add-to-cart">
+            <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="" id="configure_product">
+                <span><span><?php echo $buttonTitle; ?></span></span>
+            </button>
+            <button type="button" title="<?php echo $cButtonTitle ?>" class="button btn-cart" onclick="" id="cancel_configure_product">
+                <span><span><?php echo $cButtonTitle; ?></span></span>
+            </button>
+        </div>
+    </div>
+</form>

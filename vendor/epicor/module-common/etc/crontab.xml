@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+  <group id="ecc">
+    <job name="ecc_check_versions" instance="Epicor\Common\Model\Cron" method="packageCheck">
+      <schedule>0 0 * * *</schedule>
+    </job>
+    <job name="ecc_image_cleanup" instance="Epicor\Common\Model\Cron" method="imageCleanup">
+      <schedule>0 0 * * *</schedule>
+    </job>
+  </group>
+</config>

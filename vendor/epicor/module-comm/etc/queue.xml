@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="ecc.message.caap" exchange="magento-db" type="db">
+        <queue name="ecc.message.caap" consumer="ecc.message.caap" consumerInstance="Magento\Framework\MessageQueue\Consumer" handler="Epicor\Comm\Model\Queue\Caap\Consumer::process"/>
+    </broker>
+</config>

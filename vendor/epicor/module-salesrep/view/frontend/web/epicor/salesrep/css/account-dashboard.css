@@ -1,0 +1,33 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : style
+    Created on : 12-Jan-2016, 10:37:34
+    Author     : Guillermo.Garza
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.vcard dt.sec {
+    float:left;
+    width: 120px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.salesrep_masq_button {
+    float:left;
+    margin-right:10px;
+}
+
+input.lines_price.disabled,
+input.discount.disabled {
+    color:#bbb;
+    border: 1px solid #ccc;
+}
+
+#masqueradegrid .pager input.page  {
+    width: 3.3em !important;
+}

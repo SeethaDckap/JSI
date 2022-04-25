@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>Supplier Connect Invoice Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <!--<action method="setElementClass">
+                <argument name="value" xsi:type="string">col2-set</argument>
+            </action>-->
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/invoices/title.phtml" class="Epicor\Supplierconnect\Block\Customer\Info" name="invoices.title"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Invoices\Details\Address" name="invoices.address"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Invoices\Details\Info" name="invoices.info"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Invoices\Details\Lines" name="invoices.lines">
+                <block class="Epicor\Supplierconnect\Block\Customer\Invoices\Details\Totals" name="tfoot"/>
+            </block>
+        <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Supplierconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/invoices/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="value" xsi:type="string">/supplierconnect/invoices/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="value" xsi:type="string">Invoices</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

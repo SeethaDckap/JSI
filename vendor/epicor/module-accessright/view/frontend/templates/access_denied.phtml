@@ -1,0 +1,8 @@
+
+<div class="access-denied-page">
+    <h2 class="page-heading"><?= $block->escapeHtml(__('You do not have access permissions to view this page.')) ?></h2>
+</div>
+
+<?php echo $block->getBlockHtml('customer.section.config') ?>
+<?php echo $block->getBlockHtml('customer.customer.data') ?>
+<?php echo $block->getBlockHtml('formkey') ?>

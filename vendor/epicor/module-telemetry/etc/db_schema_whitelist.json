@@ -1,0 +1,13 @@
+{
+    "ecc_telemetry_notification_viewer_log": {
+        "column": {
+            "id": true,
+            "viewer_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ECC_TELEMETRY_NTFC_VIEWER_LOG_VIEWER_ID_ADM_USR_USR_ID": true,
+            "ECC_TELEMETRY_NOTIFICATION_VIEWER_LOG_VIEWER_ID": true
+        }
+    }
+}

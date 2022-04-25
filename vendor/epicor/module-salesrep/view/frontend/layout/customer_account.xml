@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="sidebar.additional" remove="true"/>
+        <referenceContainer name="sidebar.main">
+            <block template="Epicor_SalesRep::epicor/salesrep/navigation.phtml" class="Epicor\Common\Block\Customer\Account\Links" name="salesrep_navigation" before="-">
+            <!--<block template="Epicor_SalesRep::epicor/salesrep/navigation.phtml" class="Epicor\Common\Block\Customer\Account\Links" name="salesrep_navigation" after="customer_account_navigation">-->
+                <action method="setTitle">
+                    <argument name="value" xsi:type="string">Sales Rep Menu</argument>
+                </action>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"  name="salesrep_account_dashboard">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dashboard</argument>
+                        <argument name="path" xsi:type="string">epicor_salesrep/account</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Framework\View\Element\Html\Link\Current"  name="salesrep_account_quotes">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Quotes</argument>
+                        <argument name="path" xsi:type="string">epicor_salesrep/crqs</argument>
+                        <argument name="msgtype" xsi:type="string">CRQS</argument>
+                        <argument name="accessFunction" xsi:type="string">epicor_comm/messaging_crqs::mutipleAccountsEnabled</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Framework\View\Element\Html\Link\Current"  name="salesrep_account_orders">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Orders</argument>
+                        <argument name="path" xsi:type="string">salesrep/order/history</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Framework\View\Element\Html\Link\Current"  name="salesrep_account_manage">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Sales Rep Account</argument>
+                        <argument name="path" xsi:type="string">epicor_salesrep/account_manage</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Framework\View\Element\Html\Link\Current"  name="salesrep_account_edit">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Login Information</argument>
+                        <argument name="path" xsi:type="string">customer/account/edit</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

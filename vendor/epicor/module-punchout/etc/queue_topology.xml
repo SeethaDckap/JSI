@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="ecc-punchout-order-exchange" type="topic" connection="db">
+        <binding id="eccPunchoutOrdercreate" topic="ecc.punchout.ordercreate" destinationType="queue" destination="ecc.punchout.ordercreate"/>
+    </exchange>
+</config>

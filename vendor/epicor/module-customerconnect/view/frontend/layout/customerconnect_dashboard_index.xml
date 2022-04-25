@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Customer Connect Dashboard</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Customerconnect\Block\Customer\Dashboard\Registeredaddress" name="customer.dashboard.registered"/>
+            <block class="Epicor\Common\Block\ProtectedBlock" name="protected_content">
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer_account_dashboard_summary</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Dashboard</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string">customer_account_summary</item>
+                        <item name="action_type" xsi:type="string">view</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.dashboard.orders</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Orders</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <action method="addProtection">
+                    <argument name="name" xsi:type="string">customer.dashboard.invoices</argument>
+                    <argument name="access_right" xsi:type="array">
+                        <item name="module" xsi:type="string">Epicor_Customerconnect</item>
+                        <item name="controller" xsi:type="string">Invoices</item>
+                        <item name="action" xsi:type="string">index</item>
+                        <item name="block" xsi:type="string"/>
+                        <item name="action_type" xsi:type="string">Access</item>
+                    </argument>
+                </action>
+                <block template="Epicor_Customerconnect::customerconnect/customer/dashboard/summary.phtml" class="Epicor\Customerconnect\Block\Customer\Account\Summary" name="customer_account_dashboard_summary" as="customer.dashboard.extra"/>
+                <block class="Epicor\Customerconnect\Block\Customer\Dashboard\Orders" name="customer.dashboard.orders"/>
+                <block class="Epicor\Customerconnect\Block\Customer\Dashboard\Invoices" name="customer.dashboard.invoices"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

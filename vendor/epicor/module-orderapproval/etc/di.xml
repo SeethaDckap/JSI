@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Epicor\OrderApproval\Api\Data\GroupsInterface" type="Epicor\OrderApproval\Model\Groups" />
+    <preference for="Epicor\OrderApproval\Api\GroupsRepositoryInterface" type="Epicor\OrderApproval\Model\GroupsRepository" />
+    <preference for="Epicor\OrderApproval\Api\Data\ErpAccountInterface" type="Epicor\OrderApproval\Model\Groups\Erp\Account" />
+    <preference for="Epicor\OrderApproval\Api\ErpAccountRepositoryInterface" type="Epicor\OrderApproval\Model\ErpAccountRepository" />
+    <preference for="Epicor\OrderApproval\Api\Data\CustomerInterface" type="Epicor\OrderApproval\Model\Groups\Customer" />
+    <preference for="Epicor\OrderApproval\Api\CustomerRepositoryInterface" type="Epicor\OrderApproval\Model\CustomerRepository" />
+    <preference for="Epicor\OrderApproval\Api\Data\LinkInterface" type="Epicor\OrderApproval\Model\Groups\Link" />
+    <preference for="Epicor\OrderApproval\Api\Data\BudgetInterface" type="Epicor\OrderApproval\Model\Groups\Budget" />
+    <preference for="Epicor\OrderApproval\Api\BudgetRepositoryInterface" type="Epicor\OrderApproval\Model\BudgetRepository" />
+    <preference for="Epicor\OrderApproval\Api\HierarchyRepositoryInterface" type="Epicor\OrderApproval\Model\HierarchyRepository" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="orderaproval_groups_listing_data_source" xsi:type="string">Epicor\OrderApproval\Model\ResourceModel\Groups\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\OrderApproval\Model\ResourceModel\Groups\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ecc_approval_group</argument>
+            <argument name="eventPrefix" xsi:type="string">order_approval_group_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">group_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Epicor\OrderApproval\Model\Groups</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Payment\Model\MethodList">
+        <plugin name="order_approval_is_active_payment" type="Epicor\OrderApproval\Plugin\Payment\MethodList" sortOrder="2" />
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="order_approval_checkout_message_plugin" type="Epicor\OrderApproval\Plugin\Checkout\ShippingInformationManagementPlugin" sortOrder="11"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="order_approval_checkout_message_plugin" type="Epicor\OrderApproval\Plugin\Checkout\PaymentInformationManagementPlugin" sortOrder="11"/>
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="approval_status_for_order" type="Epicor\OrderApproval\Plugin\Order" />
+    </type>
+    <preference for="Magento\Sales\Model\Order\Email\Sender\InvoiceSender" type="Epicor\OrderApproval\Model\Sales\Order\Email\Sender\InvoiceSender" />
+    <type name="Epicor\OrderApproval\Logger\Logger">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\OrderApproval\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">orderApprovalLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\OrderApproval\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Epicor\OrderApproval\Api\ErpAccountBudgetRepositoryInterface" type="Epicor\OrderApproval\Model\ErpAccountBudgetRepository" />
+    <preference for="Epicor\OrderApproval\Api\Data\ErpAccountBudgetInterface" type="Epicor\OrderApproval\Model\ErpAccountBudget" />
+    <preference for="Epicor\OrderApproval\Api\CalculateBudgetEndDateInterface" type="Epicor\OrderApproval\Model\Budgets\EndDate" />
+</config>

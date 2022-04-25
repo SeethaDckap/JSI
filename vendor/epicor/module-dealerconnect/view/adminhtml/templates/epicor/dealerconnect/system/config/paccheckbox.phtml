@@ -1,0 +1,75 @@
+<?php
+$htmlId = explode('_', $this->getHtmlId());
+$pacId = $htmlId[5];
+?>
+<input type="hidden" name="<?php echo $this->getNamePrefix() ?>" value="" /><!-- this is send if nothing is checked -->
+<ul class="deis_checkboxes">
+    <?php foreach ($this->getValues() as $name => $label):?>
+        <li>
+            <input class="validate-pacattribute-<?php echo $this->getHtmlId();?>" type="checkbox" value="<?php echo $name?>" name="<?php echo $this->getNamePrefix() ?>[]" id="<?php echo $this->getHtmlId() . '_' . $name ?>"<?php echo ($this->getIsChecked($name, $this->getHtmlId()) ? ' checked="checked"' : '') ?>/><label for="<?php echo $this->getHtmlId() . '_' . $name ?>">
+                <?php echo $label ?>
+            </label>
+        </li>
+    <?php endforeach;?>
+</ul>
+<?php
+$ajaxUrl =   $this->getUrl('adminhtml/inventory/pac');
+?>
+<script>
+require([
+    "jquery",
+    "mage/url",
+    "Epicor_Dealerconnect/epicor/dealerconnect/js/pac",
+    "mage/template",
+    "jquery/ui"],
+    function($,url,pac){
+    window.arrayRow_deis = {
+        del: function(rowId) {
+            var getPacAttribute= rowId+'_pacattributes';
+            var attributeValue = $("#"+getPacAttribute).val();
+            if(confirm('Are you sure you want to delete the Grid Config')){ 
+                if(attributeValue) {
+                    $('#'+rowId).remove();
+                    $('input.validate-pacattribute-<?php echo $this->getHtmlId()?>:checkbox[value="' + attributeValue + '"]').attr('checked', false);
+                } else {
+                  $('#'+rowId).remove();  
+                }
+            }
+        }
+    }        
+    $(document).ready(function (){
+        $('.validate-pacattribute-<?php echo $this->getHtmlId()?>').on('click', function() {
+            var checked = $(this).is(':checked');
+            if(checked) {
+                <?php if($pacId == "pac"):?>
+                    pac.addPacAttribute($(this).val(),'<?php echo $ajaxUrl?>');          
+                 <?php endif;?>
+            } else if(!confirm('Are you sure you want to remove the PAC Attribute')){
+                $(this).attr("checked", "checked");
+            } else {
+                <?php if($pacId == "pac"):?>
+                    pac.removePacAttribute($(this).val());         
+                 <?php endif;?>
+            }
+            
+            
+//            if($(this).is(":checked")) {
+//              alert($(this).val());     
+//              } else {
+//                  alert($(this).val());      
+//              }
+
+         
+        });
+    });
+
+    });    
+</script>
+
+<style>
+    .deis_checkboxes {
+        width:100%;
+        height:250px;
+        overflow-y: scroll;
+    }
+</style>

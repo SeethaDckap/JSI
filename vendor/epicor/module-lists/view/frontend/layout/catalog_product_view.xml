@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart">
+            <block class="Epicor\Lists\Block\Catalog\Product\View\AddTo\Lists"
+                   name="product.addtolists.info" as="product_addtolists_info"
+                   template="Epicor_Lists::catalog/product/view/addto/lists.phtml"
+                   before="product.options.wrapper">
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.bundle">
+            <block class="Epicor\Lists\Block\Catalog\Product\View\AddTo\Lists"
+                   name="product.addtolists.info.bundle" as="product_addtolists_info_bundle"
+                   template="Epicor_Lists::catalog/product/view/addto/lists.phtml"
+                   before="product.options.wrapper">
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <block class="Epicor\Lists\Block\Catalog\Product\View\AddTo\Lists"
+                   name="product.addtolists.info.additional" as="product_addtolists_info_additional"
+                   template="Epicor_Lists::catalog/product/view/addto/lists.phtml"
+                   before="product.options.wrapper">
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <referenceBlock name="related.product.addto">
+                <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                       name="related.product.addto.lists" as="relatedaddtolists"
+                       template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                       before="wishlist"/>
+            </referenceBlock>
+            <referenceBlock name="upsell.product.addto">
+                <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                       name="upsell.product.addto.lists" as="upselladdtolists"
+                       template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                       before="wishlist"/>
+            </referenceBlock>
+            <referenceBlock name="substitute.product.addto">
+                <block class="Epicor\Lists\Block\Catalog\Product\ProductList\Item\AddTo\Lists"
+                       name="substitute.product.addto.lists.substitute" as="substituteaddtolists"
+                       template="Epicor_Lists::catalog/product/list/addto/lists.phtml"
+                       before="wishlist"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+         <title>RFQs</title>
+        <script src="Epicor_Customerconnect::epicor/customerconnect/js/rfq-list.js" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/rfqs/list/formopen.phtml" class="Magento\Framework\View\Element\Template" name="rfq.formopen"/>
+            <block class="Epicor\Customerconnect\Block\Customer\Rfqs\Listing" name="rfqslist"/>
+            <block template="Epicor_Customerconnect::customerconnect/customer/account/rfqs/list/formclose.phtml" class="Magento\Framework\View\Element\Template" name="rfq.formclose"/>
+            <block class="Magento\Framework\View\Element\Html\Calendar" name="head.calendar" as="calendar" template="Epicor_Customerconnect::customerconnect/page/js/gridcalendar.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

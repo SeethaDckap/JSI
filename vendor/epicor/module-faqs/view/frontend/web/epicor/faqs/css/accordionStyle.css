@@ -1,0 +1,8 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+#accordion { border: 1px solid #a0b3c3; background: #e7f1f4; margin: 10px 0 0; }
+#accordion h3.faq_question { background: #b9ccdd; border-bottom: 1px solid #a0b3c3; padding: 5px 10px; margin: 0; cursor: pointer; }
+#accordion div.faq_answer { padding: 5px 10px; }
+#accordion .clear { clear: both; }

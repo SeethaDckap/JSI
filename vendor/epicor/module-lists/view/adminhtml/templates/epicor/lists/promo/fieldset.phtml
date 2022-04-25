@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $_element = $block->getElement() ?>
+<div class="rule-tree">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
+    </div>
+    <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(array('class')) ?>>
+    <?php if ($_element->getComment()): ?>
+        <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
+    <?php endif; ?>
+    <?php echo $_element->getChildrenHtml() ?>
+    </fieldset>
+</div>
+<script type="text/javascript">
+    require([
+        'Magento_Rule/rules',
+        'Epicor_SalesRep/js/epicor/salesrep/pricing_rules'
+        ],function(VarienRulesForm,pricingRules){
+        window.pricingRules = new pricingRules('pricing_rule_form','pricing_rules_table','pricing_rules');
+        window.pricingRules.rowInit.bind(window.pricingRules);
+
+        <?php echo $_element->getHtmlId() ?> = new VarienRulesForm('<?php echo $_element->getHtmlId() ?>', '<?php echo $block->getNewChildUrl() ?>');
+        <?php if ($_element->getReadonly()): ?>
+        <?php echo $_element->getHtmlId() ?>.setReadonly(true);
+        <?php endif; ?>
+    });
+
+</script>

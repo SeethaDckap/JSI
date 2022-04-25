@@ -1,0 +1,41 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+
+#shopping-cart-table .control.qty > span{display: block;font-size: 90%;}
+.cart-table .field.qty .button {
+    margin-top: 10px;
+}
+
+#loading-mask .loader > img {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+
+#loading-mask {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.5);
+    z-index: 9999;
+}
+
+p#loading_mask_loader {
+    color: rgba(255,255,255,0.5);
+    width: 0px;
+    overflow: hidden;
+}
+
+.cart.table-wrapper .col.price, .order-items.table-wrapper .col.price, .cart.table-wrapper .col.qty, .order-items.table-wrapper .col.qty, .cart.table-wrapper .col.subtotal, .order-items.table-wrapper .col.subtotal, .cart.table-wrapper .col.msrp, .order-items.table-wrapper .col.msrp{
+    text-align: left !important;
+}

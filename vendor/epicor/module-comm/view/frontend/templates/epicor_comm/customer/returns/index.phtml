@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns */
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+  require([
+    'jquery',
+    'Epicor_Comm/epicor/comm/js/return/accordion',
+    'Epicor_Comm/epicor/comm/js/return/returns',
+    'prototype'
+], function ($, Accordion, Returns, prototype) {
+    'use strict';
+                    
+       // jQuery( "#returnSteps" ).accordion();
+        var accordion = new Accordion('returnSteps', '.step-title', true);
+        <?php if ($this->getActiveStep()): ?>
+            jQuery('#returns-<?php echo $this->getActiveStep() ?>').addClass('allow');
+            accordion.openSection('returns-<?php echo $this->getActiveStep() ?>');
+        <?php endif ?>
+            
+            window.returns = new Returns(
+                accordion,
+                {
+                    saveMethod: '<?php echo $this->getUrl('epicor_comm/returns/saveMethod') ?>',
+                    failure: '<?php echo $this->getUrl('epicor_comm/returns') ?>'
+                }
+        );
+    
+                    
+});
+
+//]]>
+</script>
+
+<ol class="opc" id="returnSteps" style="list-style: none;"
+    data-attachment="<?=$block->escapeHtml($block->getMaxAttachmentFileSize())?>">
+    <?php
+    $i = 0;
+    foreach ($block->getSteps() as $_stepId => $_stepInfo):
+        ?>
+        <?php
+        if (!$this->getChildHtml($_stepId)): continue;
+        endif;
+        $i++;
+        ?>
+        <li id="returns-<?php echo $_stepId ?>" class="section<?php echo!empty($_stepInfo['allow']) ? ' allow' : '' ?><?php echo!empty($_stepInfo['complete']) ? ' saved' : '' ?>">
+            <div class="step-title">
+                <span class="number"><?php echo $i ?></span>
+                <h2><?php echo $_stepInfo['label'] ?></h2>
+                <a href="#"><?php echo __('Edit') ?></a>
+            </div>
+            <div id="returns-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+                <?php echo $this->getChildHtml($_stepId) ?>
+            </div>
+        </li>
+<?php endforeach ?>
+</ol>
+<iframe id="lines-form-iframe" name="lines-form-iframe"  style="display:none"></iframe>
+<iframe id="attachment-form-iframe" name="attachment-form-iframe"  style="display:none"></iframe>
+<input id="configurable_url" type="hidden" value="<?php echo $this->getUrl('*/*/configureproduct'); ?>" />
+<input type="hidden" name="uom_separator" value="<?php echo $this->helper('Epicor\Common\Helper\Data')->getUOMSeparator(); ?>" id="uom_separator" />
+<div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?php echo __('Loading...') ?>"/><br/><?php echo __('Please wait...') ?></p>
+</div>
+<div id="window-overlay" class="window-overlay" style="display:none;"> 
+    <div id="window-overlay-content"  style="display:none;">
+        <p id="window-overlay-close"><a>Close</a></p>
+    </div>
+</div>

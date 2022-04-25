@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+     <extension_attributes for="Magento\Quote\Api\Data\PaymentInterface">
+         <attribute code="ecc_customer_order_ref" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Checkout\Api\Data\PaymentDetailsInterface">
+        <attribute code="ecc_pay_error" type="string"/>
+    </extension_attributes>
+</config>

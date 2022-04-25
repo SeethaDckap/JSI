@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php if ($this->getCheckout()->getStepData('salesrep_contact', 'is_show')): ?>
+    <?php if ($this->isStepComplete('salesrep_contact')): ?>     
+        <dt class="complete">
+        <?php echo __('ERP Contact') ?>
+        </dt>
+        <dd class="complete">
+            <?php echo $this->getSalesrepCustomerName(); ?>
+            <?php if ($this->getSalesrepCustomerEmail()) : ?>
+                (<?php echo $this->getSalesrepCustomerEmail(); ?>)
+            <?php endif; ?>
+        </dd>
+    <?php else: ?>
+        <dt>
+        <?php echo __('ERP Contact') ?>
+        </dt>
+    <?php endif; ?>
+<?php endif; ?>

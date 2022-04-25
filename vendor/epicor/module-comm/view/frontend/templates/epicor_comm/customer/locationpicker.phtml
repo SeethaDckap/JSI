@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation. All rights reserved.
+ */
+
+/**
+ * Location Picker Sidebar
+ *
+ * @var $this Epicor_Comm_Block_Customer_Locationpicker
+ */
+?>
+<div class="block block-locationpicker" data-bind="scope: 'locationPicker'">
+    <div class="block-title no-display"
+         data-bind="css: {'no-display': !locationPicker().items || locationPicker().items.length === 0}">
+        <strong id="block-locationpicker-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Location Picker') ?></strong>
+    </div>
+    <div class="block-content no-display"
+         data-bind="css: {'no-display': !locationPicker().items || locationPicker().items.length === 0}"
+         aria-labelledby="block-locationpicker-heading">
+        <form action="<?php echo $this->getFormUrl(); ?>" method="post">
+            <div class="locations_filter_list">
+                <label for="locations_filter" ><?php echo __('Locations') ?></label>
+                <div class="input-box">
+                    <select name="locations_filter[]" id="locations_filter" size="5" multiple="true" 
+                            data-bind="options: locationPicker().items, optionsText: 'name', optionsValue: 'code', selectedOptions: locationPicker().chosenLocations">
+                    </select>
+                </div>
+                <p class="note sml-text"><?php echo __('Choose one or more locations to filter by.') ?></p>
+            </div>
+            <div class="buttons-set actions">
+                <input type="hidden" name="return_url" value="<?php echo $this->getReturnUrl(); ?>" />
+                <button type="submit" title="<?php echo __('Filter Locations') ?>" class="button" ><span><span><?php echo __('Filter Locations') ?></span></span></button>
+            </div>              
+        </form>        
+    </div>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "locationPicker": {
+                    "component": "Epicor_Comm/epicor/comm/js/view/location-picker"
+                }
+            }
+        }
+    }
+}
+</script>

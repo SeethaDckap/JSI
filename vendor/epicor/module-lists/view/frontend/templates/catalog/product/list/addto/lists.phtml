@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+$buttonTitle = __('Add to List');
+$_product = $this->getProduct();
+$productId = $_product->getId();
+
+$epicorEccBlock = $block->getListProduct();
+$epicorEccBlock->checkLocations($_product);
+?>
+<div class="box-addtolists">
+    <div class="fieldset">
+        <div class="actions">
+            <?php if (
+                $_product->getTypeId() == 'grouped' ||
+                $_product->getTypeId() == 'configurable' ||
+                $_product->getTypeId() == 'bundle' ||
+                $epicorEccBlock->showLocations()
+            ): ?>
+                <form action="<?php /* @escapeNotVerified */
+                echo $_product->getProductUrl(); ?>">
+                    <button type="submit"
+                            title="<?php echo $buttonTitle; ?>"
+                            class="action tolistslist primary">
+                        <span><?php /* @escapeNotVerified */
+                            echo $buttonTitle ?></span>
+                    </button>
+                </form>
+            <?php else: ?>
+                <button type="button" data-mage-init='{"Epicor_Lists/js/view/productaddtolist":{"productId":"<?php echo $_product->getId(); ?>","page":"listpage","productinfo":<?php echo $block->getProductInfo(); ?>}}'
+                        title="<?php /* @escapeNotVerified */
+                        echo $buttonTitle ?>"
+                        class="action primary tolistslist"
+                        id="addtolists-button-<?php echo $productId ?>">
+                    <span><?php /* @escapeNotVerified */
+                        echo $buttonTitle ?></span>
+                </button>
+                <div id="addtolist-popup-modal-<?php echo $productId ?>" style="display:none;">
+                </div>
+
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

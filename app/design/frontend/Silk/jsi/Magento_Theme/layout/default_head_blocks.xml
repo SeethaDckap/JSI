@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    	<css src="css/styles-l.css" media="screen and (min-width: 1025px)"/>
+		<css src="css/source/slick.css" />
+		<css src="css/source/slick-theme.css" />
+        <css src="css/source/jquery.fancybox.min.css" />
+		<css src="css/source/all.min.css" />
+
+    	<!-- <script src="https://use.fontawesome.com/56a6f7a777.js" src_type="url" /> -->
+    	<!-- <css src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" src_type="url"/> -->
+        <css src="css/jsi.css" />
+
+    </head>
+</page>

@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © 2010-2019 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $separator = false; ?>
+<div class="actions">
+    <?php  $_order = $block->getOrder() ?>
+    <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+        <?php $separator = true; ?>
+        <a href="#" data-post='<?php /* @escapeNotVerified */ echo
+        $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+            ->getPostData($block->getReorderUrl($_order))
+        ?>' class="action order">
+            <span><?= /* @escapeNotVerified */ __('Reorder') ?></span>
+        </a>
+    <?php endif ?>
+    <?php if ($this->helper('Epicor\Comm\Helper\Returns')->returnsEnabled()) { ?>
+        <?php if ($separator) { ?>
+            <span class="separator"><?= /* @escapeNotVerified */ __('|') ?></span>
+        <?php } ?>
+        <a class="action returns"
+           href="<?= /* @escapeNotVerified */ $this->helper('Epicor\Comm\Helper\Returns')->getOrderGuestReturnUrl($_order) ?>">
+            <span><?= /* @escapeNotVerified */ __('Return') ?></span>
+        </a>
+    <?php } ?>
+    <a class="action print"
+       href="<?= /* @escapeNotVerified */ $block->getPrintUrl($_order) ?>"
+       onclick="this.target='_blank';">
+        <span><?= /* @escapeNotVerified */ __('Print Order') ?></span>
+    </a>
+    <?= $block->getChildHtml() ?>
+</div>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_AccessRight:etc/access_right.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Frontend::all">
+                <resource id="Epicor_Supplier::supplier" title="Supplier Connect" translate="title"
+                          actioncontoler="true" sortOrder="300">
+                    <resource id="Epicor_Supplier::supplier_dashboard" title="Dashboard" translate="title" sortOrder="100">
+                        <resource id="Epicor_Supplier::supplier_dashboard_account_information" title="Account Information"
+                                  translate="title" sortOrder="100" />
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_rfqs" title="Account RFQs"
+                              translate="title" sortOrder="110"  displaytype="grid">
+                            <resource id="Epicor_Supplier::supplier_rfqs_read" actioncode="read" title="Read"
+                                      sortOrder="100"/>
+                            <resource id="Epicor_Supplier::supplier_rfqs_details" actioncode="details" title="Details"
+                                      sortOrder="110"/>
+                            <resource id="Epicor_Supplier::supplier_rfqs_edit" actioncode="edit" title="Edit"
+                                      sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_parts" title="Parts" translate="title" sortOrder="120"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_parts_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_parts_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_invoices" title="Invoices" translate="title" sortOrder="130"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_invoices_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_invoices_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_orders" title="Orders" translate="title" sortOrder="140"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_orders_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_orders_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Epicor_Supplier::supplier_orders_edit" actioncode="edit" title="Edit"
+                                  sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_confirm_new_po" title="Confirm New PO" translate="title" sortOrder="150"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_confirm_new_po_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_confirm_new_po_confirmrejects" title="Confirm OR Reject" actioncode="confirmrejects"
+                                  sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_confirm_po_changes" title="Confirm PO Changes" translate="title" sortOrder="160"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_confirm_po_changes_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_confirm_po_changes_confirmrejects"
+                                  title="Confirm OR Reject" actioncode="confirmrejects" sortOrder="120"/>
+                    </resource>
+                    <resource id="Epicor_Supplier::supplier_payments" title="Payments" translate="title" sortOrder="170"
+                              displaytype="grid">
+                        <resource id="Epicor_Supplier::supplier_payments_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Epicor_Supplier::supplier_payments_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                    </resource>
+
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

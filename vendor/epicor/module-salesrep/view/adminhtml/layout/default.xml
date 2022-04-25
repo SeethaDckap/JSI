@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+<!--        <action method="addItem">
+            <argument name="type" xsi:type="string">skin_js</argument>
+            <argument name="name" xsi:type="string">epicor/comm/js/salesrepaccount.js</argument>
+            <argument name="params" xsi:type="string"/>
+        </action>-->
+    </head>
+</page>

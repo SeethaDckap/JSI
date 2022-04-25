@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_Common:etc/data_mapping.xsd">
+    <message name="SPCC" label="CUSR - Upload Customer Sales Reps"/>
+    <message name="SPCS" label="SPCS - Purchase Order Changes Search"/>
+    <message name="SPLD" label="SPLD - Parts Price List Detail Enquiry"/>
+    <message name="SPLS" label="SPLS - Parts Price List Search	"/>
+    <message name="SPOC" label="SPOC - Purchase Order Confirm/Reject"/>
+    <message name="SPOD" label="SPOD - Purchase Order Detail Enquiry"/>
+    <message name="SPOS" label="SPOS - Purchase Order Search"/>
+    <message name="SPOU" label="SPOU - Purchase Order Update"/>
+    <message name="SUID" label="SUID - Invoice Detail Enquiry"/>
+    <message name="SUIS" label="SUIS - Invoice Search"/>
+    <message name="SUPS" label="SUPS - Payment Search"/>
+    <message name="SURD" label="SURD - RFQ Detail Enquiry"/>
+    <message name="SURS" label="SURS - RFQ Search"/>
+    <message name="SURU" label="SURU - RFQ Update"/>
+    <message name="SUSD" label="SUSD - Account Summary"/>
+    <message name="SUCO" label="SUCO - Upload Supplier Connect Users"/>
+    <message name="SUSP" label="SUSP - Upload Supplier Record"/>
+</config>

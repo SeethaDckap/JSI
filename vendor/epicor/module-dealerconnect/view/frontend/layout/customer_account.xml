@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+       <referenceContainer name="sidebar.additional" remove="true"/> 
+        <referenceContainer name="sidebar.main">
+            <block class="Epicor\Common\Block\Customer\Account\Links" name="dealer_connect_navigation"
+                   template="Epicor_Customerconnect::customerconnect/navigation.phtml" 
+                   after="customer_connect_navigation" cacheable="false">
+                <action method="setTitle">
+                    <argument name="value" xsi:type="string">Dealer Connect</argument>
+                </action>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="dealerconnect_account_dashboard">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dashboard</argument>
+                        <argument name="path" xsi:type="string">dealerconnect/dashboard/</argument>
+                        <argument name="resource" xsi:type="string">Dealer_Connect::dealerconnect_dashboard</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="dealerconnect_account_quotes">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dealer Quotes</argument>
+                        <argument name="path" xsi:type="string">dealerconnect/quotes/</argument>
+                        <argument name="resource" xsi:type="string">Dealer_Connect::dealer_quotes</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="dealerconnect_account_orders">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dealer Orders</argument>
+                        <argument name="path" xsi:type="string">dealerconnect/orders/</argument>
+                        <argument name="resource" xsi:type="string">Dealer_Connect::dealer_orders</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="dealerconnect_account_inventory">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dealer Inventory</argument>
+                        <argument name="path" xsi:type="string">dealerconnect/inventory/search/</argument>
+                        <argument name="resource" xsi:type="string">Dealer_Connect::dealer_inventory</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="dealerconnect_claims">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dealer Claims</argument>
+                        <argument name="path" xsi:type="string">dealerconnect/claims/</argument>
+                        <argument name="resource" xsi:type="string">Dealer_Connect::dealer_claim</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

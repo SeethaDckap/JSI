@@ -1,0 +1,280 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+
+$helper = $this->helper('Epicor\Common\Helper\Data');
+$telephoneRequired = $helper->getScopeConfig()->getValue('checkout/options/telephone_required', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$displayMobilePhone = $helper->getScopeConfig()->isSetFlag('customer/address/display_mobile_phone', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$mobileRequired = $displayMobilePhone && $helper->getScopeConfig()->isSetFlag('customer/address/mobile_number_required', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$displayInstructions = $helper->getScopeConfig()->isSetFlag('customer/address/display_instructions', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$displayEmail = $helper->getScopeConfig()->isSetFlag('customer/address/display_email', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+?>
+<?php if($block->showAddressHtml()):?>
+    <form action="<?php echo $block->getSaveDefaultAddressUrl() ?>" method="post" id="form-validate">
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <div><?php echo $block->getAddressModel()->format('html'); ?></div>
+            </br>
+        <?php if ($block->isDefaultShipping()): ?>
+            <div><?php /* @escapeNotVerified */ echo __("This is the default shipping address.") ?></div>
+        <?php elseif ($block->canOverrideDefaultShipping()):?>
+            <div class="fieldset">
+                <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" class="checkbox">
+                <label class="label" for="primary_shipping"><span><?php /* @escapeNotVerified */ echo __('Use as my default shipping address') ?></span></label>
+            </div>
+            <div class="buttons-set">
+                <p class="back-link"><a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+                <button type="submit" title="<?php echo __('Save Address') ?>" class="button"><span><span><?php echo __('Save Address') ?></span></span></button>
+            </div>
+        <?php endif;?>
+    </form>
+<?php elseif ($block->canEdit()): ?>
+    <?php //echo $block->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $block->getSaveUrl() ?>" method="post" id="form-validate">
+        <div class="fieldset">
+            <?php echo $block->getBlockHtml('formkey') ?>
+            <input type="hidden" name="success_url" value="<?php echo $block->getSuccessUrl() ?>" />
+            <input type="hidden" name="error_url" value="<?php echo $block->getErrorUrl() ?>" />
+            <h2 class="legend"><?php echo __('Contact Information') ?></h2>
+            <ul class="form-list">
+                <li class="fields">
+                    <?php echo $block->getNameBlockHtml() ?>
+                </li>
+                <li class="wide">
+                    <label for="company"><?php echo __('Company') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="company" id="company" title="<?php echo __('Company') ?>" value="<?php echo $block->escapeHtml($block->getAddress()->getCompany()) ?>" class="input-text" />
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">                    
+                    <?php if($telephoneRequired){ ?>
+                         <label for="telephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+                          <div class="input-box">
+                            <input type="text" name="telephone" value="<?php echo $block->escapeHtml($block->getAddress()->getTelephone()) ?>" title="<?php echo __('Telephone') ?>" class="input-text required-entry" id="telephone" />
+                        </div>
+                    <?php }else{ ?>
+                          <label for="telephone" ><?php echo __('Telephone') ?></label>
+                           <div class="input-box">
+                            <input type="text" name="telephone" value="<?php echo $block->escapeHtml($block->getAddress()->getTelephone()) ?>" title="<?php echo __('Telephone') ?>" class="input-text" id="telephone" />
+                           </div>
+                    <?php } ?>
+                    </div> 
+                    <?php  if($displayMobilePhone) : ?>
+                        <div class="field">
+                        <?php if($mobileRequired){ ?>
+                            <label for="ecc_mobile_number" class="required"><em>*</em><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="ecc_mobile_number" id="ecc_mobile_number" title="<?php echo __('Mobile') ?>" value="<?php echo $block->escapeHtml($block->getAddressModel()->getEccMobileNumber()) ?>" class="input-text required-entry" />
+                            </div>
+                        <?php }else{ ?>
+                            <label for="ecc_mobile_number"><?php echo __('Mobile') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="ecc_mobile_number" id="ecc_mobile_number" title="<?php echo __('Mobile') ?>" value="<?php echo $block->escapeHtml($block->getAddressModel()->getEccMobileNumber()) ?>" class="input-text" />
+                            </div>
+                        <?php } ?>
+                        </div>
+                    <?php endif ?> 
+                 </li>   
+                 <li class="fields">    
+                    <div class="field">
+                        <label for="fax"><?php echo __('Fax') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="fax" id="fax" title="<?php echo __('Fax') ?>" value="<?php echo $block->escapeHtml($block->getAddress()->getFax()) ?>" class="input-text" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="fieldset">
+            <h2 class="legend"><?php echo __('Address') ?></h2>
+            <ul class="form-list">
+                <li class="wide">
+                    <label for="street_1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" title="<?php echo __('Street Address') ?>" id="street_1" class="input-text required-entry" />
+                    </div>
+                </li>
+                <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                    <li class="wide">
+                        <div class="input-box">
+                            <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getStreetLine($_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text" />
+                        </div>
+                    </li>
+                <?php endfor ?>
+                <li class="fields">
+                    <div class="field">
+                        <label for="city" class="required"><em>*</em><?php echo __('City') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="city" value="<?php echo $block->escapeHtml($block->getAddress()->getCity()) ?>"  title="<?php echo __('City') ?>" class="input-text required-entry" id="city" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="region_id" class="required"><em>*</em><?php echo __('State/Province') ?></label>
+                        <div class="input-box">
+                            <select id="region_id" name="region_id" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                                <option value=""><?php echo __('Please select region, state or province') ?></option>
+                            </select>
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                //$('region_id').setAttribute('defaultValue',  "<?php echo $block->getAddress()->getRegionId() ?>");
+                                //]]>
+                            </script>
+                            <input type="text" id="region" name="region" value="<?php echo $block->escapeHtml($block->getRegion()) ?>"  title="<?php echo __('State/Province') ?>" class="input-text" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="zip" class="required"><em>*</em><?php echo __('Zip/Postal Code') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="postcode" value="<?php echo $block->escapeHtml($block->getAddress()->getPostcode()) ?>" title="<?php echo __('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international required-entry" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="country" class="required"><em>*</em><?php echo __('Country') ?></label>
+                        <div class="input-box">
+                            <?php echo $block->getCountryHtmlSelect() ?>
+                        </div>
+                    </div>
+                </li>
+                <?php if($displayEmail): ?>
+                    <li class="fields">
+                        <div class="field">
+                            <label for="ecc_email"><?php echo __('Email Address') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="ecc_email" value="<?php echo $block->escapeHtml($block->getAddressModel()->getEccEmail()) ?>" title="<?php echo __('Email Address') ?>" id="ecc_email" class="input-text validate-email" />
+                            </div>
+                        </div>
+                    </li>
+                <?php endif ?>
+                <?php  if($displayInstructions) : ?>    
+                    <li class="wide">
+                        <label for="ecc_instructions" class=""><?php echo __('Delivery Instructions') ?></label>
+                        <div class ="input-box">
+                            <textarea id="ecc_instructions" name ="ecc_instructions" maxlength="<?php echo $block->getMaxCommentSize(); ?>"><?php echo $block->getAddressModel()->getEccInstructions(); ?></textarea>
+                              <?php if ($block->limitTextArea()): ?>
+                                    <p><span id="max-len-feedback">
+                                        <?php echo $helper->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $helper->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234; ?></span>
+                                        <?php echo __('Chars Remaining'); ?>
+                                    </p>
+                              <?php endif; ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                <?php if($block->canMarkDefaultShippingBillingAddress()): ?>
+                   <?php if ($block->isDefaultBilling()): ?>
+                        <div class="message info"><?php /* @escapeNotVerified */ echo __("It's a default billing address.") ?></div>
+                    <?php elseif ($block->canSetAsDefaultBilling()): ?>
+                        <div class="field choice set billing">
+                            <input type="checkbox" id="primary_billing" name="default_billing" value="1" class="checkbox">
+                            <label class="label" for="primary_billing"><span><?php /* @escapeNotVerified */ echo __('Use as my default billing address') ?></span></label>
+                        </div>
+                    <?php else: ?>
+                        <input type="hidden" name="default_billing" value="1" />
+                    <?php endif; ?>
+
+                    <?php if ($block->isDefaultShipping()): ?>
+                        <div class="message info"><?php /* @escapeNotVerified */ echo __("It's a default shipping address.") ?></div>
+                    <?php elseif ($block->canSetAsDefaultShipping()): ?>
+                        <div class="field choice set shipping">
+                            <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" class="checkbox">
+                            <label class="label" for="primary_shipping"><span><?php /* @escapeNotVerified */ echo __('Use as my default shipping address') ?></span></label>
+                        </div>
+                    <?php else: ?>
+                        <input type="hidden" name="default_shipping" value="1">
+                    <?php endif; ?>
+                <?php else:?>
+                    <?php if ($block->isDefaultShipping()): ?>
+                        <div><?php /* @escapeNotVerified */ echo __("This is the default shipping address.") ?></div>
+                    <?php elseif ($block->canOverrideDefaultShipping()):?>
+                        <div class="fieldset">
+                            <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" class="checkbox">
+                            <label class="label" for="primary_shipping"><span><?php /* @escapeNotVerified */ echo __('Use as my default shipping address') ?></span></label>
+                        </div>
+                    <?php endif;?>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <div class="buttons-set">
+            <p class="required"><?php echo __('* Required Fields') ?></p>
+            <p class="back-link"><a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+            <button type="submit" title="<?php echo __('Save Address') ?>" class="button"><span><span><?php echo __('Save Address') ?></span></span></button>
+        </div>
+    </form>
+
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "validation": {}
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getAddress()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+
+   <script type="text/javascript">
+//<![CDATA[
+        require([
+            "jquery",
+            'Epicor_Comm/js/epicor/comm/checklength',
+            "mage/adminhtml/form",
+            'mage/validation'
+        ], function ($,checkLengthLimits) {
+        <?php if($helper->getScopeConfig()->isSetFlag('customer/address/limits_enabled', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){ ?>
+             var limitcheck = new checkLengthLimits(<?= $helper->getScopeConfig()->getValue('customer/address/limit_name_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_address_line_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234  ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_telephone_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_postcode_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_lastname_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+                 ,<?= $helper->getScopeConfig()->getValue('customer/address/limit_company_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>,
+                 <?= $helper->getScopeConfig()->getValue('customer/address/limit_email_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: 10234 ?>
+             );
+        <?php } ?>                  
+          });
+    //]]>
+    </script>
+<?php if ($block->limitTextArea()): ?>
+     <script type="text/javascript">
+//<![CDATA[
+        require([
+            "jquery"
+        ], function ($) {
+        $('#ecc_instructions').on('keyup',function(event){       
+            var max = <?php echo $helper->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $helper->getScopeConfig()->getValue('customer/address/limit_instructions_length', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) : 10234; ?>;
+            
+            var current = $('#ecc_instructions').val().length;
+          if(max - current <= 0){
+              $('#max-len-feedback').html(0);
+              return false;
+          }
+            $('#max-len-feedback').html(max - current);
+         });
+         });
+    //]]>
+    </script>
+<?php endif; ?>
+    
+<?php else: ?>
+    <p><?php echo __('Address editing has been disabled by the system administrators.') ?></p>
+    <p class="back-link"><a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+<?php endif; ?>

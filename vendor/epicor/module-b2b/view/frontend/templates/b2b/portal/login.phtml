@@ -1,0 +1,123 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Customer login form template
+ *
+ * @see Mage_Customer_Block_Form_Login
+ */
+/* @var $block \Epicor\B2b\Block\Portal\Login*/
+
+if ($block->getConfig('Epicor_Comm/brands/show_store_selector',Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+
+    //M1 > M2 Translation Begin (Rule p2-5.1)
+    //Mage::getSingleton('core/session')->setHasStoreSelected(false);
+    $block->getSession()->setHasStoreSelected(false);
+    //M1 > M2 Translation End
+}
+?>
+
+<div class="login-container">
+<!--    <div class="page-title">-->
+<!--        <h1>--><?php //echo __('Login or Create an Account') ?><!--</h1>-->
+<!--    </div>-->
+    <?php //echo $block->getLayout()->getMessagesBlock()->getGroupedHtml() ?>
+    <?php /* Extensions placeholder */ ?>
+    <?php echo $block->getChildHtml('customer.form.login.extra') ?>
+    <div class="block block-customer-login">
+        <div class="block-title">
+            <strong id="block-customer-login-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Registered Customers') ?></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-customer-login-heading">
+            <form class="form form-login"
+                  action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
+                  method="post"
+                  id="login-form"
+                  data-mage-init='{"validation":{}}'>
+                <?php echo $block->getBlockHtml('formkey'); ?>
+                <fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+                    <div class="field note"><?php /* @escapeNotVerified */ echo __('If you have an account with us, please log in.') ?></div>
+                    <div class="field email required">
+                        <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                        <div class="control">
+                            <input name="login[username]" value="<?php echo $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+                        </div>
+                    </div>
+                    <div class="field password required">
+                        <label for="pass" class="label"><span><?php /* @escapeNotVerified */ echo __('Password') ?></span></label>
+                        <div class="control">
+                            <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" data-validate="{required:true}">
+                        </div>
+                    </div>
+                    <?php echo $block->getChildHtml('form_additional_info'); ?>
+                    <div class="actions-toolbar">
+                        <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?php /* @escapeNotVerified */ echo __('Sign In') ?></span></button></div>
+                        <div class="secondary"><a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Forgot Your Password?') ?></span></a></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="block block-new-customer">
+        <?php
+        if ($block->showCustomerRegistration()) { ?>
+        <div class="block-title">
+            <strong id="block-new-customer-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __($block->getHomeRegistrationTitle()) ?></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-new-customer-heading">
+            <p><?php /* @escapeNotVerified */ echo __($block->getHomeRegistrationContent()) ?></p>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getCreateAccountUrl() ?>" class="action create primary"><span><?php /* @escapeNotVerified */ echo __($block->getHomeRegistrationButtonWording()) ?></span></a>
+                 </div>
+            </div>
+        </div>
+        <?php } ?>
+
+        <?php
+        if ($block->showBusinessRegistration()): ?>
+            </br>
+            <div class="block-title">
+                <strong id="block-new-customer-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __($block->getBusinessRegistrationTitle()) ?></strong>
+
+            </div>
+            <div class="block-content" aria-labelledby="block-new-customer-heading">
+                <p><?php /* @escapeNotVerified */ echo __($block->getBusinessRegistrationContent()) ?></p>
+                <?php if($block->showCreateAcct()):?>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <a href="<?php /* @escapeNotVerified */ echo $block->getB2bCreateAccountUrl(0) ?>" class="action create primary"><span><?php /* @escapeNotVerified */ echo __($block->getBusinessRegistrationButtonWording()) ?></span></a>
+                    </div>
+                </div>
+                <?php endif;?>
+                <?php if($block->showPreRegistrationPswd() && $block->showCreateAcct()):?>
+                    <div class="actions-toolbar"><b><?php /* @escapeNotVerified */ echo __('OR') ?></b></div>
+                <?php endif;?>
+                <?php if($block->showPreRegistrationPswd()):?>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <a href="<?php /* @escapeNotVerified */ echo $block->getB2bCreateAccountUrl(1) ?>" class="action create primary"><span><?php /* @escapeNotVerified */ echo __('Pre Registration Password') ?></span></a>
+                        </div>
+                    </div>
+                <?php endif;?>
+            </div>
+        <?php endif; ?>
+
+        <?php
+        if (!$block->showCustomerRegistration() && !$block->showBusinessRegistration()){ ?>
+            <div class="block-title">
+                <strong id="block-new-customer-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Registration has been disabled.') ?></strong>
+            </div>
+            <div class="block-content" style="min-height:127px;" aria-labelledby="block-new-customer-heading">
+                <p><?php /* @escapeNotVerified */ echo __('Please contact us via our contact page to register.') ?></p>
+            </div>
+        <?php } ?>
+
+    </div>
+</div>
+
+
+
+

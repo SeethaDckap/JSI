@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css" />
+        <script src="Epicor_Common::epicor/common/js/account-common.js" />
+    </head>
+    <body>
+        <referenceContainer name="sidebar.additional" remove="true"/>
+        <referenceContainer name="sidebar.main">
+            <block class="Epicor\Common\Block\Customer\Account\Links" name="suppplier_connect_navigation"
+                   template="Epicor_Supplierconnect::supplierconnect/navigation.phtml" 
+                   cacheable="false">
+                <action method="setTitle">
+                    <argument name="value" xsi:type="string">Supplier Connect</argument>
+                </action>
+                <block class="Magento\Framework\View\Element\Html\Link\Current"
+                       name="supplierconnect_account_dashboard">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Dashboard</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/account/</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_dashboard</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_rfqs">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account RFQs</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/rfq/</argument>
+                        <argument name="msgtype" xsi:type="string">SURS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_rfqs</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_parts">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Parts</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/parts/</argument>
+                        <argument name="msgtype" xsi:type="string">SPLS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_parts</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_invoices">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Invoices</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/invoices/</argument>
+                        <argument name="msgtype" xsi:type="string">SUIS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_invoices</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_orders">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Orders</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/orders/</argument>
+                        <argument name="msgtype" xsi:type="string">SPOS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_orders</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_confirmnewpo">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Confirm New PO</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/orders/new/</argument>
+                        <argument name="msgtype" xsi:type="string">SPOS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_confirm_new_po</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_confirmpochanges">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Confirm PO Changes</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/orders/changes/</argument>
+                        <argument name="msgtype" xsi:type="string">SPCS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_confirm_po_changes</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="supplierconnect_account_payments">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Payments</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/payments/</argument>
+                        <argument name="msgtype" xsi:type="string">SUPS</argument>
+                        <argument name="resource" xsi:type="string">Epicor_Supplier::supplier_payments</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="common_access_management">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Permissions</argument>
+                        <argument name="path" xsi:type="string">supplierconnect/access_management/</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

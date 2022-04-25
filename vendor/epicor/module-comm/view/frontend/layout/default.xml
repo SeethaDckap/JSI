@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+
+        <css src="Epicor_Comm::epicor/comm/css/configurator.css"/>
+        <css src="Epicor_Comm::epicor/comm/css/quickadd.css" />
+        <css src="Epicor_Comm::epicor/comm/css/account-selector.css" />
+        <css src="Epicor_Comm::epicor/comm/css/locations.css"/>
+        <link src="Epicor_Comm::epicor/comm/js/configurator.js"/>
+        <link src="Epicor_Comm::epicor/comm/js/order/reorder/reorderOptions.js"/>
+    </head>
+    <body>
+        <referenceBlock name="sale.reorder.sidebar">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/sales/reorder/sidebar.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="header-wrapper">
+            <block class="Epicor\Comm\Block\Cart\Sidebar" name="jsvariable" as="jsvariable" after="logo" template="Epicor_Comm::epicor_comm/js/cartsidebar.phtml"/>
+            <block class="Epicor\Comm\Block\Search\Search" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" >
+                <arguments>
+                    <argument name="configProvider" xsi:type="object">Epicor\Comm\ViewModel\ConfigProvider</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="home-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Home</argument>
+                    <argument name="path" xsi:type="string">/</argument>
+                    <argument translate="true" name="title" xsi:type="string">Home</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link" name="brandselect-link"
+                   ifconfig="Epicor_Comm/brands/show_store_selector">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Brand Select</argument>
+                    <argument name="path" xsi:type="string">comm/store/selector</argument>
+                    <argument translate="true" name="title" xsi:type="string">Brand Select</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="top.links">
+            <block class="Epicor\Comm\Block\Customer\Account\WebTrackLink" name="web-track-link" after="wish-list-link" ifconfig="Epicor_Comm/integrations/webtrack_enable" >
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">10</argument>
+                    <argument name="path" xsi:type="string" translate="true">comm/webtrack</argument>
+                    <argument name="attributes" xsi:type="array">
+                        <item name="target" xsi:type="string">_blank</item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Customer\Account\CompanyLink" name="change-company-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">120</argument>
+                    <argument name="label" xsi:type="string" translate="true">Change Company</argument>
+                    <argument name="path" xsi:type="string" translate="true">epicor/account/companylists</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="catalog_product_price_template">
+            <action method="addPriceBlockType">
+                <argument name="type" xsi:type="string">grouped</argument>
+                <argument name="block" xsi:type="string">catalog/product_price</argument>
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/catalog/product/price.phtml
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="catalog_product_price_template">
+            <action method="addPriceBlockType">
+                <argument name="type" xsi:type="string">bundle</argument>
+                <argument name="block" xsi:type="string">bundle/catalog_product_price</argument>
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/catalog/product/price.phtml
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="return_link">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string"/>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="cart_sidebar">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/checkout/cart/sidebar.phtml
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Epicor\Comm\Block\Catalog\Product\Ewa\Translation" name="ewa.js.translations"/>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block template="Epicor_Comm::epicor_comm/cart/quickadd.phtml" class="Epicor\Comm\Block\Cart\Quickadd"
+                   name="epicor_comm.cart.quickadd"/>
+            <block template="epicor_comm/customer/account/masquerade.phtml" class="Epicor\Comm\Block\Customer\Account\Masquerade"
+                   name="epicor_comm.cart.masquerade"/>
+
+            <block template="Epicor_Comm::epicor_comm/customer/locationpicker.phtml"
+                   class="Epicor\Comm\Block\Customer\Locationpicker" name="epicor_comm.locationpicker"/>
+        </referenceContainer>
+        <referenceBlock name="wishlist_sidebar">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/wishlist/sidebar.phtml</argument>
+            </action>
+        </referenceBlock>
+         <referenceContainer name="sidebar.additional">
+             <block name="sale.reorder.sidebar"  as="reorder"  class="Epicor\Comm\Block\Sales\Reorder\Sidebar" template="Epicor_Comm::epicor_comm/sales/reorder/sidebar.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="minicart">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="types" xsi:type="array"/>
+                    <item name="components" xsi:type="array">
+                        <item name="minicart_content" xsi:type="array">
+                            <item name="component" xsi:type="string">Magento_Checkout/js/view/minicart</item>
+                            <item name="config" xsi:type="array">
+                                <item name="template" xsi:type="string">Magento_Checkout/minicart/content</item>
+                            </item>
+                            <item name="children" xsi:type="array">
+                                <item name="subtotal.container" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="displayArea" xsi:type="string">subtotalContainer</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="subtotal" xsi:type="array">
+                                            <item name="component" xsi:type="string">Epicor_Comm/epicor/comm/js/view/minicart/subtotal</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Epicor_Comm/minicart/subtotal</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="extra_info" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="displayArea" xsi:type="string">extraInfo</item>
+                                    </item>
+                                </item>
+                                <item name="promotion" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="displayArea" xsi:type="string">promotion</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+            <container name="minicart.addons" label="Mini-cart promotion block"/>
+        </referenceBlock>
+        <referenceBlock name="footer_links">
+            <block class="Epicor\Comm\Block\Html\Links\Current" name="catalog-search-advanced-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Advanced Search</argument>
+                    <argument name="path" xsi:type="string">catalogsearch/advanced</argument>
+                    <argument name="attributes" xsi:type="array">
+                        <item name="data-action" xsi:type="string">advanced-search</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="authorization-link">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">
+                    Epicor_Comm::epicor_comm/customer/account/link/authorization.phtml
+                </argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

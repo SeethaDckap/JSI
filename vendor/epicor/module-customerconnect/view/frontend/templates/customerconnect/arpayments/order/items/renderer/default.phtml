@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+/** @var  $block \Epicor\Customerconnect\Block\Customer\Arpayments\Order\Item\Renderer\DefaultRenderer */
+$_item = $block->getItem();
+
+$_order = $_item->getOrder();
+$info = $_item->getData('additional_data');
+$info = json_decode($info,true);
+
+$invoiceAmount =isset($info['invoiceAmount']) ? $_order->formatPrice($info['invoiceAmount']):$_order->formatPrice(0);
+$invoiceBalance =isset($info['invoiceBalance'])?$_order->formatPrice($info['invoiceBalance']):$_order->formatPrice(0);
+$termBalance =isset($info['termBalance'])?$_order->formatPrice($info['termBalance']):$_order->formatPrice(0);
+//$settlementTermAmount =isset($info['settlementTermAmount']) ? $_order->formatPrice($info['settlementTermAmount']):$_order->formatPrice(0);
+$checkDisputeActive = $this->helper('Epicor\Customerconnect\Helper\Arpayments')->checkDisputeAllowedOrNot();
+?>
+<tr id="order-item-row-<?php /* @escapeNotVerified */ echo $_item->getId() ?>" class="invoicerow">
+    <td class="col name invoicetd" data-th="<?php echo $block->escapeHtml(__('Invoice No')); ?>">
+      <?php echo  $info['invoiceNo']; ?>
+    </td>
+    <td class="col sku invoicetd" data-th="<?php echo $block->escapeHtml(__('Invoice Date')); ?>">
+        <?php /* @escapeNotVerified */ echo $block->processDate($info['invoiceDate']); ?>
+    </td>
+    <td class="col sku invoicetd" data-th="<?php echo $block->escapeHtml(__('Due Date')); ?>">
+        <?php /* @escapeNotVerified */ echo $block->processDate($info['dueDate']); ?>
+    </td>
+    <td class="col price invoicetd" data-th="<?php echo $block->escapeHtml(__('Invoice Amount')); ?>">
+        <?php echo $invoiceAmount; ?>
+    </td>
+    <td class="col subtotal invoicetd" data-th="<?php echo $block->escapeHtml(__('Invoice Balance')); ?>">
+        <?php echo $invoiceBalance; ?>
+    </td>
+    <td class="col subtotal invoicetd" data-th="<?php echo $block->escapeHtml(__('Term Amount')); ?>">
+        <?php echo $termBalance; ?>
+    </td>
+    <?php  if($checkDisputeActive):   ?>    
+    <td class="col subtotal invoicetd" data-th="<?php echo $block->escapeHtml(__('Dispute')); ?>" style="text-align: left;">
+        <dl class="item-options">
+        <dt>Dispute:</dt>
+        <dd><?php echo ($info['dispute']) ? "True" : 'No'?></dd>
+        <dt>Dispute Comments:</dt>
+        <dd><?php echo $info['disputeComment'] ?></dd>
+      </dl>
+     </td>
+    <?php endif;?>    
+     <td class="col subtotal invoicetd" data-th="<?php echo $block->escapeHtml(__('Payment Amount')); ?>">
+        <?php echo $this->getOrder()->formatPrice($this->getItem()->getRowTotal()); ?>
+    </td>
+</tr>
+

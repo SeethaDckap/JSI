@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+namespace Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider;
+
+use Magento\Framework\ObjectManager\TMapFactory;
+
+/**
+ * Implements NotSyncedDataProviderInterface as composite
+ */
+class NotSyncedDataProvider implements NotSyncedDataProviderInterface
+{
+    /**
+     * @var NotSyncedDataProviderInterface[]
+     */
+    private $providers;
+
+    /**
+     * @param TMapFactory $tmapFactory
+     * @param array $providers
+     */
+    public function __construct(
+        TMapFactory $tmapFactory,
+        array $providers = []
+    ) {
+        $this->providers = $tmapFactory->create(
+            [
+                'array' => $providers,
+                'type' => NotSyncedDataProviderInterface::class
+            ]
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIds($mainTableName, $gridTableName)
+    {
+        $result = [];
+        foreach ($this->providers as $provider) {
+            $result = array_merge($result, $provider->getIds($mainTableName, $gridTableName));
+        }
+
+        return array_unique($result);
+    }
+}

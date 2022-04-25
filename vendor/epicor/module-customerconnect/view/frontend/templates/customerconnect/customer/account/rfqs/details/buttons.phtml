@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ page buttons
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Buttons */
+$action = $this->registry('rfq_new') ? $this->getUrl('*/*/add/') : $this->getUrl('*/*/update');
+?>
+<div class="a-right rfq_buttons" id="button_bar"> 
+    <?php if ($this->showDuplicate()) : ?>
+        <button id="rfq_duplicate" class="scalable go" type="button" title="<?php echo __('Duplicate') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Duplicate') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="duplicate_url" id="duplicate_url" value="<?php echo $this->getDuplicateUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->showConfirm()) : ?>
+        <button id="rfq_confirm" class="scalable save" type="button" title="<?php echo __('Confirm') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Confirm') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="confirm_url" id="confirm_url" value="<?php echo $this->getConfirmUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->showReject()) : ?>
+        <button id="rfq_reject" class="scalable delete" type="button" title="<?php echo __('Reject') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Reject') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="reject_url" id="reject_url" value="<?php echo $this->getRejectUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->showCheckoutButton()) : ?>
+        <button id="rfq_checkout" class="scalable go" type="button" title="<?php echo __('Checkout') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Checkout') ?></span>
+                </span>
+            </span>
+        </button>
+        <input type="hidden" name="checkout_url" id="checkout_url" value="<?php echo $this->getCheckoutUrl(); ?>" />
+    <?php endif; ?>
+    <?php if ($this->_isFormAccessAllowed() && ($this->registry('rfqs_editable') || $this->registry('rfqs_editable_partial'))) : ?>
+        <!--<button id="rfq_save" class="scalable button " type="submit">Save and Continue</button>-->
+         <button id="rfq_save" class="scalable save" type="button" title="<?php echo __('Save and Continue') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Save and Continue') ?></span>
+                </span>
+            </span>
+        </button>
+    <?php endif; ?>
+</div>

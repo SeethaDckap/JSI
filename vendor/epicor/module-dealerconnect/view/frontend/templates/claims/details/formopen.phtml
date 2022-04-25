@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$helper = $this->helper('Epicor\Comm\Helper\Configurator');
+/* @var $helper \Epicor\Comm\Helper\Configurator */
+$messageHelper = $this->helper('Epicor\Dealerconnect\Helper\Messaging');
+/* @var $messageHelper \Epicor\Dealerconnect\Helper\Messaging */
+?>
+<div id="messages" class="messages"></div>
+<form id="claim_update" name= "claimform" action="<?php echo $helper->getRegistry()->registry('claim_new') ? $this->getUrl('*/*/add/') : $this->getUrl('*/*/update'); ?>" method="post" enctype="multipart/form-data">
+<input type="hidden" name="form_key" value="<?php echo $block->getFormKey();?>" />
+<input id="claim_new_quote" type="hidden" value="<?php echo $this->getUrl('dealerconnect/claims/newquote'); ?>" />
+<input id="claim_address_details" type="hidden" value="<?php echo $this->getUrl('customerconnect/rfqs/addressdetails'); ?>" />
+<input id="claim_ewa_returnurl" type="hidden" value="<?php echo base64_encode('comm/configurator/rfqewacomplete'); ?>" />
+<input id="claim_configurable_url" type="hidden" value="<?php echo $this->getUrl('customerconnect/rfqs/configureproduct'); ?>" />
+<input id="currentStoreId" type="hidden" value="<?php echo $helper->getCurrentStoreId(); ?>" />
+<input id="claim_ewa_cimurl" type="hidden" value="<?php echo $this->getUrl('epicor_comm/message/cim'); ?>" />
+<input id="claim_ewa_cdmurl" type="hidden" value="<?php echo $this->getUrl('epicor_comm/message/cdm'); ?>" />
+<input id="claim_ewa_show_basedesc" type="hidden" value="<?php echo $helper->getEwaDisplay('base_description') ? 'Y' : 'N'; ?>" />
+<input id="claim_ewa_show_title" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_title') ? 'Y' : 'N'; ?>" />
+<input id="claim_ewa_show_shortdesc" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_short_description') ? 'Y' : 'N'; ?>" />
+<input id="claim_ewa_show_desc" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_description') ? 'Y' : 'N'; ?>" />
+<input id="claim_ewa_show_sku" type="hidden" value="<?php echo $helper->getEwaDisplay('ewa_sku') ? 'Y' : 'N'; ?>" />
+<input id="bom_url" type="hidden" value="<?php echo $block->getBomUrl() ?>" />
+<input type="hidden" name="la_separator" value="<?php echo $messageHelper->getUOMSeparator(); ?>" id="la_separator" />
+<?php if($helper->getRegistry()->registry('claim_new')) : ?>
+<input type="hidden" id="claim_new" name="claim_new" value="1" />
+<?php endif; ?>
+<div class="a-right claim_buttons" id="button_bar"> 
+    <?php if ($block->_isFormAccessAllowed()) : ?>
+        <button id="claim_save" class="scalable save" type="button" title="<?php echo __('Save and Continue') ?>">
+            <span>
+                <span>
+                    <span><?php echo __('Save and Continue') ?></span>
+                </span>
+            </span>
+        </button>
+    <?php endif; ?>
+</div>
+<script>
+    window.checkoutConfig = <?php echo $messageHelper->getCheckoutConfigForRfq(); ?>;
+</script>

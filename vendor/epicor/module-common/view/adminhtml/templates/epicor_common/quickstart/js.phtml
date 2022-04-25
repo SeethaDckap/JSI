@@ -1,0 +1,201 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/** @var \Magento\Backend\Block\Template $this */
+$token_url = $this->getUrl('adminhtml/epicorcommon_quickstart/p21token');
+$test_url = $this->getUrl('adminhtml/epicorcommon_quickstart/networktest');
+$license_url = $this->getUrl('adminhtml/epicorcommon_quickstart/requestlicense');
+?>
+<script type="text/javascript">
+    define("quickstart", [
+        "jquery",
+        "prototype"
+    ], function (jQuery) {
+        return {
+            registerTaxClassRows: function (type) {
+                if (type == 'customer') {
+                    var select = $('epicor_comm_field_mapping_cus_mapping_customer_taxcode_default');
+                } else if (type == 'product') {
+                    var select = $('epicor_comm_field_mapping_stk_mapping_tax_code_default');
+                }
+
+                $$('input.' + type + '_tax').each(function(el) {
+                    $A(select.options).find(function(option, index) {
+                        if (option.value == el.value) {
+                            option.writeAttribute('key', el.up('tr').readAttribute('id'));
+                        }
+                    });
+                });
+            },
+            updateTaxClassRow: function (type, el) {
+                if (type == 'customer') {
+                    var select = $('epicor_comm_field_mapping_cus_mapping_customer_taxcode_default');
+                } else if (type == 'product') {
+                    var select = $('epicor_comm_field_mapping_stk_mapping_tax_code_default');
+                }
+
+                var newValue = el.value;
+                var key = el.up('tr').readAttribute('id');
+                var found = false;
+
+                $A(select.options).find(function(option, index) {
+                    if (option.readAttribute('key') == key) {
+                        option.value = newValue;
+                        option.text = newValue;
+                        found = true;
+                    }
+                });
+
+                if (found === false) {
+                    select.insert(new Element('option', {value: newValue, key: key}).update(newValue));
+                }
+            },
+            getP21Token: function (url_id, user_id, pass_id, button) {
+                var erp_url = $(url_id.split('/').join('_')).value;
+                var erp_user = '';
+                var erp_pass = '';
+                if ($(user_id.split('/').join('_')))
+                    erp_user = $(user_id.split('/').join('_')).value;
+
+                if ($(pass_id.split('/').join('_')))
+                    erp_pass = $(pass_id.split('/').join('_')).value;
+
+                if ($('connection_message'))
+                    $('connection_message').remove();
+
+                new Ajax.Request('<?php echo $token_url; ?>', {
+                    method: 'post',
+                    parameters: {url: erp_url, user: erp_user, pass: erp_pass},
+                    onSuccess: function(transport) {
+                        switch (transport.responseText) {
+                            case 'true':
+                                button.insert({after: '<span id="connection_message" style="display:block;">Successful Connection</span>'});
+                                break;
+                            default:
+                                button.insert({after: '<span id="connection_message" style="display:block;">' + transport.responseText + '</span>'});
+                                break;
+                        }
+                    }
+                });
+            },
+            removeTaxClassRow: function (row_id) {
+                if (row_id.indexOf('customer_tax_classes') != -1) {
+                    var select = $('epicor_comm_field_mapping_cus_mapping_customer_taxcode_default');
+                } else if (row_id.indexOf('product_tax_classes') != -1) {
+                    var select = $('epicor_comm_field_mapping_stk_mapping_tax_code_default');
+                }
+
+                $A(select.options).find(function(option, index) {
+                    if (option.readAttribute('key') == row_id) {
+                        option.remove()
+                    }
+                });
+            },
+            testConnection: function (url_id, user_id, pass_id, button) {
+                var erp_url = $(url_id.split('/').join('_')).value;
+                var erp_user = '';
+                var erp_pass = '';
+                if ($(user_id.split('/').join('_')))
+                    erp_user = $(user_id.split('/').join('_')).value;
+
+                if ($(pass_id.split('/').join('_')))
+                    erp_pass = $(pass_id.split('/').join('_')).value;
+
+                if ($('connection_message'))
+                    $('connection_message').remove();
+
+                new Ajax.Request('<?php echo $test_url; ?>', {
+                    method: 'post',
+                    parameters: {url: erp_url, user: erp_user, pass: erp_pass},
+                    onSuccess: function(transport) {
+                        switch (transport.responseText) {
+                            case 'true':
+                                button.insert({after: '<span id="connection_message" style="display:block;">Successful Connection</span>'});
+                                $('networking').addClassName('fieldset-complete');
+                                break;
+                            default:
+                                $('networking').removeClassName('fieldset-complete');
+                                button.insert({after: '<span id="connection_message" style="display:block;">' + transport.responseText + '</span>'});
+                                break;
+                        }
+                    }
+                });
+            },
+            requestLicense: function (url_id, user_id, pass_id, button) {
+                var erp_url = $(url_id.split('/').join('_')).value;
+                var erp_user = '';
+                var erp_pass = '';
+                if ($(user_id.split('/').join('_')))
+                    erp_user = $(user_id.split('/').join('_')).value;
+
+                if ($(pass_id.split('/').join('_')))
+                    erp_pass = $(pass_id.split('/').join('_')).value;
+
+                if ($('connection_message'))
+                    $('connection_message').remove();
+
+                new Ajax.Request('<?php echo $license_url; ?>', {
+                    method: 'post',
+                    parameters: {url: erp_url, user: erp_user, pass: erp_pass},
+                    onSuccess: function(transport) {
+                        switch (transport.responseText) {
+                            case 'License Saved':
+                                alert('License Saved Successfully');
+                                location.reload();
+                                break;
+                            default:
+                                button.insert({after: '<span id="connection_message" style="display:block;">' + transport.responseText + '</span>'});
+                                break;
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    require([
+        "jquery",
+        "prototype",
+        "quickstart"
+    ], function(jQuery, prototype, quickstart){
+
+        document.observe('keyup', function(e, el) {
+            if (el = e.findElement('.customer_tax')) {
+                quickstart.updateTaxClassRow('customer',el);
+            } else if (el = e.findElement('.product_tax')) {
+                quickstart.updateTaxClassRow('product', el);
+            }
+        });
+
+        document.observe('dom:loaded', function() {
+            quickstart.registerTaxClassRows('customer');
+            quickstart.registerTaxClassRows('product');
+        });
+
+        // hide configurator header if no fields are visible (there is a depends condition to hid fields if erp is not e10
+        document.observe('dom:loaded', function(){
+            if($('Epicor_Comm_licensing_erp').value != 'e10'){                  // first time in
+                if($('Configurator')) {
+                    $('Configurator').hide().prevAll('div.entry-edit-head').first().hide();
+                }
+            }
+            $('Epicor_Comm_licensing_erp').on('change', hideConfiguratorHeader);
+            varienGlobalEvents.attachEventHandler('showTab', hideConfiguratorHeader);
+
+            function hideConfiguratorHeader(){
+                if($('Epicor_Comm_licensing_erp').value != 'e10'){              // after change
+                    if($('Configurator')) {
+                        $('Configurator').hide().prevAll('div.entry-edit-head').first().hide();
+                    }
+                } else {
+                    if($('Configurator')) {
+                        $('Configurator').show().prevAll('div.entry-edit-head').first().show();
+                    }
+                }
+            }
+        });
+        window.quickstart = quickstart;
+    });
+</script>

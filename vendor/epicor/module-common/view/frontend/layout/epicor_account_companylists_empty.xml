@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title></title>
+        <link src="Epicor_Lists::epicor/lists/js/edit.js"/>
+        <css src="Epicor_Lists::epicor/lists/css/manage.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceContainer name="catalog.topnav" remove="true"/>
+            <referenceBlock name="minicart" remove="true"/>
+            <referenceBlock name="customer" remove="true"/>
+            <referenceBlock name="change-company-link" remove="true"/>
+            <referenceBlock name="my-account-link" remove="true"/>
+            <referenceBlock name="wish-list-link" remove="true"/>
+            <referenceBlock name="home-link" remove="true"/>
+            <referenceBlock name="choose-addresses-link" remove="true"/>
+            <referenceBlock name="quick_orderpad-link" remove="true"/>
+            <referenceBlock name="brandselect-link" remove="true"/>
+            <referenceBlock name="contract-selection-link" remove="true"/>
+            <referenceBlock name="web-track-link" remove="true"/>
+            <referenceBlock name="branchpickup-link" remove="true"/>
+            <referenceBlock name="toggle_price-link" remove="true"/>
+            <referenceBlock name="selected.branch" remove="true"/>
+            <referenceBlock name="currency" remove="true"/>
+            <referenceBlock name="store_language" remove="true"/>
+            <referenceBlock name="top.search" remove="true"/>
+            <block template="Epicor_Common::epicor_common/customer/account/company.phtml"
+                   class="Epicor\Common\Block\Customer\Account\Company" name="customer_erpaccount_list"/>
+        </referenceContainer>
+    </body>
+</page>

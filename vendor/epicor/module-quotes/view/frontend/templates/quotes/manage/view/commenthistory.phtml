@@ -1,0 +1,111 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php 
+/* @var $this Epicor_Quotes_Block_View_Commenthistory */
+$duplicate = $this->getRequest()->getParam('req'); 
+if($this->getQuoteNoteType() !== 'disabled') :    
+?>
+<div>&nbsp;</div>
+<?php if (in_array($this->getQuote()->getStatusId(), array(Epicor\Quotes\Model\Quote::STATUS_PENDING_RESPONSE, Epicor\Quotes\Model\Quote::STATUS_AWAITING_ACCEPTANCE, Epicor\Quotes\Model\Quote::STATUS_QUOTE_ACCEPTED))
+&& $this->helper('Epicor\AccessRight\Helper\Data')->isAllowed('Epicor_Customer::my_account_quotes_update') ) : ?>
+    <?php if(!$duplicate): ?>
+    <form id="noteform"action="<?php echo $this->getNewNoteUrl(); ?>" method="POST" >
+        <div class="order-items">
+            <h2>
+                <?php echo __('New Comment'); ?>
+            </h2>
+        </div>
+        <div class="new-comment-box order-info-box">
+            <div class="box a-right">
+                <textarea id="note" name="note" style="width:100%;height:100px;" ></textarea>
+
+                <button class="button" type="submit"><span>Submit Comment</span></button>
+            </div>
+        </div>
+    </form>
+    <?php endif; ?>
+<?php endif; ?>
+
+
+<div class="order-items">
+    <h2>
+        <?php echo __('Comment History'); ?>
+    </h2>
+</div>
+
+<div class="comment-history-box order-info-box">
+    <div class="box">
+        <dl>
+            <?php
+            $class = 'odd';
+            
+            $notes = $this->getQuote()->getVisibleNotes();
+            if (!empty($notes) && $this->getQuoteNoteType() == 'single' && $this->getSingleNoteType() == 'formatted' && is_array($notes)) :
+                $notes = $this->getQuote()->splitFormattedNote(array_pop($notes));
+            endif;
+
+            foreach ($notes as $note) :
+            
+                /* @var $note Epicor_Quotes_Model_Quote_Note */
+                if($this->getQuoteNoteType() !== 'single' || $this->getSingleNoteType() == 'formatted') : ?>
+                <dt class="<?php echo $class; ?>">
+                
+                <span class="user"><?php echo $this->getNoteUser($note)->getName(); ?></span>
+                <span class="date"><?php echo $this->helper('\Epicor\Quotes\Helper\Data')->readableTimeDiff($note->getCreatedAt()); ?></span>
+                </dt>
+                <?php endif; ?>
+                <dd class="<?php echo $class; ?>">
+                    <?php if($duplicate): ?>
+                        <?php $note1 = explode('- Note Added By', $note->getNote())?>    
+                        <input type="text" name="user_comments[]" id="user_comments" value="<?php echo $note1[0] ?>"> 
+                    <?php else: ?>
+                        <?php echo nl2br($note->getNote()); ?>
+                    <?php endif; ?>
+                </dd>
+                <?php
+                if ($class == 'odd')
+                    $class = 'even';
+                else
+                    $class = 'odd';
+            endforeach;
+            ?>
+            <?php if (count($notes) == 0): ?>
+                <dt>
+                No Comments have been made
+                </dt>
+            <?php endif; ?>
+        </dl>
+    </div>
+</div>
+<?php endif; ?>
+ <?php if($duplicate): ?>
+        </br>
+          <button id="duplicate_button" type="submit">
+              <span>Save as New Quote</span>
+          </button>
+        </form>
+ <?php endif ?>
+<style>
+    .quote-notes .odd {
+        background: #fff;
+    }
+    .quote-notes .even {
+        background: #f6f6f6;
+    }
+    .quote-notes dt {
+        padding:5px 5px 0;
+    }
+    .quote-notes dt .date {
+        display:inline-block;
+        float:right;
+    }
+    .quote-notes dd {
+        display:block;
+        border-bottom:1px solid #9BABB9;
+        padding:5px;
+    }
+   #duplicate_button{width:162px; float:right;} 
+    
+</style>

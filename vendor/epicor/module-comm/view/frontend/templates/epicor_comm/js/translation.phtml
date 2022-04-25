@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this \Epicor\Common\Block\Js\Translation */
+?>
+<?php if (is_array($this->getTranslations())) : ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            require([
+                'jquery',
+                'mage/translate'
+            ], function ($) {
+                <?php foreach ($this->getTranslations() as $message => $translation): ?>
+                $.mage.__('<?php echo addslashes($message); ?>','<?php echo addslashes($translation); ?>');
+                <?php endforeach; ?>
+            });
+            //]]>
+        </script>
+<?php endif; ?>

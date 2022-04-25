@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * @var $block Epicor\HostingManager\Block\Adminhtml\Nginxlog\View
+ * 
+ * @category   Epicor
+ * @package    Epicor_HostingManager
+ * @author     Epicor Websales Team
+ */
+?>
+<div class="entry-edit" >
+    <div class="entry-edit-head">
+        <h4>Log File Details</h4>
+    </div>
+    <fieldset id="order_erp_status_form">
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label><?php echo __('File Name') ?></label></td>
+                <td class="value"><strong><?php echo $block->getFilename(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo __('Last Modified') ?></label></td>
+                <td class="value"><strong><?php echo $block->getFiledate(); ?></strong></td>
+            </tr>
+        </table>
+    </fieldset>
+    <div class="log_view">
+        <?php $block->getLogFileContents()  ?>
+    </div>
+</div>

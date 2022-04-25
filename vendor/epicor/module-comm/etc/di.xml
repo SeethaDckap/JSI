@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Store\Model\Store" type="Epicor\Comm\Model\Store"/>
+    <preference for="Magento\Catalog\Model\Layer\Filter\Attribute"
+                type="Epicor\Comm\Model\Catalog\Layer\Filter\Attribute"/>
+    <preference for="Magento\Catalog\Model\ResourceModel\Product" type="Epicor\Comm\Model\ResourceModel\Product"/>
+    <preference for="Magento\Catalog\Model\Product" type="Epicor\Comm\Model\Product"/>
+    <preference for="Magento\GroupedProduct\Model\Product\Type\Grouped" type="Epicor\Comm\Model\Product\Type\Grouped"/>
+    <preference for="Magento\Catalog\Model\Product\Option" type="Epicor\Comm\Model\Catalog\Product\Option"/>
+    <preference for="Magento\Eav\Model\Entity\Attribute\Backend\Time\Created"
+                type="Epicor\Comm\Model\Eav\Attribute\Backend\Time\Created"/>
+    <preference for="Magento\Quote\Model\Quote" type="Epicor\Comm\Model\Quote"/>
+    <preference for="Magento\Quote\Model\ShippingAddressManagement" type="Epicor\Comm\Model\ShippingAddressManagement"/>
+    <preference for="Magento\Quote\Model\Quote\Item" type="Epicor\Comm\Model\Quote\Item"/>
+    <preference for="Magento\Sales\Model\Order" type="Epicor\Comm\Model\Order"/>
+    <preference for="Magento\Quote\Model\Quote\Address" type="Epicor\Comm\Model\Quote\Address"/>
+    <preference for="Magento\Sales\Model\Order\Address" type="Epicor\Comm\Model\Sales\Order\Address"/>
+    <preference for="Magento\Sales\Model\Order\Shipment\Track" type="Epicor\Comm\Model\Sales\Order\Shipment\Track"/>
+    <preference for="Magento\Checkout\Model\Type\Onepage" type="Epicor\Comm\Model\Checkout\Type\Onepage"/>
+    <preference for="Magento\Checkout\Model\Cart" type="Epicor\Comm\Model\Cart"/>
+    <preference for="Magento\Customer\Model\Address" type="Epicor\Comm\Model\Customer\Address"/>
+    <preference for="Magento\Customer\Model\Backend\Customer" type="Epicor\Comm\Model\Customer"/>
+    <preference for="Magento\Tax\Model\Sales\Total\Quote\Subtotal" type="Epicor\Comm\Model\Sales\Total\Quote\Subtotal"/>
+    <preference for="Magento\Tax\Model\Sales\Pdf\Grandtotal" type="Epicor\Comm\Model\Tax\Sales\Pdf\Grandtotal"/>
+    <preference for="Magento\Weee\Model\Total\Invoice\Weee" type="Epicor\Comm\Model\Total\Invoice\Weee"/>
+    <preference for="Magento\Bundle\Model\Product\Price" type="Epicor\Comm\Model\Bundle\Product\Price"/>
+    <preference for="Magento\Bundle\Model\Product\Type" type="Epicor\Comm\Model\Bundle\Product\Type"/>
+    <preference for="Magento\CatalogRule\Model\ResourceModel\Rule" type="Epicor\Comm\Model\Catalogrule\Resource\Rule"/>
+    <preference for="Magento\AdminNotification\Model\Inbox" type="Epicor\Comm\Model\Adminnotification\Inbox"/>
+    <preference for="Magento\CatalogInventory\Model\Stock\Item" type="Epicor\Comm\Model\Cataloginventory\Stock\Item"/>
+    <preference for="Magento\Catalog\Helper\Product\Configuration"
+                type="Epicor\Comm\Helper\Catalog\Product\Configuration"/>
+    <preference for="Magento\Catalog\Block\Adminhtml\Category\Tree"
+                type="Epicor\Comm\Block\Adminhtml\Catalog\Category\Tree"/>
+    <preference for="Magento\Catalog\Block\Adminhtml\Product\Grid"
+                type="Epicor\Comm\Block\Adminhtml\Catalog\Product\Grid"/>
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Totals\Tax"
+                type="Epicor\Comm\Block\Adminhtml\Sales\Order\Totals\Tax"/>
+    <preference for="Magento\CheckoutAgreements\Block\Agreements" type="Epicor\Comm\Block\Checkout\Agreements"/>
+    <preference for="Magento\Checkout\Block\Onepage" type="Epicor\Comm\Block\Checkout\Onepage"/>
+    <preference for="Magento\Checkout\Block\Onepage\Success" type="Epicor\Comm\Block\Checkout\Onepage\Success"/>
+    <preference for="Magento\Multishipping\Block\Checkout\Addresses" type="Epicor\Comm\Block\Checkout\Multishipping\Addresses"/>
+    <preference for="Magento\Multishipping\Block\Checkout\Success" type="Epicor\Comm\Block\Checkout\Multishipping\Success"/>
+    <preference for="Magento\Sales\Block\Reorder\Sidebarr" type="Epicor\Comm\Block\Sales\Reorder\Sidebar"/>
+    <preference for="Magento\Customer\Block\Address\Edit" type="Epicor\Comm\Block\Customer\Address\Edit"/>
+    <preference for="Magento\Tax\Block\Sales\Order\Tax" type="Epicor\Comm\Block\Sales\Order\Tax"/>
+    <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option"
+                type="Epicor\Comm\Block\Catalog\Product\View\Type\Bundle\Option"/>
+    <preference for="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Options\Option"
+                type="Epicor\Comm\Block\Adminhtml\Catalog\Product\Edit\Tab\Options\Option"/>
+    <preference for="Magento\LayeredNavigation\Block\Navigation" type="Epicor\Comm\Block\Catalog\Layer\View"/>
+    <preference for="Magento\Catalog\Block\Product\View\Attributes"
+                type="Epicor\Comm\Block\Catalog\Product\View\Attributes"/>
+    <preference for="Magento\Customer\Model\Customer" type="Epicor\Comm\Model\Customer" />
+    <preference for="Magento\Catalog\Controller\Category\View" type="Epicor\Comm\Controller\Category\View" />
+    <preference for="Magento\CatalogSearch\Controller\Result\Index" type="Epicor\Comm\Controller\Category\Search\Result" />
+    <preference for="Magento\CatalogSearch\Controller\Advanced\Result" type="Epicor\Comm\Controller\Category\Search\Advanceresult" />
+    <preference for="Magento\Catalog\Controller\Product\View" type="Epicor\Comm\Controller\Product\View" />
+    <preference for="Magento\Checkout\Model\Session" type="Epicor\Comm\Model\Checkout\Session" />
+    <preference for="Epicor\Comm\Api\ViewModel\Product\LocationsInterface"
+                type="Epicor\Comm\Model\ViewModel\Product\Locations" />
+    <preference for="Epicor\Comm\Api\ViewModel\Form\FormKeyInterface"
+            type="Epicor\Comm\Model\ViewModel\Form\FormKey" />
+    <preference for="Epicor\Comm\Api\ViewModel\Form\AddToCartButtonInterface"
+            type="Epicor\Comm\Model\ViewModel\Form\AddToCartButton" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="sales_order_view_log_grid_data_source" xsi:type="string">Epicor\Comm\Model\ResourceModel\Message\Log\Grid\Collection</item>
+            </argument>
+        </arguments>
+     </type>
+
+    <type name="Epicor\Common\Helper\Context">
+        <arguments>
+            <argument name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data\Proxy</argument>
+            <argument name="commMessagingHelper" xsi:type="object">Epicor\Comm\Helper\Messaging\Proxy</argument>
+            <argument name="commLocationsHelper" xsi:type="object">Epicor\Comm\Helper\Locations\Proxy</argument>
+            <argument name="listsFrontendProductHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Product\Proxy</argument>
+            <argument name="listsFrontendContractHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Contract\Proxy</argument>
+            <argument name="listsSessionHelper" xsi:type="object">Epicor\Lists\Helper\Session\Proxy</argument>
+            <argument name="commonAccessHelper" xsi:type="object">Epicor\Common\Helper\Access\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Helper\Context">
+        <arguments>
+            <argument name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data\Proxy</argument>
+            <argument name="commMessagingHelper" xsi:type="object">Epicor\Comm\Helper\Messaging\Proxy</argument>
+            <argument name="commLocationsHelper" xsi:type="object">Epicor\Comm\Helper\Locations\Proxy</argument>
+            <argument name="listsFrontendProductHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Product\Proxy</argument>
+            <argument name="listsFrontendContractHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Contract\Proxy</argument>
+            <argument name="commonAccessHelper" xsi:type="object">Epicor\Common\Helper\Access\Proxy</argument>
+            <argument name="listsSessionHelper" xsi:type="object">Epicor\Lists\Helper\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Model\Context">
+        <arguments>
+            <argument name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Helper\Messaging\Context">
+        <arguments>
+            <argument name="commHelper" xsi:type="object">Epicor\Comm\Helper\Data\Proxy</argument>
+            <argument name="commMessagingHelper" xsi:type="object">Epicor\Comm\Helper\Messaging\Proxy</argument>
+            <argument name="commLocationsHelper" xsi:type="object">Epicor\Comm\Helper\Locations\Proxy</argument>
+            <argument name="listsFrontendProductHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Product\Proxy</argument>
+            <argument name="listsFrontendContractHelper" xsi:type="object">Epicor\Lists\Helper\Frontend\Contract\Proxy</argument>
+            <argument name="commonAccessHelper" xsi:type="object">Epicor\Common\Helper\Access\Proxy</argument>
+            <argument name="commonXmlHelper" xsi:type="object">\Epicor\Common\Helper\Xml\Proxy</argument>
+            <argument name="messageUploadModelReader" xsi:type="object">Epicor\Common\Model\MessageUploadModelReader\Proxy</argument>
+            <argument name="messageRequestModelReader" xsi:type="object">Epicor\Common\Model\MessageRequestModelReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Model\Cart">
+        <arguments>
+            <argument name="commProductHelper" xsi:type="object">\Epicor\Comm\Helper\Product\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\GroupedProduct\CustomerData\GroupedItem">
+        <plugin name="ecc_groupeditem_data" type="Epicor\Comm\Plugin\CustomerData\Checkout\GroupedItemPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="ecc_defaultitem_data" type="Epicor\Comm\Plugin\CustomerData\Checkout\DefaultItemPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="ecc_customer_order_ref-save-in-quote" type="Epicor\Comm\Plugin\Checkout\ShippingInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\CatalogInventory\Model\Quote\Item\QuantityValidator">
+        <plugin name="QuantityValidator_call" type="Epicor\Comm\Plugin\Quote\Item\QuantityValidator" sortOrder="1"/>
+    </type>
+    <type name="Magento\Quote\Api\PaymentMethodManagementInterface">
+        <plugin name="QuantityValidator_getlist" type="Epicor\Comm\Plugin\Checkout\PaymentMethodManagement" sortOrder="1"/>
+    </type>
+    <type name="Magento\Framework\Webapi\Rest\Request\ParamOverriderInterface">
+        <plugin name="QuantityValidator_paramoverridercartId" type="Epicor\Comm\Plugin\Checkout\ParamOverriderCartId" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="order_comments_save-in-order" type="Epicor\Comm\Plugin\Checkout\PaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="guest_order_comments_save-in-order" type="Epicor\Comm\Plugin\Checkout\GuestPaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="order_item_comments_save-in-order" type="Epicor\Comm\Plugin\Checkout\ToOrderItemPlugin" sortOrder="10"/>
+    </type>
+     <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="convert_quote_address_to_order_address" type="Epicor\Comm\Plugin\ToOrderAddress" sortOrder="5"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\Product\Option\Validator\Pool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="ewa_description" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+                <item name="ewa_code" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+                <item name="ewa_title" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+                <item name="ewa_short_description" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+                <item name="ewa_sku" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+                <item name="ecc_text_field" xsi:type="object">Epicor\Comm\Model\Catalog\Product\Option\Validator\Ewa</item>
+            </argument>
+        </arguments>
+    </type>
+     <type name="Magento\GroupedProduct\Model\Product\Type\Grouped">
+        <plugin name="add_pack_size_to_ass_collection" type="Epicor\Comm\Plugin\Product\Type\Grouped" sortOrder="5"/>
+    </type>
+   <type name="Magento\Eav\Model\AttributeSetRepository">
+       <plugin name="delete_url_key_after_attributeset_products_are_deleted" type="Epicor\Comm\Plugin\Product\DeleteUrlAtAttributesetDelete" sortOrder="1"/>
+   </type>
+    <type name="Epicor\Comm\Logger\Autosync\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Logger\Autosync\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">autosync</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\Comm\Logger\Autosync\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Model\Order\Shipment\Track\Validator">
+        <plugin name="shipping_track_validate_custom" type="Epicor\Comm\Plugin\Order\Shipment\Track\Validator" sortOrder="5"/>
+    </type>
+    <type name="Magento\Sales\Model\ResourceModel\Order\Handler\State">
+        <plugin name="custom_state_check" type="Epicor\Comm\Plugin\Order\State" sortOrder="5"/>
+    </type>
+    <preference for="Magento\Sales\Model\ResourceModel\Order\Grid\Collection" type="Epicor\Comm\Model\ResourceModel\Order\Grid\Collection" />
+    <preference for="Magento\Sales\Model\Order\Email\Sender\OrderSender" type="Epicor\Comm\Model\Sales\Order\Email\Sender\OrderSender" />
+    <preference for="Magento\Wishlist\CustomerData\Wishlist" type="Epicor\Comm\CustomerData\Wishlist" />
+    <type name="Magento\Wishlist\Helper\Data">
+        <plugin name="epicor_comm_wishlist_data" type="Epicor\Comm\Plugin\Wishlist\Helper\Data" sortOrder="5"/>
+    </type>
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+        <plugin name="configurator_custom_options" type="Epicor\Comm\Plugin\Cart\Totals\ItemConverter" sortOrder="5"/>
+    </type>
+
+    <type name="Magento\Checkout\Model\TotalsInformationManagement">
+        <plugin name="ecc_send_bsv" type="Epicor\Comm\Plugin\Cart\Totals\TotalsInformationManagementPlugin" />
+    </type>
+    <type name="Magento\Customer\Model\Config\Backend\Address\Street">
+        <plugin name="set_default_street_count" type="Epicor\Comm\Plugin\Config\Backend\Address\Street" />
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="ecc_send_bsv" type="Epicor\Comm\Plugin\Quote\SendBsvPlugin" />
+    </type>
+    <type name="Magento\Eav\Model\Attribute\Data\Multiline">
+        <plugin name="street_multiline_validation" type="Epicor\Comm\Plugin\Attribute\Data\Multiline" />
+    </type>
+    <type name="\Magento\CatalogRule\Model\Rule\Condition\Product">
+        <plugin name="catalogrule_condition_product" type="Epicor\Comm\Plugin\CatalogRule\Rule\Condition\Product" />
+    </type>
+    <preference for="Magento\Backend\Controller\Adminhtml\Noroute\Index" type="Epicor\Comm\Controller\Adminhtml\Epicorcomm\Noroute\Index" />
+    <preference for="Magento\Sales\Model\Order\Email\SenderBuilder" type="Epicor\Comm\Model\Sales\Order\Email\SenderBuilder" />
+    <type name="\Magento\Payment\Model\MethodList">
+        <plugin name="payment_method_is_active" type="Epicor\Comm\Plugin\Payment\Methodlist" />
+    </type>
+    <type name="\Magento\Multishipping\Model\Payment\Method\Specification\Enabled">
+        <plugin name="multishipping_payment_method_enabled" type="Epicor\Comm\Plugin\Payment\Method\Specification\Enabled" />
+    </type>
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="Epicor_Comm::Minicart_Product_Name" type="Epicor\Comm\Plugin\Minicart\ProductNamePlugin" sortOrder="1"/>
+    </type>
+    <type name="Magento\CatalogInventory\Model\StockStateProvider">
+        <plugin name="ecc_checkQuote_item_qty" type="Epicor\Comm\Plugin\CatalogInventory\StockStateProviderPlugin" />
+    </type>
+    <preference for="Magento\Catalog\Model\ProductLink\CollectionProvider" type="Epicor\Comm\Model\Catalog\ProductLink\CollectionProvider" />
+    <preference for="Magento\Bundle\Helper\Catalog\Product\Configuration" type="Epicor\Comm\Helper\Catalog\Product\Type\Bundle\Configuration" />
+    <type name="Epicor\Comm\Model\ArrayMessages">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="msq" xsi:type="string">MSQ</item>
+                <item name="bsv" xsi:type="string">BSV</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\ShippingMethodManagement">
+        <plugin name="bsv_after_address_change" type="Epicor\Comm\Plugin\Quote\ShippingMethodManagementPlugin" />
+    </type>
+    <type name="Magento\Swatches\Block\Product\Renderer\Configurable">
+        <plugin name="configurable_option_lazy_loader" type="Epicor\Comm\Plugin\Product\Configurable" />
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="transfer_database_command" xsi:type="object">Epicor\Comm\Console\Command\TransferDatabaseCommand</item>
+                <item name="import_erp_mapping_attributes" xsi:type="object">Epicor\Comm\Console\Command\ImportErpMappingAttributes</item>
+                <item name="update_category_position" xsi:type="object">Epicor\Comm\Console\Command\UpdateCategoryPosition</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Logger\DatabaseCopy\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Logger\DatabaseCopy\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">commDatabaseCopyLogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\Comm\Logger\DatabaseCopy\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Ui\Component\MassAction\Customer\Erpaccounttype">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">adminhtml/epicorcommon_customer/massAssignAccount</item>
+                <item name="paramName" xsi:type="string">account_type</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Assign a Account Type</item>
+                    <item name="message" xsi:type="string" translate="true">Are you sure to assign selected customers to Account Type?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Ui\Component\MassAction\Status\Options">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">adminhtml/epicorcomm_sales_order/massAssignErpstatus</item>
+                <item name="paramName" xsi:type="string">erp_status</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\InventorySourceDeductionApi\Model\SourceDeductionService">
+        <plugin name="order_ship_sou_zero_qty_deleted_product" type="Epicor\Comm\Plugin\InventorySourceDeductionApi\Model\SourceDeductionService"/>
+    </type>
+    <type name="Epicor\Comm\Model\Message\Request\Bsv">
+        <arguments>
+            <argument name="bsvAndGor" xsi:type="object">Epicor\Comm\Helper\BsvAndGor</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Controller\Configurableproducts\Stockandprice">
+        <arguments>
+            <argument name="locationHelper" xsi:type="object">Epicor\Comm\Helper\Locations</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Model\Message\Request\Gor">
+        <arguments>
+            <argument name="bsvAndGor" xsi:type="object">Epicor\Comm\Helper\BsvAndGor</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Bundle\Model\Product\Price">
+        <plugin name="epicor_comm_bundle_price" type="Epicor\Comm\Plugin\Bundle\Price" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\CopyConstructor\Composite">
+        <arguments>
+            <argument name="constructors" xsi:type="array">
+                <item name="substitute" xsi:type="string">Epicor\Comm\Model\Catalog\Product\CopyConstructor\Substitute</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Product\LinkTypeProvider">
+        <arguments>
+            <argument name="linkTypes" xsi:type="array">
+                <item name="substitute" xsi:type="const">Epicor\Comm\Model\Catalog\Product\Link::LINK_TYPE_SUBSTITUTE</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\ProductLink\CollectionProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="substitute" xsi:type="object">Epicor\Comm\Model\Catalog\ProductLink\CollectionProvider\Substitute</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Model\Account\Redirect">
+        <plugin sortOrder="1" name="epicorCommRedirect" type="Epicor\Comm\Plugin\Model\Account\RedirectPlugin"/>
+    </type>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin sortOrder="1" name="epicorSalesrepAccountManagement" type="Epicor\Comm\Plugin\Customer\AccountManagementPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="epicorSalesrepCustomerData" type="Epicor\Comm\Plugin\Customer\SalesrepConfigProviderPlugin" />
+    </type>
+    <type name="Epicor\Comm\Model\Quote">
+        <arguments>
+            <argument name="request" xsi:type="object">Magento\Framework\App\Request\Http</argument>
+            <argument name="locationsHelper" xsi:type="object">Epicor\Comm\Helper\Locations</argument>
+        </arguments>
+    </type>
+    <preference for="Epicor\Comm\Api\ConfiguratorCheckInterface" type="Epicor\Comm\Model\ConfiguratorCheck" />
+    <preference for="Epicor\Comm\Api\AddToWishlistInterface" type="Epicor\Comm\Model\AddToWishlist" />
+    <preference for="Epicor\Comm\Api\Data\CaapInfoInterface" type="Epicor\Comm\Model\Queue\Entity\CaapInfo" />
+    <preference for="Epicor\Comm\Api\Data\SouInvoiceInterface" type="Epicor\Comm\Model\Sales\Invoice\Email\Sender\SouInvoice" />
+    <type name="Magento\CatalogSearch\Controller\Advanced\Index">
+        <plugin name="convert_quote_address_to_order_address" type="Epicor\Comm\Plugin\Catalog\Search\Advance\Index" sortOrder="5"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Email\Container\InvoiceIdentity">
+        <plugin name="epicor_comm_send_invoice_email" type="Epicor\Comm\Plugin\Order\InvoiceEmail\InvoiceIdentity" sortOrder="1"/>
+    </type>
+    <type name="Epicor\Comm\Model\Cron">
+        <arguments>
+            <argument name="commonCron" xsi:type="object">Epicor\Common\Model\Cron</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Pricing\PriceCurrencyInterface">
+        <plugin name="epicor_comm_price_currency" type="Epicor\Comm\Plugin\Framework\Pricing\PriceCurrency" sortOrder="1"/>
+    </type>
+    <type name="Epicor\Comm\Model\Import\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Comm\Model\Import\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">newstk</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Epicor\Comm\Model\Import\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="epicor_comm_model_quote_plugin" type="Epicor\Comm\Plugin\QuotePlugin" />
+    </type>
+    <type name="Magento\Framework\Session\SessionStartChecker">
+        <plugin name="transparent_session_checker" type="Epicor\Comm\Plugin\ConfiguratorSessionChecker"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View">
+        <plugin name="ecc_sales_order_view" type="Epicor\Comm\Plugin\Order\View" />
+    </type>
+    <type name="Magento\Framework\Data\Form\Element\AbstractElement">
+        <plugin name="allow_accept_in_html" type="Epicor\Comm\Plugin\Form\Element\AbstractElementPlugin" />
+    </type>
+    <type name="Magento\Bundle\Model\Product\LinksList">
+        <plugin name="epicor_comm_bundle_LinksList" type="Epicor\Comm\Plugin\Bundle\LinksList" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin sortOrder="1" name="epicorCommConfiguration"
+                type="Epicor\Comm\Plugin\Helper\Product\ConfigurationPlugin"/>
+    </type>
+</config>

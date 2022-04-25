@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+*/
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/customerconnect/downloadattachment/" method="POST">
+        <service class="Epicor\Customerconnect\Api\DownloadAttachmentManagementInterface" method="downloadAttachment"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="erp_file_id" force="true">%erp_file_id%</parameter>
+           <!-- <parameter name="web_file_id" force="true">%web_file_id%</parameter>-->
+            <parameter name="order_number" force="true">%order_number%</parameter>
+            <parameter name="file_name" force="true">%file_name%</parameter>
+            <parameter name="action" force="true">%action%</parameter>
+        </data>
+    </route>
+</routes>

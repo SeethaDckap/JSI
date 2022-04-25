@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Template for block Epicor_Comm_Block_Adminhtml_Customer_Group_Edit_Erpinfo
+ */
+?>
+<?php
+$erpCustomer = $this->getErpCustomer();
+?>
+<div class="entry-edit box-left" style="width:49.5%">
+    <div class="entry-edit-head"><h4 class="icon-head head-customer-view"><?php echo Mage::helper('epicor_comm')->__('ERP Group Information') ?></h4></div>
+    <fieldset class="erp_infomation">
+        <table>
+            <tr>
+                <td class="label"><strong><?php echo __('Code:') ?></strong></td>
+                <td><?php echo $erpCustomer->getErpCode() ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('Name:') ?></strong></td>
+                <td><?php echo $erpCustomer->getName() ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('Credit Limit:') ?></strong></td>
+                <td><?php echo $erpCustomer->getCreditLimit() ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('Current Balance:') ?></strong></td>
+                <td><?php echo $erpCustomer->getBalance() ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('On Stop:') ?></strong></td>
+                <td><?php echo $erpCustomer->getOnStop() ? 'True' : 'False' ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('Is Default Customer:') ?></strong></td>
+                <td><?php echo $this->getScopeConfig()->getValue('customer/create_account/default_group', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) == $erpCustomer->getMagentoId() ? 'True' : 'False' ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?php echo __('Pre-register Password:') ?></strong></td>
+                <td><?php echo $erpCustomer->getPreRegPassword()?></td>
+            </tr>
+        </table>
+        <?php echo $this->getChildHtml('erp-left-box-information') ?>
+    </fieldset>
+        <?php echo $this->getChildHtml('erp-left-box') ?>
+</div>
+
+<style>
+    .erp_infomation td {
+        padding:5px 15px 5px 5px;
+    }
+    .erp_infomation td.label {
+        width: 200px;
+    }
+</style>

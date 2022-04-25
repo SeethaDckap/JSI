@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+    <!--<script src="Epicor_SalesRep::epicor/salesrep/js/rfq-extra.js"/>-->
+    </head>
+    <body>
+        <referenceBlock name="customer_account_navigation_block" remove="true"/>
+        <referenceBlock name="customer_account_navigation" remove="true"/>
+        <referenceBlock name="sidebar.main.account_nav" remove="true" />
+        <referenceBlock name="sales.order.history">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_SalesRep::epicor/salesrep/sales/order/history.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="rfq-extra" template="Epicor_SalesRep::epicor/salesrep/rfqextra.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

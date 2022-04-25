@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="epicor_btob_check_access_rights_after">
+    <observer name="epicor_lists_frontend_contracts_contractSelection" instance="Epicor\Lists\Observer\Contracts\ContractSelectionObserver"/>
+  </event>
+    <event name="epicor_contract_select_page">
+    <observer name="epicor_lists_frontend_contracts_contractSelectPage" instance="Epicor\Lists\Observer\Contracts\ContractSelectPage"/>
+  </event>
+  <event name="epicor_contract_select_login">
+    <observer name="epicor_lists_frontend_contracts_contractSelectLogin" instance="Epicor\Lists\Observer\Contracts\ContractSelectLogin"/>
+  </event>
+  <event name="epicor_contract_select">
+    <observer name="epicor_lists_frontend_contracts_contractSelect" instance="Epicor\Lists\Observer\Contracts\ContractSelect"/>
+  </event>
+  <event name="epicor_comm_onepage_get_checkout_addresses">
+    <observer name="listsGetCheckoutAddresses" instance="Epicor\Lists\Observer\Onepage\GetCheckoutAddresses"/>
+  </event>
+  <event name="customer_logout">
+    <observer name="epicor_lists_frontend_lists_clearSession" instance="Epicor\Lists\Observer\Contracts\LogoutClearSession"/>
+  </event>
+  <event name="view_block_abstract_to_html_before">
+    <observer name="epicor_comm_model_observer_modifyblock_list" instance="Epicor\Lists\Observer\ModifyBlockHtmlBefore"/>
+  </event>
+  <event name="epicor_lists_contract_select_after">
+    <observer name="epicor_lists_frontend_contracts_cartCheckContractSelect" instance="Epicor\Lists\Observer\Contracts\ContractsCartCheck"/>
+  </event>
+  <event name="customer_login">
+    <observer name="epicor_lists_frontend_contracts_cartCheckCustomerLogin" instance="Epicor\Lists\Observer\Contracts\ContractsCartCheck"/>
+    <observer name="setCookieOnLogin" instance="Epicor\Lists\Observer\Lists\SetCookieOnLogin"/>
+  </event>
+  <event name="msq_sendrequest_before">
+    <observer name="epicor_lists_prepare_msq_sendrequest_before" instance="Epicor\Lists\Observer\Lists\PrepareProductsForMsq"/>
+    <observer name="epicor_lists_pricelist_preparedata_msq_sendrequest_before" instance="Epicor\Lists\Observer\Pricelist\PrepareDataBeforeSendMsq"/>
+  </event>
+  <event name="msq_sendrequest_after">
+    <observer name="epicor_lists_pricelist_processdata_msq_sendrequest_after" instance="Epicor\Lists\Observer\Pricelist\ProcessDataAfterSendMsq"/>
+    <observer name="epicor_lists_nodefault_uom_msq_sendrequest_after" instance="Epicor\Lists\Observer\Lists\AfterSendMsqNoDefaultUomProducts"/>
+  </event>
+  <event name="checkout_cart_save_after">
+    <observer name="setCookieForLists" instance="Epicor\Lists\Observer\Lists\SetCookieForLists"/>
+  </event>
+  <event name="checkout_quote_destroy">
+    <observer name="deleteCookieForLists" instance="Epicor\Lists\Observer\Lists\DeleteCookieForLists"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_index">
+    <observer name="deleteCookieForListsFromCart" instance="Epicor\Lists\Observer\Lists\CartCheckList"/>
+  </event>
+</config>

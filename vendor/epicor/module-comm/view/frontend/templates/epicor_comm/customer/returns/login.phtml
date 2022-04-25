@@ -1,0 +1,115 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/* @var $this Epicor_Comm_Block_Customer_Returns_Login */
+
+$guestEnabled = $this->checkConfigFlag('enabled', 'guests');
+$b2cEnabled = $this->checkConfigFlag('enabled', 'b2c');
+$b2bEnabled = $this->checkConfigFlag('enabled', 'b2b');
+
+$loginEnabled = ($b2cEnabled || $b2bEnabled) ? true : false;
+
+$guestClass = $loginEnabled ? 'col-1' : '';
+$loginClass = $guestEnabled ? 'col-2' : 'col-1';
+$colClass = ($guestEnabled && $loginEnabled) ? 'col2-set' : '';
+?>
+<div class="<?php echo $colClass; ?>">
+    <?php echo $this->getChildHtml('login_before'); ?>
+    <?php if ($guestEnabled) : ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            require([
+                'jquery',
+                'Epicor_Comm/epicor/comm/js/return/loginguest',
+                'prototype'
+            ], function ($, LoginGuest) {
+                'use strict';
+                var loginguest = new LoginGuest('login-guest-form');
+                $("#login-guest-submit").click(function () {
+                    loginguest.save();
+                });
+            });
+
+            //]]>
+        </script>
+        <div class="<?php echo $guestClass; ?>">
+            <h3><?php echo __('Returns without an account') ?></h3>
+            <form id="login-guest-form" action="<?php echo $this->getUrl('epicor_comm/returns/guestlogin') ?>" method="post">
+                <fieldset>
+                    <?php $this->getChild('formkey'); ?>
+                    <ul class="form-list">
+                        <li>
+                            <label for="shipto-name" class="required"><?php echo __('Ship To Name'); ?></label>
+                            <div class="input-box">
+                                <input type="text" class="input-text required-entry" id="shipto-name" name="shipto_name" value="">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="email-address" class="required validate-email"><?php echo __('Email Address'); ?></label>
+                            <div class="input-box">
+                                <input type="text" class="input-text required-entry validate-email" id="email-address" name="email_address" value="">
+                            </div>
+                        </li>
+                    </ul>
+                </fieldset>
+                <div id="return-create-buttons-container" class="buttons-set">
+                    <button class="button" title="<?php echo __('Continue'); ?>" type="button" id="login-guest-submit"><span><span><?php echo __('Continue'); ?></span></span></button>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
+    <?php if ($loginEnabled) : ?>
+        <div class="<?php echo $loginClass; ?>">
+            <h3><?php echo __('Returns with an account') ?></h3>
+            <?php //echo $block->getMessagesBlock()->getGroupedHtml() ?>
+            <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
+                <fieldset>
+                    <?php echo $this->getBlockHtml('formkey'); ?>
+                    <h4><?php echo __('Already registered?') ?></h4>
+                    <p><?php echo __('Please log in below:') ?></p>
+                    <ul class="form-list">
+                        <li>
+                            <label for="login-email" class="required"><?php echo __('Email Address') ?></label>
+                            <div class="input-box">
+                                <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
+                            </div>
+                        </li>
+                        <li>
+                            <label for="login-password" class="required"><?php echo __('Password') ?></label>
+                            <div class="input-box">
+                                <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
+                            </div>
+                        </li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                    </ul>
+                </fieldset>
+                <div class="buttons-set">
+                    <p class="required"><?php echo __('* Required Fields') ?></p>
+                    <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo __('Forgot your password?') ?></a>
+                    <button id="login-submit" type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo __('Login') ?></span></span></button>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+//    var loginForm = new VarienForm('login-form', true);
+//    $('login-email').observe('keypress', bindLoginPost);
+//    $('login-password').observe('keypress', bindLoginPost);
+    function bindLoginPost(evt) {
+        if (evt.keyCode == Event.KEY_RETURN) {
+            loginForm.submit();
+        }
+    }
+    function onepageLogin(button)
+    {
+        if (loginForm.validator && loginForm.validator.validate()) {
+            button.disabled = true;
+            loginForm.submit();
+        }
+    }
+//]]>
+</script>

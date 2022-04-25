@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <css src="Epicor_Comm::epicor/comm/css/cart.css"/>
+    </head>
+    <body>        
+        <referenceBlock name="checkout.cart.form">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::cart/form.phtml</argument>
+            </action>
+        </referenceBlock>
+        
+        <referenceBlock name="additional.product.info">
+            <block class="Epicor\Comm\Block\Checkout\Cart\Item\Comment" name="item_comment"/>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.crosssell">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/list/items.phtml</argument>
+            </action>
+            <block class="Epicor\Comm\Block\Catalog\Product\Skudisplay" template="Epicor_Comm::product/skudisplay.phtml" name="epicor_comm.stockdisplay.checkout.cart.skudisplay.crosssell" as="epicor_ecc_sku_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.checkout.cart.crosssell" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.checkout.cart.crosssell" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.checkout.cart.crosssell" as="epicor_ecc_product_configurator"/>
+        </referenceBlock>
+    </body>
+</page>

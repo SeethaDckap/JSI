@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/* @var $this \Epicor\QuickOrderPad\Block\Form\Wrapper */
+$csvUpload = $this->getConfig('checkout/basket_csv_upload/enabled_quickorderpad');
+
+$listHelper = $this->helper('Epicor\Lists\Helper\Frontend\Quickorderpad');
+/* @var $listHelper \Epicor\Lists\Helper\Frontend\Quickorderpad */
+
+?>
+<div class="quickorderpad">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="qop-search<?php if($csvUpload) : ?> csvincluded<?php endif; ?>">
+        <?php echo $this->getChildHtml('search'); ?>
+        <?php if($csvUpload) : ?>
+            <?php echo $this->getChildHtml('csvupload'); ?>
+        <?php endif; ?>
+    </div>
+    <div class="qop-productlist<?php if($this->getConfigFlag('quickorderpad/general/show_cart_summary')) : ?> thinner<?php endif;?>" >
+        <?php if($this->registry('search-query') != '' || $this->getRequest()->getParam('csv') || ($listHelper->listsEnabled() && $listHelper->getSessionList())) :
+                echo $this->getChildHtml('search.result');
+              else: ?>
+                <div class="page-title">
+                    <h1><?php echo __('Enter a search Keyword / SKU') ?></h1>
+                </div>
+        <?php endif; ?>
+    </div>
+    <?php if($this->getConfigFlag('quickorderpad/general/show_cart_summary')) : ?>
+        <div class="qop-summary">
+            <?php echo $this->getChildHtml('cart.sidebar'); ?>
+        </div>
+        <div class="qop-clear"></div>
+    <?php endif; ?>
+    <?php 
+        echo $this->getChildHtml('basket');
+        /*
+        $showImages = $this->getConfigFlag('quickorderpad/general/show_quickorderpad_images');
+        if($showImages){ 
+        <script type="text/javascript" language="javascript">
+            //jQuery(".image").show();
+            $$('.qop-list .image').invoke(
+                    'setStyle', {
+                        display: 'table-cell'
+            });
+        </script>
+        }
+        */
+    ?>
+</div>

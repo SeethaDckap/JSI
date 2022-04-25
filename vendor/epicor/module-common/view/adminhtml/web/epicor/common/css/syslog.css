@@ -1,0 +1,37 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.log_view{ 
+    margin:0px;
+    padding:3px;
+    background:black;
+    color:#2EC029;
+    font:normal 11px Lucida Console, Courier New, serif;
+    min-height:300px;
+    max-height:30px;
+    overflow-y: scroll;
+}
+.main-col .entry-edit-head {
+    background: #6f8992 none repeat scroll 0 0;
+    padding: 2px 10px;
+}
+.main-col fieldset{
+    background: #fafafa none repeat scroll 0 0;
+    border: 1px solid #d6d6d6;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+}
+.form-list td.label {
+    width: 200px;
+}
+.entry-edit-head h4 {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: #fff;
+    font-size: 1em;
+    line-height: 18px;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}
+

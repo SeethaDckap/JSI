@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Contract Filter
+ *
+ * @see Epicor_Lists_Block_Customer_Account_Contract_Filter
+ * 
+ *
+ */
+/* @var $this Epicor_Lists_Block_Customer_Account_Contract_Filter */
+
+?> 
+<?php if ($this->isAllowed()) : 
+$contractFilter = $this->getSelectedFilterContracts();
+$noSelect  = (empty($contractFilter) ? "selected=selected" : "");
+?>
+    <div class="block locations_filter_block" >
+        <div class="block-title">
+            <strong><span><?php echo $this->getTitle(); ?></span></strong>
+        </div>
+        <div class="block-content">
+            <div class="empty">
+                <form action="<?php echo $this->getFormUrl(); ?>" method="post" id="contractfilter">   
+                    <ul class="contract_filter_list">
+                        <li class="wide">
+                            <label for="contract_filter" ><?php echo __('Contracts') ?></label>
+                            <div class="input-box">
+                                <select name="contract_filter[]" id="contract_filter" <?php if($this->canChooseMultipleContracts()):?>multiple="true"<?php endif; ?>>
+                                    <option value="" <?php echo $noSelect ?>>No Filter</option>
+                                    <?php foreach ($this->getCustomerAllowedContracts() as $code => $contracts):
+                                    $filterArray = explode(',', $contractFilter);
+                                    $selected  = ($code == in_array($code, $filterArray) ? "selected=selected" : ""); 
+                                    ?>
+                                    <option value="<?php echo $code; ?>" <?php echo $selected;?>><?php echo $contracts->getTitle(); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?php if($this->canChooseMultipleContracts()):?>
+                            <p class="note sml-text"><?php echo __('Choose one or more contracts to filter by.') ?></p>
+                            <?php endif; ?>
+                        </li>
+                    </ul>
+                    <div class="buttons-set actions">
+                        <p class="back-link">
+                        <button type="submit" title="<?php echo __('Filter Contracts') ?>" class="button" ><span><span><?php echo __('Filter Contracts') ?></span></span></button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>   
+<?php endif; ?>

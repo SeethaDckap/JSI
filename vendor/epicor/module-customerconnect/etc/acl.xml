@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+  <acl>
+    <resources>
+      <resource id="Magento_Backend::admin">
+<!--        <resource id="Epicor_Customerconnect::admin_epicor_common" title="Epicor_Customerconnect_admin_epicor_common">
+          <resource id="Epicor_Customerconnect::admin_epicor_common_messaging" title="Epicor_Customerconnect_admin_common_messaging">
+            <resource id="Epicor_Customerconnect::admin_epicor_common_messaging_customerconnect" title="Customer Connect Menu" sortOrder="10"/>
+          </resource>
+        </resource>-->
+        <resource id="Magento_Backend::stores">
+          <resource id="Magento_Backend::stores_settings">
+            <resource id="Magento_Config::config">
+                <resource id="Epicor_Common::configure"> 
+                    <resource id="Epicor_Customerconnect::system_config" title="Epicor CustomerConnect" sortOrder="25"/>
+                </resource>    
+            </resource>    
+          </resource>
+        </resource>
+        <resource id="Magento_Sales::sales">
+            <resource id="Magento_Sales::sales_operation" title="Sales operation">
+                <resource id="Epicor_Customerconnect::arpayments" title="AR Payments" sortOrder="100"/>
+            </resource>
+        </resource>
+      </resource>
+    </resources>
+  </acl>
+</config>

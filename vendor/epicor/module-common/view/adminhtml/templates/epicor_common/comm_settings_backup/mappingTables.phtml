@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$tablesList = json_decode($this->getMappingTables(), true);
+$encodedTablesList_64 = base64_encode($this->getMappingTables());
+?>
+</br>
+<input id="mappingTablesArray" type="input" style="display:none"  name="mappingTablesArray" value="<?php echo $encodedTablesList_64;?>"/>
+<div id="mapping-tables" style="margin-top:15px;">
+    <h3>Mapping Tables</h3>
+    <table cellspacing="0">
+        <th>Include</th>
+        <?php foreach($tablesList as $key=>$table){ ?>
+            <?php $requiredTableName = $tablesList[$key]['module'].' / '.$tablesList[$key]['entity']; ?>
+            <tr>
+                <td>
+                    <input type="checkbox" value="Y" id="mapping_row[<?php echo $key;?>]"  name="mapping_row[<?php echo $key ;?>]" checked />
+                </td>  
+                <td id="<?php echo $key ;?>">
+                     <label for="mapping_table[<?php echo $key ;?>]"><?php echo $requiredTableName; ?> </label> 
+                     <input style= "width:300px"  id="<?php echo $key;?>" type="hidden" name="mapping_table[<?php echo $key ;?>]" value="<?php echo $table['module'].'/'.$table['entity']?>" readonly><br>
+                </td>              
+            </tr>
+        <?php } ?>                 
+    </table>
+</div>
+<!-- the below options have not been completed. They relate to config options and are to be implemented at a later date 
+<!--<div id="config_options" style="margin-top:15px;">
+     <h3>Config Options</h3>
+     <table cellspacing="0">
+        <th>Include</th>
+        <?php //foreach($tablesList as $key=>$table){ ?>
+            <tr>
+                <td>
+                    <input type="checkbox" value="Y" id="mapping_row[<?php //echo $key;?>]"  name="config_checkbox[<?php //echo $key ;?>]" checked />
+                </td>  
+                <td id="<?php //echo $key ;?>"></>
+                     <input style= "width:300px"  id="<?php //echo $key;?>" type="text" name="config_options[<?php //echo $key ;?>]" value="<?php //echo $table['module'].'/'.$table['entity']?>" readonly><br>
+                </td>              
+            </tr>
+        <?php //} ?>                 
+    </table>
+</div>-->

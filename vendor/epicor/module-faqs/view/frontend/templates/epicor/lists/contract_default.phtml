@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ *  Default Contract  Settings
+ *
+ * @see Epicor_Lists_Block_Customer_Account_Contract_Default
+ * 
+ *
+ */
+/* @var $this Epicor_Lists_Block_Customer_Account_Contract_Default */
+
+?> 
+<?php if ($this->isAllowed()) : ?>
+    <div class="block locations_filter_block" >
+        <div class="block-title">
+            <strong><span><?php echo $this->getTitle(); ?></span></strong>
+        </div>
+        <div class="block-content">
+            <div class="empty">
+                <form action="<?php echo $this->getFormUrl(); ?>" method="post" class="form-list">   
+                    <ul class="contract_default_list">
+                        <li class="wide">
+                            <label for="contract_default" ><?php echo __('Select Contract') ?></label>
+                            <div class="input-box">
+                            <?php
+                            echo $this->getCustomerAllowedContracts();
+                            ?>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="contract_default_address" id="ulcontract_default_address">
+                        <li class="wide">
+                            <label for="contract_default_address" ><?php echo __('Select Default Address') ?></label>
+                            <div class="input-box" id="appendaddress">
+                               
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="buttons-set actions">
+                        <input type="hidden" name="return_url" value="<?php echo $this->getReturnUrl(); ?>" />
+                        <input type="hidden" name="ajax_url" value="<?php echo $this->getAjaxAddressUrl(); ?>" id="ajax_url" />
+                        <p class="back-link">
+                        <button type="submit" title="<?php echo __('Apply Default Contract') ?>" class="button" ><span><span><?php echo __('Apply') ?></span></span></button>
+                        </p>
+                    </div>
+                    <div id="loading-mask" style="display:none">
+                        <p id="loading_mask_loader" class="loader">
+                        <img alt="Loading..." src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>">
+                        <br>
+                        Please wait...
+                        </p>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>   
+<?php endif; ?>

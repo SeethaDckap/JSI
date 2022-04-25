@@ -1,0 +1,233 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php $getConfigFlag = $block->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/active'); ?>
+<?php if($getConfigFlag): ?>
+    <div class="buttons-set" style="padding-bottom:20px;">
+        <p class="_required"><label class="label"></label><?= __(' Required Fields') ?></p>
+        <button type="submit" title="<?= __('Save') ?>" class="button submitAddress">
+            <span><?= __('Save') ?></span>
+        </button>
+    </div>
+</form>
+<?php endif;?>
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+        var dataForm = $('#form-validate');
+        var checkValidation = dataForm.mage('validation', {});
+        $('.submitAddress').click(function() {
+            var idNumber = $("#identification_number").val();
+            var serialNumber = $("#serial_number").val();
+            if (!idNumber && !serialNumber) {
+                alert("Please enter either Identification Number or Serial Number");
+                return false;
+            }
+            if(checkValidation.valid() !== false) {
+                $('#sold_to_address').removeAttr('disabled');
+                return true;
+            }
+            return false;
+        });               
+
+    });
+</script>
+
+<script type="text/javascript">
+        require([
+            "jquery",
+            "mage/adminhtml/form",
+            "mage/calendar"
+        ], function($) {
+            
+            new RegionUpdater('loccountry', 'locregion', 'loccounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            new RegionUpdater('soldcountry', 'soldregion', 'soldcounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            new RegionUpdater('owncountry', 'ownregion', 'owncounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            
+            $("#warrantystartdate").calendar({
+                showsTime: false,
+                dateFormat: "M/d/yy",
+                buttonText: "Select Date", 
+                changeMonth: true, 
+                changeYear: true, 
+                showOn: "both"
+            });
+            $("#warrantyexpiration").calendar({
+                showsTime: false,
+                dateFormat: "M/d/yy",
+                buttonText: "Select Date", 
+                changeMonth: true, 
+                changeYear: true, 
+                showOn: "both"
+            }); 
+        
+            window.updateDeidInformation = {
+                deidWarranty: function() {
+                    var isChecked = $('input#warrantyClaim').is(':checked');
+                    if(isChecked) {
+                      $('#warranty_information').show();     
+                    } else {
+                      $('#warranty_information').hide();   
+                    }
+                },
+                deidOwner: function() {
+                    var isChecked = $('input#copyOwnAddress').is(':checked');
+                    if(isChecked) {
+                        this.sameAddressAs('own', 'loc');
+                    } else {
+                        this.blankAddress('loc');
+                    }
+                },
+                deidSold: function() {
+                    var isChecked = $('input#copySoldAddress').is(':checked');
+                    if(isChecked) {
+                        this.sameAddressAs('sold', 'own');
+                    } else {
+                        this.blankAddress('own');
+                    }
+                },
+                sameAddressAs: function (from, to) {
+                    $('#'+ to + 'firstname').val($('#'+ from + 'firstname').val());
+                    $('#'+ to + 'lastname').val($('#'+ from + 'lastname').val());
+                    $('#'+ to + 'street_1').val($( '#'+ from + 'street_1').val());
+                    i = 0;
+                    for (i = 2; i <= 3; i++) {
+                        if ((typeof($('#'+  to + 'street_' + i) != 'undefined') && $('#'+  to + 'street_' + i) != null)) {
+                            $('#'+  to + 'street_' + i).val($('#'+ from + 'street_' + i).val());
+                        }
+                    }
+                    $('#'+  to + 'city').val($('#'+ from + 'city').val());
+                    $('#'+  to + 'country').val($('#'+ from + 'country').val());
+                    $('#'+  to + 'county_id').val($('#'+ from + 'county_id').val());
+                    $('#'+  to + 'region').val($('#'+ from + 'region').val());
+                    if ($('#'+ from + 'county').is(":visible")) {
+                        $('#'+  to + 'county').show();
+                    } else {
+                        $('#'+  to + 'county').hide();
+                    }
+
+                    $('#'+  to + 'county').val($('#'+ from + 'county').val());
+                    $('#'+  to + 'postcode').val($('#'+ from + 'postcode').val());
+                    if ((typeof($('#'+  to + 'telephone') != 'undefined') && $('#'+  to + 'telephone') != null)) {
+                        $('#'+  to + 'telephone').val($('#'+ from + 'telephone').val());
+                    }
+                    if ((typeof($('#'+  to + 'fax') != 'undefined') && $('#'+  to + 'fax') != null)) {
+                        $('#'+  to + 'fax').val($('#'+ from + 'fax').val());
+                    }
+                    if ((typeof($('#'+  to + 'emailaddress') != 'undefined') && $('#'+  to + 'emailaddress') != null)) {
+                        $('#'+  to + 'emailaddress').val($('#'+ from + 'emailaddress').val());
+                    }
+                    if ((typeof($('#'+  to + 'company') != 'undefined') && $('#'+  to + 'company') != null)) {
+                        $('#'+  to + 'company').val($('#'+ from + 'company').val());
+                    }
+                },
+                blankAddress: function(type) {
+                    $('#'+type + 'firstname').val('');
+                    $('#'+type + 'lastname').val('');
+                    $('#'+type + 'street_1').val('');
+                    j = 0;
+                    for (j = 2; j <= 3; j++) {
+                        if ((typeof($('#'+type + 'street_' + j) != 'undefined') && $('#'+type + 'street_' + j) != null)) {
+                            $('#'+type + 'street_' + j).val('');
+                        }
+                    }
+
+                    $('#'+ type + 'city').val('');
+                    $('#'+ type + 'county_id').show();
+                    $('#'+ type + 'county_id').val('');
+                    $('#'+ type + 'region').val('');
+                    $('#'+ type + 'county').val('');
+                    $('#'+ type + 'postcode').val('');
+                    $('#'+ type + 'country').val('');
+                    $('#'+ type + 'telephone').val('');
+                    $('#'+ type + 'fax').val('');
+                    $('#'+ type + 'emailaddress').val('');
+                    if ((typeof($('#'+  type + 'company') != 'undefined') && $('#'+  type + 'company') != null)) {
+                        $('#'+ type + 'company').val('');
+                    }
+                },
+                updateAddressDetails: function(el) {
+                    var selectedAddress = el.options[el.selectedIndex].value;
+                    $('loading-mask').show();
+                    url = $('#inventory_address_details').val();
+                    url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+                    var form_data = {'addressid': selectedAddress, 'address-data': el.options[el.selectedIndex].readAttribute('data-address')};
+                    this.ajaxRequest = new Ajax.Request(url, {
+                            method: 'GET',
+                            parameters: form_data,
+                            onComplete: function (request) {
+                                this.ajaxRequest = false;
+                            }.bind(this),
+                            onSuccess: function (data) {
+                                $('loading-mask').hide();
+                                var address = $.parseJSON(data.responseText)
+                                $('#soldfirstname').val(address.firstname);
+                                $('#soldlastname').val(address.lastname);
+                                $('#soldstreet_1').val(address.address1);
+                                i = 0;
+                                for (i = 2; i <= 3; i++) {
+                                    if ((typeof($('#soldstreet_' + i) != 'undefined') && $('#soldstreet_' + i) != null)) {
+                                       var akey = "address" + i;
+                                       $('#soldstreet_' + i).val(address[akey]);
+                                    }
+                                }
+                                $('#soldcity').val(address.city);
+                                $('#soldcountry').val(address.country);
+                                $('#soldcounty_id').val(address.region_id);
+                                $('#soldregion').val(address.region);
+                                if ($('#soldcounty').is(":visible")) {
+                                    $('#soldcounty').show();
+                                } else {
+                                    $('#soldcounty').hide();
+                                }
+                                $('#soldpostcode').val(address.postcode);
+                                if ((typeof($('#soldtelephone') != 'undefined') && $('#soldtelephone') != null)) {
+                                    $('#soldtelephone').val(address.telephone);
+                                }
+                                if ((typeof($('#soldfax') != 'undefined') && $('#soldfax') != null)) {
+                                    $('#soldfax').val(address.fax);
+                                }
+                                if ((typeof($('#soldemailaddress') != 'undefined') && $('#soldemailaddress') != null)) {
+                                    $('#soldemailaddress').val(address.email);
+                                }
+                                $('#soldaddresscode').val(address.address_code);
+                                $('#soldcompany').val(address.company);
+                                var isCopyOwnChecked = $('input#copyOwnAddress').is(':checked');
+                                var isCopySoldChecked = $('input#copySoldAddress').is(':checked');
+                                if(isCopyOwnChecked) {
+                                    this.sameAddressAs('own', 'loc');
+                                }
+                                if(isCopySoldChecked) {
+                                    this.sameAddressAs('sold', 'own');
+                                }
+                            }.bind(this),
+                            onFailure: function (transport) {
+                                if ($('loading-mask')) {
+                                    $('loading-mask').hide();
+                                }
+                                alert('error');
+                            }.bind(this),
+                            onException: function (request, e) {
+                                if ($('loading-mask')) {
+                                    $('loading-mask').hide();
+                                }
+                                alert(e);
+                            }.bind(this)
+                        });
+                }
+            } 
+            
+            $(document).ready(function(){
+                $('#soldcountry').addClass('select-disable');
+            });
+
+            Event.live('#dealer-address-select', 'change', function (el) {
+                updateDeidInformation.updateAddressDetails(el);
+            });
+        });    
+    
+</script>

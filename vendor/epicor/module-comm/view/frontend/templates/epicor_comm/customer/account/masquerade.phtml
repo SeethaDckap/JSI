@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see \Epicor\Comm\Block\Customer\Account\Masquerade
+ */
+?>
+<div data-bind="scope: 'b2bmasquerade'">
+    <!-- ko if: (b2bmasquerade().isAllow) -->
+    <div id="masquerade" class="block block-masquerade block-masquerade-hide" data-bind="style: {display: b2bmasquerade().isAllow ? 'block' : 'none'}">
+        <div class="block-title">
+            <strong><span><?php /* @escapeNotVerified */ echo __('Account Selector') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <div class="empty">
+                <form action="<?php echo $this->getFormUrl(); ?>" method="post">
+                    <ul class="quickadd-form-list">
+                        <!-- ko ifnot: (b2bmasquerade().isMasquerading) -->
+                        <li class="wide">
+                            <!-- ko if: (b2bmasquerade().childAccounts.length > 0) -->
+                            <label for="sku" class="required"><em>*</em><?php echo __('Masquerade As') ?></label>
+                            <div class="input-box">
+                                <select name="masquerade_as" id="masquerade_child_account"
+                                        data-bind="options: b2bmasquerade().childAccounts, optionsText: 'label', optionsValue: 'value'">
+                                </select>
+                            </div>
+                            <!-- /ko -->
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: b2bmasquerade().isMasquerading -->
+                        <li class="wide">
+                            <?php echo __('Masquerading as: '); ?>
+                            <span data-bind="text: b2bmasquerade().masqueradAccountName"></span>
+                        </li>
+                        <li class="wide">
+                            <input type="hidden" name="end_masquerade" value="1" />
+                            <?php echo __('Revert back to main Account: ') ?>
+                            <span data-bind="text: b2bmasquerade().actualAccountName"></span>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: (b2bmasquerade().showCartOptions) -->
+                        <li class="wide">
+                            <!-- ko if: (b2bmasquerade().cartAction.length > 0) -->
+                            <label for="cart_action" class="required"><em>*</em><?php echo __('Cart Action') ?></label>
+                            <div class="input-box">
+                                <select name="cart_action" id="masquerade_cart_action"
+                                        data-bind="options: b2bmasquerade().cartAction, optionsText: 'label', optionsValue: 'value'">
+                                </select>
+                            </div>
+                            <!-- /ko -->
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                    <div class="buttons-set actions">
+                        <input type="hidden" name="return_url" value="<?php echo $this->getReturnUrl(); ?>" />
+                        <!-- ko ifnot: (b2bmasquerade().isMasquerading) -->
+                        <p class="required"><?php echo __('* Required Fields') ?></p>
+                        <button type="submit" title="<?php echo __('Begin Masquerade') ?>" class="button" ><span><span><?php echo __('Begin Masquerade') ?></span></span></button>
+                        <!-- /ko -->
+                        <!-- ko if: (b2bmasquerade().isMasquerading) -->
+                        <button type="submit" title="<?php echo __('End Masquerade') ?>" class="button" ><span><span><?php echo __('End Masquerade') ?></span></span></button>
+                        <!-- /ko -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "b2bmasquerade": {
+                    "component": "Epicor_Comm/epicor/comm/js/view/b2b-masquerade"
+                }
+            }
+        }
+    }
+}
+</script>

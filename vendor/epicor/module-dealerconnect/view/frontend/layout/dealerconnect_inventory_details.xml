@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_connect"/>
+    <head>
+        <title>Inventory Details</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\Details\Title" name="inventory.title"/>
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\Details\LocationAddress" name="inventory.locationaddress"/>
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\Details\Info" name="inventory.info"/>
+            <block class="Epicor\Dealerconnect\Block\Portal\Inventory\Details\Transactions" name="inventory.transactions" />
+            <block class="Epicor\Customerconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back" template="Epicor_Common::epicor_common/customer/account/link/back.phtml">
+                <action method="setRefererUrl">
+                    <argument name="refererUrl" xsi:type="string">/dealerconnect/inventory/search/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="listUrl" xsi:type="string">/dealerconnect/inventory/search/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="listType" xsi:type="string">Inventory</argument>
+                </action>
+            </block>            
+        </referenceContainer>
+    </body>
+</page>

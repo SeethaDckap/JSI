@@ -1,0 +1,155 @@
+<?php 
+    $orderId = $block->getParam('id'); 
+    $order = $block->getOrder($orderId);
+    $shippingAddress = $order->getShippingAddress();
+    $billingAddress = $order->getBillingAddress();
+?>
+<?php if($order): ?>
+    <div class="order-info">
+        <div class="step-section summary">
+            <div class="section-title"><?= 'Order #' . $order->getIncrementId() ?></div>
+            <div class="section">
+              <div class="part left">
+                <div class="title">Order Information</div>
+                <div class="container">
+                  <div class="col3 line">
+                      <div class="info-item"><?= '' ?></div>
+                      <div class="info-item"><?= '' ?></div>
+                      <div class="info-item"><?= '' ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part right">
+                <div class="actions-toolbar">
+                  <div class="action-button primary">
+                      <a class="action" id="print" href="javascript:void(0)">Print</a>
+                  </div>
+                </div>
+              </div>
+              <div class="part left">
+                <div class="title">Ship To</div>
+                <div class="container">
+                  <div class="col2 line">
+                      <div class="info-item"><?= $shippingAddress->getName() ?></div>
+                      <div class="info-item"><?= '' ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $shippingAddress->getStreetLine(1) ?></div>
+                      <div class="info-item"><?= $shippingAddress->getStreetLine(2) ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $shippingAddress->getCity() ?></div>
+                      <div class="info-item"><?= $shippingAddress->getRegionCode() ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $shippingAddress->getTelephone() ?></div>
+                      <div class="info-item"><?= $shippingAddress->getEmail() ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part right">
+                <div class="title">Ship Via</div>
+                <div class="container">
+                  <div class="line">
+                    <div class="info-item"><?= $order->getShippingDescription() ?></div>
+                  </div>
+                </div>
+                <div class="title">Created At</div>
+                <div class="container">
+                  <div class="line">
+                    <div class="info-item"><?= $order->getCreatedAt() ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part left">
+                <div class="title">Bill To</div>
+                <div class="container">
+                  <div class="col2 line">
+                      <div class="info-item"><?= $billingAddress->getName() ?></div>
+                      <div class="info-item"><?= ''  ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $billingAddress->getStreetLine(1) ?></div>
+                      <div class="info-item"><?= $billingAddress->getStreetLine(2) ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $billingAddress->getCity() ?></div>
+                      <div class="info-item"><?= $billingAddress->getRegionCode() ?></div>
+                  </div>
+                  <div class="col2 line">
+                      <div class="info-item"><?= $billingAddress->getTelephone() ?></div>
+                      <div class="info-item"><?= $billingAddress->getEmail() ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part right">
+                <div class="title">Cost</div>
+                <div class="container">
+                  <div class="line">
+                    <div class="info-item">$<?= number_format($order->getGrandTotal(), 2, '.', '') ?></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+              <div class="section">
+                  <div class="door-product-listing">
+                      <table id="product-listing">
+                          <thead>
+                              <th>SKU</th>
+                              <th>DESCRIPTION</th>
+                              <th>HINGE</th>
+                              <th>FINISHED END</th>
+                              <th>PRICE</th>
+                              <th>QTY</th>
+                              <!--th>TOTAL PRICE</th-->
+                          </thead>
+                          <tbody>
+                            <?php foreach ($order->getAllVisibleItems() as $item): ?>
+                                  <tr class="line">
+                                      <td><?= $item->getSku() ?></td>
+                                      <td><?= $item->getName() ?></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td>$<?= number_format((float)$item->getPrice(), 2, '.', '') ?></td>
+                                      <td><?= (int)$item->getQtyOrdered() ?></td>
+                                  </tr>
+                              <?php endforeach ?>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+            <div class="summary">
+              <div class="details">
+                <div class="line">
+                  <div class="label">SKUs Total:</div>
+                  <div class="price">$<?= number_format((float)$order->getSubtotal(), 2, '.', '') ?></div>
+                </div>
+                <div class="line">
+                  <div class="label">Shipping Total:</div>
+                  <div class="price">$<?= number_format($order->getShippingAmount(), 2, '.', '') ?></div>
+                </div>
+                <div class="line">
+                  <div class="label">Tax:</div>
+                  <div class="price">$<?= number_format($order->getTaxAmount(), 2, '.', '') ?></div>
+                </div>
+                <div class="line grandtotal">
+                  <div class="label">Order Total:</div>
+                  <div class="price">$<?= number_format($order->getGrandTotal(), 2, '.', '') ?></div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+<script type="text/javascript">
+  require([
+    'jquery'
+  ], function ($) {
+    $('#print').click(function (){
+      window.print();
+    });
+  });
+</script>

@@ -1,0 +1,129 @@
+<?php
+$quote = $block->getArCheckoutQuote()->getQuote();
+$addressId = $quote->getBillingAddress()->getId();
+$getName = $quote->getBillingAddress()->getFirstName();
+$quoteID = $quote->getId();
+$postparams = $quote->getData('additional_data');
+$totalAmount = $quote->collectTotals()->getData('grand_total'); 
+$currencySymbol = $block->getCurrencySymbol();
+$paymentOnAccount = $quote->getData('ecc_arpayments_ispayment');
+$allocatedAmount = $quote->getData('ecc_arpayments_allocated_amount'); 
+$amountLeft = $quote->getData('ecc_arpayments_amountleft'); 
+$pricingHelper = $this->helper('Epicor\Customerconnect\Helper\Arpayments');
+$paymentStyle='';
+$allocatedStyle = "display:none";
+$allItems = $quote->getAllItems();
+$countAllItems = count($allItems);
+
+if(($countAllItems =="0") && ($paymentOnAccount =="1")) {
+    $paymentStyle = "display:none";
+}
+if(($allocatedAmount) && ($paymentOnAccount =="1")) {
+    $allocatedStyle = "";
+}
+$addresshtml = '';
+if($addressId && $getName) {
+    $addresshtml = $quote->getBillingAddress()->format('html');
+}
+?>
+<div id="paymentwrapper"></div>
+<li id="opc-review" class="section allow" style="list-style:none">
+<div id="checkout-step-review" class="step a-item" style="">
+<div class="block-content" id="show_ar_payments_total_grid" style="display: block">
+        <div id="addressdetails" class="billing_address" ><h3 style="font-weight: bold">Card Holders Billing Address:</h3><span id="chekout_address_html"><p><?php echo $addresshtml;?></p>
+                <span class="change_address" style="color: #2e8ab8;" onclick="arPaymentsJs.addressCheckoutpopup()">Change Address</span><br></span>
+        </div>
+            <div class="entry-edit-head" >
+                <h4 class="icon-head head-customer-view" style="font-size:18px;">Review Invoice Details</h4>
+            </div>            
+            <table class="data-table linearize-table" cellspacing="3" cellpadding="3" id="invoicepaymentamounts" style="<?php echo $paymentStyle; ?>">
+            <thead>
+            <tr class="headings">
+                <th>
+                    <span class="price"><strong>Invoice No</strong></span>
+                </th>
+                <th>
+                    <span class="price"><strong>Invoice Date</strong></span>
+                </th>
+                <th>
+                    <span class="price"><strong>Invoice Amount</strong></span>
+                </th>  
+                <th>
+                    <span class="price"><strong>Invoice Balance</strong></span>
+                </th>                  
+                <th>
+                    <span class="price"><strong>Term Amount</strong></span>
+                </th>
+                <th>
+                    <span class="price"><strong>Payment Amount</strong></span>
+                </th>                 
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($quote->getAllItems() as $item) :?>
+                <?php $insertedVals = $block->Combinevalues($item->getAdditionalData());  ?>
+                <tr id="" style="border-bottom: 1px solid #dbdbdb;">
+                <td>
+                    <span class="price"><?php echo $insertedVals['invoiceNo'] ?></span>
+                </td>
+                <td>
+                   <span class="price"> <?php echo $block->processDate($insertedVals['invoiceDate']) ?></span>
+                </td>
+                <td>
+                    <span class="price"><?php echo $pricingHelper->formatPrices($insertedVals['invoiceAmount']) ?></span>
+                </td> 
+                <td>
+                    <span class="price"><?php echo $pricingHelper->formatPrices($insertedVals['invoiceBalance']) ?></span>
+                </td>                 
+                <td>
+                    <span class="price"><?php echo $pricingHelper->formatPrices($insertedVals['termBalance']) ?></span>
+                </td>
+                <td>
+                   <span class="price"><?php echo $pricingHelper->formatPrices($insertedVals['userPaymentAmount']) ?></span>
+                    
+                </td>                   
+            </tr>         
+            <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr >
+                    <td colspan="5">Payment Total </td><td><span class="price"><?php echo $pricingHelper->formatPrices($totalAmount)?></span>
+                <input type="hidden" name="totalarpayment" id="totalarpayment" class="totalarpayment" value="">
+                <input type="hidden" name="invoicearvariables" id="invoicearvariables" class="invoicearvariables" value=''>
+                </td></tr>
+                
+            </tfoot>
+        </table>
+        <table class="data-table linearize-table" cellspacing="3" cellpadding="3" id="invoiceallocatedamount" style="<?php echo $allocatedStyle?>" >
+                <tfoot>
+                <tr class="first">
+                <td class="a-right" colspan="7">Payment On Account:</td>
+                    <td style="text-align: left;width: 186px;" class="a-right ">
+                        <span class="price"><?php echo $accounts = ($paymentOnAccount)?"True":"False";?></span>    </td>
+                </tr>
+                <tr>
+                    <td style="" class="a-right" colspan="7">Amount Left:</td>
+                    <td style="" class="a-right ">
+                        <span class="price"><?php echo (!empty($amountLeft))? $pricingHelper->formatPrices($amountLeft) : '0.00';?></span>    </td>
+                </tr>
+                    <tr class="last">
+                    <td style="" class="a-right" colspan="7">
+                        <strong>Total Amount Applied:</strong>
+                    </td>
+                    <td style="" class="a-right last">
+                        <strong><span class="price"><?php echo (!empty($allocatedAmount)) ? $pricingHelper->formatPrices($allocatedAmount) : '0.00'?></span></strong>
+                    </td>
+                </tr>
+                </tfoot>              
+          </table>
+    
+</div>
+
+<!--
+<div class="order-review" id="checkout-review-load">
+            <div class="buttons-set" id="order-buttons-container">
+                <button id="arorderbutton" type="button" class="button" onclick="arPaymentMethodJs.proceedToPay()"><span><span>Make Payment</span></span></button>
+            </div>
+</div>-->
+</div>
+</li>

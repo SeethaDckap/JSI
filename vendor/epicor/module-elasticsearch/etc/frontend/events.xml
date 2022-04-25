@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="ecc_autosuggest_product_list_collection">
+    <observer name="epicor_comm_model_observer_productlist_msq" instance="Epicor\Comm\Observer\Msq\ProductList"/>
+  </event>
+</config>

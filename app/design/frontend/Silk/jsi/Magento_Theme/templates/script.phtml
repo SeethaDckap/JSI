@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	require(['jquery'], function($){
+		$(document).ready(function() {
+			var menuWidth = $('.my-account_container').width()
+            $('.header-main_menu').addClass('--mobile');
+            $('header .header-main_menu').removeClass('--mobile').addClass('--desktop');
+			$('.custom_account header .header-main_menu').css({
+				"width": `calc(100% - 180px - ${menuWidth}px)`
+			})
+		});
+		$(window).resize(function(){
+			var menuWidth = $('.my-account_container').width()
+
+			$('.custom_account header .header-main_menu').css({
+				"width": `calc(100% - 180px - ${menuWidth}px)`
+			})
+		})
+		$('.ma-item._search .ico-a').click(function(){
+			$(this).toggleClass('--open');
+			$('.top-search-block-container').toggle()
+		})
+		$('.ma-item._myaccount .ico-a').click(function(){
+			$(this).toggleClass('--open');
+			$('.top-account-block-container').toggle();
+		})
+	});
+</script>
+<script type="text/javascript">
+	require(['jquery'], function($){
+		$(document).ready(function() {
+			let path = window.location.pathname;
+			$('.main-menu_container .main-menu_item').each(function(){
+				if($('>a',this).attr('href') == path) {
+					$(this).addClass('active')
+				}
+			})
+		});
+	});
+</script>
+

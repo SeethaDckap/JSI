@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block template="Epicor_Comm::epicor_comm/checkout/onepage/shipping.phtml" output="1" class="Mage\Checkout\Block\Onepage\Shipping" name="salesrep_shipping_step" as="salesrep_shipping_step"/>
+    </body>
+</page>

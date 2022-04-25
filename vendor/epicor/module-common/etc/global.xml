@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+
+<config>
+    <global>
+        <ecc_version_info>
+            <Epicor_Common>
+                <version>2.12.4</version>
+                <released>2021-07-07</released>
+            </Epicor_Common>
+        </ecc_version_info>
+        <ecc_account_selector_types>
+            <guest>
+                <label>Guest</label>
+                <priority>0</priority>
+            </guest>
+        </ecc_account_selector_types>
+        <adminhtml>
+            <erps>
+                <xvp>xVP</xvp>
+                <bistrack>Bistrack</bistrack>
+                <e10>e10</e10>
+                <p21>p21</p21>
+                <tropos>Tropos</tropos>
+                <eclipse>Eclipse</eclipse>
+                <qds>QDS</qds>
+                <xeres>Xeres</xeres>
+                <opal>Opal</opal>
+                <kopen>KOpen</kopen>
+                <concerto>Concerto</concerto>
+                <control>Control</control>
+            </erps>
+        </adminhtml>
+        <mapping_xml_request>
+            <messages>
+                <cuis>
+                    <title>CUIS - Customer Invoice Search</title>
+                    <grid_config>customerconnect_enabled_messages/CUIS_request/grid_config</grid_config>
+                </cuis>
+                <cuod>
+                    <title>CUOD - Customer Order Detail Enquiry</title>
+                    <information_section>customerconnect_enabled_messages/CUOD_request/grid_informationconfig</information_section>
+                </cuod>
+                <cuos>
+                    <title>CUOS - Customer Order Search</title>
+                    <grid_config>customerconnect_enabled_messages/CUOS_request/grid_config</grid_config>
+                </cuos>
+                <cups>
+                    <title>CUPS - Customer Payments Search</title>
+                    <grid_config>customerconnect_enabled_messages/CUPS_request/grid_config</grid_config>
+                </cups>
+                <cuss>
+                    <title>CUSS - Customer Shipment Search</title>
+                    <grid_config>customerconnect_enabled_messages/CUSS_request/grid_config</grid_config>
+                </cuss>
+                <curs>
+                    <title>CURS - Customer Returns Search</title>
+                    <grid_config>customerconnect_enabled_messages/CURS_request/grid_config</grid_config>
+                </curs>
+                <cucs>
+                    <title>CUCS - Customer Service Call Search</title>
+                    <grid_config>customerconnect_enabled_messages/CUCS_request/grid_config</grid_config>
+                </cucs>
+                <crqs>
+                    <title>CRQS - Customer Quote Search</title>
+                    <grid_config>customerconnect_enabled_messages/CRQS_request/grid_config</grid_config>
+                </crqs>
+                <crqd>
+                    <title>CRQD - Customer Quote Detail Enquiry</title>
+                    <information_section>customerconnect_enabled_messages/CRQD_request/grid_informationconfig</information_section>
+                </crqd>
+                <cccs>
+                    <title>CCCS - Customer Contracts Search</title>
+                    <grid_config>customerconnect_enabled_messages/CCCS_request/grid_config</grid_config>
+                </cccs>
+                <cphs>
+                    <title>CPHS - Customer Recent Purchase History</title>
+                    <grid_config>customerconnect_enabled_messages/CPHS_request/grid_config</grid_config>
+                </cphs>
+                <crrs>
+                    <title>CRRS - Customer Returns Search</title>
+                    <grid_config>epicor_comm_enabled_messages/CRRS_request/grid_config</grid_config>
+                </crrs>
+                <caps>
+                    <title>CAPS - Customer AR Payments Search</title>
+                    <grid_config>customerconnect_enabled_messages/CAPS_request/grid_config</grid_config>
+                </caps>
+                <cuid>
+                    <title>CUID - Customer Invoice Detail</title>
+                    <information_section>customerconnect_enabled_messages/CUID_request/grid_informationconfig</information_section>
+                </cuid>
+                <spcs>
+                    <title>SPCS - Supplier Purchase Order Change Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SPCS_request/grid_config</grid_config>
+                </spcs>
+                <spls>
+                    <title>SPLS - Supplier Parts List Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SPLS_request/grid_config</grid_config>
+                </spls>
+                <spos>
+                    <title>SPOS - Supplier Purchase Order Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SPOS_request/grid_config</grid_config>
+                    <newpogrid_config>supplierconnect_enabled_messages/SPOS_request/newpogrid_config</newpogrid_config>
+                </spos>
+                <spod>
+                    <title>SPOD - Supplier Purchase Order Detail Enquiry</title>
+                    <information_section>supplierconnect_enabled_messages/SPOD_request/grid_informationconfig</information_section>
+                </spod>
+                <surd>
+                    <title>SURD - Supplier RFQ Detail Enquiry</title>
+                    <information_section>supplierconnect_enabled_messages/SURD_request/grid_informationconfig</information_section>
+                    <lineinformation_section>supplierconnect_enabled_messages/SURD_request/grid_lineinformationconfig</lineinformation_section>
+                </surd>
+                <suid>
+                    <title>SUID - Supplier Invoice Detail Enquiry</title>
+                    <information_section>supplierconnect_enabled_messages/SUID_request/grid_informationconfig</information_section>
+                </suid>
+                <spld>
+                    <title>SPLD - Supplier Parts Price List Detail Enquiry</title>
+                    <information_section>supplierconnect_enabled_messages/SPLD_request/grid_informationconfig</information_section>
+                </spld>
+                <sups>
+                    <title>SUPS - Supplier Payments Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SUPS_request/grid_config</grid_config>
+                </sups>
+                <surs>
+                    <title>SURS - Supplier RFQ Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SURS_request/grid_config</grid_config>
+                </surs>
+                <suis>
+                    <title>SUIS - Supplier Invoice Search</title>
+                    <grid_config>supplierconnect_enabled_messages/SUIS_request/grid_config</grid_config>
+                </suis>
+                <deis>
+                    <title>DEIS - Inventory search</title>
+                    <grid_config>dealerconnect_enabled_messages/DEIS_request/grid_config</grid_config>
+                </deis>
+                <dcls>
+                    <title>DCLS - Dealer Claim Search</title>
+                    <grid_config>dealerconnect_enabled_messages/DCLS_request/grid_config</grid_config>
+                </dcls>
+                <dcld>
+                    <title>DCLD - Dealer Claim Detail</title>
+                    <information_section>dealerconnect_enabled_messages/DCLD_request/grid_informationconfig</information_section>
+                </dcld>
+                <deid>
+                    <title>DEID - Inventory Detail</title>
+                    <!--<address_section>dealerconnect_enabled_messages/DEID_request/grid_config</address_section>-->
+                    <information_section>dealerconnect_enabled_messages/DEID_request/grid_informationconfig</information_section>
+                    <grid_config>dealerconnect_enabled_messages/DEID_request/grid_transactionconfig</grid_config>
+                </deid>
+                <debm>
+                    <title>DEBM - Bill Of Materials</title>
+                    <grid_config>dealerconnect_enabled_messages/DEBM_request/grid_config_built</grid_config>
+                    <replacement_grid_config>dealerconnect_enabled_messages/DEBM_request/grid_config_additional</replacement_grid_config>
+                    <information_section>dealerconnect_enabled_messages/DEBM_request/grid_informationconfig</information_section>
+                </debm>
+                <dmau>
+                    <title>DMAU - Bill Of Materials Update</title>
+                    <information_section>dealerconnect_enabled_messages/DMAU_request/grid_informationconfig</information_section>
+                </dmau>
+            </messages>
+            <grid_config>
+                <cuis>CUIS - Customer Invoice Search</cuis>
+                <cuos>CUOS - Customer Order Search</cuos>
+                <cups>CUPS - Customer Payments Search</cups>
+                <cuss>CUSS - Customer Shipment Search</cuss>
+                <curs>CURS - Customer Returns Search</curs>
+                <cucs>CUCS - Customer Service Call Search</cucs>
+                <cuid>CUID - Customer Invoice Detail</cuid>
+                <crqs>CRQS - Customer Quote Search</crqs>
+                <cccs>CCCS - Customer Contracts Search</cccs>
+                <cphs>CPHS - Customer Recent Purchase History</cphs>
+                <crrs>CRRS - Customer Returns Search</crrs>
+                <caps>CAPS - Customer AR Payments Search</caps>
+                <spcs>SPCS - Supplier Purchase Order Change Search</spcs>
+                <spls>SPLS - Supplier Parts List Search</spls>
+                <spos>SPOS - Supplier Purchase Order Search</spos>
+                <sups>SUPS - Supplier Payments Search</sups>
+                <surs>SURS - Supplier RFQ Search</surs>
+                <suis>SUIS - Supplier Invoice Search</suis>
+                <deis>DEIS - Inventory search</deis>
+                <dcls>DCLS - Dealer Claim Search</dcls>
+                <deid>DEID - Inventory Detail</deid>
+                <debm>DEBM - Bill Of Materials</debm>
+            </grid_config>
+            <!--<address_section>-->
+                <!--<deid>DEID - Inventory Detail</deid>-->
+            <!--</address_section>-->
+            <information_section>
+                <deid>DEID - Inventory Detail</deid>
+                <dcld>DCLD - Claims Detail</dcld>
+                <debm>DEBM - Bill Of Materials</debm>
+                <dmau>DMAU - Bill Of Materials Update</dmau>
+                <spod>SPOD - Supplier Purchase Order Detail Enquiry</spod>
+                <surd>SURD - Supplier RFQ Detail Enquiry</surd>
+                <suid>SUID - Supplier Invoice Detail Enquiry</suid>
+                <spld>SPLD - Supplier Parts Price List Detail Enquiry</spld>
+                <cuos>CUID - Customer Invoice Detail</cuos>
+            </information_section>
+            <lineinformation_section>
+                <surd>SURD - Supplier RFQ Detail Enquiry</surd>
+            </lineinformation_section>
+            <message_sections>
+                <grid_config>Grid Config</grid_config>
+                <!--<address_section>Address Section</address_section>-->
+                <information_section>Information Section</information_section>
+                <lineinformation_section>Line Information Section</lineinformation_section>
+                <replacement_grid_config>Replacements Grid Setup</replacement_grid_config>
+                <newpogrid_config>New PO Grid Setup</newpogrid_config>
+            </message_sections>
+        </mapping_xml_request>
+    </global>
+</config>

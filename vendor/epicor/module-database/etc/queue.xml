@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="ecc_brand.update" exchange="magento-db" type="db">
+        <queue name="ecc_brand.update"
+               consumer="ecc_brand.update"
+               consumerInstance="Magento\Framework\MessageQueue\Consumer"
+               handler="Epicor\Database\Model\Attribute\EccBrand\Consumer::process"/>
+    </broker>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Epicor\Reports\Helper\Data">
+        <arguments>
+            <argument name="chart" xsi:type="object">Epicor\Reports\Helper\ChartReader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Reports\Helper\ChartReader">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="minmaxavg" xsi:type="object">Epicor\Reports\Model\Chart\Minmaxavg</item>
+                <item name="performance" xsi:type="object">Epicor\Reports\Model\Chart\Performance</item>
+                <item name="speed" xsi:type="object">Epicor\Reports\Model\Chart\Speed</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

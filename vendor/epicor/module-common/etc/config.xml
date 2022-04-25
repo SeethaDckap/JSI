@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <Epicor_Comm>
+      <licensing>
+        <type>ioncube</type>
+      </licensing>
+      <ie_compatability>
+        <edge>1</edge>
+      </ie_compatability>
+      <assets>
+        <suffixes>jpeg, jpg, gif, png</suffixes>
+      </assets>
+    </Epicor_Comm>
+    <epicor_common>
+      <accessrights>
+        <active>0</active>
+        <cache_lifetime>86400</cache_lifetime>
+        <guest/>
+        <b2c_default/>
+        <customer_default/>
+        <supplier_default/>
+      </accessrights>
+      <tier_prices>
+        <precision>2</precision>
+      </tier_prices>
+      <catalog_navigation>
+        <auto_hide>0</auto_hide>
+      </catalog_navigation>
+      <login>
+        <landing_page>last_page</landing_page>
+      </login>
+      <files>
+        <base_dir>ecc_uploads</base_dir>
+      </files>
+    </epicor_common>
+    <carriers>
+      <dhlint>
+        <content_type>D</content_type>
+      </dhlint>
+    </carriers>
+    <epicor_product_config>            
+        <non_erp_products>  
+            <enabled>0</enabled>              
+            <options>request</options>              
+            <cc_email_to_user>0</cc_email_to_user>              
+            <checkout_text>Checkout is not currently available. Do you wish us to contact you about this order?</checkout_text>     
+            <cart_text>Checkout is not available, cart totals include estimated prices, tax and shipping</cart_text>     
+            <rfq_text>Quote submission is not currently available. Do you wish us to contact you about this quote?</rfq_text>
+        </non_erp_products>
+    </epicor_product_config>
+  </default>
+</config>

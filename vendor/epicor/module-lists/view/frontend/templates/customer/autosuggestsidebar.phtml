@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2010-2019 Epicor Software. All rights reserved.
+ */
+?>
+<?php
+$lists = $block->getCollection();
+if ($lists->getSize()) {
+    foreach ($block->getCollection() as $list) { ?>
+        <li class="product-item">
+            <div class="field item choice">
+                <div class="control">
+                    <input type="checkbox" name="listid[]" value="<?php echo $list->getId() ?>"
+                           class=" checkbox" data-validate='{"validate-one-checkbox-required-by-name": true}'/>
+                </div>
+            </div>
+            <strong class="product-item-name">
+                <span><?php echo $list->getTitle() ?></span>
+            </strong>
+        </li>
+    <?php }
+} else { ?>
+    <li class="product-item">
+            <strong class="product-item-name">
+                <span><?php echo __('No Lists Found') ?></span>
+            </strong>
+</li>
+<?php } ?>
+
+

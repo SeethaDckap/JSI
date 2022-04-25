@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2021 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ecc_weak_passwords_dictionary" resource="default" engine="innodb"
+           comment="Weak Passwords Dictionary">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" length="255" name="passwords" nullable="false"
+                comment="Weak Passwords"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="ecc_customer_passwords" resource="default" engine="innodb" comment="ECC Customer Passwords">
+        <column xsi:type="int" name="password_id" unsigned="true" nullable="false" identity="true"
+                comment="Password ID"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Customer ID"/>
+        <column xsi:type="varchar" name="password_hash" nullable="true" length="100" comment="Password Hash"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="password_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ECC_CUSTOMER_PASSWORDS_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="ecc_customer_passwords"
+                    column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="ECC_CUSTOMER_PASSWORDS_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+</schema>

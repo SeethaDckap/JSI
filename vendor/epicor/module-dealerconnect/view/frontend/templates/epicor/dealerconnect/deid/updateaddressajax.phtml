@@ -1,0 +1,186 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+$helper = $this->helper('Epicor\Common\Helper\Data');
+$LocationName = $this->split_name($block->escapeHtml($block->getLocationAddress()->getName()));
+$isErpAddress = !empty($block->getLocationAddress()->getAddressCode()) ? true : false;
+$getConfigFlag = $this->getConfigFlag('dealerconnect_enabled_messages/DEIU_request/warranty');
+$tag = $block->getTagName();
+$addressDiv = $tag == "loc" ? "location_address" : "owner_address";
+$style="";
+?>
+<ul class="form-list" id="<?php echo $addressDiv;?>" style="<?php echo $style; ?>">
+    <li class="fields">
+        <input id="address_code" type="hidden" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAddressCode()); ?>" />
+        <div class="field field-name-firstname required">
+            <label class="label" for="<?php echo $tag;?>firstname">
+                <span>First Name</span>
+            </label>
+            <div class="control">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($LocationName[0]); ?>" id="<?php echo $tag;?>firstname" name="<?php echo $tag;?>[firstname]" value="" title="First Name" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" data-validate="{required:true}" aria-required="true" type="text" >
+            </div>
+        </div>
+        <div class="field field-name-lastname required">
+            <label class="label" for="<?php echo $tag;?>lastname">
+                <span>Last Name</span>
+            </label>
+            <div class="control">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($LocationName[1]); ?>" id="<?php echo $tag;?>lastname" name="<?php echo $tag;?>[lastname]" value="" title="Last Name" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" data-validate="{required:true}" aria-required="true" type="text">
+            </div>
+        </div>
+        <div class="field field-name-company required">
+            <label class="label" for="<?php echo $tag;?>company">
+                <em>*</em><span>Company</span>
+            </label>
+            <div class="control">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getCompany()); ?>" id="<?php echo $tag;?>company" name="<?php echo $tag;?>[company]" title="Company" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" data-validate="{required:true}" aria-required="true" type="text">
+            </div>
+        </div>
+        <input type="hidden" name="<?php echo $tag;?>[address_code]" id="<?php echo $tag;?>addresscode" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAddressCode()); ?>" />
+        <input type="hidden" name="<?php echo $tag;?>[account_number]" id="<?php echo $tag;?>accountnumber" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getAccountNumber()); ?>" />
+    </li>
+    <li class="wide">
+        <label for="<?php echo $tag;?>street_1" class="required"><em>*</em><?php echo __('Street Address') ?></label>
+        <div class="input-box">
+            <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getData('address1')); ?>" type="text" name="<?php echo $tag;?>[street][]" value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" title="<?php echo __('Street Address') ?>" id="<?php echo $tag;?>street_1" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" />
+        </div>
+    </li>
+    <?php for ($_i = 2, $_n = 3; $_i <= $_n; $_i++): ?>
+        <li class="wide">
+            <div class="input-box">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> type="text" name="<?php echo $tag;?>[street][]" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getData('address' . $_i)) ?>" title="<?php echo __('Street Address %1', $_i) ?>" id="<?php echo $tag;?>street_<?php echo $_i ?>" class="input-text <?php if($isErpAddress):?>input-disable<?php endif;?>" />
+            </div>
+        </li>
+    <?php endfor ?>                  
+    <li class="wide">
+        <label for="<?php echo $tag;?>city"><?php echo __('City') ?></label>
+        <div class="input-box">
+            <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getCity()); ?>" type="text" name="<?php echo $tag;?>[city]" id="<?php echo $tag;?>city" title="<?php echo __('City') ?>"  class="input-text <?php if($isErpAddress):?>input-disable<?php endif;?>" />
+        </div>
+    </li>  
+    <li class="wide">
+        <label for="<?php echo $tag;?>county"><?php echo __('County') ?></label>
+        <div class="input-box">
+            <select id="<?php echo $tag;?>county_id" name="<?php echo $tag;?>[county_id]" title="<?php echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                <option value=""><?php echo __('Please select region, state or province') ?></option>
+            </select> 
+            <script type="text/javascript">
+                //<![CDATA[
+                $('<?php echo $tag;?>county_id').setAttribute('defaultValue', "<?php echo $block->escapeHtml($this->getLocationAddress()->getCounty()); ?>");
+                //]]>
+            </script>
+            <input <?php if($isErpAddress):?>readonly<?php endif;?> type="text" id="<?php echo $tag;?>region" name="<?php echo $tag;?>[region]" value="" title="<?php echo __('State/Province') ?>" class="input-text  <?php echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?> <?php if($isErpAddress):?>input-disable<?php endif;?>"  />
+        </div>
+    </li>  
+    <li class="wide">
+        <label for="<?php echo $tag;?>country"><?php echo __('Country') ?></label>
+        <div class="input-box">
+            <?php
+            $_countries = $block->getCountryCollection()->loadData()->toOptionArray(false)
+            ?>
+            <?php if (count($_countries) > 0): ?>  
+                <select name="<?php echo $tag;?>[country]" id="<?php echo $tag;?>country" class=" input-text  required-entry <?php if($isErpAddress):?>select-disable<?php endif;?>">  
+                    <option value="">– Please Select –</option>  
+                    <?php foreach ($_countries as $_country): ?>  
+                        <option value="<?php echo $_country['value'] ?>" <?php if ($block->escapeHtml($this->getLocationAddress()->getCountry()) == $_country['value']) { ?> selected="selected" <?php } ?>>  
+                            <?php echo $_country['label'] ?>  
+                        </option>  
+                    <?php endforeach; ?>  
+                </select>  
+            <?php endif; ?>                        
+        </div>
+    </li>   
+    <li class="fields">
+        <div class="field">                    
+
+            <label for="<?php echo $tag;?>postcode" class="required"><em>*</em><?php echo __('Postcode') ?></label>
+            <div class="input-box">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> type="text" name="<?php echo $tag;?>[postcode]" value="<?php echo $block->escapeHtml($this->getLocationAddress()->getPostcode()); ?>" title="<?php echo __('Postcode') ?>" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" id="<?php echo $tag;?>postcode" />
+            </div>
+        </div> 
+    </li>                   
+    <li class="fields">
+        <div class="field">                    
+
+            <label for="<?php echo $tag;?>telephone" class="required"><em>*</em><?php echo __('Telephone') ?></label>
+            <div class="input-box">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getTelephoneNumber()); ?>" type="text" name="<?php echo $tag;?>[telephone]" title="<?php echo __('Telephone') ?>" class="input-text required-entry <?php if($isErpAddress):?>input-disable<?php endif;?>" id="<?php echo $tag;?>telephone" />
+            </div>
+        </div> 
+    </li>   
+    <li class="fields">    
+        <div class="field">
+            <label for="<?php echo $tag;?>fax"><?php echo __('Fax') ?></label>
+            <div class="input-box">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getFaxNumber()); ?>" type="text" name="<?php echo $tag;?>[fax]" id="<?php echo $tag;?>fax" title="<?php echo __('Fax') ?>"  class="input-text <?php if($isErpAddress):?>input-disable<?php endif;?>" />
+            </div>
+        </div>
+    </li>
+    <li class="fields">    
+        <div class="field">
+            <label for="<?php echo $tag;?>emailaddress"><?php echo __('Email Address') ?></label>
+            <div class="input-box">
+                <input <?php if($isErpAddress):?>readonly<?php endif;?> value="<?php echo $block->escapeHtml($this->getLocationAddress()->getEmailAddress()); ?>" type="email" name="<?php echo $tag;?>[emailaddress]" id="<?php echo $tag;?>emailaddress" title="<?php echo __('Email Address') ?>" class="input-text <?php if($isErpAddress):?>input-disable<?php endif;?>" data-validate="{'validate-email':true}" />
+            </div>
+        </div>
+    </li>                
+</ul>    
+
+<style>
+    .fields {
+        list-style-type: none;
+        padding: 0px 0px 10px 0px;
+    }
+
+    ul li {
+        list-style-type: none;
+    }
+    
+    .input-disable{
+        border: 1px solid #ddd;
+        background: #fefefe;
+        color: #aaa;
+        opacity: 0.5;
+    }
+    
+    .select-disable{
+        border: 1px solid #ddd;
+        background: #fefefe;
+        color: #aaa;
+        opacity: 0.5;
+        pointer-events:none;
+    }
+</style>
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/adminhtml/form"
+    ], function ($) {
+        //<![CDATA[
+            new RegionUpdater('loccountry', 'locregion', 'loccounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            new RegionUpdater('owncountry', 'ownregion', 'owncounty_id', <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>);
+            <?php if(!$isErpAddress):?>
+                if(document.getElementById('loccounty_id').hasClassName('select-disable')){
+                    document.getElementById('loccounty_id').removeClassName('select-disable');
+                }
+                if(document.getElementById('owncounty_id').hasClassName('select-disable')){
+                    document.getElementById('owncounty_id').removeClassName('select-disable');
+                }
+            <?php else:?>
+                if(!document.getElementById('loccounty_id').hasClassName('select-disable')){
+                    document.getElementById('loccounty_id').addClassName('select-disable');
+                }
+                if(!document.getElementById('owncounty_id').hasClassName('select-disable')){
+                    document.getElementById('owncounty_id').addClassName('select-disable');
+                }
+            <?php endif;?>
+        //]]>
+    });
+</script>

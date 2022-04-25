@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/** @var $block \Epicor\Comm\Block\Checkout\Onepage\Success */
+?>
+<?php $salesOrderHelper = $this->helper('Epicor\Comm\Helper\Sales\Order'); /* @var $salesOrderHelper \Epicor\Comm\Helper\Sales\Order */ ?>
+<div class="checkout-success">
+<?php if ($block->getOrderId()):?>
+    <?php if ($salesOrderHelper->showWebArpaymentsNumber()):?>
+        <p>
+            <?php echo __('Your %1 Payment Reference # is: %2.',
+                 $salesOrderHelper->showErpArpaymentsNumber() ? 'web' : '',
+                $block->getCanViewOrder() ? sprintf('<a href="%s">%s</a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($this->getOrderId())) : $block->escapeHtml($block->getOrderId())
+            ) ?>
+        </p>
+    <?php endif;?>
+    <?php if ($salesOrderHelper->showErpOrderNumber() && $block->getErpArpaymentsOrderNumber()):?>
+        <p>
+            <?php echo __('Your %1  Payment Reference #  is: %2.',
+                $salesOrderHelper->showWebArpaymentsNumber() ? 'erp' : '',
+                $block->getCanViewOrder() ? sprintf('<a href="%s">%s</a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getErpArpaymentsOrderNumber())) : $block->escapeHtml($block->getErpArpaymentsOrderNumber())
+            ) ?>
+        </p>
+    <?php endif;?>
+        <p><?php echo __('You will receive a confirmation email with details of your payment') ?></p>
+        <?php if ($block->getCanViewOrder() && $block->getCanPrintOrder()) :?>
+    <?php endif;?>
+<?php endif;?>
+</div>

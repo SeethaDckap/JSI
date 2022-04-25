@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="supplier_connect"/>
+    <head>
+        <title>Supplier Connect Order Details</title>
+        <script src="Epicor_Supplierconnect::epicor/supplierconnect/js/po-details.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/orders/details/formopen.phtml" class="Magento\Framework\View\Element\Template" name="orders.formopen"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/orders/title.phtml"
+                   class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Title" name="orders.title"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Vendor" name="orders.vendor"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Shipping" name="orders.shipping"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Info" name="orders.info"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Comments" name="orders.comments"/>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Lines" name="orders.lines">
+                <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Totals" name="tfoot"/>
+            </block>
+            <block class="Epicor\Supplierconnect\Block\Customer\Orders\Details\Attachments" name="orders.attachments"/>
+            <block template="Epicor_Supplierconnect::supplierconnect/customer/account/orders/details/formclose.phtml" class="Epicor\Supplierconnect\Block\Customer\Orders\Template" name="orders.formclose"/>
+            <block template="Epicor_Common::epicor_common/customer/account/link/back.phtml" class="Epicor\Supplierconnect\Block\Customer\Account\Dashboard" name="customer.account.link.back">
+                <action method="setRefererUrl">
+                    <argument name="refererUrl" xsi:type="string">/supplierconnect/orders/</argument>
+                </action>
+                <action method="setListUrl">
+                    <argument name="listUrl" xsi:type="string">/supplierconnect/orders/</argument>
+                </action>
+                <action method="setListType">
+                    <argument name="listType" xsi:type="string">Orders</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

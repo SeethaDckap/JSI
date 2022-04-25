@@ -1,0 +1,33 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<!-- ko if: isTaxDisplayedInGrandTotal && isDisplayed() -->
+<tr class="grand totals incl hide-totals">
+    <th class="mark" scope="row">
+        <strong data-bind="i18n: inclTaxLabel"></strong>
+    </th>
+    <td data-bind="attr: {'data-th': inclTaxLabel}" class="amount">
+        <strong><span class="price" data-bind="text: getValue()"></span></strong>
+    </td>
+</tr>
+<tr class="grand totals excl hide-totals">
+    <th class="mark" scope="row">
+        <strong data-bind="i18n: exclTaxLabel"></strong>
+    </th>
+    <td data-bind="attr: {'data-th': exclTaxLabel}" class="amount">
+        <strong><span class="price" data-bind="text: getGrandTotalExclTax()"></span></strong>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: !isTaxDisplayedInGrandTotal && isDisplayed() -->
+<tr class="grand totals hide-totals">
+    <th class="mark" scope="row">
+        <strong data-bind="i18n: title"></strong>
+    </th>
+    <td data-bind="attr: {'data-th': title}" class="amount">
+        <strong><span class="price" data-bind="text: getValue()"></span></strong>
+    </td>
+</tr>
+<!-- /ko -->

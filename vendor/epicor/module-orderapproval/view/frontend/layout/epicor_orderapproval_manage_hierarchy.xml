@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Magento\Framework\View\Element\Text\ListText">
+            <block template="Epicor_OrderApproval::manage/hierarchy/parent/head.phtml" name="parent_head">
+                <arguments>
+                    <argument name="title_name" xsi:type="string">Parents</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\OrderApproval\Block\Group\Hierarchy\Parent\Grid" name="parent_grid"/>
+            <block class="Epicor\OrderApproval\Block\Group\Grid\Serializer" name="grid_serializer">
+                <arguments>
+                    <argument name="input_names" xsi:type="string">row_id</argument>
+                    <argument name="grid_block" xsi:type="string">parent_grid</argument>
+                    <argument name="callback" xsi:type="string">getSelected</argument>
+                    <argument name="input_element_name" xsi:type="string">links[parents]</argument>
+                    <argument name="reload_param_name" xsi:type="string">groups</argument>
+                </arguments>
+            </block>
+            <block template="Epicor_OrderApproval::manage/hierarchy/parent/head.phtml" name="child_head">
+                <arguments>
+                    <argument name="title_name" xsi:type="string">Children</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\OrderApproval\Block\Group\Hierarchy\Child\Grid" name="child_grid"/>
+            <block class="Epicor\OrderApproval\Block\Group\Grid\Serializer" name="grid_serializer">
+                <arguments>
+                    <argument name="input_names" xsi:type="string">row_id</argument>
+                    <argument name="grid_block" xsi:type="string">child_grid</argument>
+                    <argument name="callback" xsi:type="string">getSelected</argument>
+                    <argument name="input_element_name" xsi:type="string">links[children]</argument>
+                    <argument name="reload_param_name" xsi:type="string">groups</argument>
+                </arguments>
+            </block>
+        </block>
+    </container>
+</layout>

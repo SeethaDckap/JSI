@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php 
+$_product = $block->getProduct(); 
+$helper = $this->helper('Epicor\Comm\Helper\Data');
+$showAddToCart = $helper->isFunctionalityDisabledForCustomer('cart') ? false : true;
+$buttonTitle = __('Customize and Add to Cart');
+if(!$showAddToCart){
+    $buttonTitle = __('Customize');
+}
+if ($_product->isSaleable()): ?>
+    <div class="bundle-actions">
+        <button id="bundle-slide"
+                class="action primary customize"
+                type="button">
+            <span><?php /* @escapeNotVerified */ echo $buttonTitle; ?></span>
+        </button>
+    </div>
+<?php endif; ?>

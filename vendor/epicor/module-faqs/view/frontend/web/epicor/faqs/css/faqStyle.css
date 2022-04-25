@@ -1,0 +1,65 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+a{text-decoration:none;}
+
+.faq_vote_summary { float: right; }
+
+.faq_vote_box{
+    display:block;
+    margin: 10px 0; 
+    width: 100%;
+    height: fit-content;
+    float:right;
+}
+.faq_useful{
+    margin: 0;
+    display: block;
+    text-align:center;
+    width: 30px;
+    height:20px;
+    border: 1px outset;
+    float:left;
+    clear:none;
+    cursor: pointer;
+    background-color:  threedhighlight;
+    color:  #048;
+}
+.faq_useful:hover{
+    background-color:  #048;
+    color:  threedhighlight;
+}
+.faq_useless{
+    margin: 0;
+    display: block;
+    text-align:center;
+    width: 30px;
+    height:20px;
+    border: 1px outset;
+    float:left;
+    clear:none;
+    cursor: pointer;
+    background-color: #6a6a6a;
+    color:  #FFF;
+}
+.faq_useless:hover{
+    background-color: #222222;
+    color:  #FFF;
+}
+.faq_subtext{
+    float:left;
+    margin-right: 20px;
+    font-style: oblique;
+}
+
+.faq_search_box,
+.faqs_index_view {
+    margin-top:10px;
+}
+.faq_link, .faq_link a {
+    font-size:14px;
+    color:#585555;
+    font-weight:normal;
+    margin:0;
+}

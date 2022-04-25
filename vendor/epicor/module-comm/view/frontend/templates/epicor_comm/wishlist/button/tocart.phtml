@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+$locHelper = Mage::helper('epicor_comm/locations');
+        /* @var $locHelper Epicor_Comm_Helper_Locations */
+     
+ $locationsEnabled =   $locHelper->isLocationsEnabled() ? true : false;
+?>
+
+<?php if($this->getWishlist()->getItemsCount() && $this->getWishlist()->isSalable()): ?>
+        <?php if($locationsEnabled): ?>
+              <button type="button" title="<?php echo __('Add All to Cart') ?>" onclick="locationsAddAllToCart()" class="button btn-add"><span><span><?php echo __('Add All to Cart') ?></span></span></button>
+        <?php else: ?>
+              <button type="button" title="<?php echo __('Add All to Cart') ?>" onclick="addAllWItemsToCart()" class="button btn-add"><span><span><?php echo __('Add All to Cart') ?></span></span></button>
+        <?php endif;?>
+<?php endif;?>

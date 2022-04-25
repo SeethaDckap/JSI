@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="ecc_ar_sales_order_grid_syn">
+        <observer name="ar_sales_grid_order_async_insert" instance="arSalesOrderIndexGridAsyncInsertObserver" />
+    </event>
+    <event name="ar_checkout_submit_all_after">
+        <observer name="epicor_comm_model_observer_caap_after_order" instance="Epicor\Customerconnect\Observer\SendInvoicesToERP" />
+    </event>
+    <event name="layout_load_before">
+        <observer name="ar_load_custom_handler" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsLayoutLoadBefore" />
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="ar_quoteToOrder" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsQuoteToOrder" />
+    </event>
+    <event name="sales_model_service_quote_submit_failure">
+        <observer name="ar_quoteToOrder_failure" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsQuoteOrderFailure" />
+    </event>
+    <event name="sales_quote_save_before">
+        <observer name="ar_quote_save_before" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsQuoteSaveBefore" />
+    </event>
+    <event name="sales_quote_add_item">
+        <observer name="ar_quote_save_add_product" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsQuoteProductSaveAfter" />
+    </event>
+    <event name="payment_method_assign_data_braintree_paypal">
+        <observer name="ar_quote_save_braintree_vault_paypal" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsVaultPaypalSave" />
+    </event>
+    <event name="payment_method_assign_data_braintree">
+        <observer name="ar_quote_save_braintree_vault_cc" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsVaultPaypalSave" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="ar_order_push_checkout_submit_all_after" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsOrderPush" />
+    </event>
+    <event name="payment_method_assign_data">
+        <observer name="ar_payment_method_assign_data" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsAssignData" />
+    </event>
+    <event name="payment_method_assign_data_vault">
+        <observer name="ar_payment_method_assign_data_vault" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsAssignDataVault" />
+    </event>
+    <event name="customerconnect_arpayments_controller_successorder_action">
+        <observer name="ar_payment_sales_order_place_after" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsOrderDelete" />
+    </event>
+    <event name="sales_order_payment_save_after">
+        <observer name="tax" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsSavePaymentAfter" />
+    </event>   
+    <event name="sales_model_service_quote_submit_success">
+        <observer name="ar_order_push_checkout_submit_all_after_direct" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsOrderPushFromPaymentSave" />
+    </event>
+    <event name="sales_order_save_before">
+       <observer name="hide_price_order_submit_success" instance="Epicor\Customerconnect\Observer\SetHidePricesStateOnOrder" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="ar_controller_action_predispatch" instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsPredispatch" />
+    </event>
+</config>

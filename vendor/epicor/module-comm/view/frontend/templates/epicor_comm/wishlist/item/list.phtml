@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+$_LoaderHelper = $this->helper('Epicor\Comm\Helper\LazyLoader');
+/* @var $_LoaderHelper \Epicor\Comm\Helper\LazyLoader */
+$isLazyLoad = $_LoaderHelper->isLazyLoad();
+$type = "wishlist";
+?>
+
+<div class="products-grid wishlist">
+    <?php if (count($block->getItems())): ?>
+        <?php if ($isLazyLoad): //Lazy Load wish-list   ?>
+        <?php
+        $config["sendMessageUrl"] = $_LoaderHelper->getCurrentUrl();
+        $config["productIds"] = $block->getItems()->getAllIds();
+        $config["loaderImageUrl"] = $_LoaderHelper->getLoaderImageUrl() ?: $this->getViewFileUrl("images/loader-2.gif");
+        $config["viewType"] = $type;
+        ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            require([
+                "jquery",
+                'mage/translate',
+                'Epicor_Comm/epicor/comm/js/lazy-load'
+            ], function ($, $tr, lazyLoad) {
+                $(document).ready(function (element) {
+                    var config =<?php echo json_encode($config)?>;
+                    payment = new lazyLoad(config);
+                });
+            });
+            //]]>
+        </script>
+    <?php endif; ?>
+        <ol class="product-items">
+            <?php foreach ($block->getItems() as $item): ?>
+                <li data-row="product-item" class="product-item" id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>">
+                    <div class="product-item-info ecc-price-lazy-load-<?php echo $type; ?>" data-container="product-grid" ecc-data-product-id="<?php echo $item->getId(); ?>">
+                        <?php foreach ($columns as $column): ?>
+                            <?= $column->setItem($item)->toHtml();?>
+                        <?php endforeach; ?>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    <?php else: ?>
+        <div class="message info empty">
+            <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column): ?>
+    <?= $column->getAdditionalHtml() ?>
+<?php endforeach; ?>

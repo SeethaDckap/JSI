@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  layout="1column"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Request for Quote</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <container name="checkout.cart.items" as="with-items">
+                    <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
+                        <block class="Magento\Checkout\Block\Cart" name="checkout.cart.form" as="cart-items" template="Epicor_Quotes::quotes/request/basket.phtml" cacheable="false">
+                            <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list">
+                              <block class="Magento\Checkout\Block\Cart\Item\Renderer" as="simple" template="Epicor_Quotes::quotes/request/basketitem.phtml"/>
+                              <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" as="grouped" template="Epicor_Quotes::quotes/request/basketitem.phtml"/>
+                              <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" as="configurable" template="Epicor_Quotes::quotes/request/basketitem.phtml"/>
+                              <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" as="bundle" template="Epicor_Quotes::quotes/request/basketitem.phtml"/>
+                            </block>
+                       </block>
+                    </container>
+                </container>
+        </referenceContainer>
+    </body>
+</page>

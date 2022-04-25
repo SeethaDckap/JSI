@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+/** @var $this \Magento\Framework\View\TemplateEngine\Php */
+
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/** @var $helper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = $locHelper->getAllsourceLocations();
+
+$_product = $this->getProduct();
+/** @var  $_product \Epicor\Comm\Model\Product */
+
+$singleLocation = (count($_product->getCustomerLocations()) == 1) ? true : false;
+?>
+<?php if(!$_product->getIsEccNonStock()): ?>
+<?php switch($_product->getStockType()):
+    case 'bool': ?>
+        <?php if ($_product->isAvailable()): ?>
+            <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo __('In stock') ?></span></p>
+        <?php else: ?>
+            <p class="availability out-of-stock"><?php echo __('Availability:') ?> <span><?php echo __('Out of stock') ?></span></p>
+        <?php endif; ?>
+    <?php break;?> 
+    <?php case 'range':?>
+            <?php $_img = $_product->getStockRange(); ?>
+            <img src="<?php echo $_img['src']?>" alt="<?php echo $_img['alt']?>" title="<?php echo $_img['title']?>" />        
+   <?php break;?> 
+   <?php case 'level':?>
+             <p class="availability in-stock"><?php echo __('Availability:') ?> <span><?php echo $_product->getStockLevel() ?></span></p>
+   <?php break; ?> 
+    
+<?php endswitch;?>
+<?php endif; ?>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+                  
+<?php  if(!$showLocations || $showLocations && ($allSourceLocations || $singleLocation)): ?>   
+    <?php echo $block->getProductPrice($_product)?>
+    <?php echo $block->getProductPriceHtml($_product, \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE);?>
+<?php endif; ?>
+

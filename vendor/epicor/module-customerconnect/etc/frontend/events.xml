@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="epicor_message_cus">
+    <observer name="customerconnect_model_observer" instance="Epicor\Customerconnect\Observer\CustomerChanged"/>
+  </event>
+  <event name="customer_customer_authenticated">
+    <observer name="customerconnect_model_observer" instance="Epicor\Customerconnect\Observer\CustomerAuthenticated"/>
+  </event>
+  <event name="customer_account_edited">
+    <observer name="customerconnect_update_cuau_observer" instance="Epicor\Customerconnect\Observer\UpdateCuau"/>
+  </event>
+  <event name="controller_action_predispatch_checkout_cart_index">
+    <observer name="arpayments_cart_observer"
+      instance="Epicor\Customerconnect\Observer\Arpayments\ArpaymentsCartViewObserver" />
+  </event>
+  <event name="epicor_customerconnect_crq_detail_lines_grid_columns_after">
+    <observer name="hide_crq_detail_line_price" instance="Epicor\Customerconnect\Observer\Crq\HidePriceCols"/>
+  </event>
+  <event name="epicor_customerconnect_crqs_grid_columns_after">
+    <observer name="hide_crqs_price" instance="Epicor\Customerconnect\Observer\Crqs\HidePriceCols"/>
+  </event>
+<!--  <event name="before_cuad_log_completed_after_process_response">
+    <observer name="customerconnect_model_observer" instance="Epicor\Customerconnect\Observer\CuadMessageLog"/>
+  </event>-->
+</config>

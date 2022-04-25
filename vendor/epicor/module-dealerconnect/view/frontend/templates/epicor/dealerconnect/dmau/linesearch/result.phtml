@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+/* @var $this \Epicor\QuickOrderPad\Block\Catalogsearch\Result */
+
+?>
+<input type="hidden" name="row_id" class="row_id" value=""/>
+<?php if($this->getResultCount() || $this->getRequest()->getParam('csv')): ?>
+<div class="page-title">
+    <h2><?php echo __("Select a Material") ?></h2>
+</div>
+    <?php if ($messages = $this->getNoteMessages()):?>
+    <p class="note-msg">
+        <?php foreach ($messages as $message):?>
+            <?php echo $message?><br />
+        <?php endforeach;?>
+    </p>
+    <?php endif; ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php else: ?>
+<div class="page-title">
+    <h2><?php echo __("Select a Material") ?></h2>
+</div>
+<p class="note-msg">
+    <?php 
+    $_message = 'Your search returns no results.';
+    if ($this->getRequest()->getParam('custom_part') != null) {
+        $_message .= ' Select Custom Part.';
+    }        
+    ?>
+    <?php echo ($this->getNoResultText()) ? $this->getNoResultText() : __($_message) ?>
+    <?php if ($messages = $this->getNoteMessages()):?>
+        <?php foreach ($messages as $message):?>
+        <br /><?php echo $message?>
+        <?php endforeach;?>
+    <?php endif; ?>
+</p>
+<?php endif; ?>

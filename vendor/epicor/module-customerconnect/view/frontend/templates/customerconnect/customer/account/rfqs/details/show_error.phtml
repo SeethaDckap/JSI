@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ CRQU submit error display
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Showerror */
+$error = trim($block->getError());
+$messageError = $block->getErrorMessage();
+$messageType = isset($messageError['message_type']) ? strtolower($messageError['message_type']) : 'error';
+?>
+<script type="text/javascript">
+
+    window.parent.showMessage('<?php echo $error; ?>', 'error', false);
+    <?php if(!empty($messageError)){   ?>
+    window.parent.showMessage('<?php echo $messageError['text']; ?>', '<?php echo $messageType ?>', true);
+    <?php } ?>
+    var parentWin = window.parent.document.getElementsByClassName("loading-mask");
+    parentWin[0].hide();
+</script>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <link src="Epicor_Comm::js/epicor/comm/editErpAccount/productsList.js"/>
+        <link src="Epicor_Lists::epicor/lists/js/analyse.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Epicor\Lists\Block\Adminhtml\Listing\Analyse" name="form"/>
+            <block template="Epicor_Lists::epicor/lists/analyse/filteredtotal.phtml" class="Epicor\Lists\Block\Adminhtml\Listing\Analyse" name="filteredtotal"/>
+            <block class="Epicor\Lists\Block\Adminhtml\Listing\Analyse\Listing\Grid" name="list"/>
+        </referenceContainer>
+    </body>
+</page>

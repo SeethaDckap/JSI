@@ -1,0 +1,235 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+
+.locations_filter_block .actions {
+    margin-top:10px;
+}
+
+.locations_filter_block select {
+    width:100%;
+}
+
+.product_grid_locations {
+    height: 1px;
+    /*position: relative;*/
+    z-index:10000;
+    float: left;
+}
+
+.product_list_locations {
+    clear:both;
+}
+
+.product_grid_locations .product_locations_wrapper {
+    border: 1px solid #000;
+    background: #fff;
+    position: absolute;
+    /*top: 1px;*/
+    float: left;
+    padding: 5px;
+    /*width:460px;*/
+    width: 90vw;
+    max-width: 560px;
+    z-index:950;
+    display: none;
+}
+
+.product_list_locations .product_locations_wrapper {
+    /*width:310px;*/
+    width: 90vw;
+    max-width: 310px;
+    display: none;
+}
+
+.product_locations_wrapper p {
+    margin: 0;
+}
+
+.product_locations_wrapper .addtobasketform {
+    float: left;
+    clear: both;
+    margin: 5px 0;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.product_list_locations .product_locations_wrapper .addtobasketform {
+    /*width:310px;*/
+    max-width: 310px;
+}
+
+.product_grid_locations .product_locations_wrapper .addtobasketform {
+    /*width:450px;*/
+    max-width: 490px;
+}
+
+.product_grid_locations  .location-element {
+    float: left;
+    width: 23%;
+    margin: 0px 5px 0px 16px;
+}
+
+.product_list_locations  .location-element {
+    float: left;
+    width: 28%;
+    margin: 0px 5px;
+}
+
+.product_grid_locations  .location-name {
+    width:40%;
+}
+
+.pad-middle {
+    padding-top:5px;
+}
+
+p.locations_add_to_cart {
+    margin:0;
+    padding:0;
+}
+
+.products-grid li.item.locations-enabled {
+    padding:12px 10px 10px;
+}
+
+.products-grid .actions.locations-enabled {
+    position:relative;
+    bottom:0px;
+}
+
+
+select#locations_filter {
+    height:100px;
+    background: #fff;
+    padding-right:10px;
+}
+
+.table.grouped .col.item {
+    width: auto;
+}
+
+.table.grouped .price-box .price {
+    font-weight: 700;
+}
+
+.selected-branch-wrapper {
+    display: inline-block;
+    position: relative;
+    float: right;
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    padding: 1px 4px;
+    color: #575757;
+}
+
+.selected-branch-wrapper .selected-branch p {
+    margin-bottom: 0rem;
+}
+
+.branches-list-popup ul {
+    list-style-type: none;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    padding: 10px 30px;
+}
+
+.branches-list-popup span.location-details {
+    float: left;
+    width: 65%;
+}
+
+.branches-list-popup span.location-select {
+    float: right;
+    width: 25%;
+    padding: 0 10px;
+    text-align: center;
+    line-height: 4.8em;
+}
+
+.branches-list-popup span.location-select a, .location-select span {
+    background: #1979c3;
+    color: #fff;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+}
+.branches-list-popup ul li {
+    border-bottom: 1px solid #c1c1c1;
+    height: 5em;
+}
+.branches-list-popup ul li:last-child {
+    border-bottom: none;    
+}
+.related-location-element {
+    clear: both;
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 0.5rem;
+}
+.related-location-element .location-stock {
+    width: 25%;
+    float: left;
+}
+.related-location-element .location-name {
+    width: 50%;
+    float: left;
+}
+.related-location-element .location-select {
+    width: 25%;
+    float: left;
+}
+.branch_list {
+    clear: both;
+    margin-top: 1rem;
+}
+.selected_branch_wrapper .related-location-element {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    border-top: 1px solid #c1c1c1;
+}
+.branch_list p.accordion::after, .branches-list-popup .branches-popup-body h3.accordion::after {
+    content: "\25bc";
+    float: right;
+    padding: 0 2rem;
+}
+.branch_list p.active::after, .branches-list-popup .branches-popup-body h3.active::after {
+    content: "\25b2";
+    float: right;
+    padding: 0 1rem;
+}
+.location-select span {
+    line-height: 2.5em;
+}
+.available_branches .modal-inner-wrap, .branch_selector .modal-inner-wrap{
+    width: 50%;
+    border-radius: 5px;
+}
+span.aggregate-stock.in-stock {
+    border: 1px solid #11b400;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+span.aggregate-stock.out-of-stock {
+    border: 1px solid #df280a;
+    border-radius: 5px;
+    padding: 4px;
+}
+.catalog-product-view .product_grid_locations .selected_branch_wrapper {
+    right: 150px;
+}
+.product_grid_locations .selected_branch_wrapper {
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+}
+.product_grid_locations .selected_branch_wrapper .location-element {
+    margin: 0px;
+}
+.selected_branch_wrapper .branch_list {
+    padding: 0 10px;
+}
+.selected_branch_wrapper p.title {
+    padding-bottom: 1rem;
+}

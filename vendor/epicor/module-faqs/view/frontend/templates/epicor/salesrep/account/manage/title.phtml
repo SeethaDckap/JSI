@@ -1,0 +1,15 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$helper = Mage::helper('epicor_salesrep/account_manage');
+/* @var $helper Epicor_SalesRep_Helper_Account_Manage */
+
+if ($helper->isManagingChild()):
+    ?>
+    <h1><?php echo __('Managing Sales Rep Account: '), $helper->getManagedSalesRepAccount()->getName(); ?></h1>
+    <p><a class="salesrep-link" href="<?php echo $this->getUrl('*/*/reset'); ?>"><?php echo __('Return to My Sales Rep Account'); ?></a></p>
+<?php else: ?>
+    <h1><?php echo __('My Sales Rep Account'); ?></h1>
+<?php endif;

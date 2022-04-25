@@ -1,0 +1,11 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct();?>
+<?php $_moreinfofile = $_helper->productAttribute($_product, $_product->getEccMoreInfoRaw(), 'ecc_more_info_raw'); ?>
+<?php if (!empty($_moreinfofile) && $_moreinfofile != 'no') : ?>
+    <h2><?php echo __('More Information'); ?></h2>
+    <a target="_blank" href="<?php echo $this->helper('epicor_comm/Product')->getMoreInfoUrl($_moreinfofile) ?>" title="<?php echo __('Download More Product Information'); ?>"><?php echo __('Download Product Information'); ?></a>
+<?php endif; ?>

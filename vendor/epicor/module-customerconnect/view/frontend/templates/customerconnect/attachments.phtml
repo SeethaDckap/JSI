@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2010-2020 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php $attachmentData = $this->getOrderAttachmentData();
+if (is_array($attachmentData) && count($attachmentData) > 0):?>
+    <div class="box-info box-account block block-dashboard-info <?php echo $this->getOnRight() ? 'col-2 ' : 'col-full'; ?>">
+        <div class="block-title">
+            <strong><?php echo $this->getTitle(); ?></strong>
+        </div>
+        <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+            <?php foreach ($attachmentData as $k => $value):
+                $k = $k + 1;
+                ?>
+                <p>
+                    <?php $fileNameToDisplay = $block->getFileNameToDisplay($value['filename']); ?>
+                    <a data-order-number="<?= $this->getOrderNumber() . '_' . $value['attachment_number'] ?>"
+                       data-erp-file-id="<?= $value['erp_file_id'];?>"
+                       data-file-name="<?= $value['filename'];?>"
+                       data-action="D"
+                       data-filename-to-download="<?= $fileNameToDisplay ?>"
+                       href="#"
+                       class="link-download-attachment button" title="Download Document">
+
+                        <?= (isset($value['description']) && !empty($value['description'])) ? $value['description'] : $k . '. ' . $fileNameToDisplay
+                        ?>
+                    </a>
+                </p>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,89 @@
+<?php 
+    $invoices = $block->getInvoices(); 
+    $invoiceId = $block->getParam('id'); 
+    $invoice = $invoiceId ? $invoices[$invoiceId-1] : '';
+?>
+
+<?php if($invoice): ?>
+    <div class="invoice-info">
+        <div class="section-title"><?= 'Invoice' ?></div>
+        <div class="part line">
+            <div class="info">
+                <div class="info-item"><?= 'Address: ' . $invoice['line'] ?></div>
+                <div class="info-item"><?= 'Phone: ' . $invoice['phone'] ?></div>
+            </div>
+            <div class="info">
+                <div class="info-item"><?= 'Invoice #: ' . $invoice['invoice_number'] ?></div>
+                <div class="info-item"><?= 'PO: ' . $invoice['po'] ?></div>
+            </div>
+        </div>
+         <div class="part line">
+            <div class="info">
+                <div class="info-item"><?= 'Bill To:' ?></div>
+                <div class="info-item"><?= $invoice['billingAddress']['firstname'] . ' ' . $invoice['billingAddress']['lastname'] ?></div>
+                <div class="info-item"><?= isset($invoice['billingAddress']['company']) ? $invoice['billingAddress']['company'] : ''  ?></div>
+                <div class="info-item"><?= $invoice['billingAddress']['street'][0] ?></div>
+                <div class="info-item"><?= isset($invoice['billingAddress']['street'][1]) ? $invoice['billingAddress']['street'][1] : '' ?></div>
+                <div class="info-item"><?= $invoice['billingAddress']['city'] . ', ' . $invoice['billingAddress']['state'] ?></div>
+            </div>
+            <div class="info">
+                <div class="info-item"><?= 'Ship To:' ?></div>
+                <div class="info-item"><?= $invoice['shippingAddress']['firstname'] . ' ' . $invoice['shippingAddress']['lastname'] ?></div>
+                <div class="info-item"><?= isset($invoice['shippingAddress']['company']) ? $invoice['shippingAddress']['company'] : ''  ?></div>
+                <div class="info-item"><?= $invoice['shippingAddress']['street'][0] ?></div>
+                <div class="info-item"><?= isset($invoice['shippingAddress']['street'][1]) ? $invoice['shippingAddress']['street'][1] : '' ?></div>
+                <div class="info-item"><?= $invoice['shippingAddress']['city'] . ', ' . $invoice['shippingAddress']['state'] ?></div>
+            </div>
+        </div>
+        <div class="part">
+            <div class="info full">
+                <table>
+                    <tr>
+                        <th>Instructions</th>
+                        <th>Ship Via</th>
+                        <th>Sales Rep</th>
+                        <th>Terms</th>
+                        <th>Taker</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><?= $invoice['ship_via'] ?></td>
+                        <td><?= $invoice['sales_rep'] ?></td>
+                        <td><?= $invoice['term'] ?></td>
+                        <td><?= $invoice['taker'] ?></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info full">
+                <table>
+                    <tr>
+                        <th>SKU/Description</th>
+                        <th>Ordered QTY</th>
+                        <th>Shipped QTY</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Amount</th>
+                    </tr>
+                    <?php foreach ($invoice['items'] as $item): ?>
+                        <tr>
+                            <td><?= $item['sku'] ?></td>
+                            <td><?= $item['ordered_qty'] ?></td>
+                            <td><?= $item['shipped_qty'] ?></td>
+                            <td>$<?= $item['price'] ?></td>
+                            <td>$<?= $item['discount'] ?></td>
+                            <td>$<?= $item['total'] ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><?= 'QTY Ship Total: $' . $invoice['shipped_total'] ?></td>
+                        <td></td>
+                        <td></td>
+                        <td><?= 'Total: $' . $invoice['subtotal'] ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php endif ?>

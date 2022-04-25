@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * 
+ */
+/* @var $block \Epicor\SalesRep\Block\Account\Manage\Salesreps */
+
+if ($block->canEdit()) :
+    ?>
+    <form id="sales_rep_add_form" action="<?php echo $block->getUrl('*/*/salesrepadd'); ?>" method="post" style="display:none">
+        <?php echo $block->getChildHtml('manage.salesrepsform', false); ?>
+    </form>
+
+<?php endif; ?>
+<?php
+echo $block->getChildHtml('manage.salesreps', false);

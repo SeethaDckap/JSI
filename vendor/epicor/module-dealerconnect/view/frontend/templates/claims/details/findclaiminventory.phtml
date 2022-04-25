@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/**
+ * @category   Epicor
+ * @package    Epicor_Dealerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Dealerconnect\Block\Claims\FindClaimInventory */
+//$claim = $this->registry('dealer_connect_claim_details');
+?>
+
+<div class="box-info box-account col-1 block">
+        <form id="find_inventory_claim" name= "find_inventory_claim" action="<?php echo $this->getUrl('*/*/findclaiminventory')  ?>" method="post" enctype="multipart/form-data">
+           <input type="hidden" value="<?php echo $block->getFormKey();?>" id="form_key"/>
+            <fieldset class="fieldset">
+             <legend class="legend"><span><?php echo __('Find Inventory By'); ?></span></legend>
+            <div class="field choice">
+                <label for="findclaim_byoption" class="required"><em>*</em>Select Type</label>
+                 <select name="claimby" id ="findclaim_byoption">
+                <?php foreach ($this->ClaimsbyOptions() as  $value) { ?>
+                    <option value="<?php echo $value['value']; ?>"><?php echo $value['label']; ?></option> 
+               <?php  }; ?>
+                </select>
+            </div>
+             <div class="la_field la_name_box">
+                <label for="claim_number" class="required"><em>*</em>Enter Number</label>
+                <input type="text" name="claim_number" value="" title="Enter Number" id="claim_number" class="input-text" required>
+            </div>
+          </fieldset>
+           <div class="primary"><button type="submit" id ="inventory_claim_submit" onclick="window.dealerClaim.searchClaim();return false;" title="Search" class="action save primary"><span>Search</span></button></div>
+        </form>
+</div>  
+<div class="box-info box-account col-full"></div>
+<script type="text/javascript">
+/*    
+ require(["jquery"], function ($) {
+    $(document).ready(function () {
+        $('#submit').click(function () { 
+            if ($('#find_inventory_claim').valid()) {
+                $('#find_inventory_claim').submit();
+            }else{
+                alert('Enter Claim Number for Inventory Search');
+                return false;
+            }
+        });
+    });
+}); */
+</script>

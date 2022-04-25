@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="common.advanced.syslog">
+            <block class="Magento\Backend\Block\Widget\Grid" name="epicor.syslog.grid" as="grid">
+              <arguments>
+                    <argument name="id" xsi:type="string">syslog</argument>
+                    <argument name="dataSource" xsi:type="object">Epicor\Common\Model\Fs\Collection</argument>
+                    <argument name="default_sort" xsi:type="string">name</argument>
+                    <argument name="default_dir" xsi:type="string">ASC</argument>
+                    <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="epicor.syslog.grid.columnSet" as="grid.columnSet">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="name">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Name</argument>
+                            <argument name="index" xsi:type="string">name</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="column_css_class" xsi:type="string">col-id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-id</argument>
+                        </arguments>
+                    </block>                    
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="size">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Size</argument>
+                            <argument name="index" xsi:type="string">size</argument>
+                            <argument name="type" xsi:type="string">number</argument>
+                            <argument name="filter" xsi:type="string">0</argument>
+                            <argument name="sortable" xsi:type="string">1</argument>
+                            <argument name="renderer" xsi:type="string">Epicor\Common\Block\Adminhtml\Advanced\Syslog\Column\Renderer\Filesize</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="time">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Last Modified</argument>
+                            <argument name="index" xsi:type="string">date_object</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="column_css_class" xsi:type="string">col-date</argument>
+                            <argument name="header_css_class" xsi:type="string">col-date</argument>
+                        </arguments>
+                    </block>
+                   <block class="Magento\Backend\Block\Widget\Grid\Column" as="action">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Action</argument>
+                            <argument name="index" xsi:type="string">type</argument>
+                            <argument name="filter" xsi:type="string">0</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">action</argument>
+                            <argument name="renderer" xsi:type="string">Epicor\Common\Block\Adminhtml\Advanced\Syslog\Column\Renderer\Viewdownload</argument>
+                        </arguments>
+                    </block>
+                </block>                
+            </block>
+        </referenceBlock>
+    </body>
+</page>

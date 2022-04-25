@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="controller_action_predispatch_b2b_portal_registerpost">
+    <observer name="b2b_reg_captcha" instance="Epicor\B2b\Observer\CheckB2bUserCreate"/>
+  </event>
+  <event name="epicor_message_cus">
+    <observer name="b2b_model_observer" instance="Epicor\B2b\Observer\CustomerChanged"/>
+  </event>
+  <event name="epicor_common_check_user_rights_before">
+    <observer name="b2b_model_observer" instance="Epicor\B2b\Observer\CheckAccessRights"/>
+  </event>
+  <event name="controller_action_predispatch_customer_account_create">
+    <observer name="b2b_model_observer" instance="Epicor\B2b\Observer\CheckRegistrationEnabled"/>
+  </event>
+  <event name="customer_register_success">
+    <observer name="customer_account_created" instance="Epicor\B2b\Observer\CustomerAccountCreated"/>
+  </event>
+  <event name="controller_action_predispatch_btob_portal_register">
+    <observer name="b2b_model_observer" instance="Epicor\B2b\Observer\CheckRegistrationEnabledForBusiness"/>
+  </event>
+</config>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div id = 'totalproduct-list'><b><?php echo __('Total Product available:') ?></b> <span id="filterdtotal"></span></div>
+
+<script type="text/javascript">
+     require([
+        'jquery',
+        'prototype'
+    ], function (jQuery) {
+        document.observe('dom:loaded', function () {
+           $('filterdtotal').innerHTML = $$('#list_grid_table tr').last().getElementsByClassName('filteredrow')[0].value;
+        });
+    });
+</script>

@@ -1,0 +1,62 @@
+<div class="block block-dashboard-info ac-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Account Information')) ?></strong></div>
+    <div class="block-content">
+        <?php if (!empty($this->getAddressData())) : ?>
+        <div class="box box-information">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Company Name')) ?></span>
+            </strong>
+            <div class="box-content">
+                <p>
+                    <?php echo $this->getName(); ?><br>
+                </p>
+
+            </div>
+        </div>
+            <div class="box box-newsletter">
+                <div class="box-content">
+                    <dl class="vcard">
+                        <dt class="address"><?php echo __('Address');?></dt>
+                        <dd class="first fn org"><?php echo $this->getCompany();  ?></dd>
+                        <dd class="adr break">
+                            <span class="street-address"><?php echo $this->getStreet(); ?></span>
+                            <span class="locality"><?php echo $this->getCity(); ?></span>
+                            <span class="region"><?php echo $this->getCounty(); ?></span>
+                            <span class="postal-code"><?php echo $this->getPostcode(); ?></span>
+                            <span class="country-name"><?php echo $this->getCountry(); ?></span>
+                        </dd>
+                        <?php if ($this->getConfigFlag('customer/address/display_email')): ?>
+                            <?php if ($this->getAddressData()->getEmailAddress()): ?>
+                                <dt class="sec email"><abbr title="Email">Email</abbr> :</dt>
+                                <dd class="sec email spaced"><?php echo $this->getAddressData()->getEmailAddress(); ?></dd>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($this->getTelephoneNumber()): ?>
+                            <dt class="sec tel"><abbr title="Telephone Number">Tel</abbr> :</dt>
+                            <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+                        <?php elseif ($this->getAddressData()->getPhone()): ?>
+                            <dt class="sec tel"><abbr title="Telephone Number">Tel</abbr> :</dt>
+                            <dd class="sec tel spaced"><?php echo $this->getAddressData()->getPhone(); ?></dd>
+                        <?php endif; ?>
+                        <?php if($this->getConfigFlag('customer/address/display_mobile_phone')): ?>
+                            <?php if ($this->getMobileNumber()): ?>
+                                <dt class="sec fax"><abbr title="Mobile Number">Mob</abbr> :</dt>
+                                <dd class="sec fax spaced"><?php echo $this->getMobileNumber(); ?></dd>
+                            <?php elseif ($this->getAddressData()->getMobileNumber()): ?>
+                                <dt class="sec fax"><abbr title="Mobile Number">Mob</abbr> :</dt>
+                                <dd class="sec fax spaced"><?php echo $this->getAddressData()->getMobileNumber(); ?></dd>
+                            <?php  endif; ?>
+                        <?php  endif; ?>
+                        <?php if ($this->getFaxNumber()): ?>
+                            <dt class="sec fax"><abbr title="Fax Number">Fax</abbr> :</dt>
+                            <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+                        <?php elseif ($this->getAddressData()->getFax()): ?>
+                            <dt class="sec fax"><abbr title="Fax Number">Fax</abbr> :</dt>
+                            <dd class="sec fax spaced"><?php echo $this->getAddressData()->getFax(); ?></dd>
+                        <?php  endif; ?>
+                    </dl>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

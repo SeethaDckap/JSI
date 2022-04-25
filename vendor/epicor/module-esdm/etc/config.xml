@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <esdm>
+                <test_url>http://vm-qasqlu07:9994/SecureDataService?wsdl</test_url>
+                <live_url>http://vm-qasqlu07:9994/SecureDataService?wsdl</live_url>
+                <live_mode>0</live_mode>
+                <active>0</active>
+                <model>Epicor\Esdm\Model\Payment\Esdm</model>
+                <order_status>processing</order_status>
+                <title>Esdm Card Payment</title>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <payment_action>authorize</payment_action>
+                <purchaseenabled>1</purchaseenabled>
+            </esdm>
+        </payment>
+    </default>
+</config>

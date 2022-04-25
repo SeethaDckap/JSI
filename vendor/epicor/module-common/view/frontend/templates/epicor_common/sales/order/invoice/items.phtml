@@ -1,0 +1,80 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<?php
+    $contractHelper = $this->helper('Epicor\Lists\Helper\Frontend\Contract');
+    /* @var $contractHelper Epicor_Lists_Helper_Frontend_Contract */
+    $listEnabled = $contractHelper->contractsEnabled();
+
+    // Start B2B hide prices
+    $commHelper = $this->helper('Epicor\Comm\Helper\Data');
+    $eccHidePrices = $commHelper->getEccHidePrice();
+    $showPrices = true;
+    if ($eccHidePrices){
+        $showPrices = false;
+    }
+    // End B2B hide prices
+?>
+<div class="actions-toolbar">
+    <a href="<?= /* @escapeNotVerified */ $block->getPrintAllInvoicesUrl($_order) ?>"
+       target="_blank"
+       class="action print">
+        <span><?= /* @escapeNotVerified */ __('Print All Invoices') ?></span>
+    </a>
+</div>
+<?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
+<div class="order-title">
+    <strong><?= /* @escapeNotVerified */ __('Invoice #') ?><?= /* @escapeNotVerified */ $_invoice->getIncrementId() ?></strong>
+    <a href="<?= /* @escapeNotVerified */ $block->getPrintInvoiceUrl($_invoice) ?>"
+       onclick="this.target='_blank'"
+       class="action print">
+        <span><?= /* @escapeNotVerified */ __('Print Invoice') ?></span>
+    </a>
+</div>
+<div class="table-wrapper table-order-items invoice">
+    <table class="data table table-order-items invoice" id="my-invoice-table-<?= /* @escapeNotVerified */ $_invoice->getId() ?>">
+        <caption class="table-caption"><?= /* @escapeNotVerified */ __('Items Invoiced') ?></caption>
+        <thead>
+            <tr>
+                <th class="col name"><?php echo __('Product Name') ?></th>
+                <th class="col sku"><?php echo __('SKU') ?></th>
+                <th class="col uom"><?php echo __('UOM') ?></th>
+                <?php if ($this->getShowLocations() && $this->getShowLocationsColumn()) :  ?>
+                    <th class="col locations"><?php echo __('Location') ?></th>
+                <?php endif; ?>
+                <?php if ($listEnabled) : ?>
+                    <th class="col contract"><?php echo __('Contract') ?></th>
+                <?php endif; ?>   
+                <?php if ($showPrices && !$commHelper->isPriceDisplayDisabled()) : ?>
+                    <th class="col price"><?php echo __('Price') ?></th>
+                <?php endif; ?>
+                <th class="col qty"><?php echo __('Qty Invoiced') ?></th>
+                <?php if ($showPrices && !$commHelper->isPriceDisplayDisabled()) : ?>
+                    <th class="col subtotal"><?php echo __('Subtotal') ?></th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <?php $_items = $_invoice->getAllItems(); ?>
+        <?php foreach ($_items as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                    <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if ($showPrices && !$commHelper->isPriceDisplayDisabled()) : ?>
+            <tfoot>
+                <?= $block->getInvoiceTotalsHtml($_invoice) ?>
+            </tfoot>
+        <?php endif; ?>
+    </table>
+</div>
+<?= $block->getInvoiceCommentsHtml($_invoice) ?>
+<?php endforeach; ?>
+

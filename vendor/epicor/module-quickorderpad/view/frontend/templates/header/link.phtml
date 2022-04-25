@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<?php
+ /* @var $block Epicor\QuickOrderPad\Block\Link */
+?>
+<li class="ecc-header-link" data-bind="scope: 'quickOrderPadLink'">
+    <!-- ko if: quickOrderPadLink() && quickOrderPadLink().is_enable -->
+    <a data-bind="attr: {href: url,title:lable}, html: lable"></a>
+    <!-- /ko -->
+</li>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "quickOrderPadLink": {
+                        "component": "<?php /* @escapeNotVerified */ echo $block->getComponent(); ?>",
+                         "config": {
+                                "url": "<?php /* @escapeNotVerified */ echo $block->getUrl($block->getPath()); ?>",
+                                "lable": "<?php /* @escapeNotVerified */ echo $block->escapeHtml($block->getLabel()) ?>"
+                         }
+                    }
+                }
+            }
+        }
+    }
+</script>

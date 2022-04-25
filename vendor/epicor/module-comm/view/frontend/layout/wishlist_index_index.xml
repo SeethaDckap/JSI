@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="customer.wishlist">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/wishlist/view.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="customer.wishlist.item.cart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/wishlist/item/cart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.price.render.wishlist">
+            <arguments>
+                <argument name="price_type_code" xsi:type="string">final_price</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="control_buttons">
+            <referenceBlock name="customer.wishlist.button.toCart" remove="true"/>
+        </referenceContainer>
+        <referenceBlock name="customer.wishlist.items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::epicor_comm/wishlist/item/list.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        
+        <referenceBlock name="checkout.cart.item.renderers.simple.actions">
+            <block name="checkout.cart.item.renderers.simple.actions.edit" class="Epicor\Comm\Block\Checkout\Cart\Item\Renderer\Actions\Edit"
+                   template="Epicor_Comm::cart/item/renderer/actions/edit.phtml"/>                            
+        </referenceBlock>
+        
+        <referenceBlock name="checkout.cart.item.renderers.grouped.actions">           
+            <block name="checkout.cart.item.renderers.grouped.actions.edit" class="Epicor\Comm\Block\Checkout\Cart\Item\Renderer\Actions\Edit"
+                   template="Epicor_Comm::cart/item/renderer/actions/edit.phtml"/>                          
+        </referenceBlock>
+                        
+        <referenceBlock name="checkout.cart.form">
+            <action method="setOverriddenTemplates">
+                <argument name="itemtemplate" xsi:type="array">
+                    <item name="default" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                    <item name="simple" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                    <item name="virtual" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                    <item name="grouped" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                    <item name="bundle" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                    <item name="configurable" xsi:type="string">Epicor_Comm::cart/item/default.phtml</item>
+                </argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Epicor_AccessRight:etc/access_right.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Frontend::all">
+                <resource id="Dealer_Connect::dealer" title="Dealer Connect" translate="title"
+                         actioncontoler="true" sortOrder="150">
+                    <resource id="Dealer_Connect::dealerconnect_dashboard" title="Dashboard" translate="title" sortOrder="100" displaytype="grid">
+                        <resource id="Dealer_Connect::dealerconnect_dashboard_account_information" title="Account Information"
+                                  translate="title" sortOrder="100" actioncode="acct_info"/>
+                        <resource id="Dealer_Connect::dealerconnect_dashboard_manage_dashboard" title="Manage Dashboard"
+                                  translate="title" sortOrder="110" actioncode="manage_dashboard"/>
+                        <resource id="Dealer_Connect::dealerconnect_dashboard_manage_reminders" title="Manage Reminders"
+                                  translate="title" sortOrder="120" actioncode="manage_reminders"/>
+                    </resource>
+                    <resource id="Dealer_Connect::dealer_quotes" title="Dealer Quotes" translate="title" sortOrder="110"
+                              displaytype="grid">
+                        <resource id="Dealer_Connect::dealer_quotes_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Dealer_Connect::dealer_quotes_confirmrejects"  actioncode="confirmrejects"
+                                  title="Confirm OR Reject" sortOrder="120"/>
+                        <resource id="Dealer_Connect::dealer_quotes_details" actioncode="details" title="Details"
+                                  sortOrder="130"/>
+                        <resource id="Dealer_Connect::dealer_quotes_export" actioncode="export" title="Export"
+                                  sortOrder="140"/>
+                        <resource id="Dealer_Connect::dealer_quotes_create" actioncode="create" title="Create"
+                                  sortOrder="150"/>
+                        <resource id="Dealer_Connect::dealer_quotes_edit" actioncode="edit" title="Edit"
+                                  sortOrder="160"/>
+                        <resource id="Dealer_Connect::dealer_quotes_misc" actioncode="misc" title="Misc. Charges"
+                                  sortOrder="170"/>
+                    </resource>
+                    <resource id="Dealer_Connect::dealer_orders" title="Dealer Orders" translate="title" sortOrder="120"
+                              displaytype="grid">
+                        <resource id="Dealer_Connect::dealer_orders_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Dealer_Connect::dealer_orders_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Dealer_Connect::dealer_orders_reorder" actioncode="reorder" title="Reorder"
+                                  sortOrder="120"/>
+                        <resource id="Dealer_Connect::dealer_orders_export" actioncode="export" title="Export"
+                                  sortOrder="130"/>
+                        <resource id="Dealer_Connect::dealer_orders_return" actioncode="return" title="Return"
+                                  sortOrder="140"/>
+                        <resource id="Dealer_Connect::dealer_orders_print" actioncode="print" title="Print"
+                                  sortOrder="150"/>
+                        <resource id="Dealer_Connect::dealer_orders_email" actioncode="email" title="Email"
+                                  sortOrder="160"/>
+                        <resource id="Dealer_Connect::dealer_orders_misc" actioncode="misc" title="Misc. Charges"
+                                  sortOrder="170"/>
+                    </resource>
+                    <resource id="Dealer_Connect::dealer_inventory" title="Dealer Inventory" translate="title"
+                              sortOrder="130"
+                              displaytype="grid">
+                        <resource id="Dealer_Connect::dealer_inventory_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Dealer_Connect::dealer_inventory_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Dealer_Connect::dealer_inventory_create" actioncode="create" title="Create"
+                                  sortOrder="120"/>
+                        <resource id="Dealer_Connect::dealer_inventory_edit" actioncode="edit" title="Edit"
+                                  sortOrder="130"/>
+                    </resource>
+                    <resource id="Dealer_Connect::dealer_claim" title="Dealer Claim" translate="title"
+                              sortOrder="140"
+                              displaytype="grid">
+                        <resource id="Dealer_Connect::dealer_claim_read" actioncode="read" title="Read"
+                                  sortOrder="100"/>
+                        <resource id="Dealer_Connect::dealer_claim_details" actioncode="details" title="Details"
+                                  sortOrder="110"/>
+                        <resource id="Dealer_Connect::dealer_claim_create" actioncode="create" title="Create"
+                                  sortOrder="120"/>
+                        <resource id="Dealer_Connect::dealer_claim_confirmrejects"  actioncode="confirmrejects" title="Confirm OR Reject"
+                                  sortOrder="130"/>
+                        <resource id="Dealer_Connect::dealer_claim_edit" actioncode="edit" title="Edit"
+                                  sortOrder="140"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

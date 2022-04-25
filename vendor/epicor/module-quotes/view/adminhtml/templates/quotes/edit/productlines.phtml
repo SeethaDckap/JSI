@@ -1,0 +1,169 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $quote = $this->getQuote(); 
+$currencyCode = $quote->getcurrencyCode();
+/* @var $currencyCode to get the store currency code */
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $locHelper Epicor_Comm_Helper_Locations */?>
+
+<div class="clear">&nbsp;</div>
+<div class="entry-edit clear">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account">
+            <?php echo __('Quote Items'); ?>
+        </h4>
+    </div>
+    <div class="grid">
+        <table cellspacing="0" id="product-lines" class="data order-tables">
+            <colgroup>
+                <col>
+                <col width="80">
+                <col width="250">
+                <col width="70">
+                <col width="70">
+                <?php if($locHelper->isLocationsEnabled()) : ?>
+                    <col width="160">
+                <?php endif;?>
+                <col width="90">
+                <col width="70">
+                <col width="70">
+                <col width="70">
+            </colgroup>
+            <thead>
+                <tr class="headings">
+                    <th><?php echo __('Product'); ?></th>
+                    <th><?php echo __('Sku'); ?></th>
+                    <th><?php echo __('UOM'); ?></th>
+                    <?php if($locHelper->isLocationsEnabled()) : ?>
+                    <th><?php echo __('Location'); ?></th>
+                    <?php endif;?>
+                    <th><?php echo __('Comment'); ?></th>
+                    <th><?php echo __('Original Quantity'); ?></th>
+                    <th><?php echo __('Original Price'); ?></th>
+                    <th><?php echo __('Quantity'); ?></th>
+                    <th><?php echo __('Price'); ?></th>
+                    <th><?php echo __('Row Price'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $class = 'odd';
+                foreach ($this->getProductLines()->getItems() as $product) :
+                    ?>
+                    <tr class="<?php echo $class; ?>" id="product-<?php echo $product->getId(); ?>">
+                        <td><?php echo $product->getName(); ?>
+                        <?php if ($_options = $product->getProductOptions()): ?>
+                            <dl class="item-options">
+                                <?php foreach ($_options as $_option) : ?>
+                                    <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                                    <dd<?php if (isset($_option['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_option['value'] ?>
+                                        <?php if (isset($_option['full_view'])): ?>
+                                            <div class="truncated_full_value">
+                                                <dl class="item-options">
+                                                    <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                                                    <dd><?php echo $_option['full_view'] ?></dd>
+                                                </dl>
+                                            </div>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php endif; ?>
+                        </td>
+                        <td><?php echo $this->helper('Epicor\Comm\Helper\Data')->getSku($product->getSku()); ?></td>
+                        <td><?php echo $this->helper('Epicor\Comm\Helper\Data')->getUom($product->getSku()); ?></td>
+                        <?php if($locHelper->isLocationsEnabled()) : ?>
+                        <td><?php echo $locHelper->getLocationName($product->getLocationCode()); ?></td>
+                        <?php endif;?>
+                        <td><?php echo $product->getNote(); ?></td>
+                        <td class="a-center"><?php echo $product->getOrigQty(); ?></td>
+                        <td class="a-right"><?php echo $this->formatPrice($product->getOrigPrice(), true, $currencyCode); ?></td>
+                        <td class="a-center">
+                            <?php if ($quote->isActive() && $quote->getStatusId() == Epicor\Quotes\Model\Quote::STATUS_PENDING_RESPONSE) : ?>
+                                <input type="text" class="qty a-center" name="<?php echo $product->getId(); ?>" value="<?php echo $product->getNewQty(); ?>" />
+                            <?php else: ?>
+                                <?php echo $product->getNewQty(); ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="a-center">
+                            <?php if ($quote->isActive() && $quote->getStatusId() == Epicor\Quotes\Model\Quote::STATUS_PENDING_RESPONSE) : ?>
+                                <input type="text" class="price" name="<?php echo $product->getId(); ?>" value="<?php echo $this->formatPrice($product->getNewPrice(), false); ?>" />
+                            <?php else: ?>
+                                <?php echo $this->formatPrice($product->getNewPrice(), true, $currencyCode); ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="a-right rowtotal"><?php echo $this->formatPrice($product->getNewQty() * $product->getNewPrice(), true, $currencyCode); ?></td>
+                    </tr>
+
+                    <?php
+                    if ($class == 'odd')
+                        $class = 'even';
+                    else
+                        $class = 'odd';
+                endforeach;
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <?php if ($locHelper->isLocationsEnabled()) : ?>
+                    <td colspan="10" class="a-right">
+                    <?php else: ?>
+                    <td colspan="9" class="a-right">
+                    <?php endif; ?>
+                            <?php if ($quote->isActive() && $quote->getStatusId() == Epicor\Quotes\Model\Quote::STATUS_PENDING_RESPONSE) : ?>
+                            <button onclick="quoteform.updateTotals('<?php echo $this->getUpdateTotalsUrl(); ?>')"><?php echo __('Update Items and Qty\'s'); ?></button>
+                        <?php else: ?>
+                            <br />
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="clear">&nbsp;</div>
+<div class="entry-edit box-right quote-totals">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account">
+            <?php echo __('Quote Totals'); ?>
+        </h4>
+    </div>
+    <div class="order-totals">
+        <table cellspacing="0" class="data a-right" style="width:100%">
+            <colgroup>
+                <col>
+                <col width="100">
+            </colgroup>
+            <tbody>
+                <?php  if(!$this->helper('Epicor\Comm\Helper\Data')->removeTaxLine($quote->getTaxTotal())):  ?>           
+                    <tr>
+                        <td class="label"><?php echo __('Subtotal'); ?></td>
+                        <td><span class="price" id="subtotal"><?php echo $this->formatPrice($quote->getSubtotal(), true, $currencyCode); ?></span></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><?php echo __('Tax'); ?></td>
+                        <td><span class="price" id="taxTotal"><?php echo $this->formatPrice($quote->getTaxTotal(), true, $currencyCode); ?></span></td>
+                    </tr>
+                <?php else: ?>   
+                    <tr style="display:none">
+                        <td class="label"><?php echo __('Subtotal'); ?></td>
+                        <td><span class="price" id="subtotal"><?php echo $this->formatPrice($quote->getSubtotal(), true, $currencyCode); ?></span></td>
+                    </tr >
+                    <tr style="display:none">
+                        <td class="label"><?php echo __('Tax'); ?></td>
+                        <td><span class="price" id="taxTotal"><?php echo $this->formatPrice($quote->getTaxTotal(), true, $currencyCode); ?></span></td>
+                    </tr>
+                <?php endif ?>    
+                <tr>
+                    <td class="label"><strong><?php echo __('Grand Total'); ?></strong></td>
+                    <td class="emph"><strong><span class="price" id="grandTotal"><?php echo $this->formatPrice($quote->getGrandTotal(), true, $currencyCode); ?></span></strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div><br />
+                            <?php if ($quote->isActive() && $quote->getStatusId() == Epicor\Quotes\Model\Quote::STATUS_PENDING_RESPONSE) : ?>
+        <button class="right" onclick="quoteform.accept('<?php echo $this->getAcceptUrl(); ?>')"><?php echo __('Accept Quote'); ?></button>
+    <?php endif; ?>
+</div><?php //  die('asdadasd'); ?>

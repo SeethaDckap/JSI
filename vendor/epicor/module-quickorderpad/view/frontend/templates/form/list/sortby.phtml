@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/** @var \Epicor\QuickOrderPad\Block\Catalog\Product\Listing\Sortby $this */
+$locHelper = $this->helper('Epicor\Comm\Helper\Locations');
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = ($locHelper->getConfig('epicor_comm_locations/global/stockvisibility') == 'all_source_locations') ? true : false;
+?>
+<?php if ($showLocations && !$allSourceLocations) : ?>
+    <div class="qop-sort toolbar-sorter sorter">
+        <label class="sorter-label" for="sorter"><?php echo __('Organise First By '); ?></label>
+        <select class="sorter-options" onchange="setLocation(this.value)">
+            <option <?=$this->getSelectedOrganiseBy('uom')?> value="<?=$this->getOrganiseByUrl('uom')?>">
+                <?php echo __('Unit of Measure');?>
+            </option>
+            <option <?=$this->getSelectedOrganiseBy('location')?> value="<?=$this->getOrganiseByUrl('location')?>">
+                <?php echo __('Location');?>
+            </option>
+        </select>
+    </div>
+<?php endif; ?>
+
+<?php
+echo $this->getOrigPager();
+?>

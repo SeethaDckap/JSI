@@ -1,0 +1,82 @@
+<?php $product = $this->getProductById($this->getParam('product_id')); ?>
+<?php $productDetailList = json_decode($this->getVariableValue('detail_list')); ?>
+<?php if($product): ?>
+    <?php $imageUrl = $this->helper('Magento\Catalog\Helper\Image')->init($product, 'product_page_image_small')->setImageFile($product->getImage())->getUrl(); ?>
+    <div class="page-title-wrapper" <?php if($product->getData('top_image')):?>style="background-image: url(<?= $product->getData('top_image') ?>);"<?php endif?>></div>
+    <div class="top-container">
+        
+        <div class="product-detail-wrapper">
+            
+            <div class="product-main-image">
+                <img src="<?= $imageUrl ?>">
+            </div>
+            <div class="product-content-wrapper">
+                <div class="product-name-title">
+                    <h1><?= $product->getName()?></h1>
+                </div>
+                <?php if(!empty($productDetailList)): ?>
+                    <div class="product-main-info">
+                        <?php foreach ($productDetailList as $detail): ?>
+                            <?php
+                                $label = $product->getResource()->getAttribute($detail)->getFrontend()->getLabel();
+                                $trimLabel = preg_replace("![^a-z0-9]+!i", "-", strtolower($label));
+                                $frontendInput = $product->getResource()->getAttribute($detail)->getFrontendInput();
+                                $value = ($frontendInput == 'select' || $frontendInput == 'multiselect') ? $product->getAttributeText($detail) : $product->getData($detail);
+
+                            ?>
+                            <?php if(!empty($product->getData($detail))): ?>
+                            <div class="product-detail-item <?= $trimLabel ?>-detail-item">
+                                <div class="label"><?= $label ?></div>
+                                <div class="value"><?= $value ?></div>
+                            </div>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
+    </div>
+
+    <?php $imageBannerJs = $product->getData('image_banner'); ?>
+    <?php if($imageBannerJs): ?>
+        <?php $images = json_decode($imageBannerJs, true); ?>
+        <div class="image-banner-container">
+            <?php foreach ($images as $image): ?>
+                <div class="image-banner">
+                    <img src="<?= $image ?>">
+                </div>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+
+    <div class="components">
+        <div class="component-image">
+            <img src="<?= $product->getData('component_image') ?>">
+        </div>
+        <?php $componentsJs = $product->getData('components'); ?>
+        <?php if($componentsJs): ?>
+            <div class="componts-detail">
+            <?php $components = json_decode($product->getData('components'), true); ?>
+            <?php if(!empty($components)): ?>
+                <?php foreach ($components as $index => $component): ?>
+                    <div class="component">
+                        <div class="index"><?= $index + 1 . ')' ?></div>
+                        <div class="label"><?= $component ?></div>
+                    </div>
+                <?php endforeach ?>
+            <?php endif ?>
+            </div>
+        <?php endif ?>
+    </div>
+
+    <div class="actions-toolbar">
+        <a class="action primary" href="/contact-us"><?= __('Find a JSI Dealer') ?></a>
+    </div>
+<?php endif ?>
+<script type="text/javascript">
+	require(['jquery'], function($){
+		$(document).ready(function() {
+			$('body').addClass('custom-detail-page-view custom-product-page-view')
+		});
+	});
+</script>

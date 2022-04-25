@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="ecc.message.caap" request="Epicor\Comm\Api\Data\CaapInfoInterface">
+        <handler name="ecc.message.caap" type="Epicor\Comm\Model\Queue\Caap\Consumer" method="process" />
+    </topic>
+</config>

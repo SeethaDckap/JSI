@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ quote comment
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Comment */
+?>
+<div class = "box-info box-account col-full block">
+    <div class="block-title">
+        <strong><?php echo __('Comments'); ?></strong>
+    </div>
+    <?php if ($this->registry('rfqs_editable') || $this->registry('rfqs_editable_partial')) : ?>
+        <textarea id="note_text" name="note_text"><?php echo $this->getComment(); ?></textarea>
+    <?php else: ?>
+        <?php echo nl2br($this->getComment()); ?>
+    <?php endif; ?>
+</div>

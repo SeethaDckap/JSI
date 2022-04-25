@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><fieldset>
+        <dl class="sp-methods">
+        <?php if($this->showAsList()): ?>
+            <?php foreach($this->getAvailableDates() as $id => $date): ?>
+                <dt>
+                    <input type="radio" <?php echo $id == 0? 'checked ' : ''; ?>name="shipping_dates[shipby]" id="shipping_dates:shipby-<?php echo $id; ?>" value="<?php echo $date; ?>" />
+                    <label for="shipping_dates:shipby-<?php echo $id; ?>"><?php echo Mage::helper('epicor_comm')->convertIso8601DateNoLocale($date, 'F j, Y'); ?></label>
+                </dt>
+            <?php endforeach; ?>
+            <?php if(count($this->getAvailableDates()) === 0): ?>
+                <dt>
+                    <input type="radio" checked name="shipping_dates[shipby]" id="shipping_dates:shipby-0" value="<?php echo $this->getDefaultAvailableDate(); ?>" />
+                    <label for="shipping_dates:shipby-0"><?php echo __('Next Available Day'); ?></label>
+                </dt>
+            <?php endif;?>
+        <?php else: ?>
+            <dt>
+                <label for="shipping_dates:shipby"><?php echo __('Available Delivery Dates : '); ?></label>
+                <select name="shipping_dates[shipby]" id="shipping_dates[shipby]">
+                <?php foreach($this->getAvailableDates() as $id => $date): ?>
+                    <option value="<?php echo $date; ?>"><?php echo Mage::helper('epicor_comm')->convertIso8601DateNoLocale($date, 'F j, Y'); ?></option>
+                <?php endforeach; ?>
+                <?php if(count($this->getAvailableDates()) === 0): ?>
+                    <dt>
+                        <option value="<?php echo $this->getDefaultAvailableDate(); ?>">
+                            <?php echo __('Next Available Day'); ?>
+                        </option>
+                    </dt>
+                <?php endif;?>
+                </select>
+            </dt>
+        <?php endif; ?>
+        </dl>
+</fieldset>

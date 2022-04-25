@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+<template id="ecc_arpayment_email_template" label="AR Payments Email" file="arpayments/arpayments_invoice_order.html" type="html" area="frontend" module="Epicor_Customerconnect"/>
+<template id="ecc_document_email_template" label="Document Email" file="document/document_email.html" type="html" area="frontend" module="Epicor_Customerconnect"/>
+</config>

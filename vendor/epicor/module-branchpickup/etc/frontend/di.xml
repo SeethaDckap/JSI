@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="branchpickup_checkout_default_config_provider" xsi:type="object">Epicor\BranchPickup\Model\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>    
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="branchpickup_add_custom_field" type="Epicor\BranchPickup\Plugin\Block\LayoutProcessor" sortOrder="100"/>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="branchPickUpLink" xsi:type="string">Epicor\BranchPickup\CustomerData\BranchPickUpLink</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

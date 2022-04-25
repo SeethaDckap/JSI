@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <preference for="Epicor\Customerconnect\Api\Data\CartInterface" type="Epicor\Customerconnect\Model\ArPayment\Quote" />
+    <preference for="Epicor\Customerconnect\Api\Data\AddressInterface" type="Epicor\Customerconnect\Model\ArPayment\Quote\Address" />
+    <preference for="Epicor\Customerconnect\Api\Data\PaymentInterface" type="Epicor\Customerconnect\Model\ArPayment\Quote\Payment" />
+    <preference for="Epicor\Customerconnect\Model\ArPayment\Quote\Address\CustomAttributeListInterface" type="Epicor\Customerconnect\Model\ArPayment\Quote\Address\CustomAttributeList" />
+    <preference for="Epicor\Customerconnect\Api\Data\CartItemInterface" type="picor\Customerconnect\Model\ArPayment\Quote\Item" />
+    
+    <preference for="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\NotSyncedDataProviderInterface" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\NotSyncedDataProvider" />
+    <preference for="Epicor\Customerconnect\Api\Data\OrderAddressInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Address"/>
+    <preference for="Epicor\Customerconnect\Api\Data\OrderInterface" type="Epicor\Customerconnect\Model\ArPayment\Order"/>
+    <preference for="Epicor\Customerconnect\Api\OrderAddressRepositoryInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\AddressRepository"/>
+    <preference for="Epicor\Customerconnect\Api\Data\OrderPaymentInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment"/>
+    <preference for="Epicor\Customerconnect\Api\OrderPaymentRepositoryInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Repository"/>
+    <preference for="Epicor\Customerconnect\Api\Data\TransactionInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction"/>
+    <preference for="Epicor\Customerconnect\Api\Data\OrderItemInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Item"/>
+    <preference for="Epicor\Customerconnect\Api\Data\OrderStatusHistoryInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Status\History"/>
+    <preference for="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\BuilderInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\Builder"/>
+    <preference for="Epicor\Customerconnect\Api\TransactionRepositoryInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\Repository"/>
+    <preference for="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\ManagerInterface" type="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\Manager"/>
+    <preference for="Epicor\Customerconnect\Api\OrderRepositoryInterface" type="Epicor\Customerconnect\Model\ArpaymentsRepository"/>    
+    <type name="Epicor\Customerconnect\Model\ArPayment\ResourceModel\GridPool">
+        <arguments>
+            <argument name="grids" xsi:type="array">
+                <item name="ar_order_grid" xsi:type="object">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <virtualType name="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Grid" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Grid">
+        <arguments>
+            <argument name="mainTableName" xsi:type="string">ecc_ar_sales_order</argument>
+            <argument name="gridTableName" xsi:type="string">ecc_ar_sales_order_grid</argument>
+            <argument name="orderIdField" xsi:type="string">ecc_ar_sales_order.entity_id</argument>
+            <argument name="joins" xsi:type="array">
+                <item name="ar_sales_shipping_address" xsi:type="array">
+                    <item name="table" xsi:type="string">ecc_ar_sales_order_address</item>
+                    <item name="origin_column" xsi:type="string">shipping_address_id</item>
+                    <item name="target_column" xsi:type="string">entity_id</item>
+                </item>
+                <item name="ar_sales_billing_address" xsi:type="array">
+                    <item name="table" xsi:type="string">ecc_ar_sales_order_address</item>
+                    <item name="origin_column" xsi:type="string">billing_address_id</item>
+                    <item name="target_column" xsi:type="string">entity_id</item>
+                </item>
+                <item name="ecc_ar_sales_order_payment" xsi:type="array">
+                    <item name="table" xsi:type="string">ecc_ar_sales_order_payment</item>
+                    <item name="origin_column" xsi:type="string">entity_id</item>
+                    <item name="target_column" xsi:type="string">parent_id</item>
+                </item>
+            </argument>
+            <argument name="columns" xsi:type="array">
+                <item name="entity_id" xsi:type="string">ecc_ar_sales_order.entity_id</item>
+                <item name="status" xsi:type="string">ecc_ar_sales_order.status</item>
+                <item name="store_id" xsi:type="string">ecc_ar_sales_order.store_id</item>
+                <item name="store_name" xsi:type="string">ecc_ar_sales_order.store_name</item>
+                <item name="customer_id" xsi:type="string">ecc_ar_sales_order.customer_id</item>
+                <item name="base_grand_total" xsi:type="string">ecc_ar_sales_order.base_grand_total</item>
+                <item name="base_total_paid" xsi:type="string">ecc_ar_sales_order.base_total_paid</item>
+                <item name="grand_total" xsi:type="string">ecc_ar_sales_order.grand_total</item>
+                <item name="total_paid" xsi:type="string">ecc_ar_sales_order.total_paid</item>
+                <item name="increment_id" xsi:type="string">ecc_ar_sales_order.increment_id</item>
+                <item name="base_currency_code" xsi:type="string">ecc_ar_sales_order.base_currency_code</item>
+                <item name="order_currency_code" xsi:type="string">ecc_ar_sales_order.order_currency_code</item>
+                <item name="shipping_name" xsi:type="object">arShippingNameAggregator</item>
+                <item name="billing_name" xsi:type="object">arBillingNameAggregator</item>
+                <item name="created_at" xsi:type="string">ecc_ar_sales_order.created_at</item>
+                <item name="updated_at" xsi:type="string">ecc_ar_sales_order.updated_at</item>
+                <item name="billing_address" xsi:type="object">arBillingAddressAggregator</item>
+                <item name="shipping_address" xsi:type="object">arShippingAddressAggregator</item>
+               <item name="customer_email" xsi:type="string">ecc_ar_sales_order.customer_email</item>
+                <item name="customer_group" xsi:type="string">ecc_ar_sales_order.customer_group_id</item>
+                <item name="customer_name" xsi:type="object">arCustomerNameAggregator</item>
+                <item name="payment_method" xsi:type="string">ecc_ar_sales_order_payment.method</item>
+                <item name="ecc_arpayments_allocated_amount" xsi:type="string">ecc_ar_sales_order.ecc_arpayments_allocated_amount</item>
+                <item name="ecc_arpayments_amountleft" xsi:type="string">ecc_ar_sales_order.ecc_arpayments_amountleft</item>
+                <item name="ecc_arpayments_ispayment" xsi:type="string">ecc_ar_sales_order.ecc_arpayments_ispayment</item>
+                <item name="ecc_caap_message" xsi:type="string">ecc_ar_sales_order.ecc_caap_message</item>
+                <item name="ecc_caap_sent" xsi:type="string">ecc_ar_sales_order.ecc_caap_sent</item>
+                <item name="erp_arpayments_order_number" xsi:type="string">ecc_ar_sales_order.erp_arpayments_order_number</item>
+            </argument>
+            <argument name="notSyncedDataProvider" xsi:type="object">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\NotSyncedOrderDataProvider</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arCustomerNameAggregator" type="Magento\Framework\DB\Sql\ConcatExpression">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="customer_firstname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ecc_ar_sales_order</item>
+                    <item name="columnName" xsi:type="string">customer_firstname</item>
+                </item>
+                <item name="customer_lastname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ecc_ar_sales_order</item>
+                    <item name="columnName" xsi:type="string">customer_lastname</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arShippingNameAggregator" type="Magento\Framework\DB\Sql\ConcatExpression">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="firstname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">firstname</item>
+                </item>
+                <item name="lastname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">lastname</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arBillingNameAggregator" type="Magento\Framework\DB\Sql\ConcatExpression">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="firstname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">firstname</item>
+                </item>
+                <item name="lastname" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">lastname</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arShippingAddressAggregator" type="Magento\Framework\DB\Sql\ConcatExpression">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="street" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">street</item>
+                </item>
+                <item name="city" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">city</item>
+                </item>
+                <item name="region" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">region</item>
+                </item>
+                <item name="postcode" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_shipping_address</item>
+                    <item name="columnName" xsi:type="string">postcode</item>
+                </item>
+            </argument>
+            <argument name="separator" xsi:type="string">, </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arBillingAddressAggregator" type="Magento\Framework\DB\Sql\ConcatExpression">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="street" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">street</item>
+                </item>
+                <item name="city" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">city</item>
+                </item>
+                <item name="region" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">region</item>
+                </item>
+                <item name="postcode" xsi:type="array">
+                    <item name="tableAlias" xsi:type="string">ar_sales_billing_address</item>
+                    <item name="columnName" xsi:type="string">postcode</item>
+                </item>
+            </argument>
+            <argument name="separator" xsi:type="string">, </argument>
+        </arguments>
+    </virtualType>
+    
+
+    <virtualType name="arSalesOrderIndexGridAsyncInsert" type="Epicor\Customerconnect\Model\ArPayment\GridAsyncInsert">
+        <arguments>
+            <argument name="entityGrid" xsi:type="object">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Grid</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\NotSyncedOrderDataProvider" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\NotSyncedDataProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="default" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\UpdatedIdListProvider</item>
+                <item name="updated_at" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Provider\UpdatedAtListProvider</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+   
+    <virtualType name="arorderMetadata" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order</argument>
+            <argument name="modelClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\Order</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arorderItemMetadata" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Item</argument>
+            <argument name="modelClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\Order\Item</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="arpaymentMetaData" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Payment</argument>
+            <argument name="modelClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\Order\Payment</argument>
+        </arguments>
+    </virtualType>
+     <virtualType name="arorderAddressMetadata" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Address</argument>
+            <argument name="modelClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\Order\Address</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="artransactionMetaData" type="Epicor\Customerconnect\Model\ArPayment\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Payment\Transaction</argument>
+            <argument name="modelClassName" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction</argument>
+        </arguments>
+    </virtualType>
+    <type name="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Repository">
+        <arguments>
+            <argument name="metaData" xsi:type="object">arpaymentMetaData</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Customerconnect\Model\ArPayment\Order\AddressRepository">
+        <arguments>
+            <argument name="metadata" xsi:type="object">arorderAddressMetadata</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Customerconnect\Model\ArPayment\Order">
+        <arguments>
+            <argument name="orderGrid" xsi:type="object">arSalesOrderIndexGridAsyncInsert</argument>
+        </arguments>
+    </type>
+    <virtualType name="arSalesOrderIndexGridAsyncInsertObserver" type="Epicor\Customerconnect\Observer\GridSyncInsertObserver">
+        <arguments>
+            <argument name="entityGrid" xsi:type="object">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Grid</argument>
+        </arguments>
+    </virtualType>
+    <type name="Epicor\Customerconnect\Model\ArPayment\Order\Payment\Transaction\Repository">
+        <arguments>
+            <argument name="metaData" xsi:type="object">artransactionMetaData</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="arpayments_grid_data_source" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Order\Grid\Collection</item>
+                <item name="arpayment_view_log_grid_data_source" xsi:type="string">Epicor\Customerconnect\Model\ArPayment\ResourceModel\Message\Log\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Customerconnect\Model\ArpaymentsRepository">
+        <arguments>
+            <argument name="metadata" xsi:type="object">arorderMetadata</argument>
+        </arguments>
+    </type>
+    <type name="Epicor\Customerconnect\Helper\Arpayments">
+        <arguments>
+            <argument name="configinterfacear" xsi:type="object">Epicor\Customerconnect\Model\ArPayment\Session\Proxy</argument>
+        </arguments>
+    </type> 
+    <type name="Magento\Checkout\Model\Session">
+        <plugin name="ar-payment-checkout-sessions" type="Epicor\Customerconnect\Plugin\Arpayments\ArpaymentCheckoutSession" />
+    </type>   
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="ar-payments-set-cart-id-information" type="Epicor\Customerconnect\Plugin\Arpayments\ArPaymentInformationManagementPlugin" sortOrder="1000"/>
+    </type>     
+    <type name="Magento\Quote\Model\PaymentMethodManagement">
+        <plugin name="ar-payments-set-cart-id-paymentmethod" type="Epicor\Customerconnect\Plugin\Arpayments\ArPaymentPaymentMethodManagement" sortOrder="1000"/>
+    </type>  
+    <type name="Magento\Payment\Gateway\Data\PaymentDataObjectFactory">
+        <plugin name="ar-payments-set-cart-id-information" type="Epicor\Customerconnect\Plugin\Arpayments\ArPaymentPaymentDataObjectFactory" sortOrder="1000"/>
+    </type>
+    <type name="Magento\Multishipping\Block\Checkout\Shipping">
+        <plugin name="hide_price_multishipping_checkout" type="Epicor\Customerconnect\Plugin\HidePrices\CheckoutMultiShippingPlugin" sortOrder="1000"/>
+    </type>
+    <type name="Magento\Multishipping\Block\Checkout\Overview">
+        <plugin name="hide_price_multishipping_overview_checkout" type="Epicor\Customerconnect\Plugin\HidePrices\CheckoutMultiShippingOverviewPlugin" sortOrder="1000"/>
+    </type>
+    <type name="Epicor\Customerconnect\Model\Message\Upload\Cuco">
+        <arguments>
+            <argument name="customerSender" xsi:type="object">Epicor\Customerconnect\Model\Message\Email\Sender\CustomerSender</argument>
+        </arguments>
+    </type>
+</config>

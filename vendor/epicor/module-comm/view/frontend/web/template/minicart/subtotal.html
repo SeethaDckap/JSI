@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<!-- ko if: canDisplay() -->
+    <div class="subtotal">
+        <span class="label">
+            <!-- ko i18n: 'Cart Subtotals' --><!-- /ko -->
+        </span>
+        <!-- ko foreach: elems -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+

@@ -1,0 +1,52 @@
+<?php /**@var Epicor\Elasticsearch\Block\Autosuggest $block  */?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<div data-bind="scope: 'eccAutoSuggestForm'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "eccAutoSuggestForm": {
+                    "component": "Epicor_Elasticsearch/js/eccAutoSuggest",
+                    "config": {
+                        "prodtitle": "<?= $block->getProductTitle(); ?>",
+                        "dymtitle": "<?= $block->getDidYouMeanTitle(); ?>",
+                        "categorytitle": "<?= $block->getCategoryTitle(); ?>",
+                        "cmstitle": "<?= $block->getCmsPageTitle(); ?>",
+                        "rsTitle": "<?= $block->getRecentSearchTitle(); ?>",
+                        "rsContent": "<?= $block->getRecentSearches(); ?>",
+                        "hsTitle": "<?= $block->getHotSearchTitle(); ?>",
+                        "hsContent": "<?= $block->getHotSearches(); ?>"
+                    }
+                },
+                "eccAutoSuggestBindEvents": {
+                    "component": "Epicor_Elasticsearch/js/eccAutoSuggestBindEvents",
+                    "config": {
+                        "searchTermFormSelector": "#search_mini_form",
+                        "searchTermButtonSelector": "button.search",
+                        "searchTermInputSelector": "#search, #mobile_search, .minisearch input[type=\"text\"]",
+                        "searchTermMinLength": "<?php echo $block->escapeHtml($block->getMinQueryLength()) ?>",
+                        "rsEnabled": "<?= $block->isRecentSearchEnabled(); ?>",
+                        "rsConfig": "<?= $block->getRecentSearchConfig(); ?>",
+                        "hsEnabled": "<?= $block->isHotSearchEnabled(); ?>",
+                        "hsConfig": "<?= $block->getHotSearchConfig(); ?>"
+                    }
+                },
+                "eccAutoSuggestDataProvider": {
+                    "component": "Epicor_Elasticsearch/js/eccAutoSuggestDataProvider",
+                    "config": {
+                        "url": "<?php echo $block->escapeUrl($block->getAutoSuggestUrl()); ?>"
+                    }
+                }
+            }
+        }
+    }
+}
+</script>

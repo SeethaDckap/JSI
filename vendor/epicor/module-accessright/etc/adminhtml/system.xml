@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="epicor_config" translate="label" sortOrder="1">
+            <label>Epicor Configuration</label>
+        </tab>
+        <section id="epicor_access_control" sortOrder="50001" type="text" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Access Control</label>
+            <tab>epicor_config</tab>
+            <resource>Epicor_Comm::access_control_config</resource>
+            <group id="global" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Access Control</label>
+                <field id="global_settings_heading" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Global Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="enabled" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="access_role_settings" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Access Role Settings</label>
+                <depends>
+                    <field id="epicor_access_control/global/enabled">1</field>
+                </depends>
+                <field id="b2b_default" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Default Role for B2B Account Type</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\RoleSetting</source_model>
+                </field>
+                <field id="b2b_access_role" sortOrder="20" type="Epicor\AccessRight\Model\Data\Form\Element\Multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Access Role</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\GlobalAccessRoles\B2BAccessRoles</source_model>
+                    <validate>validate-select</validate>
+                    <depends>
+                        <field id="epicor_access_control/global/enabled">1</field>
+                        <field id="b2b_default">access_role</field>
+                    </depends>
+                </field>
+                <field id="b2c_default" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Default Role for B2C Account Type</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\RoleSetting</source_model>
+                </field>
+                <field id="b2c_access_role" sortOrder="40" type="Epicor\AccessRight\Model\Data\Form\Element\Multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Access Role</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\GlobalAccessRoles\B2CAccessRoles</source_model>
+                    <validate>validate-select</validate>
+                    <depends>
+                        <field id="epicor_access_control/global/enabled">1</field>
+                        <field id="b2c_default">access_role</field>
+                    </depends>
+                </field>
+                <field id="dealer_default" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Default Role for Dealer Account Type</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\RoleSetting</source_model>
+                </field>
+                <field id="dealer_access_role" sortOrder="60" type="Epicor\AccessRight\Model\Data\Form\Element\Multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Access Role</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\GlobalAccessRoles\DealerAccessRoles</source_model>
+                    <validate>validate-select</validate>
+                    <depends>
+                        <field id="epicor_access_control/global/enabled">1</field>
+                        <field id="dealer_default">access_role</field>
+                    </depends>
+                </field>
+                <field id="supplier_default" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Default Role for Supplier Account Type</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\RoleSetting</source_model>
+                </field>
+                <field id="supplier_access_role" sortOrder="80" type="Epicor\AccessRight\Model\Data\Form\Element\Multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Access Role</label>
+                    <source_model>Epicor\AccessRight\Model\Config\Source\GlobalAccessRoles\SupplierAccessRoles</source_model>
+                    <validate>validate-select</validate>
+                    <depends>
+                        <field id="epicor_access_control/global/enabled">1</field>
+                        <field id="supplier_default">access_role</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

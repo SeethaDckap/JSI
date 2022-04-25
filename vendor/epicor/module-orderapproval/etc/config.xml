@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ecc_order_approval>
+            <global>
+                <enabled>0</enabled>
+                <message_for_buyer>Your order is pending approval.</message_for_buyer>
+            </global>
+            <approver_email>
+                <enabled>1</enabled>
+                <template>ecc_order_approval_approver_email_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </approver_email>
+            <requestor_pending>
+                <enabled>1</enabled>
+                <template>ecc_order_approval_requestor_pending_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </requestor_pending>
+            <requestor_approved>
+                <enabled>1</enabled>
+                <template>ecc_order_approval_requestor_approved_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </requestor_approved>
+            <requestor_rejected>
+                <enabled>1</enabled>
+                <template>ecc_order_approval_requestor_rejected_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </requestor_rejected>
+        </ecc_order_approval>
+    </default>
+</config>

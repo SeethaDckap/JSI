@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * 
+ */
+/* @var $this Epicor_SalesRep_Block_Account_Manage_Hierarchy */
+?>
+<?php echo $this->getChildHtml('manage.parents', false); ?>
+<?php if ($this->canAddChildrenAccounts()) : ?>
+    <p></p>
+    <form id="child_account_add_form" action="<?php echo $this->getUrl('*/*/childaccountadd'); ?>" method="post" style="display:none">
+        <?php echo $this->getChildHtml('manage.childrenform', false); ?>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        var salesRepAddForm = new varienForm("child_account_add_form", "");
+        //]]>
+    </script>
+<?php endif; ?>
+<?php echo $this->getChildHtml('manage.children', false); ?>

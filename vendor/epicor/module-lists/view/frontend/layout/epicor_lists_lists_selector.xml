@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css"/>
+        <link src="Epicor_Lists::epicor/lists/js/quickorderpad/selector.js"/>
+        <link src="requirejs/require.js"/>
+        <link src="mage/requirejs/mixins.js"/>
+        <css src="css/styles-m.css" />
+        <css src="css/styles-l.css" media="screen and (min-width: 768px)"/>
+        <css src="css/print.css" media="print" />
+    </head>
+    <container name="root" label="Root">
+        <block output="1" class="Epicor\Lists\Block\Quickorderpad\Listing\Selector\Listing" name="quickorderpad.selector.popup"/>
+        <block class="Magento\Backend\Block\Page\RequireJs" name="require.js.sec"  template="Epicor_Customerconnect::customerconnect/page/js/require_js.phtml"/>
+        <block class="Magento\RequireJs\Block\Html\Head\Config" name="requirejs-config"/>
+    </container>
+</page>

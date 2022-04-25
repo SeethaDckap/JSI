@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php /* @var $this Mage_Core_Block_Template */ ?>
+<?php if ($websites = $this->getWebsites()): ?>
+<select name="store_selector_<?php echo $this->getData('storenumber') ?>" id="store_selector_<?php echo $this->getData('storenumber') ?>" onchange="return switchStore(this);">
+    <option value="not selected"><?php echo 'Select Store' ?></option>
+              
+    <?php foreach ($websites as $website): ?>
+        <?php $showWebsite = false; ?>
+        <?php foreach ($website->getGroups() as $group): ?>
+            <?php $showGroup = false; ?>
+            <?php foreach ($this->getStores($group) as $store): ?>
+                <?php if ($showWebsite == false): ?>
+                    <?php $showWebsite = true; ?>
+                    <optgroup label="<?php echo $this->escapeHtml($website->getName()) ?>"></optgroup>
+                <?php endif; ?>
+                <?php if ($showGroup == false): ?>
+                    <?php $showGroup = true; ?>
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()) ?>">
+                <?php endif; ?>
+                <option value="<?php echo $this->escapeHtml($store->getId()) ?>">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()) ?></option>
+            <?php endforeach; ?>
+            <?php if ($showGroup): ?>
+                </optgroup>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+</select>
+<script type="text/javascript">
+</script>
+<?php endif; ?>

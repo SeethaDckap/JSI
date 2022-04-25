@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $allowAdditional =  Mage::helper('epicor_common')->customerAddressPermissionCheck('create'); ?>
+<?php $dropdownValues = $this->getErpDropdownValues();?>
+<?php $currentDropdownValue = $this->getErpCurrentDropdownValue();?>
+<?php $billingAddressValues = $this->getSaveBillingAddressValues();?>
+<?php $currentBillingAddressValue = $this->getSaveBillingAddressCurrentValue();?> 
+
+<div class="col-1 box-info box-account" style="width:346px;padding:0; margin-top:-20px;margin-bottom:0; float:right;">   
+    <div id="new_address_messages"></div>
+    <div id="form">
+        <form id="save_new_address_values" method="post" style="width:346px !important;">
+            <span id='save_new_address_section' style="clear:both;display:inline-block; width:345px;">
+                <label style="font-weight:bold; float:left;" for="save_new_address_values_select">Save New Addresses :</label>
+                <select id="save_new_address_values_select" style="width:200px;float:right; margin-right:15px;" name="new_address_values">
+                    <?php foreach ($dropdownValues as $value): ?>
+                        <option value="<?php echo $value['value'] ?>" <?php if ($value['value'] == $currentDropdownValue): ?>selected="selected"<?php endif ?>><?php echo $value['label'] ?></option>
+                    <?php endforeach ?>
+                </select>  
+            </span>    
+            </br>
+            <span id='save_billing_section' style="clear:both;display:inline-block; width:345px;">
+                <label style="font-weight:bold; float:left; margin-left:4px;" for="save_billing">Save Billing Address :</label>
+                <select id="save_billing" style="width:103px;margin-right:111px; display:hidden; float:right;" name="save_billing">
+                    <?php foreach ($billingAddressValues as $billingValue): ?>
+                        <option value="<?php echo $billingValue['value'] ?>" <?php if ($billingValue['value'] == $currentBillingAddressValue): ?>selected="selected"<?php endif ?>><?php echo $billingValue['label'] ?></option>
+                    <?php endforeach ?>
+                </select> 
+            </span>   
+            </br>
+            <button style="clear:both;float:right; margin-right:15px;" type="button" id="save_new_address_button" class="form-button"><span>Update</span></button>        
+        </form>    
+    </div>   
+
+</div>
+
+<script type="text/javascript">
+    document.observe('dom:loaded', function() { 
+        var  currentDropdownValue = <?php echo "'".$currentDropdownValue."'";?>;
+        var  currentBillingAddressValue = <?php echo "'".$currentBillingAddressValue."'";?>;
+        
+        if($('save_new_address_values_select').value != 'ErpAccount'){
+            $('save_billing_section').hide();
+        } 
+        $('save_new_address_button').on('click',function(){  
+            if(($('save_new_address_values_select').value == currentDropdownValue)
+                && ($('save_billing').value == currentBillingAddressValue)){
+                 $$('#new_address_messages ul').each(function(a){
+                    a.remove();
+                 })    
+                $('new_address_messages').insert('<ul class="messages"style="width: 200px;"><li class="error-msg">\n\
+                    No changes to update</li></ul>');                   
+            }else{
+                $("loading-mask").show();
+                var baseurl = location.protocol + "//" + location.hostname;
+                var json_form_data = Object.toJSON($('save_new_address_values').serialize(true));
+                currentDropdownValue = $('save_new_address_values_select').value;
+                currentBillingAddressValue = $('save_billing').value;
+                var url = baseurl + '/customerconnect/account/saveErpBillingAddress';								// appropriate controller/method
+                url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+                this.ajaxRequest = new Ajax.Request(url,{										// ajax call
+                        method: 'post',
+                        parameters: {json_form_data:json_form_data},
+                        onComplete: function(request){
+                                this.ajaxRequest = false;
+                        }.bind(this),
+                        onSuccess: function (request){
+                            $$('#new_address_messages ul').each(function(a){
+                                a.remove();
+                            }) 
+                            $("loading-mask").hide();
+                            $('new_address_messages').insert('<ul class="messages"style="width: 200px;"><li class="error-msg">Update Successful</li></ul>');
+                        }.bind(this),
+                        onFailure: function(request){                         
+                            $('new_address_messages').insert('<ul class="messages"style="width: 200px;"><li class="error-msg">Update Failed</li></ul>');
+                            $("loading-mask").hide();
+                        }.bind(this)         
+                });  
+            }     
+        })
+        $(document.body).select('save_new_address_values_select').each(function(f){			
+		f.style.height = 400 + 'px';
+      })
+      $('save_new_address_values_select').on('change', function(){
+            if($('save_new_address_values_select').value == 'ErpAccount'){
+                $('save_billing_section').show();
+            }else{              
+                $('save_billing').value = currentBillingAddressValue;
+                $('save_billing_section').hide();
+            }   
+      })  
+    })     
+        
+   
+</script> 

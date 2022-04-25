@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+    </head>
+    <body>
+        <reference name="root">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Lists::page/1column.phtml</argument>
+            </action>
+        </reference>
+        <referenceContainer name="content">
+            <block class="Epicor\Lists\Block\Contract\Addresses" name="contract_addresses" as="contract.addresses"/>
+        </referenceContainer>
+    </body>
+</page>

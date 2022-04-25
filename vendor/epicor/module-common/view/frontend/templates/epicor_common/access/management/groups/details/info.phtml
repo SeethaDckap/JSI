@@ -1,0 +1,15 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php $group = $this->registry('access_group'); ?>
+<?php $disabled = ($this->registry('access_group_global')) ? ' disabled="disabled"' : ''; ?>
+<div id="rfq-general" class="box-info box-account box-form col-1">
+    <div class="box-head">
+        <h2><?php echo Mage::helper('supplierconnect')->__('Information'); ?></h2>
+    </div> 
+    <div id="group-name">
+        <label for="name">Name: </label>
+        <input type="input" name="name" id="name" value="<?php echo $group->getEntityName(); ?>" <?php echo $disabled; ?>/>
+    </div> 
+</div>

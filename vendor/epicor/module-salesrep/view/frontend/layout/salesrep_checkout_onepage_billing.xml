@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <block template="Epicor_Comm::epicor_comm/checkout/onepage/billing.phtml" output="1" class="Mage\Checkout\Block\Onepage\Billing" name="salesrep_billing_step" as="salesrep_billing_step"/>
+    </body>
+</page>

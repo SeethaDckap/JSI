@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="epicor_dealer_setpricemode" instance="Epicor\Dealerconnect\Observer\setCurrentPriceMode"/>
+    </event>
+    <event name="customer_logout">
+        <observer name="epicor_dealer_unsetpricemode" instance="Epicor\Dealerconnect\Observer\unsetCurrentPriceMode"/>
+    </event>
+    <event name="epicor_customerconnect_crq_detail_lines_grid_columns_after">
+        <observer name="update_crq_detail_line_grid_columns_for_dealer" instance="Epicor\Dealerconnect\Observer\Crq\UpdateColumnsForDealerPrices"/>
+    </event>
+    <event name="epicor_customerconnect_cuos_grid_columns_after">
+        <observer name="update_cuos_columns_for_dealer" instance="Epicor\Dealerconnect\Observer\Cuos\UpdateColumnsForDealerPrices"/>
+    </event>
+    <event name="epicor_customerconnect_crqs_grid_columns_after">
+        <observer name="update_crqs_columns_for_dealer" instance="Epicor\Dealerconnect\Observer\Crqs\UpdateColumnsForDealerPrices"/>
+    </event>
+    <event name="epicor_customerconnect_cuod_grid_columns_after">
+        <observer name="update_cuod_columns_for_dealer" instance="Epicor\Dealerconnect\Observer\Cuod\UpdateColumnsForDealerPrices"/>
+    </event>
+</config>

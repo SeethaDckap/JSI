@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+         <link src="Epicor_Comm::js/epicor/comm/editProduct/syncImages.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Comm::epicor_comm/catalog/product/edit/sync.phtml" class="Epicor\Comm\Block\Adminhtml\Catalog\Product\Edit\Sync" name="ftp_sync"/>
+        </referenceContainer>
+        <referenceBlock name="product_tabs">
+            <action method="addTab">
+                <argument name="name" xsi:type="string">product_customersku</argument>
+                <argument name="block" xsi:type="string">epicor_comm/adminhtml_catalog_product_edit_tab_customersku</argument>
+            </action>
+
+            <action method="addTab">
+                <argument name="name" xsi:type="string">product_message_log</argument>
+                <argument name="block" xsi:type="string">epicor_comm/adminhtml_catalog_product_edit_tab_log</argument>
+            </action>
+        </referenceBlock>
+
+    </body>
+</page>

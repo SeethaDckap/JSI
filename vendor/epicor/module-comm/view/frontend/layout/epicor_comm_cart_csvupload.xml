@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <update handle="customer_account"/>   
+    <head>
+        <title>ADD TO CART BY CSV</title>
+        <css src="Epicor_Comm::epicor/comm/css/addtocartbycsv.css"/>
+    </head>   
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_Comm::epicor_comm/cart/product/csvupload_myaccount.phtml" class="Epicor\Comm\Block\Cart\Product\Csvupload" name="csvupload"/>
+            <block template="Epicor_QuickOrderPad::form/errors.phtml" class="Epicor\QuickOrderPad\Block\Errors" name="qoperrors" as="qoperrors"/>
+        </referenceContainer>      
+    </body>
+</page>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_customer_save_after">
+        <observer name="epicor_accessright_admin_customer_save_after"
+                  instance="Epicor\AccessRight\Model\Observer\AdminCustomerSaveAfter"/>
+    </event>
+    <event name="cms_page_save_commit_after">
+        <observer name="epicor_accessright_cms_page_save_after"
+                  instance="Epicor\AccessRight\Observer\CmsPageSaveAfter"/>
+    </event>
+    <event name="cms_page_delete_commit_after">
+        <observer name="epicor_accessright_cms_page_delete_after"
+                  instance="Epicor\AccessRight\Observer\CmsPageDeleteAfter"/>
+    </event>
+</config>

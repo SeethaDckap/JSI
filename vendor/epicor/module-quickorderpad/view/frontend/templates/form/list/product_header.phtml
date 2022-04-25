@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+/** @var $this \Epicor\QuickOrderPad\Block\Catalog\Product\Listing\Child */
+$orderBy = $this->getProductColumnDefaultOrder();
+$this->isListSelected();
+?>
+<?php if ($this->isQuickOrderResult() && $this->isUsedForSortBySetOnSku()): ?>
+    <th class="data-grid-th _sortable <?= $this->getDirectionSelector($orderBy, true) ?> productname">
+        <?php if ($this->isListSelected()): ?>
+            <span class="qop-results-default-order">
+            <button type="sumbit"
+                    title="Initial Sequence" class="default-order-button action primary">
+                <span>Initial Sequence</span>
+            </button>
+        </span>
+        <?php endif ?>
+        <?php if (!$this->isListSelected()): ?>
+            <span class="qop-product-order" onclick="setLocation('<?= $this->getSortByUrl($orderBy) ?>')">
+                <span><?php echo __('Product') ?></span>
+            </span>
+        <?php endif ?>
+        <?php if ($this->isListSelected()): ?>
+            <span class="qop-product-order" onclick="setLocation('<?= $this->getSortByUrl($orderBy) ?>')">
+                <button type="sumbit" title="Click to sort by product" class="sort-by-product default-action primary">
+                    <span>Product</span>
+                </button>
+
+        </span>
+        <?php endif ?>
+    </th>
+<?php else: ?>
+    <th class="productname"><?php echo __('Product') ?></th>
+<?php endif ?>

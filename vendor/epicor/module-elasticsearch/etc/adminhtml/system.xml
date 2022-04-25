@@ -1,0 +1,405 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="catalog">
+      <group id="search">
+        <field id="ecc_wildcard_suffix" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+          <label>Append the Search Terms with a Wildcard</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <comment><![CDATA[Searching for <strong>red</strong> with also return <strong>red</strong>uction]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_wildcard_prefix" translate="label" type="select" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Prepend the Search Terms with a Wildcard</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <comment><![CDATA[Searching for <strong>red</strong> with also return feathe<strong>red</strong>]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_and_or" translate="label" type="select" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Search Terms are Matched with the OR Condition</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_separators" translate="label" sortOrder="230" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Search Terms Separators</label>
+          <backend_model>Epicor\Elasticsearch\Model\System\Config\Reindex</backend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_max_results" translate="label" sortOrder="240" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Number of Results Returned by the Search Query</label>
+          <comment><![CDATA[Default of 250 results, leave blank for default and recommended to give a value in mutiple of 5]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_autosuggestion_heading" translate="label" sortOrder="245" showInDefault="1" showInWebsite="1">
+          <label>ECC Auto Suggestion</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_autosuggestion_enabled" translate="label" type="select" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+          </depends>
+        </field>
+        <field id="ecc_product_heading" translate="label" sortOrder="255" showInDefault="1" showInWebsite="1">
+          <label>Products</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_enabled" translate="label" type="select" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_title" translate="label" type="text" sortOrder="265" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_maxresults" translate="label" type="text" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_skulength" translate="label" type="text" sortOrder="275" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>SKU Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-20</validate>
+          <comment><![CDATA[Max Allowed = 20]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_resultsby" translate="label" type="select" sortOrder="277" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Display Product Search Results by</label>
+          <validate>required-entry</validate>
+          <source_model>Epicor\Elasticsearch\Model\System\Config\Source\Resultsby</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_namelength" translate="label" type="text" sortOrder="278" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Name Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-40</validate>
+          <comment><![CDATA[Max Allowed = 40]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_descriptionlength" translate="label" type="text" sortOrder="280" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Short Description Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-40</validate>
+          <comment><![CDATA[Max Allowed = 40]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_showreviews" translate="label" type="select" sortOrder="285" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show Reviews</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_product_displayprice" translate="label" type="select" sortOrder="290" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Display Price</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <comment><![CDATA[When you enable this option autosuggest may slow down.]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_product_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_didyoumean_heading" translate="label" sortOrder="365" showInDefault="1" showInWebsite="1">
+          <label>Did You Mean</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_didyoumean_enabled" translate="label" type="select" sortOrder="370" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_didyoumean_title" translate="label" type="text" sortOrder="375" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_didyoumean_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_didyoumean_maxresults" translate="label" type="text" sortOrder="380" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_didyoumean_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_category_heading" translate="label" sortOrder="385" showInDefault="1" showInWebsite="1">
+          <label>Categories</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_category_enabled" translate="label" type="select" sortOrder="390" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_category_title" translate="label" type="text" sortOrder="395" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_category_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_category_maxresults" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_category_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_category_namelength" translate="label" type="text" sortOrder="405" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Name Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-40</validate>
+          <comment><![CDATA[Max Allowed = 40]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_category_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_heading" translate="label" sortOrder="410" showInDefault="1" showInWebsite="1">
+          <label>CMS Pages</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_enabled" translate="label" type="select" sortOrder="415" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_title" translate="label" type="text" sortOrder="420" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_cms_pages_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_maxresults" translate="label" type="text" sortOrder="425" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_cms_pages_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_namelength" translate="label" type="text" sortOrder="430" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Content Heading Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-40</validate>
+          <comment><![CDATA[Max Allowed = 40]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_cms_pages_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_contentlength" translate="label" type="text" sortOrder="435" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Content Length</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-90</validate>
+          <comment><![CDATA[Max Allowed = 90]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_cms_pages_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_cms_pages_ecxclude" translate="label" type="multiselect" sortOrder="440" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Exclude Pages</label>
+          <comment><![CDATA[Selected page(s) will be excluded from autosuggest.]]></comment>
+          <source_model>Epicor\Common\Model\Config\Source\Cmspages</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_cms_pages_enabled">1</field>
+          </depends>
+          <can_be_empty>1</can_be_empty>
+        </field>
+        <field id="ecc_recent_search_heading" translate="label" sortOrder="440" showInDefault="1" showInWebsite="1">
+          <label>Recent Search</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_recent_search_enabled" translate="label" type="select" sortOrder="445" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_recent_search_showon" translate="label" type="multiselect" sortOrder="450" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show On</label>
+          <source_model>Epicor\Elasticsearch\Model\Config\Source\Showon</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_recent_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_recent_search_title" translate="label" type="text" sortOrder="455" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_recent_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_recent_search_maxresults" translate="label" type="text" sortOrder="460" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_recent_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_heading" translate="label" sortOrder="465" showInDefault="1" showInWebsite="1">
+          <label>Hot Search</label>
+          <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_enabled" translate="label" type="select" sortOrder="470" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enabled</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_queries" translate="label" type="textarea" sortOrder="475" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Search Queries</label>
+          <comment><![CDATA[Comma separated words. Leave empty to show most popular queries.]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_hot_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_ignore_queries" translate="label" type="text" sortOrder="480" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Ignored Words</label>
+          <comment><![CDATA[Comma separated words. Ignore a query if it contains any of these words.]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_hot_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_showon" translate="label" type="multiselect" sortOrder="485" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Show On</label>
+          <source_model>Epicor\Elasticsearch\Model\Config\Source\Showon</source_model>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_hot_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_title" translate="label" type="text" sortOrder="490" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Title</label>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_hot_search_enabled">1</field>
+          </depends>
+        </field>
+        <field id="ecc_hot_search_maxresults" translate="label" type="text" sortOrder="495" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Max Results</label>
+          <validate>required-entry validate-number validate-digits-range digits-range-1-10</validate>
+          <comment><![CDATA[Max Allowed = 10]]></comment>
+          <depends>
+            <field id="engine" separator=",">elasticsearch6,elasticsearch7</field>
+            <field id="ecc_autosuggestion_enabled">1</field>
+            <field id="ecc_hot_search_enabled">1</field>
+          </depends>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

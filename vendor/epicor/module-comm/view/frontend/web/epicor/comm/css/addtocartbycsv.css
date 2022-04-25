@@ -1,0 +1,40 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/* 
+    Document   : addtocartbycsv.css
+    Created on : 22-Feb-2018
+    Author     : Tapan.Sodagar
+    Description: Style sheet for my account section add to cart by CSV
+*/
+fieldset {
+	margin:0;
+	padding:0;
+	border:0;
+}
+fieldset p {
+    display:block;
+    margin-bottom: 7px;
+    font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+    color: #636363;
+    font-size: 14px;
+    line-height: 1.5;
+    color:#636363;
+}
+fieldset ul{
+	margin:0;
+	padding:0;
+}
+fieldset ul li{
+	margin:0 0 10px 0;
+	padding:0;
+	list-style: none;
+}
+fieldset ul li label {
+    display: inline-block;
+    font-size: 13px;
+    font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+    font-weight: 600;
+    color:#636363;
+}

@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><form id="co-shipping_dates-form" action="">
+    
+    <div id="checkout-shipping_dates-load">
+        <?php echo $this->getChildHtml('available_dates'); ?>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        var shippingDates = new ShippingDatesMethod('co-shipping_dates-form','<?php echo $this->getUrl('checkout/onepage/saveShippingDates') ?>');
+        var shippingDatesForm = new VarienForm('co-shipping_dates-form');
+    //]]>
+    </script>
+    <div class="buttons-set" id="shipping_dates-buttons-container">
+        <button type="button" class="button" onclick="shippingDates.save()"><span><span><?php echo __('Continue') ?></span></span></button>
+        <span id="shipping_dates-please-wait" class="please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo __('Loading next step...') ?>" title="<?php echo __('Loading next step...') ?>" class="v-middle" /> <?php echo __('Loading next step...') ?>
+        </span>
+    </div>
+</form>

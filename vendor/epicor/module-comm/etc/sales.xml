@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="bsv" instance="Epicor\Comm\Model\Sales\Quote\Address\Total\Bsv" sort_order="600"/>
+            <item name="msq" instance="Epicor\Comm\Model\Sales\Quote\Address\Total\Msq" sort_order="90" />
+        </group>
+    </section>
+</config>

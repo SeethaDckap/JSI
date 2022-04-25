@@ -1,0 +1,14 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+.grid td dd {
+    margin-left:15px;
+}
+
+#edit_form #child_id option {
+    padding-left:15px;
+}
+#edit_form #child_id optgroup {
+    padding-left:30px;
+}

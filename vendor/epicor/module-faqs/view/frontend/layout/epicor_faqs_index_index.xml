@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  layout="2columns-right"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Frequently Asked Questions</title>
+        <css src="Epicor_Faqs::epicor/faqs/css/faqStyle.css"/>
+        <css src="Epicor_Faqs::epicor/faqs/css/accordionStyle.css"/>
+        <script src="Epicor_Faqs::epicor/faqs/js/faqsVote.js"/>
+    </head>
+    <body>
+         <referenceBlock name="page.main.title">
+                <action method="setPageTitle">
+                    <argument translate="true" name="title" xsi:type="string">Frequently Asked Questions</argument>
+                </action>
+            </referenceBlock>
+        <referenceContainer name="content">   
+            <block class="Epicor\Faqs\Block\Listing" name="faqs_list" template="Epicor_Faqs::epicor/faqs/list.phtml" ifconfig="faqs/view/enabled">
+                <block class="Epicor\Faqs\Block\Vote" name="faqs_vote" template="Epicor_Faqs::epicor/faqs/vote.phtml"/>
+            </block>         
+        </referenceContainer>
+    </body>
+</page>

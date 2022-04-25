@@ -1,0 +1,44 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+#approvals-summary-management{
+    margin-bottom:30px;
+}
+#approvals-summary-management .abs-account-blocks{
+    width:100%;
+    float: left;
+}
+#approvals-summary-management .clear{
+    clear: both;
+}
+
+#approvals-summary-management div.summary-table{
+    width:45%;
+    float: left;
+    padding: 5px;
+}
+#approvals-summary-management .summary-box{
+    margin-top: 5px;
+    margin-left: 20px;
+    border: 1px solid #c6c6c6;
+}
+#approvals-summary-management .summary-table.summary-box:after{
+    clear:both;
+}
+
+#approvals-summary-management .summary-table.summary-box:before{
+    clear:both;
+}
+
+#approvals-summary-management .summary-box h2{
+    border-bottom: 1px solid #c6c6c6;
+}
+#approvals-summary-management .summary-box td{
+    padding: 3px;
+}
+#approvals-summary-management .summary-box h2{
+    margin-bottom: 3px;
+}
+#approvals-summary-management .summary-grid td{
+    padding: 16px;
+}

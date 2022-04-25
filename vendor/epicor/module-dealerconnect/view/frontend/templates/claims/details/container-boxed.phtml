@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<div class = "box-info box-account col-2 block">
+    <div class="block-title">
+        <strong><?php echo __('Comments'); ?></strong>
+    </div>
+    <div class="info-list">
+        <textarea id="claim_comment" name="claim_comment"></textarea>
+    </div>
+</div>
+<div class="box-info box-account <?php echo ($this->getBoxClass()) ? $this->getBoxClass() : 'col-full'; ?>">
+    <div class="content-header" style="margin-top: -2em;">
+        <table cellspacing="0">
+            <tr>
+                <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+                <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+            </tr>
+        </table>
+    </div>
+    <div class="boxed-content">
+        <?php echo $this->getGridHtml() ?>
+    </div>
+</div>

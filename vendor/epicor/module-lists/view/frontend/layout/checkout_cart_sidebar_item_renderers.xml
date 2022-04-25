@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" 
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Epicor_Lists::epicor/lists/css/cart/contractselect.css"/>
+        <css src="Epicor_Common::epicor/common/css/account-default-style.css"/>
+        <css src="Epicor_Lists::epicor/lists/css/cart/contractselect.css"/>
+        <script src="Epicor_Lists::epicor/lists/js/cart/contractselect.js"/>
+    </head>
+    <referenceContainer name="after.body.start">
+        <block class="Magento\Backend\Block\Page\RequireJs" name="require.js.sec"  template="Epicor_Customerconnect::customerconnect/page/js/require_js.phtml"/>
+    </referenceContainer>
+</page>

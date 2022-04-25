@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="salesrep_pricing_rule_product" view_id="salesrep_pricing_rule_product" class="Epicor\SalesRep\Model\Pricing\Rule\Product\Indexer\ProductIndexer" >
+        <title translate="true">Sales Rep Pricing Rule Product</title>
+        <description translate="true">Indexes Sales Rep Pricing Rule Product Associations</description>
+    </indexer>
+</config>

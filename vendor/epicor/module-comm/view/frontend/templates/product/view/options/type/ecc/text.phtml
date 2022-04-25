@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+$default = $block->getDefaultValue() ?: $_option->getEccDefaultValue();
+?>
+
+<div class="field <?php /* @escapeNotVerified */ echo $class ?>">
+    <label class="label" for="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text">
+        <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+        <?php /* @escapeNotVerified */ echo $block->getFormatedPrice() ?>
+    </label>
+
+    <div class="control">
+        <?php if ($_option->getType() == \Epicor\Comm\Model\Catalog\Product\Option::OPTION_TYPE_ECC_TEXT): ?>
+            <?php $_textValidate = null;
+            if ($_option->getIsRequire()) {
+                $_textValidate['required'] = true;
+            }
+            if ($_option->getMaxCharacters()) {
+                $_textValidate['maxlength'] = $_option->getMaxCharacters();
+            }
+            ?>
+            <input type="text"
+                   id="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text"
+                   class="input-text product-custom-option"
+                   <?php if (!empty($_textValidate)) {?>
+                   data-validate="<?php echo  $block->escapeHtml(json_encode($_textValidate));?>"
+                   <?php } ?>
+                   name="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                   data-selector="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                   value="<?php echo $block->escapeHtml($default) ?>"/>
+            
+             <?php if ($this->getValidationClass($_option) == 'validate-csns'): ?>
+                <input type="hidden" value="validate" id="options_<?php echo $_option->getId() ?>_text_mode"/>
+                <input type="hidden" value="<?php echo $this->getUrl('epicor_comm/message/csns'); ?>" id="options_<?php echo $_option->getId() ?>_text_csnsurl"/>
+                <input type="hidden" value="<?php echo $this->getProduct()->getSku(); ?>" id="options_<?php echo $_option->getId() ?>_text_sku"/>
+            <?php endif; ?>
+                
+       
+        <?php endif; ?>
+        <?php if ($_option->getMaxCharacters()): ?>
+            <p class="note"><?php /* @escapeNotVerified */ echo __('Maximum number of characters:') ?>
+                <strong><?php /* @escapeNotVerified */ echo $_option->getMaxCharacters() ?></strong></p>
+        <?php endif; ?>
+    </div>
+</div>

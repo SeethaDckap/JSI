@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Your AR Payments Payment has been received.</title>
+    </head>    
+    <referenceContainer name="content">
+        <block cacheable="false" class="Epicor\Customerconnect\Block\Customer\Arpayments\Checkout\Success" name="customer_arypayments_success" template="Epicor_Customerconnect::customerconnect/arpayments/success.phtml" />
+    </referenceContainer>
+</page>

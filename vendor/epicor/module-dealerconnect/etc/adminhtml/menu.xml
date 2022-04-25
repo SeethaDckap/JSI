@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Epicor_Dealerconnect::groups" resource="Epicor_Dealerconnect::groups" module="Epicor_Dealerconnect" title="Dealer Groups" sortOrder="100" action="adminhtml/epicordealer_groups" parent="Epicor_Common::manage"/>
+    </menu>
+</config>

@@ -1,0 +1,11 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<!--<h1><?php // echo __('Purchase Order : %1', $this->getPurchaseOrder()->getPurchaseOrderNumber()); ?></h1> -->
+<?php if ($block->_isFormAccessAllowed() && $this->getOrderDisplay() == 'edit') : ?>
+    <div class="a-right">    
+        <button id="purchase_order_save" class="scalable" type="button">Save and Continue</button>
+    </div>
+<?php endif; ?>

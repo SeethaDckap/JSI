@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="box-info box-account <?php echo ($this->getOnRight()) ? 'col-2' : ($this->getOnLeft() ? 'col-1' : 'col-full'); ?>">
+    <div class="box-head">
+        <h2><?php echo $this->getTitle(); ?></h2>
+    </div>
+    <ul class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+        <?php foreach ($this->getInfoData() as $label => $value): ?>
+            <li id="<?php echo $label; ?>">
+                <?php if (!empty($label)) : ?>
+                    <span class="label"><?php echo $label; ?></span>
+                <?php endif; ?>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '<a href="' . $this->getLinkTo()[$label]['link'] . '">'; ?>
+                <?php } ?>
+                    <span class="value"><?php echo $value; ?></span>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '</a>'; ?>
+                <?php } ?> 
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <ul class="info-list-extra">
+        <?php foreach ($this->getExtraData() as $label => $value): ?>
+            <li id="<?php echo $label; ?>">
+                <?php if (!empty($label)) : ?>
+                    <span class="label"><?php echo $label; ?></span>
+                <?php endif; ?>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '<a href="' . $this->getLinkTo()[$label]['link'] . '">'; ?>
+                <?php } ?>
+                <span class=""><?php echo $value; ?></span>
+                <?php if (isset($this->getLinkTo()[$label]['active'])) { ?>
+                    <?php echo '</a>'; ?>
+                <?php } ?> 
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

@@ -1,0 +1,13 @@
+<?php 
+$dealerHelper = $this->helper('Epicor\Dealerconnect\Helper\Data');
+$dealerLoggedIn = $dealerHelper->dealerLoggedIn();
+$toggleAllowed = $dealerHelper->checkCustomerToggleAllowed();
+$canLoadQuoteJs= $dealerHelper->isDealerQuotePortal();
+if($dealerLoggedIn && $canLoadQuoteJs):?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {"Epicor_Dealerconnect/epicor/dealerconnect/js/quotes/quote-extra":{}}
+    }
+</script>
+<?php endif;?>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ Line add by js
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Lineaddbyjs */
+?>
+<script type="text/javascript">
+    <?php if ($this->registry('line_edit')) : ?>
+        <?php if ($this->registry('double_parent')) : ?>
+            window.parent.parent.lines.updateConfiguratorProductsByJson('<?php echo $this->registry('line_no');?>','<?php echo $this->getJson(); ?>');
+        <?php else: ?>
+            window.parent.lines.updateConfiguratorProductsByJson('<?php echo $this->getJson(); ?>');
+        <?php endif; ?>
+    <?php else: ?>
+        <?php if ($this->registry('double_parent')) : ?>
+            window.parent.parent.addLinesByJson('<?php echo $this->getJson(); ?>');
+        <?php else: ?>
+            window.parent.lines.addLinesByJson('<?php echo $this->getJson(); ?>');
+        <?php endif; ?>
+    <?php endif; ?>
+</script>

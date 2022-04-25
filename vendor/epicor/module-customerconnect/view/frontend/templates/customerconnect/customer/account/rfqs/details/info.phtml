@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+/**
+ * RFQ info
+ * 
+ * @category   Epicor
+ * @package    Epicor_Customerconnect
+ * @author     Epicor Websales Team
+ */
+
+/* @var $this \Epicor\Customerconnect\Block\Customer\Rfqs\Details\Info */
+
+$rfq = $this->registry('customer_connect_rfq_details');
+/* @var $rfq \Epicor\Common\Model\Xmlvarien */
+$infoData = $block->getInfoData();
+?>
+<input type="hidden" id="quote_date" name="quote_date" value="<?php echo $rfq->getQuoteDate(); ?>"/>
+<input type="hidden" id="taxid" name="taxid" value="<?php echo $rfq->getTaxid(); ?>"/>
+<input type="hidden" id="quote_status" name="quote_status" value="<?php echo $rfq->getQuoteStatus(); ?>"/>
+<input type="hidden" id="fob" name="fob" value="<?php echo $rfq->getFob(); ?>"/>
+<input type="hidden" id="delivery_method" name="delivery_method" value="<?php echo $rfq->getDeliveryMethod(); ?>"/>
+<input type="hidden" id="payment_terms" name="payment_terms" value="<?php echo $rfq->getPaymentTerms(); ?>"/>
+<div class = "box-info box-account col-1 block">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list">
+        <?php foreach ($infoData as $data): ?>
+            <p id="rfq_<?= $data['index'] ?>">
+                <span class="label"><?= __($data['header']); ?>:</span>
+                <span class="value"><?= $data['value'] ?></span>
+            </p>
+        <?php endforeach; ?>
+    </div>
+</div>

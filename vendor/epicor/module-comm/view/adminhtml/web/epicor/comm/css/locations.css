@@ -1,0 +1,23 @@
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Nov-2015, 10:28:15
+    Author     : gareth.james
+*/
+
+#form_tabs_form_erp_accounts_content .entry-edit {
+    float:left;
+    width: 28.5%;
+    margin: 0 1.5%;
+}
+
+#form_tabs_form_erp_accounts_content .entry-edit td.label{
+    display:none;
+}

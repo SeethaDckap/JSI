@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 
+    <body>
+        <referenceBlock name="product.info">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/form.phtml</argument>
+            </action>            
+            <block template="Epicor_Comm::epicor_comm/catalog/product/view/groupedupdatecart.phtml" class="Epicor\Comm\Block\Catalog\Product\View\Groupedupdatecart" name="epicor_comm.groupedupdatecart" as="groupedupdatecart"/>
+        </referenceBlock>
+        
+        <referenceBlock name="product.info.options">        
+            <block class="Epicor\Comm\Block\Catalog\Product\View\Options\Type\Ecc\Text" as="ecc_text" template="Epicor_Comm::product/view/options/type/ecc/text.phtml"/>              
+            <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" as="ewa"/>        
+        </referenceBlock>
+        
+        <referenceBlock name="product.info.sku">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/view/attribute.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.review">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/review.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="product.info.main" htmlClass="ecc-price-lazy-load-view product-info-main">
+            <block class="Epicor\Comm\Pricing\Render" name="product.price.tier" after="product.info.price">
+                <arguments>
+                    <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                    <argument name="price_type_code" xsi:type="string">tier_price</argument>
+                    <argument name="zone" xsi:type="string">item_view</argument>
+                    <argument name="default_trierprice" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Comm\Block\Catalog\Product\View" name="lazy.loader.js" template="Epicor_Comm::product/view/loader.phtml"  />
+        </referenceContainer>
+        <referenceBlock  name="product.price.tier">
+             <arguments>
+                        <argument name="default_trierprice" xsi:type="boolean">true</argument>
+             </arguments>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/view/addtocart.phtml</argument>
+            </action>
+             <block class="Epicor\Comm\Block\Catalog\Product\View" name="epicor_commlocations_container" as="epicor_commlocations_container">
+                <block class="Epicor\Comm\Block\Catalog\Product\View\Locations" name="epicor_commlocations" as="locations" template="Epicor_Comm::epicor_comm/catalog/product/view/locations.phtml" />
+             </block>
+            <block class="Epicor\BranchPickup\Block\Selectedbranch" template="Epicor_Comm::product/list/relatedBranch.phtml" name="epicor_comm.related_branch" as="epicor_ecc_product_list_related_branch" />
+            <block class="Magento\Framework\View\Element\Template" name="product.info.form.configurableaddtocart" as="configurableaddtocart_container">
+             <block template="Epicor_Comm::product/configurator.phtml" class="Epicor\Comm\Block\Catalog\Product\Configurator" 
+                    name="configurableaddtocart" as="configurableaddtocart"/>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/view/addtocart.phtml</argument>
+            </action>
+             <block class="Epicor\Comm\Block\Catalog\Product\View" name="epicor_commlocations_container.additional" as="epicor_commlocations_container.additional">
+                <block class="Epicor\Comm\Block\Catalog\Product\View\Locations" name="epicor_commlocations.additional" as="locations.additional" template="Epicor_Comm::epicor_comm/catalog/product/view/locations.phtml" />
+             </block>
+            <block class="Magento\Framework\View\Element\Template" name="product.info.form.configurator.additional" as="configurableaddtocart_container.additional">
+            <block template="Epicor_Comm::product/configurator.phtml" class="Epicor\Comm\Block\Catalog\Product\Configurator" 
+                    name="epicor_comm.configurator.additional" as="configurator.additional"/>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.mailto">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/mailto.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.attributes">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/attributes.phtml</argument>
+            </action>
+        </referenceBlock>      
+        <referenceBlock name="product.info.details">
+          <block class="Magento\Catalog\Block\Product\View" name="relateddoc.tab" as="relateddoc" before="-" template="Epicor_Comm::epicor_comm/catalog/product/view/relateddocuments.phtml"  group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Related Documents</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
+        <referenceBlock name="catalog.product.related">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/list/items.phtml</argument>
+            </action>
+            <block class="Epicor\Comm\Block\Catalog\Product\Skudisplay" template="Epicor_Comm::product/skudisplay.phtml" name="epicor_comm.skudisplay.related" as="epicor_ecc_sku_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.related" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.related" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.related" as="epicor_ecc_product_configurator"/>
+        </referenceBlock>
+        <referenceBlock name="product.info.upsell">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Epicor_Comm::product/list/items.phtml</argument>
+            </action>
+            <block class="Epicor\Comm\Block\Catalog\Product\Skudisplay" template="Epicor_Comm::product/skudisplay.phtml" name="epicor_comm.skudisplay.upsell" as="epicor_ecc_sku_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.upsell" as="epicor_ecc_stock_display"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.upsell" as="epicor_ecc_product_list_locations"/>
+            <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.upsell" as="epicor_ecc_product_configurator"/>
+        </referenceBlock>
+        <referenceContainer name="content.aside">
+            <block class="Epicor\Comm\Block\Catalog\Product\ProductList\Substitute" name="product.info.substitute" template="Epicor_Comm::product/list/items.phtml" before="catalog.product.related">
+                <arguments>
+                    <argument name="type" xsi:type="string">substitute</argument>
+                </arguments>
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="substitute.product.addto" as="addto">
+                    <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                           name="substitute.product.addto.wishlist" as="wishlist" before="compare"
+                           template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                           name="substitute.product.addto.compare" as="compare"
+                           template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+                <block class="Epicor\Comm\Block\Catalog\Product\Skudisplay" template="Epicor_Comm::product/skudisplay.phtml" name="epicor_comm.skudisplay.substitute.substitute" as="epicor_ecc_sku_display"/>
+                <block class="Epicor\Comm\Block\Catalog\Product\Stockdisplay" template="Epicor_Comm::product/stockdisplay.phtml" name="epicor_comm.stockdisplay.substitute" as="epicor_ecc_stock_display"/>
+                <block class="Epicor\Comm\Block\Catalog\Product\Listing\Locations" template="Epicor_Comm::product/list/locations.phtml" name="epicor_comm.locations.substitute" as="epicor_ecc_product_list_locations">
+                    <arguments>
+                        <argument name="view_type" xsi:type="string">substitute</argument>
+                    </arguments>
+                </block>
+                <block class="Epicor\Comm\Block\Catalog\Product\Configurator" template="Epicor_Comm::product/configurator.phtml" name="epicor_comm.configurator.substitute" as="epicor_ecc_product_configurator"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Epicor\Comm\Block\Catalog\Product\View\EccProductLabel" name="epicor_comm.product.view.custom.label" as="ecc_product_view_custom_label" template="Epicor_Comm::product/view/label.phtml" before="-" />
+        </referenceContainer>
+    </body>
+</page>

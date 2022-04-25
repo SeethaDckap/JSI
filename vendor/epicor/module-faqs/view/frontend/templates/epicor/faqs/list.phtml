@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?>
+<div class="input-box faq_search_box">
+    <label for="search_faq"><?php echo __('Search') ?></label>
+    <input type="text" name="sku" value="" title="<?php echo __('Search') ?>" id="search_faq" class="input-text" />
+</div>
+<?php if ($this->isIndexedView()) : ?>
+<div class="faqs_index_view" >
+    <ol>
+        <?php $i = 0; ?>
+        <?php foreach ($this->getCollection() as $faqsItem): $i++;  ?>
+            <li class="faqitem-<?php echo $faqsItem->getId(); ?>"><h3 class="faq_link">
+                    <a href="<?php echo '#question-' . $faqsItem->getId(); ?>"><?php echo $this->escapeHtml($faqsItem->getQuestion()) ?></a>
+                </h3></li>
+       <?php endforeach; ?>
+    </ol>
+</div>
+<?php endif; ?>
+<div id="accordion">
+    <?php $i = 0;
+    foreach ($block->getCollection() as $faqsItem): $i++;
+        ?>
+        <h3 id="question-<?php echo $faqsItem->getId(); ?>" class="faq_question faqitem-<?php echo $faqsItem->getId(); ?>" rel="<?php echo $faqsItem->getId(); ?>"><?php echo $i . '. ' . $faqsItem->getQuestion() ?></h3>
+        <div id="answer-<?php echo $faqsItem->getId(); ?>" class="faq_answer faqitem-<?php echo $faqsItem->getId(); ?>" rel="<?php echo $faqsItem->getId(); ?>">
+
+                <?php echo $faqsItem->getAnswer() ?>
+                <?php if ($block->isCustomerRegistered()): ?>
+                        <div class="faq_vote_div">
+                        <?php   $block->getChildBlock('faqs_vote')->setFaqId($faqsItem->getId());
+                                echo $block->getChildHtml('faqs_vote', false);
+                        ?>
+                        </div>
+            <?php endif; ?>
+            <?php
+            if ($block->getStoreConfig('faqs/view/show_keywords')) {
+                $keywords = $faqsItem->getKeywords();
+                echo $keywords != '' ? __('Keywords') . ': ' . $keywords . '' : '';
+            }
+            ?>
+            <p class="a-top"><a href="#top">Back to Top</a></p>
+            <div class="clear"></div>
+        </div>
+<?php endforeach; ?>
+</div>

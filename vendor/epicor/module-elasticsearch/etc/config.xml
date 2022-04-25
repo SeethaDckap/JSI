@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <search>
+                <ecc_and_or>1</ecc_and_or>
+                <ecc_wildcard_suffix>1</ecc_wildcard_suffix>
+                <ecc_wildcard_prefix>1</ecc_wildcard_prefix>
+                <ecc_separators><![CDATA[!"#%$&'()*+,./:;<=>?@[\]^`{|}~]]></ecc_separators>
+                <ecc_autosuggestion_enabled>0</ecc_autosuggestion_enabled>
+                <ecc_product_enabled>1</ecc_product_enabled>
+                <ecc_product_title><![CDATA[Products]]></ecc_product_title>
+                <ecc_product_maxresults>5</ecc_product_maxresults>
+                <ecc_product_skulength>20</ecc_product_skulength>
+                <ecc_product_resultsby>2</ecc_product_resultsby>
+                <ecc_product_namelength>40</ecc_product_namelength>
+                <ecc_product_descriptionlength>40</ecc_product_descriptionlength>
+                <ecc_product_showreviews>1</ecc_product_showreviews>
+                <ecc_product_displayprice>0</ecc_product_displayprice>
+                <ecc_didyoumean_enabled>0</ecc_didyoumean_enabled>
+                <ecc_didyoumean_title><![CDATA[Did you mean]]></ecc_didyoumean_title>
+                <ecc_didyoumean_maxresults>5</ecc_didyoumean_maxresults>
+                <ecc_category_enabled>0</ecc_category_enabled>
+                <ecc_category_title><![CDATA[Categories]]></ecc_category_title>
+                <ecc_category_maxresults>5</ecc_category_maxresults>
+                <ecc_category_namelength>40</ecc_category_namelength>
+                <ecc_cms_pages_enabled>0</ecc_cms_pages_enabled>
+                <ecc_cms_pages_title><![CDATA[CMS Pages]]></ecc_cms_pages_title>
+                <ecc_cms_pages_maxresults>5</ecc_cms_pages_maxresults>
+                <ecc_cms_pages_namelength>40</ecc_cms_pages_namelength>
+                <ecc_cms_pages_contentlength>90</ecc_cms_pages_contentlength>
+                <ecc_recent_search_enabled>0</ecc_recent_search_enabled>
+                <ecc_recent_search_showon>first_click,auto_suggest</ecc_recent_search_showon>
+                <ecc_recent_search_title><![CDATA[Recent Search]]></ecc_recent_search_title>
+                <ecc_recent_search_maxresults>5</ecc_recent_search_maxresults>
+                <ecc_hot_search_enabled>1</ecc_hot_search_enabled>
+                <ecc_hot_search_showon>first_click,auto_suggest</ecc_hot_search_showon>
+                <ecc_hot_search_title><![CDATA[Popular Searches]]></ecc_hot_search_title>
+                <ecc_hot_search_maxresults>5</ecc_hot_search_maxresults>
+            </search>
+        </catalog>
+    </default>
+</config>

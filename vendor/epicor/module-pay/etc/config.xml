@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+  <default>
+    <payment>
+      <pay>
+        <active>1</active>
+        <model>Epicor\Pay\Model\Pay</model>
+        <order_status>processing</order_status>
+        <title>Epicor Payment Method</title>
+        <message>Epicor account credit</message>
+        <update_billing_address>0</update_billing_address>
+        <message_update_billing>Selecting this option will discard any billing address changes that you have made for this order and the account's default billing address will be used</message_update_billing>
+        <payment_action>authorize_capture</payment_action>
+        <epm_po>not-visible</epm_po>
+        <credit_check_msg>Epicor account credit not available - Credit limit exceeded</credit_check_msg>
+      </pay>
+    </payment>
+  </default>
+</config>

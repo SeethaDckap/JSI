@@ -1,0 +1,147 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Epicor\Customerconnect\Block\Adminhtml\Arpayments\View\Tab\Info */ ?>
+<?php 
+$_order = $block->getOrder();
+$paymentOnAccount = $_order->getEccArpaymentsIspayment();
+$_items = $_order->getItemsCollection();
+$count = $_items->count();
+$hideItems = false;
+if(($count ==0) &&($paymentOnAccount)) {
+    $hideItems=true;
+}
+ ?>
+<div id="order-messages">
+    <?= $block->getChildHtml('order_messages') ?>
+</div>
+
+<?= $block->getChildHtml('arpayment_info') ?>
+<input type="hidden" name="order_id" value="<?= /* @escapeNotVerified */ $_order->getId() ?>"/>
+
+<section class="admin__page-section order-view-billing-shipping">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @escapeNotVerified */ __('Payment Details') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-payment-method<?php if ($_order->getIsVirtual()): ?> order-payment-method-virtual<?php endif; ?>">
+            <?php /* Payment Method */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /* @escapeNotVerified */ __('Payment Information') ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <?php 
+                if (substr_count($block->getArpaymentMethod(), 'klarna_') !="1") :?>
+                 <div class="order-payment-method-title"><?= $block->getPaymentHtml() ?></div>
+                <?php endif;?>
+                <?php 
+                if (substr_count($block->getArpaymentMethod(), 'klarna_') > 0) :?>
+                 <div class="order-payment-method-title"><?= $block->getArpaymentTitle() ?></div>
+                 <p><strong><?= __('Order Id: '); ?></strong><?= $block->getLastTransId(); ?> </p>
+                <?php endif;?>                 
+                <?php if($block->getArpaymentMethod() =="elements"):?>
+                <p><strong><?= __('Card Number : '); ?></strong><?= $block->getCardNumber(); ?> </p>
+                <p><strong><?= __('Card Type : '); ?></strong><?= $block->getCardType(); ?></p>
+                <p><strong><?= __('Expiry Date : '); ?></strong><?= $block->getExpiryDate(); ?></p>
+                <p><strong><?= __('Address Verification Result : '); ?></strong><?= $block->getAvsStatus(); ?></p>
+                <p><strong><?= __('CVV Verification Result : '); ?></strong><?= $block->getCvvStatus(); ?></p>
+                <div class="order-payment-currency"><?= /* @escapeNotVerified */ __('The order was placed using %1.', $_order->getOrderCurrencyCode()) ?></div>
+                <?php endif;?>
+                <?php if($block->getArpaymentMethod() =="esdm"):?>
+                <img src="<?php echo $block->getEsdmLogo(); ?>" title="Esdm" alt="Esdm" align="left" style="margin-left: -65px;"/>
+                <div style="clear: both;float:left;">
+                <p><strong><?= __('Expiry Date : '); ?></strong><?= $block->getExpiryDate(); ?></p>
+                <p><strong><?= __('CCV Token : '); ?></strong><?= $block->getEccCcvToken(); ?></p>
+                <p><strong><?= __('CVV Token  : '); ?></strong><?= $block->getEccCvvToken(); ?></p>
+               <div class="order-payment-currency"><?= /* @escapeNotVerified */ __('The order was placed using %1.', $_order->getOrderCurrencyCode()) ?></div>
+                </div> 
+               <?php endif;?>   
+                
+                <?php if($block->getArpaymentMethod() =="cre"):?>
+                <img src="<?php echo $block->getEsdmLogo(); ?>" title="Esdm" alt="Esdm" align="left" style="margin-left: -65px;"/>
+                 <div style="clear: both;float:left;">
+                <p><strong><?= __('Card Number : '); ?></strong><?= $block->getCardNumber(); ?> </p>
+                <p><strong><?= __('Card Type : '); ?></strong><?= $block->getCardType(); ?></p>
+                <p><strong><?= __('Expiry Date : '); ?></strong><?= $block->getExpiryDate(); ?></p>
+                <p><strong><?= __('CCV Token : '); ?></strong><?= $block->getEccCcvToken(); ?></p>
+                <p><strong><?= __('CVV Token  : '); ?></strong><?= $block->getEccCvvToken(); ?></p>                
+                <div class="order-payment-currency"><?= /* @escapeNotVerified */ __('The order was placed using %1.', $_order->getOrderCurrencyCode()) ?></div>
+                 </div>
+                <?php endif;?>                
+               
+                <div class="order-payment-additional">
+                    <?= $block->getChildHtml('order_payment_additional') ?>
+                    <?= $block->getChildHtml('payment_additional_info') ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__page-section-item payment-on-account">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /* @escapeNotVerified */ __('Payment On Account') ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary payment-on-account-table">
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Total Amount Applied')) ?></th>
+                        <td><?=  ($_order->getEccArpaymentsAllocatedAmount()) ?  $_order->formatPrice($_order->getEccArpaymentsAllocatedAmount()) :"NIL"; ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Amount Left')) ?></th>
+                        <td><?=  ($_order->getEccArpaymentsAmountleft()) ? $this->getOrder()->formatPrice($_order->getEccArpaymentsAmountleft()) :"NIL"; ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Payment On Account')) ?></th>
+                        <td><?=  ($paymentOnAccount) ? "Yes" : "No"; ?></td>
+                    </tr>
+                    <?php if($paymentOnAccount): ?>
+                    <tr>
+                        <th><strong><?= $block->escapeHtml(__('Total Amount Paid')) ?></strong></th>
+                        <td><?=  $_order->formatPrice($_order->getEccArpaymentsAllocatedAmount()) ?></td>
+                    </tr>    
+                    <?php endif; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php if(!$hideItems): ?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @escapeNotVerified */ __('Invoice Payment') ?></span>
+    </div>
+    <?= $block->getItemsHtml() ?>
+</section>
+<?php endif; ?>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-comments-history">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /* @escapeNotVerified */ __('AR Payments History') ?></span>
+            </div>
+            <?= $block->getChildHtml('ar_order_history') ?>
+        </div>
+
+        <div class="admin__page-section-item order-totals">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /* @escapeNotVerified */ __('Payments Totals') ?></span>
+            </div>
+            <?= $block->getChildHtml('ar_order_totals') ?>
+            <?php if($paymentOnAccount): ?>
+            <table class="admin__table-secondary payment-on-account-table">
+                <tr>
+                    <th><?= $block->escapeHtml(__('Total Amount Paid(Payment On Account)')); ?></th>
+                    <td><?=  $_order->formatPrice($_order->getEccArpaymentsAllocatedAmount()); ?></td>
+                </tr>
+            </table>
+            <?php  endif; ?>
+        </div>
+    </div>
+</section>
+<?= $block->getChildHtml('popup_window') ?>

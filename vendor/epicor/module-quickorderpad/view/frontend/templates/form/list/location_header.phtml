@@ -1,0 +1,15 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php
+$locHelper = $this->getHelper();
+/* @var $locHelper \Epicor\Comm\Helper\Locations */
+$showLocations = $locHelper->isLocationsEnabled();
+$allSourceLocations = ($this->getConfig('epicor_comm_locations/global/stockvisibility') == 'all_source_locations') ? true : false;
+?>
+<?php if ($showLocations && !$allSourceLocations) : ?>
+    <th>
+        <?php echo __('Location') ?>
+    </th>
+<?php endif; ?>

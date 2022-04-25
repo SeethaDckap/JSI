@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Sales Rep Account</title>
+        <css src="Epicor_SalesRep::epicor/salesrep/css/manage.css" />
+    </head>
+    <update handle="customer_account"/>
+    <update handle="sales_rep"/>
+    <body>
+        <referenceContainer name="content">
+            <block template="Epicor_SalesRep::epicor/salesrep/account/manage/title.phtml" class="Magento\Framework\View\Element\Template" name="supplierconnect.dashboard.title"/>
+            <block template="Epicor_SalesRep::epicor/salesrep/account/manage/menu.phtml" class="Epicor\SalesRep\Block\Account\Manage\Menu" name="manage.menu"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+
+<script>
+    function masqueradeSearchClosePopup(){
+        if ($('epicor-salesrep-account-masqueradepopup') == undefined) {
+            var iframe = $$('.epicor-salesrep-account-masqueradepopup').first();
+        }
+        iframe.parentNode.removeChild(iframe);
+        window.parent.document.getElementById('window-overlay').hide();
+    }
+    
+    function populateMasqueradeSelect(row, event) {
+       var trElement = event.findElement('tr');
+        var rowTD = trElement.select('td');
+        var rowId = rowTD[0].innerHTML;
+        window.parent.populateMasqueradeSelectParent(rowId);  
+    }
+
+    var obj = window.parent.document.getElementById('search_iframe');
+    var mainobj = document.getElementById('maincontent');
+    obj.style.height = parseInt(mainobj.scrollHeight + 30) + 'px';
+    
+</script>

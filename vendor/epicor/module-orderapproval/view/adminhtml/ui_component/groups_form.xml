@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Epicor_OrderApproval/js/components/new-field-form</item>
+            <item name="provider" xsi:type="string">groups_form.groups_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Approval Group</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="Epicor\OrderApproval\Block\Adminhtml\Edit\SaveAndContinueButton"/>
+            <button name="save" class="Epicor\OrderApproval\Block\Adminhtml\Edit\SaveButton"/>
+            <button name="back" class="Epicor\OrderApproval\Block\Adminhtml\Edit\BackButton"/>
+            <button name="reset_custom" class="Epicor\OrderApproval\Block\Adminhtml\Edit\ResetButton"/>
+            <button name="delete" class="Epicor\OrderApproval\Block\Adminhtml\Edit\DeleteButton"/>
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>groups_form.groups_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="groups_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="orderapproval/groups/save"/>
+        </settings>
+        <dataProvider class="Epicor\OrderApproval\Model\Groups\DataProvider" name="groups_form_data_source">
+            <settings>
+                <requestFieldName>group_id</requestFieldName>
+                <primaryFieldName>group_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="group" sortOrder="10">
+        <settings>
+            <label translate="true">Details</label>
+        </settings>
+        <field name="group_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>group_id</dataScope>
+            </settings>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <visible>true</visible>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <field name="is_multi_level" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Multi Level</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="source" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                    <item name="default" xsi:type="string">web</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Source</label>
+                <visible>true</visible>
+                <dataScope>source</dataScope>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="is_active" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Active</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="priority" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Priority</label>
+                <visible>true</visible>
+                <dataScope>priority</dataScope>
+                <validation>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+    <htmlContent name="erp_accounts_tab">
+        <block acl="Epicor_OrderApproval::groups" class="Epicor\OrderApproval\Block\Adminhtml\ErpAccountsTab" name="erp_accounts" />
+    </htmlContent>
+    <htmlContent name="customers_tab">
+        <block acl="Epicor_OrderApproval::groups" class="Epicor\OrderApproval\Block\Adminhtml\CustomersTab" name="customers" />
+    </htmlContent>
+    <htmlContent name="rules_tab_content">
+        <argument name="data" xsi:type="array">
+            <item name="wrapper" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Conditions</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="opened" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <settings>
+            <wrapper>
+                <canShow>true</canShow>
+                <componentType>fieldset</componentType>
+            </wrapper>
+        </settings>
+        <block class="Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Rules" name="rules_edit_tab"/>
+    </htmlContent>
+    <fieldset name="budget" sortOrder="10">
+        <settings>
+            <label translate="true">Budget Information</label>
+        </settings>
+        <field name="is_budget_active" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">group</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Active</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <container name="budget" component="Epicor_OrderApproval/js/dynamic-rows/dynamic-rows">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Epicor_Comm/dynamic-rows/grid</item>
+                    <item name="sortOrder" xsi:type="string">1</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="deleteButtonLabel" xsi:type="string">Remove</item>
+                    <item name="addButtonLabel" xsi:type="string">Add Budget</item>
+                    <item name="deleteProperty" xsi:type="boolean">true</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <field name="type" formElement="select" component="Epicor_OrderApproval/js/form/element/type">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">group</item>
+                            <item name="default" xsi:type="number">0</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>int</dataType>
+                        <label translate="true">Budget Type</label>
+                    </settings>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <options class="Epicor\OrderApproval\Ui\Component\Listing\Column\BudgetTypes"/>
+                            </settings>
+                        </select>
+                    </formElements>
+                </field>
+                <field name="start_date" formElement="input" component="Epicor_OrderApproval/js/form/element/date" >
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">group</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-date" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label translate="true">Start Date</label>
+                        <visible>true</visible>
+                        <dataScope>start_date</dataScope>
+                        <additionalClasses>
+                            <class name="start_date_width">true</class>
+                        </additionalClasses>
+                    </settings>
+                    <formElements>
+                        <date>
+                            <settings>
+                                <options>
+                                    <option name="inputDateFormat" xsi:type="string">y-MM-dd</option>
+                                    <option name="outputDateFormat" xsi:type="string">y-MM-dd</option>
+                                    <option name="dateFormat" xsi:type="string">y-MM-dd</option>
+                                </options>
+                            </settings>
+                        </date>
+                    </formElements>
+                </field>
+                <field name="duration" component="Epicor_OrderApproval/js/form/element/duration">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="label" xsi:type="string">Duration</item>
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="dataType" xsi:type="string">int</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">group</item>
+                            <item name="required" xsi:type="boolean">true</item>
+                            <item name="default" xsi:type="string">1</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                            <rule name="not-negative-amount" xsi:type="boolean">true</rule>
+                            <rule name="integer" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>int</dataType>
+                        <tooltip>
+                            <description translate="true"><![CDATA[Duration will be based on Budget type selected<br/>
+                                Yearly = 1 Year considered as 12 months and 2 Years as 24 months and so on<br/>
+                                Quarterly = 1 Quarter considered as 3 months and 2 quarters as 6 months and so on<br/>
+                                Monthly = 1 month considered as 30 or 31 days according to the month<br/>
+                                Daily = This is on each day's basis<br/>]]>
+                            </description>
+                        </tooltip>
+                        <additionalClasses>
+                            <class name="duration_width">true</class>
+                        </additionalClasses>
+                    </settings>
+                </field>
+                <field name="end_date">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="label" xsi:type="string">End Date</item>
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">group</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <disabled>1</disabled>
+                    </settings>
+                </field>
+                <field name="amount">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="label" xsi:type="string">Budget</item>
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="dataType" xsi:type="string">int</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">group</item>
+                            <item name="required" xsi:type="boolean">true</item>
+                            <item name="default" xsi:type="number">0.00</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                            <rule name="not-negative-amount" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>int</dataType>
+                    </settings>
+                </field>
+                <field name="is_allow_checkout" formElement="select">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">group</item>
+                            <item name="default" xsi:type="number">0</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label translate="true">Budget Action</label>
+                        <additionalClasses>
+                            <class name="is_allow_checkout_width">true</class>
+                        </additionalClasses>
+                    </settings>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <options class="Epicor\OrderApproval\Ui\Component\Listing\Column\BudgetAction"/>
+                            </settings>
+                        </select>
+                    </formElements>
+                </field>
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete
+                            </item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </container>
+    </fieldset>
+    <htmlContent name="hierarchy_content">
+        <block class="Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Hierarchy" name="hierarchy">
+            <block class="Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Hierarchy\ParentGrid" name="hierarchy.parent.grid" as="parent_grid"/>
+            <block class="Epicor\OrderApproval\Block\Adminhtml\Groups\Edit\Tab\Hierarchy\ChildrenGrid" name="hierarchy.children.grid" as="children_grid"/>
+            <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="children_grid_serializer">
+                <arguments>
+                    <argument name="input_names" xsi:type="string">row_id</argument>
+                    <argument name="grid_block" xsi:type="string">hierarchy.children.grid</argument>
+                    <argument name="callback" xsi:type="string">getSelected</argument>
+                    <argument name="input_element_name" xsi:type="string">hierarchy[children]</argument>
+                    <argument name="reload_param_name" xsi:type="string">children</argument>
+                </arguments>
+            </block>
+        </block>
+    </htmlContent>
+</form>

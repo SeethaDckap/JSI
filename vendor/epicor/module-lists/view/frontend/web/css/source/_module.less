@@ -1,0 +1,96 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+  .box-addtolists {
+    float: left;
+    margin-top: 20px;
+    border-bottom: 1px #ebebeb solid;
+    margin-bottom: 15px;
+    width: 100%;
+
+    .fieldset {
+      margin: 0 0 36px;
+
+      .actions {
+        .tolistsview {
+          line-height: 2.2rem;
+          padding: 14px 17px;
+          font-size: 1.8rem;
+          width: 49%;
+        }
+      }
+    }
+  }
+  .block-lists{
+    .block-title{
+      margin: 0 0 20px;
+      strong {
+        font-size: 18px;
+        font-weight: 300;
+        vertical-align: middle;
+      }
+    }
+    .block-content .lists-search{
+      width: 100%;
+      display: inline-block;
+      margin-bottom:10px;
+      .control{
+        border-top: 0px;
+        width: 82%;
+        display: inline-block;
+      }
+      .control .input-text{
+        width: 100%;
+        height: 37px;
+        padding: 5px 15px;
+        position: static;
+      }
+      .actions{
+        width: 15%;
+        max-width: 47px;
+        min-width: 47px;
+        display: inline-block;
+        margin-left:-30px;
+        position: relative;
+        top:-21px;
+        .action.lists-search, .action.lists-search[disabled], .action.lists-search.disabled{
+          display: inline-block;
+          background: none;
+          background-image: none;
+          -moz-box-sizing: content-box;
+          border: 0;
+          box-shadow: none;
+          line-height: inherit;
+          margin: 0;
+          padding: 0;
+          text-decoration: none;
+          text-shadow: none;
+          font-weight: 400;
+          position: absolute;
+          right: 10px;
+          top: 0;
+          z-index: 1;
+          &:before{
+            font-size: 16px;
+            line-height: 32px;
+            color: #757575;
+            content: '\e615';
+            font-family: 'luma-icons';
+            margin: 0;
+            vertical-align: top;
+            display: inline-block;
+            font-weight: normal;
+            overflow: hidden;
+            speak: none;
+            text-align: center
+          }
+          > span{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><?php /** @var \Epicor\Customerconnect\Block\Customer\Address $this */ ?>
+<?php
+$getBlockValues = $this->assignedFunctions();
+$count = 0;
+foreach($getBlockValues as $key=> $positionBlocks) {
+if($key =="location_address") {
+  $blockData = $this->getLocAddressData(true);  
+  $this->setTitle($positionBlocks[1]);
+} else if($key =="soldto_address") {
+  $blockData = $this->getSTAddressData(true);  
+  $this->setTitle($positionBlocks[1]);
+} else if($key =="owner_address") {
+  $blockData = $this->getOwnAddressData(true);  
+  $this->setTitle($positionBlocks[1]);
+} 
+$className = ++$count%2 ? 'col-1' : 'col-2';
+?>
+<div class='<?php echo $className; ?> box-info box-account block block-dashboard-info'>
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+
+    <?php if (!empty($blockData)) : ?>
+        <dl class="vcard">
+            <dd class="first fn org"><?php echo $this->getName(); ?></dd>
+            <dd class="adr break">
+                <span class="street-address"><?php echo $this->getStreet(); ?></span>
+                <span class="locality"><?php echo $this->getCity(); ?></span>
+                <span class="region"><?php echo $this->getCounty(); ?></span>
+                <span class="postal-code"><?php echo $this->getPostcode(); ?></span>
+                <span class="country-name"><?php echo $this->getCountry(); ?></span>
+            </dd>
+                <?php if ($this->getAddressData()->getEmailAddress()): ?>
+                    <dt class="sec email"><abbr title="Email">Email</abbr> :</dt>
+                    <dd class="sec email spaced"><?php echo $this->getAddressData()->getEmailAddress(); ?></dd>
+                <?php endif; ?>
+            <?php if ($this->getTelephoneNumber()): ?>
+                <dt class="sec tel"><abbr title="Telephone Number">Tel</abbr> :</dt>
+                <dd class="sec tel spaced"><?php echo $this->getTelephoneNumber(); ?></dd>
+            <?php elseif ($this->getAddressData()->getPhone()): ?>
+                <dt class="sec tel"><abbr title="Telephone Number">Tel</abbr> :</dt>
+                <dd class="sec tel spaced"><?php echo $this->getAddressData()->getPhone(); ?></dd>
+            <?php endif; ?>
+                <?php if ($this->getMobileNumber()): ?>         
+                    <dt class="sec fax"><abbr title="Mobile Number">Mob</abbr> :</dt>
+                    <dd class="sec fax spaced"><?php echo $this->getMobileNumber(); ?></dd>
+                <?php elseif ($this->getAddressData()->getMobileNumber()): ?>
+                    <dt class="sec fax"><abbr title="Mobile Number">Mob</abbr> :</dt>
+                    <dd class="sec fax spaced"><?php echo $this->getAddressData()->getMobileNumber(); ?></dd>
+                <?php  endif; ?>
+            <?php if ($this->getFaxNumber()): ?>
+                <dt class="sec fax"><abbr title="Fax Number">Fax</abbr> :</dt>
+                <dd class="sec fax spaced"><?php echo $this->getFaxNumber(); ?></dd>
+            <?php elseif ($this->getAddressData()->getFax()): ?>
+                <dt class="sec fax"><abbr title="Fax Number">Fax</abbr> :</dt>
+                <dd class="sec fax spaced"><?php echo $this->getAddressData()->getFax(); ?></dd>
+            <?php  endif; ?>
+        </dl>
+    <?php endif; ?>
+    
+</div>
+<?php } ?>

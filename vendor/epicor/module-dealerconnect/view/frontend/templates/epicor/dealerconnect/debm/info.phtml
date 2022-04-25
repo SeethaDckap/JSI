@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><td class="top-none" colspan="<?php echo $block->getData('cols_span');?>"> <div style="display:none;" id="row-<?php echo $block->getData('unique_id');?>" class=" box-info box-account block block-dashboard-info <?php true ? 'col-2 ' : 'col-full'; ?>">
+    <div class="block-title">
+        <strong><?php echo $this->getTitle(); ?></strong>
+    </div>
+    <div class="info-list col-count-<?php echo $this->getColumnCount(); ?>">
+        
+         <?php foreach ($this->getInfoData() as $label => $value): 
+            $labelKeys = $value[0];
+            $lableVals = $value[1];
+            ?>
+            <p>
+                <span class="label "><?php echo $labelKeys; ?>: </span>
+                <?php if(($value[0] == "Lot Numbers" || $value[0] == "Serial Numbers") && strlen($lableVals) >= 40):?>
+                    <?php 
+                        $len = strlen($lableVals);
+                        $subStr = substr($lableVals, 0, 40);
+                        $text = strrpos($subStr,",");
+                        $text = substr($subStr, 0, $text);
+                        $lableVals = $text." <span class='tip'>...<br><span class='tiptext'>".$lableVals."</span></span>";
+                    ?>
+                <?php endif;?>
+                <span class="value wrap-info-data"><?php echo $lableVals; ?></span>
+            </p>
+        <?php endforeach; ?>
+    </div>
+</div></td>
+

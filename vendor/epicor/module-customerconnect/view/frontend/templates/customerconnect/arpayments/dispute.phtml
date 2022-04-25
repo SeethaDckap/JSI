@@ -1,0 +1,12 @@
+<?php
+$postparams = $this->getRequest()->getParam('invoiceid');
+$dispute = $this->getRequest()->getParam('dispute');
+$disputeComment = $this->getRequest()->getParam('disputeComment');
+$checkDisputeActive = $this->helper('Epicor\Customerconnect\Helper\Arpayments')->checkDisputeAllowedOrNot();
+if($checkDisputeActive):
+?>
+<div class="box-info box-account col-full" style="padding-bottom:20px;">
+    <input <?php if($dispute =="true"): ?> checked="true" <?php endif;?> name="dispute_invoices[]" onclick="arPaymentsJs.toggleArCheckbox('<?php echo $postparams?>')"  id="dispute_popupinvoices_<?php echo $postparams?>" class="dispute_invoices " type="checkbox"><span style="margin-left: 6px;" class="value">Mark As Dispute</span>
+     <textarea style="" class="dispute_invoices_comments" id="dispute_popupinvoices_comments_<?php echo $postparams?>"><?php echo $disputeComment?></textarea>
+</div>
+<?php endif;?>

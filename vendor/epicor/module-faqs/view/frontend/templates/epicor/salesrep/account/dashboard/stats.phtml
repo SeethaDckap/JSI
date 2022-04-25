@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+?><div class="box-info box-account col-2">
+    <div class="box-head">
+        <h2><?php echo $this->getTitle(); ?></h2>
+    </div>
+    <?php foreach ($this->_stats as $col => $stats): ?>
+        <ul class="salesrep-stats info-list col-<?php echo $col; ?>">
+            <?php foreach ($stats as $label => $data): ?>
+                <li id="<?php echo $label; ?>">
+                    <?php if (!empty($label)) : ?>
+                        <span class="label"><?php echo $label; ?></span>
+                    <?php endif; ?>
+                    <?php if (isset($data['link'])) { ?>
+                        <a href="<?php echo $data['link']; ?>">
+                    <?php } ?>
+                    <?php if (isset($data['value'])) { ?>
+                        <span class="value"><?php echo $data['value']; ?></span>
+                    <?php } ?>
+                    <?php if (isset($data['link'])) { ?>
+                        </a>
+                    <?php } ?> 
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endforeach; ?>
+</div>

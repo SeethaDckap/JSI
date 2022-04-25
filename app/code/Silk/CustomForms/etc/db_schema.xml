@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="customforms_contact_support" resource="default" engine="innodb" comment="Contact Support">
+        <column xsi:type="int" name="entity_id" padding="11" comment="Entity Id" identity="true"/>
+        <column xsi:type="text" name="f_name" comment="First Name"/>
+        <column xsi:type="text" name="l_name" comment="Last Name"/>
+        <column xsi:type="text" name="city" comment="City"/>
+        <column xsi:type="text" name="state" comment="State"/>
+        <column xsi:type="text" name="zip_code" comment="Zip Code"/>
+        <column xsi:type="text" name="email" comment="Email Address"/>
+        <column xsi:type="text" name="telephone" comment="Phone"/>
+        <column xsi:type="text" name="how_did_you_hear_us" comment="How did you hear about JSI Cabinetry"/>
+        <column xsi:type="text" name="comment" comment="Comments / Questions"/>
+        <column xsi:type="timestamp" name="created_at" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="customforms_dealer_request" resource="default" engine="innodb" comment="Dealer Request">
+        <column xsi:type="int" name="entity_id" padding="11" comment="Entity Id" identity="true"/>
+        <column xsi:type="text" name="f_name" comment="First Name"/>
+        <column xsi:type="text" name="l_name" comment="Last Name"/>
+        <column xsi:type="text" name="company_name" comment="Company Name"/>
+        <column xsi:type="text" name="street" comment="Street"/>
+        <column xsi:type="text" name="city" comment="City"/>
+        <column xsi:type="text" name="state" comment="State"/>
+        <column xsi:type="text" name="zip_code" comment="Zip Code"/>
+        <column xsi:type="text" name="phone" comment="Phone"/>
+        <column xsi:type="text" name="offer" comment="Offer"/>
+        <column xsi:type="text" name="email" comment="Email Address"/>
+        <column xsi:type="text" name="showroom" comment="Has Showroom"/>
+        <column xsi:type="text" name="design_software" comment="Design Software"/>
+        <column xsi:type="text" name="have_designer" comment="Kitchen Designer"/>
+        <column xsi:type="text" name="how_did_you_hear_us" comment="How did you hear about JSI Cabinetry"/>
+        <column xsi:type="text" name="comment" comment="Comments"/>
+        <column xsi:type="timestamp" name="created_at" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

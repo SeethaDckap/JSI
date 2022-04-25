@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <htmlContent name="customer_ecc_access_roles">
+            <block class="Epicor\AccessRight\Block\Adminhtml\Customer\Edit\AccessRoles" name="customer_edit_access_roles" template="Epicor_AccessRight::epicor/customer/accessroles.phtml"/>       
+        </htmlContent> 
+    </fieldset>
+</form>

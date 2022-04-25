@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:redefine schemaLocation="urn:magento:module:Epicor_Common:etc/xsd/global.xsd"/>
+    <xs:element name="messages">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element type="requestType" name="request"/>
+                <xs:element type="responseType" name="response"/>
+            </xs:choice>
+            <xs:attribute type="xs:float" name="version" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="requestBody" />
+    
+    <xs:complexType name="responseBody">
+        <xs:sequence>
+            <xs:element type="msgStatus" name="status"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+     <xs:complexType name="responseMsg">
+        <xs:complexContent>					
+            <xs:extension base="responseBody" />
+        </xs:complexContent>
+    </xs:complexType>
+    
+</xs:schema>

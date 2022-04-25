@@ -1,0 +1,90 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$variables = $objectManager->create('Magento\Variable\Model\Variable');
+$variables->setStoreId("1");
+
+$value = $variables->loadByCode('stores_locations')->getPlainValue();
+$values = json_decode($value,true);
+$first = true;
+// var_dump($values);
+// die();
+?>
+<div class="max-width">
+    <div class="store-location-container">
+        <div class="store-location-address-wrapper">
+            <?php $first = true;?>
+            <?php foreach($values as $key => $content):?>
+                <?php if($first):?>
+                    <div class="locator-item -active" data-locator-name="<?php echo $values[$key]['store_name']?>">
+                        <div class="locator-detail store-name"><span><?php echo $values[$key]['store_name']?></span></div>
+                        <?php if($values[$key]['sp_note']):?>
+                            <div class="locator-detail store-sp-note"><span><?php echo $values[$key]['sp_note']?></span></div>
+                        <?php endif?>
+                        <div class="locator-detail store-address">
+                            <div class="Street"><span><?php echo $values[$key]['address']?></span></div>
+                            <div class="CityState"><span><?php echo $values[$key]['city_state']?></span></div>
+                        </div>
+                        <div class="locator-detail store-tel">
+                            <div class="tel-num tel1"><a href="tel:<?php echo $values[$key]['tel1']?>"><span><?php echo $values[$key]['tel1']?></span></a></div>
+                            <?php if($values[$key]['tel2']):?>
+                                <div class="tel-num tel2"><a href="tel:<?php echo $values[$key]['tel2']?>"><span><?php echo $values[$key]['tel2']?></span></a></div>
+                            <?php endif?>
+                        </div>
+                        <div class="locator-detail direction-action">
+                            <a href="<?php echo $values[$key]['map_url']?>" class="direction-btn" target="_blank"><span><?php echo __('DIRECTIONS')?></span></a>
+                        </div>
+                    </div>
+                    <?php $first = false?>
+                <?php else:?>
+                    <div class="locator-item" data-locator-name="<?php echo $values[$key]['store_name']?>">
+                        <div class="locator-detail store-name"><span><?php echo $values[$key]['store_name']?></span></div>
+                        <?php if($values[$key]['sp_note']):?>
+                            <div class="locator-detail store-sp-note"><span><?php echo $values[$key]['sp_note']?></span></div>
+                        <?php endif?>
+                        <div class="locator-detail store-address">
+                            <div class="Street"><span><?php echo $values[$key]['address']?></span></div>
+                            <div class="CityState"><span><?php echo $values[$key]['city_state']?></span></div>
+                        </div>
+                        <div class="locator-detail store-tel">
+                            <div class="tel-num tel1"><a href="tel:<?php echo $values[$key]['tel1']?>"><span><?php echo $values[$key]['tel1']?></span></a></div>
+                            <?php if($values[$key]['tel2']):?>
+                                <div class="tel-num tel2"><a href="tel:<?php echo $values[$key]['tel2']?>"><span><?php echo $values[$key]['tel2']?></span></a></div>
+                            <?php endif?>
+                        </div>
+                        <div class="locator-detail direction-action">
+                            <a href="<?php echo $values[$key]['map_url']?>" class="direction-btn" target="_blank"><span><?php echo __('DIRECTIONS')?></span></a>
+                        </div>
+                    </div>
+                <?php endif?>
+            <?php endforeach ?>
+        </div>
+        <div class="store-location-map-wrapper">
+            <?php $first = true;?>
+            <?php foreach($values as $key => $content):?>
+                <?php if($first):?>
+                    <div class="locator-map-item -active" data-locator-map="<?php echo $values[$key]['store_name']?>">
+                        <iframe src="<?php echo $values[$key]['map_iframe']?>" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                    <?php $first = false?>
+                <?php else:?>
+                    <div class="locator-map-item" data-locator-map="<?php echo $values[$key]['store_name']?>">
+                        <iframe src="<?php echo $values[$key]['map_iframe']?>" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                <?php endif?>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	require(['jquery'], function($){
+		$(document).ready(function() {
+            $('#maincontent').removeClass('page-main').addClass('page-main-full-width')
+			$('.locator-item').click(function(){
+                $('.locator-item').removeClass('-active');
+                $(this).addClass('-active');
+                $('.locator-map-item').removeClass('-active');
+                $('.locator-map-item[data-locator-map="'+$(this).attr('data-locator-name')+'"]').addClass('-active');
+            })
+		});
+	});
+</script>

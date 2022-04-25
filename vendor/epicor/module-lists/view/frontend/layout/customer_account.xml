@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2010-2018 Epicor Software Corporation: All Rights Reserved
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+            <referenceBlock name="customer_account_navigation">
+            <block class="Epicor\Lists\Block\Html\Link\Current" name="manage-lists" cacheable="false">
+                <arguments>
+                    <argument name="path" xsi:type="string">lists/lists</argument>
+                    <argument name="label" xsi:type="string">Manage Lists</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_lists</argument>
+                </arguments>
+            </block>
+            <block class="Epicor\Customerconnect\Block\Html\Link\Current" name="arpaymentshistory" cacheable="false">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">My AR Payments Received</argument>
+                    <argument name="path" xsi:type="string">customerconnect/arpayments/history/</argument>
+                    <argument name="resource" xsi:type="string">Epicor_Customer::my_account_ar_payment_received</argument>
+                </arguments>
+            </block>                
+        </referenceBlock>
+        <move element="manage-lists" destination="customer_account_navigation" after="customer-account-navigation-newsletter-subscriptions-link" />
+        <move element="arpaymentshistory" destination="customer_account_navigation" before="manage-lists" />
+    </body>
+</page>
